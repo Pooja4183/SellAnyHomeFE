@@ -14,7 +14,7 @@ const Footer = () => {
               width='30'
               height='30'
               className='d-inline-block align-top'
-              alt='Serene'
+              alt='Sellanyhome'
             />
           </a>
           <span className='text-muted'>&copy; 2021 Company, Inc</span>
@@ -22,7 +22,7 @@ const Footer = () => {
 
         <ul className='nav col-md-4 justify-content-end list-unstyled d-flex'>
           <li>
-            <a className='text-muted' href='/twitter/serene'>
+            <a className='text-muted' href='/twitter/sellanyhome'>
               <img
                 src='/Twitter.png'
                 width='20'
@@ -33,7 +33,7 @@ const Footer = () => {
             </a>
           </li>
           <li className='ms-3'>
-            <a className='text-muted' href='/facebook/serene'>
+            <a className='text-muted' href='/facebook/sellanyhome'>
               <img
                 src='/facebook.png'
                 width='20'
@@ -44,7 +44,7 @@ const Footer = () => {
             </a>
           </li>
           <li className='ms-3'>
-            <a className='text-muted' href='/instagram/serene'>
+            <a className='text-muted' href='/instagram/sellanyhome'>
               <img
                 src='/insta.png'
                 width='20'

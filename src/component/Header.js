@@ -27,9 +27,9 @@ const Header = () => {
               width='30'
               height='30'
               className='d-inline-block align-top'
-              alt='Serene'
+              alt='Sellanyhome'
             />
-            Serene
+            Sellanyhome
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='navbarScroll' />

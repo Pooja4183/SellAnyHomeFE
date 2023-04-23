@@ -37,7 +37,7 @@ const About = () => {
             </div>
             <div class='col-md-6'>
               <div class='h-100 p-5 bg-light border rounded-3'>
-                <h2>Life in Serene</h2>
+                <h2>Life in sellanyhome</h2>
                 <p>
                   Or, keep it light and add a border for some added definition
                   to the boundaries of your content. Be sure to look under the
