@@ -1,0 +1,16 @@
+.banner {
+  background-image: url("../images/banner_sellAnyHome.jpg");
+    background-size: cover;
+    height: 600px;
+   background-position: center;
+   background-repeat: no-repeat;
+
+    
+  };
+.luxeryHeader{
+
+height: 400px;
+background-color: rebeccapurple;
+padding-left: 78px;
+
+  }

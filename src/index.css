@@ -1,4 +1,7 @@
-a {
+
+
+
+ a {
   text-decoration: none;
   color: white;
 }
@@ -82,6 +85,7 @@ a:hover {
   .produtCont {
     padding-left: 0px;
     padding-right: 0px;
+    background-color: blue;
   }
 
   .produtRow {
@@ -127,4 +131,4 @@ a:hover {
     font-size: 13px;
     font-weight: 400;
   }
-}
+} 

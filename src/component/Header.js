@@ -1,85 +1,164 @@
-import React from 'react';
-import {
-  Badge,
-  Button,
-  Container,
-  Form,
-  FormControl,
-  Nav,
-  Navbar,
-  NavDropdown,
-} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import Login from './Login';
-import { BsCart2 } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+// import AdbIcon from '@mui/icons-material/Adb';
 
-const Header = () => {
-  const cartItems = useSelector((state) => state.cart.cartProduct);
-  const subQantity = cartItems.reduce((e, p) => e + p.qty, 0);
+const pages = ['Buy', 'Sell', 'Agent'];
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+function ResponsiveAppBar() {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
   return (
-    <Navbar bg='dark' expand='lg' variant='dark' fixed='top'>
-      <Container fluid>
-        <Navbar.Brand>
-          <Link to={'/'}>
-            <img
-              src='/logo.png'
-              width='30'
-              height='30'
-              className='d-inline-block align-top'
-              alt='Sellanyhome'
-            />
-            Sellanyhome
-          </Link>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls='navbarScroll' />
-        <Navbar.Collapse id='navbarScroll'>
-          <Nav
-            className='me-auto my-2 my-lg-0'
-            style={{ maxHeight: '100px' }}
-            navbarScroll
+    <AppBar position="static" sx={{ backgroundColor: 'black' ,boxShadow: 'none'}}>
+      <Container maxWidth="xl">
+        <Toolbar disableGutters >
+          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+             
+              display: { xs: 'none', md: 'flex' }, 
+             
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
           >
-            <Link to={'/about'}>About</Link>
+            SellAnyHome
+          </Typography>
 
-            <Link to={'/feedback'}>Feedback</Link>
-            <NavDropdown title='Link' id='navbarScrollingDropdown'>
-              <NavDropdown.Item>Action</NavDropdown.Item>
-              <NavDropdown.Item>Another action</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item>Something else here</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <Form className='d-flex '>
-            <FormControl
-              type='search'
-              placeholder='Search'
-              className='me-2'
-              aria-label='Search'
-            />
-            <Button variant='outline-success'>Search</Button>
-          </Form>
-          <Link to={'/cart'}>
-            <Button variant='text'>
-              <BsCart2 color='white' fontSize='25px' />
-              <Badge
-                bg='dark'
-                style={{
-                  position: 'absolute',
-                  right: 90,
-                  top: 5,
-                  opacity: '50%',
-                }}
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            SellAnyHome
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } ,justifyContent: 'flex-end', mr:2 }}>
+            {pages.map((page) => (
+              <Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {subQantity}
-              </Badge>
-              <span className='visually-hidden'>unread messages</span>
-            </Button>
-          </Link>
-          <Login />
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-  );
-};
+                {page}
+              </Button>
+            ))}
+          </Box>
 
-export default Header;
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Arush Verma" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
+  );
+}
+export default ResponsiveAppBar;
