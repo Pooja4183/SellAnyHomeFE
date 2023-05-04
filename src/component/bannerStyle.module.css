@@ -1,16 +1,38 @@
 .banner {
-  background-image: url("../images/banner_sellAnyHome.jpg");
     background-size: cover;
-    height: 600px;
+    height: 75vh;
    background-position: center;
    background-repeat: no-repeat;
-
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   
     
-  };
-.luxeryHeader{
+  }
 
-height: 400px;
-background-color: rebeccapurple;
-padding-left: 78px;
+  .luxeryHeader {
+    width: auto;
+    margin-left: 200px;
+  }
+  
+
+  .banner .luxeryHeader h1{
+
+
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
   }
+  
+  .banner .luxeryHeader p{
+
+    font-size: 70px;
+    color: white;
+    font-weight: bold;
+  }
+
+ 
