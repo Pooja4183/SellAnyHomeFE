@@ -3,6 +3,7 @@ import { productActions } from './productSlice';
 
 export const fetchProducts = () => async (dispatch) => {
   const response = await backendAPI.get('/products');
+  console.log("Feteched products...", response);
   dispatch(productActions.getProducts({ products: response.data || [] }));
 };
 
