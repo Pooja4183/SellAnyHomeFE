@@ -2,7 +2,7 @@
 import styles from './bannerStyle.module.css';
 import React, { useState } from 'react';
 import banerimg from '../images/banner_sellAnyHome.jpg'
-i
+
 
 
 const Banner = () => {
