@@ -1,5 +1,58 @@
 .Nabour{
 
-padding: 50px ;
+padding: 5% 10% ;
     
 }
+
+.property{
+    margin: 0 auto;
+        position: relative;
+}
+
+.Nabour h2{
+
+    font-weight: bold;
+   text-align: left;
+color: black;
+font-size: 24px;
+        
+    }
+
+    .property .content{
+        position: absolute;
+        bottom: 0;
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.2); 
+        color: #f1f1f1;
+        width: 100%;
+        padding: 2%;
+        box-sizing: border-box;
+  z-index: 1;
+
+    }
+
+    .propertyImg{
+       display: block; 
+       width: 100%;
+    height: auto;
+    margin: 0 auto;
+    }
+
+    .Nabourp p{
+
+    text-align: left;
+    color: black;
+    margin: 0;
+            
+        }
+
+
+        .Nabourp {
+
+            text-align: left;
+            color: black;
+            margin: 0px;
+        padding-bottom: 0px !important;
+        padding-top: 0px !important;;
+                    
+                }

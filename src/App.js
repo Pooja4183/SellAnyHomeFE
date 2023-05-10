@@ -1,24 +1,24 @@
 import { Component } from 'react';
 import Home from './pages/Home';
-import About from './pages/About';
 import Feedback from './pages/Feedback';
 import { Route, Switch } from 'react-router-dom';
 import Product from './pages/Product';
-import Cart from './pages/Cart';
+import Sell from './pages/Sell';
 
 class App extends Component {
   render() {
     return (
+
       <>
         <Switch>
-          <Route path='/about' exact>
-            <About />
+          <Route path='/Sell' exact>
+            <Sell />
+          </Route>
+          <Route path='/buy' exact>
+            <Home />
           </Route>
           <Route path='/feedback' exact>
             <Feedback />
-          </Route>
-          <Route path='/cart' exact>
-            <Cart />
           </Route>
           <Route path='/' exact>
             <Home />
@@ -28,6 +28,9 @@ class App extends Component {
           </Route>
         </Switch>
       </>
+
+
+
     );
   }
 }

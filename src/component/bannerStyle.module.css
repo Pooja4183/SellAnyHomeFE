@@ -30,10 +30,11 @@
   
   .banner .luxeryHeader h3{
 
-    font-size: 50px;
+    font-size: 60px;
     color: white;
     font-weight: bold;
     margin: 0 10px;
+    
   }
 
   .bannerinput{
@@ -80,6 +81,12 @@ font-size: 14px;
     .luxeryHeader {
       width: auto;
       margin: auto;
+
+  }
+
+  .bannerinput{
+    width: 300px;
+   
 
   }
 
