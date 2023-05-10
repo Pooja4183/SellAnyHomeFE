@@ -1,19 +1,39 @@
 
 import styles from './bannerStyle.module.css';
-import React from 'react';
+import React, { useState } from 'react';
 import banerimg from '../images/banner_sellAnyHome.jpg'
-
+i
 
 
 const Banner = () => {
+
+  const [address, setAddress] = useState('');
+  const [fullAddress ,setfulladdress] = useState();
+
+  
+  const inputEvent = (event)=>{
+    console.log(event.target.value);
+    setAddress(event.target.value)
+
+  }
+
+
+  const onSubmit= ()=>{
+    setfulladdress(fullAddress);
+  }
+
   return (
 
     <div>
        <div className={styles.banner} style={{backgroundImage:`url(${banerimg})`}}>
           <div className={styles.luxeryHeader}>
-      <h1 text>Find the Perfect</h1>
-  <p>Luxery Home</p>
-  <input type="text" /> <button>Search</button>
+      <h2 text>Find The Perfect</h2>
+  <h3>Luxery Home</h3>
+  <label className={styles.label}>
+  <input className={styles.bannerinput} type="text" placeholder='Address Neighborhood' value={address} onChange={inputEvent}/> 
+  <button className={styles.button} onClick={onSubmit}>Search</button>
+  </label>
+  
       </div>
     </div>
     

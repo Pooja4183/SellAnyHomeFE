@@ -12,13 +12,13 @@
 
   .luxeryHeader {
     width: auto;
-    margin-left: 200px;
+    margin: 20%;
   }
   
 
-  .banner .luxeryHeader h1{
+  .banner .luxeryHeader h2{
 
-
+    margin: 0 10px;
     justify-content: center;
     align-items: center;
     font-weight: bold;
@@ -28,11 +28,59 @@
 
   }
   
-  .banner .luxeryHeader p{
+  .banner .luxeryHeader h3{
 
-    font-size: 70px;
+    font-size: 50px;
     color: white;
     font-weight: bold;
+    margin: 0 10px;
   }
 
+  .bannerinput{
+    height: 50px;
+    width: 500px;
+    margin: 10px;
+    padding: 0 16px;
+    border: none;
+    box-sizing: border-box;
+    background-color: white;
+
+  }
+
+  .button{
+font-size: 14px;
+    cursor: pointer;
+    margin: 10px;
+    padding: 0 16px;
+    border: none;
+    position: absolute;
+    letter-spacing: 2px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    text-transform: uppercase;
+   background-color:slateblue;
+
+
+  }
+
+  label{
+    position: relative;
+    margin-top: 20px;
+  }
+
+  .button:hover{
+
+    background-color: teal;
+    transition: .8s;
+  }
  
+
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .luxeryHeader {
+      width: auto;
+      margin: auto;
+
+  }
+
+}
