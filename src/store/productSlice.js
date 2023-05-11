@@ -15,7 +15,7 @@ const productSlice = createSlice({
   // Reducer methods
   reducers: {
     getProducts(state, action) {
-      state.products = action.payload.property;
+      state.products = action.payload.products;
     },
     getProductById(state, action) {
       state.product = state.products.find(
