@@ -7,6 +7,7 @@ import AddToCart from './AddToCart';
 
 const Products = () => {
   const productListing = useSelector((state) => state.products.products);
+  console.log("Product Listing...", productListing);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const Products = () => {
               <Card className='thin thinCard'>
                 <Card.Body className='cardImage'>
                   <Link to={'/product/' + product.id}>
-                    <Card.Img className='imgInside' src={product.image} />
+                    <Card.Img  src={product.img1} />
                   </Link>
                 </Card.Body>
 
@@ -34,8 +35,8 @@ const Products = () => {
                     </Link>{' '}
                   </Card.Title>
                   <Card.Text>
-                    <span className='proText'> INR {product.price}</span>
-                    <span className='pro'>Rating {product.rating.rate}</span>
+                    <span className='pro'> INR {product.price}</span>
+                    <span className='pro'>{product.bed} Bed | {product.bath} Bath | {product.sqFt} SqFt</span>
                   </Card.Text>
                 </Card.Footer>
                 <AddToCart data={product} />

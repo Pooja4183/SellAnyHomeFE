@@ -2,9 +2,9 @@ import backendAPI from '../apis/backendAPI';
 import { productActions } from './productSlice';
 
 export const fetchProducts = () => async (dispatch) => {
-  const response = await backendAPI.get('/products');
+  const response = await backendAPI.get('/property');
   console.log("Feteched products...", response);
-  dispatch(productActions.getProducts({ products: response.data || [] }));
+  dispatch(productActions.getProducts({ products: response.data.property || [] }));
 };
 
 export const fetchProductsById = (id) => (dispatch) => {
