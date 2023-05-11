@@ -1,24 +1,24 @@
 import React from 'react';
 import Footer from '../component/Footer';
-import Banner from '../component/Banner';
+import SellComp from '../component/SellComp';
  import Products from '../component/Products';
-import NeighburHood from '../component/Neighburhood';
 import Blog from '../component/Blog';
 import Header from '../component/Header'
+import Steps from '../component/Steps'
 
 
 
-const Home = () => {
+const Sell = () => {
   return (
     <>
     <Header /> 
-      <Banner />
-      <NeighburHood/>
-      <Blog/>
+      <SellComp />
+      <Steps/>
       <Products />
+      <Blog/>
       <Footer />
     </>
   );
 };
 
-export default Home;
+export default Sell;

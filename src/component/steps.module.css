@@ -1,0 +1,34 @@
+.offerStyling{
+
+    text-align: center;
+padding: 5% 10% 2% 10%;
+ ;
+    
+}
+
+.offer{
+
+padding: 5%;
+text-align: left;
+
+}
+
+.offerContent {
+
+font-size: smaller;
+font-weight: 500;
+color: #404040;
+}
+
+.offer h5{
+    font-weight: bold;
+    font-size: medium
+}
+
+.step p{
+
+    color: blue;
+    font-size: small;
+    font-weight: bold;
+    
+}
