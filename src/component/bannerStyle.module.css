@@ -1,16 +1,86 @@
 .banner {
-  background-image: url("../images/banner_sellAnyHome.jpg");
     background-size: cover;
-    height: 600px;
+    height: 75vh;
    background-position: center;
    background-repeat: no-repeat;
-
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   
     
-  };
-.luxeryHeader{
+  }
 
-height: 400px;
-background-color: rebeccapurple;
-padding-left: 78px;
+  .luxeryHeader {
+    width: auto;
+    margin: 20%;
+  }
+  
+
+  .banner .luxeryHeader h2{
+
+    margin: 0 10px;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
   }
+  
+  .banner .luxeryHeader h3{
+
+    font-size: 50px;
+    color: white;
+    font-weight: bold;
+    margin: 0 10px;
+  }
+
+  .bannerinput{
+    height: 50px;
+    width: 500px;
+    margin: 10px;
+    padding: 0 16px;
+    border: none;
+    box-sizing: border-box;
+    background-color: white;
+
+  }
+
+  .button{
+font-size: 14px;
+    cursor: pointer;
+    margin: 10px;
+    padding: 0 16px;
+    border: none;
+    position: absolute;
+    letter-spacing: 2px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    text-transform: uppercase;
+   background-color:slateblue;
+
+
+  }
+
+  label{
+    position: relative;
+    margin-top: 20px;
+  }
+
+  .button:hover{
+
+    background-color: teal;
+    transition: .8s;
+  }
+ 
+
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .luxeryHeader {
+      width: auto;
+      margin: auto;
+
+  }
+
+}
