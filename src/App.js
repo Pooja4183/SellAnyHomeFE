@@ -11,7 +11,7 @@ class App extends Component {
 
       <>
         <Switch>
-          <Route path='/Sell' exact>
+          <Route path='/sell' exact>
             <Sell />
           </Route>
           <Route path='/buy' exact>

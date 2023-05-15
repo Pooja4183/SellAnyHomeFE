@@ -14,8 +14,8 @@ const Home = () => {
     <Header /> 
       <Banner />
       <NeighburHood/>
-      <Blog/>
       <Products />
+      <Blog/>
       <Footer />
     </>
   );

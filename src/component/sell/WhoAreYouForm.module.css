@@ -1,0 +1,12 @@
+.sellField{
+    border: 0.5px whitesmoke solid;
+    border-radius: 25px;
+    padding: 5px 100px; 
+    color: white;
+    
+}
+
+#button {
+    border: .5px whitesmoke solid;
+    fill: white;
+}

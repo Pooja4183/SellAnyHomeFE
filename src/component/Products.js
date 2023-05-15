@@ -3,7 +3,7 @@ import { Card, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../store/productAction';
-import AddToCart from './AddToCart';
+// import AddToCart from './AddToCart';
 
 const Products = () => {
   const productListing = useSelector((state) => state.products.products);
@@ -17,13 +17,14 @@ const Products = () => {
   return (
     productListing && (
       <Container fluid className='produtCont'>
-        <Row xs={2} md={5} className='g-4 mx-2 produtRow'>
+        <Row className='headinExclusive'> <Col className=''><h2>Our Exclusive Homes</h2></Col></Row>
+        <Row xs={2} md={3} className='g-4 mx-2 produtRow'>
           {productListing.map((product) => (
             <Col className='colpadding' key={product.id}>
               <Card className='thin thinCard'>
                 <Card.Body className='cardImage'>
                   <Link to={'/product/' + product.id}>
-                    <Card.Img  src={product.img1} />
+                    <Card.Img  src={product.img1} className='cardI' />
                   </Link>
                 </Card.Body>
 
@@ -39,7 +40,7 @@ const Products = () => {
                     <span className='pro'>{product.bed} Bed | {product.bath} Bath | {product.sqFt} SqFt</span>
                   </Card.Text>
                 </Card.Footer>
-                <AddToCart data={product} />
+                {/* <AddToCart data={product} /> */}
               </Card>
             </Col>
           ))}

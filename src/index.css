@@ -46,7 +46,8 @@ a:hover {
 }
 
 .thin {
-  border-width: thin;
+  border: none !important;
+ 
 }
 
 .feed {
@@ -62,17 +63,40 @@ a:hover {
   width: 150px;
 }
 .cardImage {
-  height: 250px;
-  width: 100%;
+ 
+width: 100%;
+display: block; 
+height: auto;
+margin: 0 auto;
+padding: 0%;
+border-radius: 0% !important;
 }
 .imgInside {
   width: 100%;
   max-height: 200px;
 }
-/* .produtCont {
-  margin-top: 3%;
-  margin-bottom: 3%;
-} */
+.produtCont h2 {
+ font-weight: bold;
+ margin-bottom: 5%;
+ padding-left: 1%;
+
+}
+
+
+.produtRow {
+ padding: 0% 10%;
+}
+
+.cardI{
+
+  border-radius: 0px !important;
+}
+
+.headinExclusive{
+
+  padding-left: 10%;
+}
+
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .imageHeight {
     height: 150px;
@@ -99,6 +123,7 @@ a:hover {
 
   .colpadding {
     margin-top: 4%;
+    border-radius: 0% !important;
   }
 
   .cardBody {
