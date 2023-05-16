@@ -36,8 +36,8 @@ const Products = () => {
                     </Link>{' '}
                   </Card.Title>
                   <Card.Text>
-                    <span className='pro'> INR {product.price}</span>
-                    <span className='pro'>{product.bed} Bed | {product.bath} Bath | {product.sqFt} SqFt</span>
+                    <span className='protext'> INR {product.price}</span>
+                    <span className='pro'>{product.bed} Bed | {product.bath} Bath | {product.sqFt} SqFt  </span>
                   </Card.Text>
                 </Card.Footer>
                 {/* <AddToCart data={product} /> */}

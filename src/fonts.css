@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Cooper Std';
+    src: url('../fonts/CooperStd.woff2') format('woff2'),
+         url('../fonts/CooperStd.woff') format('woff'),
+         url('../fonts/CooperStd.ttf') format('truetype');
+    /* Add additional formats if necessary */
+    /* Specify the correct paths to your font files */
+  }
+  
