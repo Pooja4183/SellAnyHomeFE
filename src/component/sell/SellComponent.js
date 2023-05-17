@@ -114,18 +114,21 @@ const SellComponent = () => {
           </Route>
           <Route path="/sell/listingplatform">
             <ListingPlatformForm
+              houseWorthInfo={houseWorth}
               listingPlatformInfo={listingPlatform}
               handleListingPlatformChange={handleListingPlatformChange}
             />
           </Route>
           <Route path="/sell/timeline">
             <TimelineForm
+              houseWorthInfo={houseWorth}
               timelineInfo={timeline}
               handleTimelineChange={handleTimelineChange}
             />
           </Route>
           <Route path="/sell/propertyDetail">
             <PropertyDetailForm
+              houseWorthInfo={houseWorth}
               propertyDetailInfo={propertyDetail}
               handleProperttDetailChange={handleProperttDetailChange}
             />
