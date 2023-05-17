@@ -1,14 +1,15 @@
 import * as React from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
-
 import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Sellstyle from "./WhoAreYouForm.module.css";
 import { useHistory } from "react-router-dom";
 import StyledButton from "../custom/StyledButton";
-import StyledFormControlLabel from '../custom/StyledFormControlLabel';
+import StyledFormControlLabel from "../custom/StyledFormControlLabel";
+import NestedRightGrid from "../custom/NestedRightGrid";
+import NestedLeftGrid from "../custom/NestedLeftGrid";
 
 const WhoAreYouForm = ({
   houseWorthInfo,
@@ -24,43 +25,11 @@ const WhoAreYouForm = ({
 
   return (
     <Grid container className={Sellstyle.formstyleform}>
-      <Grid
-        item
-        xs={12}
-        sm={12}
-        md={4}
-        sx={{
-          textAlign: {
-            xs: "center",
-            sm: "center",
-            lg: "left",
-            md: "left",
-          },
-        }}
-        className={Sellstyle.formstyle}
-      >
-        <div className={Sellstyle.label}>
-          <p>Is This The Correct Address? If Not Click Here</p>
-          <h5>{houseWorthInfo.address}</h5>
-        </div>
-      </Grid>
-
-      <Grid
-        item
-        xs={12}
-        sm={12}
-        md={8}
-        sx={{
-          textAlign: {
-            xs: "center",
-            sm: "center",
-            lg: "left",
-            md: "left",
-          },
-        }}
-        className={Sellstyle.formstyle}
-      >
-        <h1 className={Sellstyle.whoAreyou}>Who Are You?</h1>
+      <NestedRightGrid
+        title={"Is This The Correct Address? If Not Click Here?"}
+        value={houseWorthInfo.address}
+      />
+      <NestedLeftGrid title={"Who Are You?"}>
         <form onSubmit={handleSubmit}>
           <FormControl>
             <Stack direction="column" spacing={2}>
@@ -94,7 +63,7 @@ const WhoAreYouForm = ({
             </Stack>
           </FormControl>
         </form>
-      </Grid>
+      </NestedLeftGrid>
     </Grid>
   );
 };
