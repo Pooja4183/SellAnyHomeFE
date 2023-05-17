@@ -18,7 +18,7 @@ const WhoAreYouForm = ({houseWorthInfo,  whoAreYouInfo, handleWhoAreYouChange })
  
   return (
     <div>
-     <Grid container>
+     <Grid container className={Sellstyle.formstyleform}>
      <Grid item xs={12} sm={12} md={4}   sx={{
   textAlign: {
     xs: "center",
@@ -40,10 +40,10 @@ const WhoAreYouForm = ({houseWorthInfo,  whoAreYouInfo, handleWhoAreYouChange })
     md: 'left'
   } }}     className={Sellstyle.formstyle}>
           
-          
+          <h1 className={Sellstyle.whoAreyou}>Who Are You?</h1>
            <form  onSubmit={handleSubmit}>
              <FormControl>
-             <h1 className={Sellstyle.whoAreyou}>Who Are You?</h1>
+           
                <RadioGroup
                  aria-labelledby="demo-controlled-radio-buttons-group"
                  name="controlled-radio-buttons-group"
@@ -55,6 +55,7 @@ const WhoAreYouForm = ({houseWorthInfo,  whoAreYouInfo, handleWhoAreYouChange })
                    value="I am the owner of this home"
                    control={<Radio className={Sellstyle.radioStyle} />}
                    label="I am the owner of this home"
+                  
                  />
                  <FormControlLabel
                    className={Sellstyle.sellField}

@@ -1,0 +1,149 @@
+.rounded {
+    margin-left: 1%;
+  }
+  .proTtile {
+    font-size: 16px;
+    margin-top: inherit;
+    font-weight: 500;
+    color: #282c3f;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .proTtile a {
+    color: #282c3f;
+  }
+  .proText {
+    font-size: 16px;
+    font-weight: 400;
+    color: #535766;
+    float: left;
+  }
+  .colpadding {
+    padding: 0% 1% 0% 1%;
+  }
+  .pro {
+    font-size: 16px;
+    font-weight: 400;
+    color: #535766;
+    float: right;
+  }
+  
+  .thin {
+    border: none !important;
+   
+  }
+  
+  .feed {
+    text-align: center;
+  }
+  
+  .about {
+    margin-top: 8%;
+  }
+  
+  .imageHeight {
+    height: 500px;
+    width: 150px;
+  }
+  .cardImage {
+   
+  width: 100%;
+  display: block; 
+  height: auto;
+  margin: 0 auto;
+  padding: 0%;
+  border-radius: 0% !important;
+  }
+  .imgInside {
+    width: 100%;
+    max-height: 200px;
+  }
+  .produtCont h2 {
+   font-weight: bold;
+   margin-bottom: 5%;
+   padding-left: 1%;
+  
+  }
+  
+  
+  .produtRow {
+   padding: 0% 10%;
+  }
+  
+  .cardI{
+  
+    border-radius: 0px !important;
+  }
+  
+  .headinExclusive{
+  
+    padding-left: 10%;
+  }
+  
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    .imageHeight {
+      height: 150px;
+      margin-top: 12%;
+    }
+    .feed {
+      text-align: center;
+    }
+  
+    .proHeading {
+      margin-top: 5%;
+      margin-left: 0.5rem;
+      font-size: 18px;
+    }
+    .produtCont {
+      padding-left: 0px;
+      padding-right: 0px;
+      background-color: blue;
+    }
+  
+    .produtRow {
+      margin-top: 1%;
+    }
+  
+    .colpadding {
+      margin-top: 4%;
+      border-radius: 0% !important;
+    }
+  
+    .cardBody {
+      padding: 2%;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+    .thinCard {
+      height: 320px;
+    }
+    .cardImage {
+      height: auto;
+      width: 100%;
+      position: absolute;
+      bottom: 20%;
+      padding: 2%;
+    }
+  
+    .proTtile {
+      font-weight: 500;
+      line-height: 1.57;
+      text-align: left;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .proText {
+      font-size: 13px;
+      font-weight: 400;
+    }
+  
+    .pro {
+      font-size: 13px;
+      font-weight: 400;
+    }
+  } 
+  

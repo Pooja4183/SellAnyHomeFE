@@ -1,9 +1,16 @@
 import React from "react";
-import styles from '../bannerStyle.module.css';
-import banerimg from '../../images/SellBanner.jpg'
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import listingStyle from "./WhoAreYouForm.module.css";
 import { useHistory } from 'react-router-dom';
 
-const ListingPlatformForm=({ listingPlatformInfo, handleListingPlatformChange }) => {
+
+
+const ListingPlatformForm=({houseWorthInfo, listingPlatformInfo, handleListingPlatformChange }) => {
   const history = useHistory();
 
   function handleSubmit(event) {
@@ -12,30 +19,70 @@ const ListingPlatformForm=({ listingPlatformInfo, handleListingPlatformChange })
   }
   return (
     (
+     
       <div>
-        <div
-          className={styles.banner}
-          style={{ backgroundImage: `url(${banerimg})` }}
-        >
-          <div className={styles.luxeryHeader}>
-            <form  onSubmit={handleSubmit}>
-            <h2 text>This Home Listed With Any of Listing Platform or With Brokers</h2>
-            <label className={styles.label}>
-              <input
-                className={styles.bannerinput}
-                type="text"
-                placeholder="Enter Your Full Address"
-                value={listingPlatformInfo.address}
-                onChange={handleListingPlatformChange}
-              />
-              <button type = "submit" className={styles.button} >
-                Estimate
-              </button>
-            </label>
-            </form>
-          </div>
-        </div>
-      </div>
+     <Grid container className={listingStyle.formstyleform}>
+     <Grid item xs={12} sm={12} md={4}   sx={{
+  textAlign: {
+    xs: "center",
+    sm: "center",
+    lg: "left",
+    md: 'left'
+  } }}          className={listingStyle.formstyle} > 
+  <div className={listingStyle.label}>   
+            <p >Is This The Correct Addres? If Not Click Here</p>
+            {houseWorthInfo && <h5>{houseWorthInfo.address}</h5>}
+           </div></Grid>
+    
+           
+           <Grid item xs={12} sm={12} md={8}  sx={{
+  textAlign: {
+    xs: "center",
+    sm: "center",
+    lg: "left",
+    md: 'left'
+  } }}     className={listingStyle.formstyle}>
+
+<h1 className={listingStyle.whoAreyou}>This Home Listed Any Of Listing Platform Or With Brokers?</h1>
+          
+          
+           <form  onSubmit={handleSubmit}>
+             <FormControl>
+            
+               <RadioGroup
+                 aria-labelledby="demo-controlled-radio-buttons-group"
+                 name="controlled-radio-buttons-group"
+                 value={listingPlatformInfo.address}
+                 onChange={handleListingPlatformChange}
+               >
+                 <FormControlLabel
+                   className={listingStyle.sellField}
+                   value="Yes"
+                   control={<Radio className={listingStyle.radioStyle} />}
+                   label="Yes"
+                   
+                 />
+                
+                 <FormControlLabel
+                   className={listingStyle.sellField}
+                   value="No"
+                   control={<Radio className={listingStyle.radioStyle} />}
+                   label="No"
+                 />
+               </RadioGroup> 
+               <Button
+                 type="submit"
+                 className={listingStyle.button} 
+               >
+                 Next
+               </Button>
+             </FormControl>
+             </form>
+           </Grid>
+          
+         </Grid>
+     
+    </div>
     ) 
    
   );

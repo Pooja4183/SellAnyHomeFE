@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from 'react-router-dom';
-// import AdbIcon from '@mui/icons-material/Adb';
+
 
 const pages = ['Buy', 'Sell', 'Agent'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -48,12 +48,10 @@ function ResponsiveAppBar() {
             href="/"
             sx={{
               mr: 2,
-             
               display: { xs: 'none', md: 'flex' }, 
-          
-              fontFamily: 'monospace',
+              fontFamily: 'Cooper Std',
               fontWeight: 700,
-              letterSpacing: '.3rem',
+              letterSpacing: '.1rem',
               color: 'inherit',
               textDecoration: 'none',
             }}

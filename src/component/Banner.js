@@ -28,7 +28,7 @@ const Banner = () => {
        <div className={styles.banner} style={{backgroundImage:`url(${banerimg})`}}>
           <div className={styles.luxeryHeader}>
       <h2 text>Find The Perfect</h2>
-  <h3>Luxury Home</h3>
+  <h1>Luxury Home</h1>
   <label className={styles.label}>
   <input className={styles.bannerinput} type="text" placeholder='Address Neighborhood' value={address} onChange={inputEvent}/> 
   <button className={styles.button} onClick={onSubmit}>Search</button>
