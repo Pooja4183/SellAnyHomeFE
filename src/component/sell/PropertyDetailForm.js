@@ -1,15 +1,14 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import StyledFormControl from "../custom/StyledFormControl";
+import Grid from "@mui/material/Grid";
+import MenuItem from "@mui/material/MenuItem";
 import StyledButton from "../custom/StyledButton";
+import StyledFormControl from "../custom/StyledFormControl";
+import StyledInputLabel from "../custom/StyledInputLabel";
+import StyledSelect from "../custom/StyledSelect";
 import NestedRightGrid from "../custom/NestedRightGrid";
 import NestedLeftGrid from "../custom/NestedLeftGrid";
-import Grid from "@mui/material/Grid";
 import Sellstyle from "./WhoAreYouForm.module.css";
-import StyledInputLabel from "../custom/StyledInputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import StyledSelect from "../custom/StyledSelect";
-
 
 const PropertyDetailForm = ({
   houseWorthInfo,
@@ -18,15 +17,42 @@ const PropertyDetailForm = ({
 }) => {
   const history = useHistory();
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
     history.push("/sell/contact");
-  }
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
   };
+
+  const [propertyType, setPropertyType] = React.useState("");
+  const [numberOfBedrooms, setNumberOfBedrooms] = React.useState("");
+  const [numberOfBathrooms, setNumberOfBathrooms] = React.useState("");
+  const [propertySize, setPropertySize] = React.useState("");
+  const [yearBuilt, setYearBuilt] = React.useState("");
+  const [askPrice, setAskPrice] = React.useState("");
+
+  const handleChangePropertyType = (event) => {
+    setPropertyType(event.target.value);
+  };
+
+  const handleChangeNumberOfBedrooms = (event) => {
+    setNumberOfBedrooms(event.target.value);
+  };
+
+  const handleChangeNumberOfBathrooms = (event) => {
+    setNumberOfBathrooms(event.target.value);
+  };
+
+  const handleChangePropertySize = (event) => {
+    setPropertySize(event.target.value);
+  };
+
+  const handleChangeYearBuilt = (event) => {
+    setYearBuilt(event.target.value);
+  };
+
+  const handleChangeAskPrice = (event) => {
+    setAskPrice(event.target.value);
+  };
+
   return (
     <Grid container className={Sellstyle.formstyleform}>
       <NestedRightGrid
@@ -40,19 +66,19 @@ const PropertyDetailForm = ({
             container
             rowSpacing={2}
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            columns={{ xs: 12,sm: 12, md: 6, lg:8}}
+            columns={{ xs: 12, sm: 12, md: 6, lg: 8 }}
           >
             <Grid item xs={6} md={3}>
-              <StyledFormControl fullWidth >
-                <StyledInputLabel id="demo-simple-select-label">
-                  Property Type?
+              <StyledFormControl fullWidth>
+                <StyledInputLabel id="property-type-label">
+                  Property Type
                 </StyledInputLabel>
                 <StyledSelect
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
-                  label="Age"
-                  onChange={handleChange}
+                  labelId="property-type-label"
+                  id="property-type"
+                  value={propertyType}
+                  label="Property Type"
+                  onChange={handleChangePropertyType}
                 >
                   <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
                   <MenuItem value={"Apartment"}>Apartment</MenuItem>
@@ -62,15 +88,15 @@ const PropertyDetailForm = ({
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <StyledInputLabel id="demo-simple-select-label">
+                <StyledInputLabel id="number-of-bedrooms-label">
                   Number Of Bedrooms
                 </StyledInputLabel>
                 <StyledSelect
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
-                  label="Age"
-                  onChange={handleChange}
+                  labelId="number-of-bedrooms-label"
+                  id="number-of-bedrooms"
+                  value={numberOfBedrooms}
+                  label="Number Of Bedrooms"
+                  onChange={handleChangeNumberOfBedrooms}
                 >
                   <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
                   <MenuItem value={"Apartment"}>Apartment</MenuItem>
@@ -80,15 +106,15 @@ const PropertyDetailForm = ({
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <StyledInputLabel id="demo-simple-select-label">
+                <StyledInputLabel id="number-of-bathrooms-label">
                   Number Of Bathrooms
                 </StyledInputLabel>
                 <StyledSelect
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
-                  label="Age"
-                  onChange={handleChange}
+                  labelId="number-of-bathrooms-label"
+                  id="number-of-bathrooms"
+                  value={numberOfBathrooms}
+                  label="Number Of Bathrooms"
+                  onChange={handleChangeNumberOfBathrooms}
                 >
                   <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
                   <MenuItem value={"Apartment"}>Apartment</MenuItem>
@@ -98,15 +124,15 @@ const PropertyDetailForm = ({
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <StyledInputLabel id="demo-simple-select-label">
+                <StyledInputLabel id="property-size-label">
                   Property Size
                 </StyledInputLabel>
                 <StyledSelect
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
-                  label="Age"
-                  onChange={handleChange}
+                  labelId="property-size-label"
+                  id="property-size"
+                  value={propertySize}
+                  label="Property Size"
+                  onChange={handleChangePropertySize}
                 >
                   <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
                   <MenuItem value={"Apartment"}>Apartment</MenuItem>
@@ -116,15 +142,15 @@ const PropertyDetailForm = ({
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <StyledInputLabel id="demo-simple-select-label">
+                <StyledInputLabel id="year-built-label">
                   Year Built
                 </StyledInputLabel>
                 <StyledSelect
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
-                  label="Age"
-                  onChange={handleChange}
+                  labelId="year-built-label"
+                  id="year-built"
+                  value={yearBuilt}
+                  label="Year Built"
+                  onChange={handleChangeYearBuilt}
                 >
                   <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
                   <MenuItem value={"Apartment"}>Apartment</MenuItem>
@@ -134,13 +160,13 @@ const PropertyDetailForm = ({
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <StyledInputLabel id="demo-simple-select-label">Ask Price</StyledInputLabel>
+                <StyledInputLabel id="ask-price-label">Ask Price</StyledInputLabel>
                 <StyledSelect
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={age}
-                  label="Age"
-                  onChange={handleChange}
+                  labelId="ask-price-label"
+                  id="ask-price"
+                  value={askPrice}
+                  label="Ask Price"
+                  onChange={handleChangeAskPrice}
                 >
                   <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
                   <MenuItem value={"Apartment"}>Apartment</MenuItem>
