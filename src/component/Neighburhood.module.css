@@ -5,16 +5,14 @@ padding: 5% 10% ;
 }
 
 .property{
-    margin: 0 auto;
+        margin: 0 auto;
         position: relative;
 }
 
 .Nabour h2{
-
-    font-weight: bold;
    text-align: left;
-color: black;
-font-size: 24px;
+   color: black;
+
         
     }
 

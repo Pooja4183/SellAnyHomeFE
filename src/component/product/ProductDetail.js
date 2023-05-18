@@ -2,8 +2,8 @@ import { Card, CardGroup, Container } from 'react-bootstrap';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchProductsById } from '../store/productAction';
-import AddToCart from './AddToCart';
+import { fetchProductsById } from '../../store/productAction';
+import AddToCart from '../AddToCart';
 
 const ProductDetail = () => {
   const { id } = useParams();
