@@ -20,7 +20,7 @@ const WhoAreYouForm = ({
 
   function handleSubmit(event) {
     event.preventDefault();
-    history.push("/sell/listingplatform");
+    history.push("/sell-landing/listingplatform");
   }
 
   return (

@@ -20,7 +20,7 @@ const ListingPlatformForm = ({
 
   function handleSubmit(event) {
     event.preventDefault();
-    history.push("/sell/timeline");
+    history.push("/sell-landing/timeline");
   }
   return (
       <Grid container className={Sellstyle.formstyleform}>
