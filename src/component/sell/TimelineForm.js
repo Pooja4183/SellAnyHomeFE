@@ -20,7 +20,7 @@ const TimelineForm = ({
 
   function handleSubmit(event) {
     event.preventDefault();
-    history.push("/sell/propertydetail");
+    history.push("/sell-landing/propertydetail");
   }
 
   return (

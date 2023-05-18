@@ -8,12 +8,11 @@ const HouseWorthForm=({ houseWorthInfo, handleHouseWorthChange }) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    history.push('/sell/whoareyou');
+    history.push('/sellforms/whoareyou');
   }
 
   return (
     (
-      <div>
         <div
           className={styles.banner}
           style={{ backgroundImage: `url(${banerimg})` }}
@@ -38,7 +37,6 @@ const HouseWorthForm=({ houseWorthInfo, handleHouseWorthChange }) => {
             </form>
           </div>
         </div>
-      </div>
     ) 
    
   );
