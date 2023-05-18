@@ -19,7 +19,7 @@ const PropertyDetailForm = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    history.push("/sell/contact");
+    history.push("/sell-landing/contact");
   };
 
   const [propertyType, setPropertyType] = React.useState("");
