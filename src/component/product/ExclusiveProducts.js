@@ -1,23 +1,21 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchProducts } from '../../store/productAction';
+import { fetchExclusiveProducts } from '../../store/productAction';
 import ListProducts from './ListProducts';
 
 
-const Products = () => {
+const ExclusiveProducts = () => {
  
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchExclusiveProducts());
   }, [dispatch]);
 
-
-
   return (
-    <ListProducts title="Our Exclusive Homes !!!"/>
+    <ListProducts title="Our Exclusive Homes"/>
     )
 
 };
 
-export default Products;
+export default ExclusiveProducts;
