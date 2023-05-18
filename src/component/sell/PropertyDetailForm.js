@@ -1,14 +1,15 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import FormControl from "@mui/material/FormControl";
+import StyledFormControl from "../custom/StyledFormControl";
 import StyledButton from "../custom/StyledButton";
 import NestedRightGrid from "../custom/NestedRightGrid";
 import NestedLeftGrid from "../custom/NestedLeftGrid";
 import Grid from "@mui/material/Grid";
 import Sellstyle from "./WhoAreYouForm.module.css";
-import InputLabel from "@mui/material/InputLabel";
+import StyledInputLabel from "../custom/StyledInputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+import StyledSelect from "../custom/StyledSelect";
+
 
 const PropertyDetailForm = ({
   houseWorthInfo,
@@ -42,13 +43,11 @@ const PropertyDetailForm = ({
             columns={{ xs: 12,sm: 12, md: 6, lg:8}}
           >
             <Grid item xs={6} md={3}>
-              <FormControl fullWidth  sx={{borderRadius:'20px'}} >
-                <InputLabel id="demo-simple-select-label"
-                 sx={{ margin:'0px', fontSize:'small', fontWeight:'bold' , fontFamily:"unset", padding:'0% 5%'}}>
+              <StyledFormControl fullWidth >
+                <StyledInputLabel id="demo-simple-select-label">
                   Property Type?
-                </InputLabel>
-                <Select
-               sx={{borderRadius:'20px',fontSize:'small', fontWeight:'bold' , fontFamily:"unset",}}
+                </StyledInputLabel>
+                <StyledSelect
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={age}
@@ -58,15 +57,15 @@ const PropertyDetailForm = ({
                   <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
                   <MenuItem value={"Apartment"}>Apartment</MenuItem>
                   <MenuItem value={"Villa"}>Villa</MenuItem>
-                </Select>
-              </FormControl>
+                </StyledSelect>
+              </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">
+              <StyledFormControl fullWidth>
+                <StyledInputLabel id="demo-simple-select-label">
                   Number Of Bedrooms
-                </InputLabel>
-                <Select
+                </StyledInputLabel>
+                <StyledSelect
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={age}
@@ -76,15 +75,15 @@ const PropertyDetailForm = ({
                   <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
                   <MenuItem value={"Apartment"}>Apartment</MenuItem>
                   <MenuItem value={"Villa"}>Villa</MenuItem>
-                </Select>
-              </FormControl>
+                </StyledSelect>
+              </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">
+              <StyledFormControl fullWidth>
+                <StyledInputLabel id="demo-simple-select-label">
                   Number Of Bathrooms
-                </InputLabel>
-                <Select
+                </StyledInputLabel>
+                <StyledSelect
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={age}
@@ -94,15 +93,15 @@ const PropertyDetailForm = ({
                   <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
                   <MenuItem value={"Apartment"}>Apartment</MenuItem>
                   <MenuItem value={"Villa"}>Villa</MenuItem>
-                </Select>
-              </FormControl>
+                </StyledSelect>
+              </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">
+              <StyledFormControl fullWidth>
+                <StyledInputLabel id="demo-simple-select-label">
                   Property Size
-                </InputLabel>
-                <Select
+                </StyledInputLabel>
+                <StyledSelect
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={age}
@@ -112,15 +111,15 @@ const PropertyDetailForm = ({
                   <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
                   <MenuItem value={"Apartment"}>Apartment</MenuItem>
                   <MenuItem value={"Villa"}>Villa</MenuItem>
-                </Select>
-              </FormControl>
+                </StyledSelect>
+              </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">
+              <StyledFormControl fullWidth>
+                <StyledInputLabel id="demo-simple-select-label">
                   Year Built
-                </InputLabel>
-                <Select
+                </StyledInputLabel>
+                <StyledSelect
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={age}
@@ -130,13 +129,13 @@ const PropertyDetailForm = ({
                   <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
                   <MenuItem value={"Apartment"}>Apartment</MenuItem>
                   <MenuItem value={"Villa"}>Villa</MenuItem>
-                </Select>
-              </FormControl>
+                </StyledSelect>
+              </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Ask Price</InputLabel>
-                <Select
+              <StyledFormControl fullWidth>
+                <StyledInputLabel id="demo-simple-select-label">Ask Price</StyledInputLabel>
+                <StyledSelect
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={age}
@@ -146,8 +145,8 @@ const PropertyDetailForm = ({
                   <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
                   <MenuItem value={"Apartment"}>Apartment</MenuItem>
                   <MenuItem value={"Villa"}>Villa</MenuItem>
-                </Select>
-              </FormControl>
+                </StyledSelect>
+              </StyledFormControl>
             </Grid>
           </Grid>
 
