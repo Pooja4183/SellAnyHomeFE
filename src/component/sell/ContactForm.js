@@ -1,6 +1,11 @@
-import React from "react";
-import styles from "../bannerStyle.module.css";
-import banerimg from "../../images/SellBanner.jpg";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Grid from "@mui/material/Grid";
+import Sellstyle from "./WhoAreYouForm.module.css";
+import StyledButton from "../custom/StyledButton";
+import NestedRightGrid from "../custom/NestedRightGrid";
+import NestedLeftGrid from "../custom/NestedLeftGrid";
 
 const ContactForm = ({
   houseWorthInfo,
@@ -17,30 +22,53 @@ const ContactForm = ({
   }
 
   return (
-    <div>
-      <div
-        className={styles.banner}
-        style={{ backgroundImage: `url(${banerimg})` }}
-      >
-        <div className={styles.luxeryHeader}>
-          <form    onSubmit={handleSubmit}>
-            <h2 text>We'd Love To Connect With You</h2>
-            <label className={styles.label}>
-              <input
-                className={styles.bannerinput}
-                type="text"
-                placeholder="Enter Your Full Address"
-                value={contactInfo.address}
-                onChange={handleContactChange}
-              />
-              <button type="submit" className={styles.button}>
-                Estimate
-              </button>
-            </label>
-          </form>
-        </div>
-      </div>
-    </div>
+   <>
+
+<Grid container className={Sellstyle.formstyleform}>
+      <NestedRightGrid
+        title={"Is This The Correct Address? If Not Click Here?"}
+        value={houseWorthInfo.address}
+      />
+      <NestedLeftGrid title={"Who Are You?"}>
+        <form onSubmit={handleSubmit}>
+
+        <Box
+    component="form"
+    sx={{
+      '& > :not(style)': { m: 1, width: '50%' },
+    }}
+    noValidate
+    autoComplete="off"
+  >
+    <TextField id="outlined-basic" label="Your Full Name" variant="outlined" sx={{marginTop:'0px'}} />
+    <TextField id="outlined-basic" label="Email" variant="outlined" />
+    <TextField id="outlined-basic" label="Phone" variant="outlined" />
+   
+  </Box>
+           
+
+              <StyledButton type="submit" variant="outlined">
+                Next
+              </StyledButton>
+            
+        
+        </form>
+      </NestedLeftGrid>
+    </Grid>
+
+
+
+
+
+{/*  */}
+
+
+
+
+
+
+   
+  </>
   );
 };
 
