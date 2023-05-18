@@ -7,6 +7,12 @@ export const fetchProducts = () => async (dispatch) => {
   dispatch(productActions.getProducts({ products: response.data.property || [] }));
 };
 
+export const fetchExclusiveProducts = () => async (dispatch) => {
+  const response = await backendAPI.get('/exclusive');
+  console.log("Feteched Exclusive products...", response);
+  dispatch(productActions.getProducts({ products: response.data.property || [] }));
+};
+
 export const fetchProductsById = (id) => (dispatch) => {
   let nid = parseInt(id);
   dispatch(productActions.getProductById({ id: nid }));
