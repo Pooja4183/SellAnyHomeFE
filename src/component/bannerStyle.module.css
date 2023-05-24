@@ -1,13 +1,13 @@
 .banner {
     background-size: cover;
-    height: 90vh;
+    height: 82vh;
    background-position: center;
    background-repeat: no-repeat;
    display: flex;
    justify-content: center;
    flex-direction: column;
    background-size: cover;
-   
+
     
   }
 
@@ -89,4 +89,10 @@ font-size: 14px;
 
   }
 
+}
+
+.appbarShadow{
+
+  box-shadow: none !important;
+  border: none !important;
 }
