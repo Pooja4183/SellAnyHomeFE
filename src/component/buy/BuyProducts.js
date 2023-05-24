@@ -22,7 +22,7 @@ const BuyList = ({ title }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts(title));
   }, [dispatch]);
 
   const [homeType, setHomeType] = React.useState("");
@@ -48,11 +48,11 @@ const BuyList = ({ title }) => {
      marginRight: '0.2%',
      alignItems: "baseline",
       
-      backgroundColor: "primary.dark",
-      "&:hover": {
-        backgroundColor: "primary.main",
-        opacity: [0.9, 0.8, 0.7],
-      },
+      // backgroundColor: "primary.dark",
+      // "&:hover": {
+      //   backgroundColor: "primary.main",
+      //   opacity: [0.9, 0.8, 0.7],
+      // },
     
     }}>
       <form>
@@ -75,20 +75,21 @@ const BuyList = ({ title }) => {
               id="outlined-basic"
               label="Address, Neighborhood"
               variant="outlined"
-              sx={{ marginTop: "0px" }}
-              fullWidth="400"
+              sx={{  width: '100%' }}
+              value={title}
             />
           </Grid>
-          <Grid item xs={2}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Home Type</InputLabel>
+          <Grid item xs={2} md={2} lg={2}>
+            <FormControl>
+              <InputLabel id="demo-simple-select-label" sx={{width:'500px'}}>Home Type</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={homeType}
                 label="Age"
                 onChange={handleHomeTypeChange}
-                fullWidth="50"
+                sx={{  width: '500%' }}
+                
               >
                 <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
@@ -97,7 +98,7 @@ const BuyList = ({ title }) => {
             </FormControl>
           </Grid>
           <Grid item xs={2}>
-            <FormControl fullWidth>
+            <FormControl>
               <InputLabel id="demo-simple-select-label">
                 No Min Price
               </InputLabel>
@@ -115,7 +116,7 @@ const BuyList = ({ title }) => {
             </FormControl>
           </Grid>
           <Grid item xs={2}>
-            <FormControl fullWidth>
+            <FormControl>
               <InputLabel id="demo-simple-select-label">
                 No Max Price
               </InputLabel>
@@ -146,7 +147,7 @@ const BuyList = ({ title }) => {
         Residential House For Sale
       </Typography>
 
-      <ListProducts />
+      <ListProducts searchString={title}/>
     </Box>
   );
 };

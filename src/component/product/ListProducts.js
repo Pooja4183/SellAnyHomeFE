@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import style from "./product.module.css";
 
-const ListProducts = ({ title }) => {
+const ListProducts = ({ searchString }) => {
   const productListing = useSelector((state) => state.products.products);
   console.log("Product Listing...", productListing);
 

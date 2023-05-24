@@ -1,8 +1,13 @@
 import backendAPI from '../apis/backendAPI';
 import { productActions } from './productSlice';
 
-export const fetchProducts = () => async (dispatch) => {
-  const response = await backendAPI.get('/property');
+export const fetchProducts = (searchString) => async (dispatch) => {
+  let uri = '/property';
+  if (searchString) {
+    uri = uri + `search=${searchString}`;
+  }
+ console.log ("URI", uri);
+   const response = await backendAPI.get(uri);
   console.log("Feteched products...", response);
   dispatch(productActions.getProducts({ products: response.data.property || [] }));
 };

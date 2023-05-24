@@ -10,18 +10,19 @@ const Banner = () => {
   const [errors, setErrors] = useState({});
 
   const inputEvent = (event) => {
-    console.log(event.target.value);
     setAddress(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  
+    setIsSubmitted(true);
   };
 
   useEffect(()=> {
     if(isSubmitted) {
-      history.push('/search-result')
+      let uri = "/buy-list?search="+address;
+      console.log("URI", uri);
+      history.push(uri);
     }
 
   },[isSubmitted, history]);
