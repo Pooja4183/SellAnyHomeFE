@@ -17,12 +17,16 @@ import {
 import { Box } from "@mui/system";
 import StyledButton from "../custom/StyledButton";
 import { alignProperty } from "@mui/material/styles/cssUtils";
+import { useLocation } from 'react-router-dom';
 
-const BuyList = ({ title }) => {
+const BuyList = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const paramValue = queryParams.get('search');
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts(title));
+    dispatch(fetchProducts(paramValue));
   }, [dispatch]);
 
   const [homeType, setHomeType] = React.useState("");
@@ -76,7 +80,7 @@ const BuyList = ({ title }) => {
               label="Address, Neighborhood"
               variant="outlined"
               sx={{  width: '100%' }}
-              value={title}
+              value={paramValue}
             />
           </Grid>
           <Grid item xs={2} md={2} lg={2}>
@@ -141,13 +145,13 @@ const BuyList = ({ title }) => {
         </Grid>
       </form>
       <Typography variant="h2" gutterBottom>
-        {title}
+        {paramValue}
       </Typography>
       <Typography variant="h6" gutterBottom>
         Residential House For Sale
       </Typography>
 
-      <ListProducts searchString={title}/>
+      <ListProducts/>
     </Box>
   );
 };

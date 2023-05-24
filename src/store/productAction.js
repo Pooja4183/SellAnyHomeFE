@@ -3,8 +3,9 @@ import { productActions } from './productSlice';
 
 export const fetchProducts = (searchString) => async (dispatch) => {
   let uri = '/property';
+  console.log("Search String", searchString)
   if (searchString) {
-    uri = uri + `search=${searchString}`;
+    uri = uri + `?search=${searchString}`;
   }
  console.log ("URI", uri);
    const response = await backendAPI.get(uri);
