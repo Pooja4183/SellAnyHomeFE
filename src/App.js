@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import Product from './pages/Product';
 import Sell from './pages/Sell';
 import SellLandingPage from './pages/SellLandingPage';
+import Buy from './pages/Buy';
 
 class App extends Component {
   render() {
@@ -20,6 +21,9 @@ class App extends Component {
           </Route>
           <Route path='/buy' exact>
             <Home />
+          </Route>
+          <Route path='/buy-list' exact>
+            <Buy />
           </Route>
           <Route path='/feedback' exact>
             <Feedback />

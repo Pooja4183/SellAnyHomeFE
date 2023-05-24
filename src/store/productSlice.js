@@ -15,6 +15,7 @@ const productSlice = createSlice({
   // Reducer methods
   reducers: {
     getProducts(state, action) {
+      console.log("Action", action.payload);
       state.products = action.payload.products;
     },
     getProductById(state, action) {

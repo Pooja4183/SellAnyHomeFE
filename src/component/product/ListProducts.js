@@ -58,7 +58,7 @@ const ListProducts = ({ title }) => {
 
                       <Typography gutterBottom variant="caption" component="div">
                        
-                       {product.address}
+                       {product.address}, {product.city}
                    
                    </Typography>
                    <Typography gutterBottom variant="caption" component="div"sx={{color:'blue'}}>
@@ -76,7 +76,7 @@ const ListProducts = ({ title }) => {
       </Box>
     )
   );
-};
+}
 
 export default ListProducts;
 
