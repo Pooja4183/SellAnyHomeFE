@@ -12,7 +12,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import {Link} from 'react-router-dom';
-
+import Logo from "../images/SAH_Images/tomor_adobe_express.svg";
+import styles from "./bannerStyle.module.css";
 
 const pages = ['Buy', 'Sell', 'Agent'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -37,29 +38,12 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'black' ,boxShadow: 'none' }}>
-      <Container maxWidth="xl">
+    <AppBar sx={{ backgroundColor:'transparent' , position: 'absolute'}} className={styles.appbarShadow}>
+      <Container maxWidth="xl" >
         <Toolbar disableGutters >
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' }, 
-              fontFamily: 'Cooper Std',
-              fontWeight: 700,
-              letterSpacing: '.1rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            SellAnyHome
-          </Typography>
+        <img src={Logo} style={{ height: "100%", objectFit: "contain", width:"20%" }} />
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
             <IconButton
               size="large"
               aria-label="account of current user"

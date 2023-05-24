@@ -2,6 +2,7 @@ import styles from "./bannerStyle.module.css";
 import React, { useState, useEffect } from "react";
 import banerimg from "../images/banner_sellAnyHome.jpg";
 import { useHistory } from "react-router-dom";
+import Header from '../component/Header';
 
 const Banner = () => {
   const history = useHistory();
@@ -27,11 +28,13 @@ const Banner = () => {
   },[isSubmitted, history]);
 
   return (
-    <div>
+    <>
       <div
         className={styles.banner}
         style={{ backgroundImage: `url(${banerimg})` }}
       >
+        <Header/>
+       
         <div className={styles.luxeryHeader}>
           <form onSubmit={handleSubmit}>
           <h2 text>Find The Perfect</h2>
@@ -52,7 +55,7 @@ const Banner = () => {
           </form>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

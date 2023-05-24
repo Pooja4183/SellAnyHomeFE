@@ -146,4 +146,10 @@
       font-weight: 400;
     }
   } 
+
+  .cardBorder{
+    box-shadow: none !important;
+    border-radius: 0% !important;
+  }
+  
   

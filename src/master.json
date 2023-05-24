@@ -1,0 +1,29 @@
+{
+    "propertyTypes": [
+      { "id": 1, "name": "Bunglow" },
+      { "id": 2, "name": "Apartment" },
+      { "id": 3, "name": "Villa" }
+    ]
+  ,
+
+  
+    "beds": [
+      { "id": 1, "name": "Bunglow" },
+      { "id": 2, "name": "Apartment" },
+      { "id": 3, "name": "Villa" }
+    ]
+  ,
+
+  
+    "baths": [
+      { "id": 1, "name": "Bunglow" },
+      { "id": 2, "name": "Apartment" },
+      { "id": 3, "name": "Villa" }
+    ]
+  
+
+  
+   
+
+}
+

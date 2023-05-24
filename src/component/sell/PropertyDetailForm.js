@@ -168,9 +168,7 @@ const PropertyDetailForm = ({
                   label="Ask Price"
                   onChange={handleChangeAskPrice}
                 >
-                  <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
-                  <MenuItem value={"Apartment"}>Apartment</MenuItem>
-                  <MenuItem value={"Villa"}>Villa</MenuItem>
+
                 </StyledSelect>
               </StyledFormControl>
             </Grid>
