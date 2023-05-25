@@ -16,12 +16,8 @@ const ExclusiveProducts = () => {
 
   return (
     <Container fluid className={style.produtCont}>
-      <Row className={style.headinExclusive}>
-        <Col>
-          <h2>Our Exclusive Homes</h2>
-        </Col>
-      </Row>
-      <ListProducts />
+      
+      <ListProducts title="Our Exclusive Homes" />
     </Container>
   );
 };
