@@ -2,9 +2,9 @@
     "propertyType": [
       { "id": 1, "name": "Bunglow" },
       { "id": 2, "name": "Apartment" },
-      { "id": 3, "name": "Villa" },
-      { "id": 3, "name": "Villa" },
-      { "id": 3, "name": "Villa" }
+      { "id": 3, "name": "Townhouse" },
+      { "id": 3, "name": "Co-op" },
+      { "id": 3, "name": "Other" }
 
     ]
   ,

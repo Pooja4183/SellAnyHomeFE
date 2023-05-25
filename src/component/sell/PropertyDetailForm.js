@@ -9,6 +9,12 @@ import StyledSelect from "../custom/StyledSelect";
 import NestedRightGrid from "../custom/NestedRightGrid";
 import NestedLeftGrid from "../custom/NestedLeftGrid";
 import Sellstyle from "./WhoAreYouForm.module.css";
+import PropertyDetail from '../../master.json';
+import TextField from '@mui/material/TextField';
+import textStyle from './PropertyDetailForm.module.css';
+import { Input } from "@mui/material";
+
+
 
 const PropertyDetailForm = ({
   houseWorthInfo,
@@ -73,6 +79,7 @@ const PropertyDetailForm = ({
                 <StyledInputLabel id="property-type-label">
                   Property Type
                 </StyledInputLabel>
+
                 <StyledSelect
                   labelId="property-type-label"
                   id="property-type"
@@ -80,9 +87,11 @@ const PropertyDetailForm = ({
                   label="Property Type"
                   onChange={handleChangePropertyType}
                 >
-                  <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
-                  <MenuItem value={"Apartment"}>Apartment</MenuItem>
-                  <MenuItem value={"Villa"}>Villa</MenuItem>
+                {PropertyDetail.propertyType.map((property) => (
+                    <MenuItem key={property.id} value={property.name}>
+                      {property.name}
+                    </MenuItem>
+                     ))}
                 </StyledSelect>
               </StyledFormControl>
             </Grid>
@@ -98,9 +107,11 @@ const PropertyDetailForm = ({
                   label="Number Of Bedrooms"
                   onChange={handleChangeNumberOfBedrooms}
                 >
-                  <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
-                  <MenuItem value={"Apartment"}>Apartment</MenuItem>
-                  <MenuItem value={"Villa"}>Villa</MenuItem>
+                 {PropertyDetail.beds.map((bed) => (
+                    <MenuItem key={bed.id} value={bed.name}>
+                      {bed.name}
+                    </MenuItem>
+                     ))}
                 </StyledSelect>
               </StyledFormControl>
             </Grid>
@@ -116,60 +127,28 @@ const PropertyDetailForm = ({
                   label="Number Of Bathrooms"
                   onChange={handleChangeNumberOfBathrooms}
                 >
-                  <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
-                  <MenuItem value={"Apartment"}>Apartment</MenuItem>
-                  <MenuItem value={"Villa"}>Villa</MenuItem>
+                  {PropertyDetail.baths.map((bath) => (
+                    <MenuItem key={bath.id} value={bath.name} >
+                      {bath.name}
+                    </MenuItem>
+                  ))}
                 </StyledSelect>
               </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <StyledInputLabel id="property-size-label">
-                  Property Size
-                </StyledInputLabel>
-                <StyledSelect
-                  labelId="property-size-label"
-                  id="property-size"
-                  value={propertySize}
-                  label="Property Size"
-                  onChange={handleChangePropertySize}
-                >
-                  <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
-                  <MenuItem value={"Apartment"}>Apartment</MenuItem>
-                  <MenuItem value={"Villa"}>Villa</MenuItem>
-                </StyledSelect>
+                <TextField id="outlined-basic" label=" Property Size"  className={textStyle.inputStyle} />
               </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <StyledInputLabel id="year-built-label">
-                  Year Built
-                </StyledInputLabel>
-                <StyledSelect
-                  labelId="year-built-label"
-                  id="year-built"
-                  value={yearBuilt}
-                  label="Year Built"
-                  onChange={handleChangeYearBuilt}
-                >
-                  <MenuItem value={"Bunglow"}>Bunglow</MenuItem>
-                  <MenuItem value={"Apartment"}>Apartment</MenuItem>
-                  <MenuItem value={"Villa"}>Villa</MenuItem>
-                </StyledSelect>
+                 <TextField id="outlined-basic" label="Year Built" variant="outlined" className={textStyle.inputStyle} />
+               
               </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <StyledInputLabel id="ask-price-label">Ask Price</StyledInputLabel>
-                <StyledSelect
-                  labelId="ask-price-label"
-                  id="ask-price"
-                  value={askPrice}
-                  label="Ask Price"
-                  onChange={handleChangeAskPrice}
-                >
-
-                </StyledSelect>
+                <TextField id="outlined-basic" label="Ask Price" variant="outlined" className={textStyle.inputStyle} />
               </StyledFormControl>
             </Grid>
           </Grid>
