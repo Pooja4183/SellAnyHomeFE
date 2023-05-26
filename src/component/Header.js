@@ -42,7 +42,7 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl" >
         <Toolbar disableGutters >
         <Link to={`/`}>
-           <img src={Logo} style={{ height: "100%", objectFit: "contain", width:"100%" }} />
+           <img src={Logo} style={{ height: "100%", objectFit: "contain", width:"100%" }} alt="Tomorrow.luxury property"/>
         </Link>
        
 

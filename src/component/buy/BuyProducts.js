@@ -25,10 +25,8 @@ const BuyList = () => {
 
   /* Pagination */
   const [page, setPage] = React.useState(0);
-  const count= useSelector((state) => state.products.totalRecords);
+  const count= useSelector((state) => state.products.totalRecords) || 0;
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
-  const pageNumber = useSelector((state) => state.products.page)
-  const productListing11 = useSelector((state) => state.products.products);
 
   /* Form Submission */
 
@@ -130,7 +128,7 @@ const BuyList = () => {
             />
           </Grid>
           <Grid item xs={2}>
-            <FormControl fullWidth="true">
+            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label" sx={{ width: "500px" }}>
                 Home Type
               </InputLabel>
@@ -140,7 +138,7 @@ const BuyList = () => {
                 value={formData.homeType}
                 label="HomeType"
                 onChange={handleChange}
-                autoWidth="true"
+                autoWidth
                 name="homeType"
               >
                 <MenuItem value="">
@@ -155,7 +153,7 @@ const BuyList = () => {
             </FormControl>
           </Grid>
           <Grid item xs={2}>
-            <FormControl fullWidth="true">
+            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">
                 No Min Price
               </InputLabel>
@@ -179,7 +177,7 @@ const BuyList = () => {
             </FormControl>
           </Grid>
           <Grid item xs={2}>
-            <FormControl fullWidth="true">
+            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">
                 No Max Price
               </InputLabel>
@@ -248,7 +246,7 @@ const BuyList = () => {
               value={formData.sort}
               label="sortBy"
               onChange={handleSortByChange}
-              autoWidth="true"
+              autoWidth
               defaultValue={"Recommended"}
               name="sort"
             >
