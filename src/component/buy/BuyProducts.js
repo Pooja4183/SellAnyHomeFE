@@ -24,12 +24,11 @@ const BuyList = () => {
   const queryParams = new URLSearchParams(location.search);
 
   /* Pagination */
-  const [page, setPage] = React.useState(1);
+  const [page, setPage] = React.useState(0);
   const count= useSelector((state) => state.products.totalRecords);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
   const pageNumber = useSelector((state) => state.products.page)
   const productListing11 = useSelector((state) => state.products.products);
-  console.log("Count", page, count, productListing11);
 
   /* Form Submission */
 
@@ -56,7 +55,6 @@ const BuyList = () => {
   }, [dispatch, isSubmitted]);
 
   const handleChange = (e) => {
-    console.log("Target", e.target.name);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -66,7 +64,6 @@ const BuyList = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     formData.search = formData.address;
-    console.log("Form Submitted with ", formData);
     setSubmitted(true);
   };
 
@@ -75,7 +72,6 @@ const BuyList = () => {
       ...formData,
       page: newPage+1,
     });
-    console.log("New Page::", newPage);
     setPage(newPage);
     setSubmitted(true);
   };
@@ -87,7 +83,6 @@ const BuyList = () => {
       size: rowsPerPage,
     });
     setSubmitted(true);
-   // setPage(1);
   };
 
   function defaultGetAriaLabel(type) {
@@ -100,7 +95,6 @@ const BuyList = () => {
 
   const handleSortByChange = (event) => {
     handleChange(event);
-    console.log("Form Submitted with Sort ", formData);
     setSubmitted(true);
   };
 
@@ -223,7 +217,6 @@ const BuyList = () => {
           }}
         >
           <Grid item xs={2} sx={{ alignSelf: "flex-end" }}>
-            Count::{count}
             <TablePagination
               component="div"
               count={count}
