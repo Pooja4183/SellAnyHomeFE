@@ -23,6 +23,9 @@ const productSlice = createSlice({
         (element) => element.id === action.payload.id
       );
     },
+    searchAndFilter(state,action) {
+      
+    }
   },
 });
 
