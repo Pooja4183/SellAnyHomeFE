@@ -3,8 +3,8 @@
       { "id": 1, "name": "Bunglow" },
       { "id": 2, "name": "Apartment" },
       { "id": 3, "name": "Townhouse" },
-      { "id": 3, "name": "Co-op" },
-      { "id": 3, "name": "Other" }
+      { "id": 4, "name": "Co-op" },
+      { "id": 5, "name": "Other" }
 
     ]
   ,
@@ -26,9 +26,38 @@
       { "id": 3, "name": 3 },
       { "id": 3, "name": 4 },
       { "id": 3, "name": 5 }
-    ]
+    ],
   
+    "minPrice": [
+      { "id": 1000, "name": 1000 },
+      { "id": 2000, "name": 2000 },
+      { "id": 3000, "name": 3000 },
+      { "id": 4000, "name": 4000 },
+      { "id": 5000, "name": 5000 },
+      { "id": 6000, "name": 6000 },
+      { "id": 7000, "name": 7000 },
+      { "id": 8000, "name": 8000 },
+      { "id": 9000, "name": 9000 }
+    ],
+    "maxPrice": [
+      { "id": 1000, "name": 1000 },
+      { "id": 2000, "name": 2000 },
+      { "id": 3000, "name": 3000 },
+      { "id": 4000, "name": 4000 },
+      { "id": 5000, "name": 5000 },
+      { "id": 6000, "name": 6000 },
+      { "id": 7000, "name": 7000 },
+      { "id": 8000, "name": 8000 },
+      { "id": 9000, "name": 9000 },
+      { "id": 10000, "name": 10000 }
+    ],
 
+    "sortBy": [
+      { "id": "Recommended", "name": "Recommended" },
+      { "id": "Popular", "name": "Popular" },
+      { "id": "High", "name": "High To Low" },
+      { "id": "Low", "name": "Low to High" }
+    ]
   
    
 

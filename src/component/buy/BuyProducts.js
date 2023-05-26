@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "../../store/productAction";
 import ListProducts from "../product/ListProducts";
-import { styled } from "@mui/material/styles";
 import {
   FormControl,
   Grid,
@@ -12,46 +11,83 @@ import {
   Typography,
   InputLabel,
   Button,
-  Paper,
 } from "@mui/material";
-import { Box, borderColor } from "@mui/system";
+import { Box } from "@mui/system";
 import TablePagination from "@mui/material/TablePagination";
 import { useLocation } from "react-router-dom";
+import PropertyDetail from "../../master.json";
+import { useSelector } from "react-redux";
 
 const BuyList = () => {
-
   /* Routing */
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const [paramValue, setParamValue] = React.useState(queryParams.get("search"));
+
+  /* Pagination */
+  const [page, setPage] = React.useState(1);
+  const count= useSelector((state) => state.products.totalRecords);
+  const [rowsPerPage, setRowsPerPage] = React.useState(6);
+  const pageNumber = useSelector((state) => state.products.page)
+  const productListing11 = useSelector((state) => state.products.products);
+  console.log("Count", page, count, productListing11);
+
+  /* Form Submission */
+
+  const [formData, setFormData] = useState({
+    // Initialize form data with default values
+    search: queryParams.get("search"),
+    address: queryParams.get("search"),
+    homeType: "",
+    minPrice: "",
+    maxPrice: "",
+    page: page,
+    sort: "Recommended",
+    size: 6
+  });
+
+  const [isSubmitted, setSubmitted] = React.useState(false);
+
+  /* Data Fetch */
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts(paramValue));
-  }, [dispatch]);
+    dispatch(fetchProducts(formData));
+    setSubmitted(false);
+  }, [dispatch, isSubmitted]);
 
-  /* Pagination */
-  const [page, setPage] = React.useState(2);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  
-  /* Sorting */
-  const [sortBy, setSortBy] = React.useState("Recommended");
-
-  /* Filtering */
-  const [address, setAddress] = React.useState(paramValue);
-  const [homeType, setHomeType] = React.useState("");
-  const [minPrice, setMinPrice] = React.useState("");
-  const [maxPrice, setMaxPrice] = React.useState("");
-
-
+  const handleChange = (e) => {
+    console.log("Target", e.target.name);
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  /* Form Submision */
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    formData.search = formData.address;
+    console.log("Form Submitted with ", formData);
+    setSubmitted(true);
+  };
 
   const handleChangePage = (event, newPage) => {
+    setFormData({
+      ...formData,
+      page: newPage+1,
+    });
+    console.log("New Page::", newPage);
     setPage(newPage);
+    setSubmitted(true);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setFormData({
+      ...formData,
+      size: rowsPerPage,
+    });
+    setSubmitted(true);
+   // setPage(1);
   };
 
   function defaultGetAriaLabel(type) {
@@ -62,36 +98,11 @@ const BuyList = () => {
     return `${from}-${to} of ${count} Homes`;
   };
 
-  const handleSearchChange = (event) => {
-   // setParamValue(event.target.value);
-    
-  }
-  const handleAddressChange = (event) => {
-    setAddress(event.target.value);
-    
-  }
   const handleSortByChange = (event) => {
-    setSortBy(event.target.value);
+    handleChange(event);
+    console.log("Form Submitted with Sort ", formData);
+    setSubmitted(true);
   };
-
-  const handleHomeTypeChange = (event) => {
-    setHomeType(event.target.value);
-  };
-
-  const handleMinPriceChange = (event) => {
-    setMinPrice(event.target.value);
-  };
-
-  const handleMaxPriceChange = (event) => {
-    setMaxPrice(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Form Submitted with ", address, homeType, minPrice, maxPrice);
-  };
-
-  
 
   return (
     <Box
@@ -100,7 +111,6 @@ const BuyList = () => {
         marginLeft: "0.8%",
         marginRight: "0.2%",
         alignItems: "baseline",
-
       }}
     >
       <form onSubmit={handleSubmit}>
@@ -116,16 +126,16 @@ const BuyList = () => {
         >
           <Grid item xs={4}>
             <TextField
-              id="txtaddress"
+              id="address"
               label="Address, Neighborhood"
               variant="outlined"
               sx={{ width: "100%" }}
-              value={address}
-              onChange={handleAddressChange}
-              onKeyPress={handleSearchChange}
+              value={formData.address}
+              onChange={handleChange}
+              name="address"
             />
           </Grid>
-          <Grid item xs={2} md={2} lg={2}>
+          <Grid item xs={2}>
             <FormControl fullWidth="true">
               <InputLabel id="demo-simple-select-label" sx={{ width: "500px" }}>
                 Home Type
@@ -133,14 +143,20 @@ const BuyList = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={homeType}
-                label="Age"
-                onChange={handleHomeTypeChange}
+                value={formData.homeType}
+                label="HomeType"
+                onChange={handleChange}
                 autoWidth="true"
+                name="homeType"
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {PropertyDetail.propertyType.map((property) => (
+                  <MenuItem key={property.id} value={property.name}>
+                    {property.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -152,13 +168,19 @@ const BuyList = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={homeType}
-                label="Age"
-                onChange={handleMinPriceChange}
+                value={formData.minPrice}
+                label="MinPrice"
+                onChange={handleChange}
+                name="minPrice"
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {PropertyDetail.minPrice.map((property) => (
+                  <MenuItem key={property.id} value={property.name}>
+                    {property.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -170,13 +192,19 @@ const BuyList = () => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={homeType}
+                value={formData.maxPrice}
                 label="Age"
-                onChange={handleMaxPriceChange}
+                onChange={handleChange}
+                name="maxPrice"
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {PropertyDetail.maxPrice.map((property) => (
+                  <MenuItem key={property.id} value={property.name}>
+                    {property.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -186,53 +214,60 @@ const BuyList = () => {
             </Button>
           </Grid>
         </Grid>
-      </form>
 
-      <Grid container  sx={{
+        <Grid
+          container
+          sx={{
             padding: 2,
             justifyContent: "center",
-          }}>
-        <Grid item xs={2} sx={{ alignSelf: 'flex-end' }}>
-          <TablePagination
-            component="div"
-            count={100}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            getItemAriaLabel={defaultGetAriaLabel}
-            labelDisplayedRows={labelDisplayedRows}
-            labelRowsPerPage=""
-            rowsPerPageOptions={[]}
-          />
-        </Grid>
+          }}
+        >
+          <Grid item xs={2} sx={{ alignSelf: "flex-end" }}>
+            Count::{count}
+            <TablePagination
+              component="div"
+              count={count}
+              page={page}
+              onPageChange={handleChangePage}
+              rowsPerPage={rowsPerPage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              getItemAriaLabel={defaultGetAriaLabel}
+              labelDisplayedRows={labelDisplayedRows}
+              labelRowsPerPage=""
+              rowsPerPageOptions={[]}
+              name="page"
+            />
+          </Grid>
 
-        <Grid item xs={8}>
-          <Typography variant="h2" sx={{textAlign:"center"}}>
-            {paramValue}
-          </Typography>
-          <Typography variant="h6" sx={{textAlign:"center"}}>
-            Residential House For Sale
-          </Typography>
-        </Grid>
-        <Grid item xs={2}  sx={{ alignSelf: 'flex-end' }}>
-           Sort By
+          <Grid item xs={8}>
+            <Typography variant="h2" sx={{ textAlign: "center" }}>
+              {formData.search}
+            </Typography>
+            <Typography variant="h6" sx={{ textAlign: "center" }}>
+              Residential House For Sale
+            </Typography>
+          </Grid>
+          <Grid item xs={2} sx={{ alignSelf: "flex-end" }}>
+            Sort By
             <Select
               labelId="sortby_select_label"
               id="sortby"
-              value={sortBy}
+              value={formData.sort}
               label="sortBy"
               onChange={handleSortByChange}
               autoWidth="true"
               defaultValue={"Recommended"}
+              name="sort"
             >
-              <MenuItem value={"Recommended"}>Recommended</MenuItem>
-              <MenuItem value={"Popular"}>Popular</MenuItem>
-              <MenuItem value={"High to Low"}>High To Low</MenuItem>
-              <MenuItem value={"Low to High"}>Low to High</MenuItem>
+              {PropertyDetail.sortBy.map((property) => (
+                <MenuItem key={property.id} value={property.name}>
+                  {property.name}
+                </MenuItem>
+              ))}
             </Select>
+          </Grid>
         </Grid>
-      </Grid>
+      </form>
       <ListProducts />
     </Box>
   );
