@@ -41,7 +41,10 @@ function ResponsiveAppBar() {
     <AppBar sx={{ backgroundColor:'transparent' , position: 'absolute'}} className={styles.appbarShadow}>
       <Container maxWidth="xl" >
         <Toolbar disableGutters >
-        <img src={Logo} style={{ height: "100%", objectFit: "contain", width:"20%" }} />
+        <Link to={`/`}>
+           <img src={Logo} style={{ height: "100%", objectFit: "contain", width:"100%" }} />
+        </Link>
+       
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }}}>
             <IconButton
