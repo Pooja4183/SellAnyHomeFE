@@ -5,16 +5,20 @@ import { useHistory } from "react-router-dom";
 
 const SellComponent = () => {
   const history = useHistory();
-  const [houseWorthInfo, setHouseWorthInfo] = useState("");
+  const [houseWorthInfo, setHouseWorthInfo] = useState("");  
+  const [houseWorth, setHouseWorth] = useState({
+    address: "",
+  });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleHouseWorthChange = (event) => {
     console.log(event.target.value);
+    setHouseWorthInfo(event.target.value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    history.push('/sell-landing')
+    history.push('/sell-landing?houseWorth='+houseWorthInfo)
   
   };
 

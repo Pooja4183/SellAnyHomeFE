@@ -41,11 +41,15 @@ const SellForm = () => {
 
   const handleHouseWorthChange = (event) => {
     const { name, value } = event.target;
+   
     setHouseWorth({ ...houseWorth, [name]: value });
+    console.log("HouseWorth", houseWorth)
   };
 
   const handleWhoAreYouChange = (event) => {
     const { name, value } = event.target;
+    console.log("Event Name", name, ":", value);
+    //setHouseWorth({ ...houseWorth, [name]: value });
     setWhoAreYou({ ...whoAreYou, [name]: value });
   };
 
@@ -104,6 +108,7 @@ const SellForm = () => {
             <WhoAreYouForm
               houseWorthInfo={houseWorth}
               whoAreYouInfo={whoAreYou}
+              handleHouseWorthChange={handleHouseWorthChange}
               handleWhoAreYouChange={handleWhoAreYouChange}
             />
           </Route>
