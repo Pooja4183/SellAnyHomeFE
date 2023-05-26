@@ -12,10 +12,11 @@ import {
   InputLabel,
   Button,
 } from "@mui/material";
-import { Box} from "@mui/system";
+import { Box } from "@mui/system";
 import TablePagination from "@mui/material/TablePagination";
 import { useLocation } from "react-router-dom";
-import PropertyDetail from '../../master.json';
+import PropertyDetail from "../../master.json";
+import { useSelector } from "react-redux";
 
 const BuyList = () => {
   /* Routing */
@@ -24,9 +25,11 @@ const BuyList = () => {
 
   /* Pagination */
   const [page, setPage] = React.useState(1);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  
-
+  const count= useSelector((state) => state.products.totalRecords);
+  const [rowsPerPage, setRowsPerPage] = React.useState(6);
+  const pageNumber = useSelector((state) => state.products.page)
+  const productListing11 = useSelector((state) => state.products.products);
+  console.log("Count", page, count, productListing11);
 
   /* Form Submission */
 
@@ -34,11 +37,12 @@ const BuyList = () => {
     // Initialize form data with default values
     search: queryParams.get("search"),
     address: queryParams.get("search"),
-    homeType: '',
-    minPrice: '',
-    maxPrice: '',
+    homeType: "",
+    minPrice: "",
+    maxPrice: "",
     page: page,
-    sort: 'Recommended'
+    sort: "Recommended",
+    size: 6
   });
 
   const [isSubmitted, setSubmitted] = React.useState(false);
@@ -49,36 +53,41 @@ const BuyList = () => {
   useEffect(() => {
     dispatch(fetchProducts(formData));
     setSubmitted(false);
-  }, [dispatch,isSubmitted]);
+  }, [dispatch, isSubmitted]);
 
   const handleChange = (e) => {
-    console.log("Target", e.target.name)
+    console.log("Target", e.target.name);
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
   /* Form Submision */
   const handleSubmit = async (event) => {
     event.preventDefault();
-    formData.search=formData.address;
+    formData.search = formData.address;
     console.log("Form Submitted with ", formData);
     setSubmitted(true);
-  
   };
-
 
   const handleChangePage = (event, newPage) => {
     setFormData({
       ...formData,
-      [page]: newPage
+      page: newPage+1,
     });
+    console.log("New Page::", newPage);
     setPage(newPage);
+    setSubmitted(true);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    setFormData({
+      ...formData,
+      size: rowsPerPage,
+    });
+    setSubmitted(true);
+   // setPage(1);
   };
 
   function defaultGetAriaLabel(type) {
@@ -89,13 +98,11 @@ const BuyList = () => {
     return `${from}-${to} of ${count} Homes`;
   };
 
-
   const handleSortByChange = (event) => {
     handleChange(event);
-   console.log("Form Submitted with Sort ", formData);
-   setSubmitted(true);
+    console.log("Form Submitted with Sort ", formData);
+    setSubmitted(true);
   };
-
 
   return (
     <Box
@@ -104,7 +111,6 @@ const BuyList = () => {
         marginLeft: "0.8%",
         marginRight: "0.2%",
         alignItems: "baseline",
-
       }}
     >
       <form onSubmit={handleSubmit}>
@@ -143,14 +149,14 @@ const BuyList = () => {
                 autoWidth="true"
                 name="homeType"
               >
-                 <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-               {PropertyDetail.propertyType.map((property) => (
-                    <MenuItem key={property.id} value={property.name}>
-                      {property.name}
-                    </MenuItem>
-                     ))}
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {PropertyDetail.propertyType.map((property) => (
+                  <MenuItem key={property.id} value={property.name}>
+                    {property.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -167,14 +173,14 @@ const BuyList = () => {
                 onChange={handleChange}
                 name="minPrice"
               >
-                 <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-               {PropertyDetail.minPrice.map((property) => (
-                    <MenuItem key={property.id} value={property.name}>
-                      {property.name}
-                    </MenuItem>
-                     ))}
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {PropertyDetail.minPrice.map((property) => (
+                  <MenuItem key={property.id} value={property.name}>
+                    {property.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -191,14 +197,14 @@ const BuyList = () => {
                 onChange={handleChange}
                 name="maxPrice"
               >
-                 <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-                 {PropertyDetail.maxPrice.map((property) => (
-                    <MenuItem key={property.id} value={property.name}>
-                      {property.name}
-                    </MenuItem>
-                     ))}
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {PropertyDetail.maxPrice.map((property) => (
+                  <MenuItem key={property.id} value={property.name}>
+                    {property.name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -208,38 +214,41 @@ const BuyList = () => {
             </Button>
           </Grid>
         </Grid>
-     
 
-      <Grid container  sx={{
+        <Grid
+          container
+          sx={{
             padding: 2,
             justifyContent: "center",
-          }}>
-        <Grid item xs={2} sx={{ alignSelf: 'flex-end' }}>
-          <TablePagination
-            component="div"
-            count={100}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            getItemAriaLabel={defaultGetAriaLabel}
-            labelDisplayedRows={labelDisplayedRows}
-            labelRowsPerPage=""
-            rowsPerPageOptions={[]}
-            name="page"
-          />
-        </Grid>
+          }}
+        >
+          <Grid item xs={2} sx={{ alignSelf: "flex-end" }}>
+            Count::{count}
+            <TablePagination
+              component="div"
+              count={count}
+              page={page}
+              onPageChange={handleChangePage}
+              rowsPerPage={rowsPerPage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+              getItemAriaLabel={defaultGetAriaLabel}
+              labelDisplayedRows={labelDisplayedRows}
+              labelRowsPerPage=""
+              rowsPerPageOptions={[]}
+              name="page"
+            />
+          </Grid>
 
-        <Grid item xs={8}>
-          <Typography variant="h2" sx={{textAlign:"center"}}>
-            {formData.search}
-          </Typography>
-          <Typography variant="h6" sx={{textAlign:"center"}}>
-            Residential House For Sale
-          </Typography>
-        </Grid>
-        <Grid item xs={2}  sx={{ alignSelf: 'flex-end' }}>
-           Sort By
+          <Grid item xs={8}>
+            <Typography variant="h2" sx={{ textAlign: "center" }}>
+              {formData.search}
+            </Typography>
+            <Typography variant="h6" sx={{ textAlign: "center" }}>
+              Residential House For Sale
+            </Typography>
+          </Grid>
+          <Grid item xs={2} sx={{ alignSelf: "flex-end" }}>
+            Sort By
             <Select
               labelId="sortby_select_label"
               id="sortby"
@@ -250,15 +259,14 @@ const BuyList = () => {
               defaultValue={"Recommended"}
               name="sort"
             >
-                {PropertyDetail.sortBy.map((property) => (
-                    <MenuItem key={property.id} value={property.name}>
-                      {property.name}
-                    </MenuItem>
-                     ))}
-          
+              {PropertyDetail.sortBy.map((property) => (
+                <MenuItem key={property.id} value={property.name}>
+                  {property.name}
+                </MenuItem>
+              ))}
             </Select>
+          </Grid>
         </Grid>
-      </Grid>
       </form>
       <ListProducts />
     </Box>

@@ -9,13 +9,21 @@ export const fetchProducts = (formData) => async (dispatch) => {
     homeType: formData.homeType,
     minPrice: formData.minPrice,
     maxPrice: formData.maxPrice,
-    sort: formData.sort
+    sort: formData.sort,
+    size: formData.size
   };
    let uri = '/property';
 
    const response = await backendAPI.get(uri, {params});
   console.log("Feteched products...", response);
-  dispatch(productActions.getProducts({ products: response.data.property || [] }));
+  dispatch(productActions.getProducts({ 
+    products: response.data.property || [] ,
+    page: response.data.page,
+    pageSize: response.data.pageSize,
+    records: response.data.records,
+    numberofpages: response.data.numberofpages,
+    totalRecords: response.data.totalRecords
+  }));
 };
 
 export const fetchExclusiveProducts = () => async (dispatch) => {

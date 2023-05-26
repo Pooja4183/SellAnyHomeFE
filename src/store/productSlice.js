@@ -3,6 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   products: [],
   product: null,
+  page:0,
+  pageSize:0,
+  records:0
 };
 
 const productSlice = createSlice({
@@ -17,6 +20,11 @@ const productSlice = createSlice({
     getProducts(state, action) {
       console.log("Action", action.payload);
       state.products = action.payload.products;
+      state.page = action.payload.page;
+      state.pageSize = action.payload.pageSize;
+      state.records = action.payload.records;
+      state.numberofpages = action.payload.numberofpages;
+      state.totalRecords =  action.payload.totalRecords;
     },
     getProductById(state, action) {
       state.product = state.products.find(
@@ -24,7 +32,7 @@ const productSlice = createSlice({
       );
     },
     searchAndFilter(state,action) {
-      
+
     }
   },
 });
