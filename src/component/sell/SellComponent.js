@@ -12,7 +12,6 @@ const SellComponent = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleHouseWorthChange = (event) => {
-    console.log(event.target.value);
     setHouseWorthInfo(event.target.value);
   };
 
