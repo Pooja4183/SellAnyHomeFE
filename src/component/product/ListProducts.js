@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
-import { color } from "@mui/system";
 
 const ListProducts = ({ title }) => {
   const productListing = useSelector((state) => state.products.products);
