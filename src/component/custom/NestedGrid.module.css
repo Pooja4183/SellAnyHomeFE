@@ -44,6 +44,7 @@ min-width: 400px;
     width: 100%;
     padding: 5%;
    
+   
   }
 
   .radioStyle{
@@ -51,9 +52,10 @@ min-width: 400px;
   }
 
   .whoAreyou{
-padding-bottom: 5% !important;
+padding-bottom: 2% !important;
 text-align: left;
 width: 80%;
+
 
   }
 

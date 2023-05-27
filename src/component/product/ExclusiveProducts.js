@@ -2,10 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchExclusiveProducts } from "../../store/productAction";
 import ListProducts from "./ListProducts";
-import { Card, Col, Container, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import style from "./product.module.css";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 
 const ExclusiveProducts = () => {
   const dispatch = useDispatch();
@@ -15,14 +14,24 @@ const ExclusiveProducts = () => {
   }, [dispatch]);
 
   return (
-    <Container fluid className={style.produtCont}>
-      <Row className={style.headinExclusive}>
-        <Col>
-          <h2>Our Exclusive Homes</h2>
-        </Col>
-      </Row>
-      <ListProducts />
-    </Container>
+
+<Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={3}  className={style.headinExclusive}>
+        
+        <Grid item xs={12}>
+        <h2>Our Exclusive Homes</h2>
+        </Grid>
+        <Grid item xs={12} >
+          
+        <ListProducts />
+        </Grid>
+        
+      </Grid>
+    </Box>
+
+
+
+    
   );
 };
 

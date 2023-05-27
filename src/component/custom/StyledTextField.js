@@ -7,6 +7,9 @@ const StyledTextField = styled(TextField)`
   font-weight: bold;
   border-radius: 20px;
   margin-top: 0px;
-`;
+  fieldset {
+    border-radius: 20px;
+  }
 
+`;
 export default StyledTextField;
