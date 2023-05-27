@@ -18,12 +18,10 @@ const ExclusiveProducts = () => {
 <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}  className={style.headinExclusive}>
         
-        <Grid item xs={12}>
-        <h2>Our Exclusive Homes</h2>
-        </Grid>
+       
         <Grid item xs={12} >
           
-        <ListProducts />
+        <ListProducts title="Our Exclusive Homes"/>
         </Grid>
         
       </Grid>
