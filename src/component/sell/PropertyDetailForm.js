@@ -17,8 +17,11 @@ import StyledTextField from "../custom/StyledTextField";
 
 const PropertyDetailForm = ({
   houseWorthInfo,
+  whoAreYouInfo,
+  listingPlatformInfo,
+  timelineInfo,
   propertyDetailInfo,
-  handleTimelineChange,
+  handlePropertyDetailChange,
 }) => {
   const history = useHistory();
 
@@ -27,38 +30,7 @@ const PropertyDetailForm = ({
     history.push("/sell-landing/contact");
   };
 
-  const [propertyType, setPropertyType] = React.useState("");
-  const [numberOfBedrooms, setNumberOfBedrooms] = React.useState("");
-  const [numberOfBathrooms, setNumberOfBathrooms] = React.useState("");
-  const [propertySize, setPropertySize] = React.useState("");
-  const [yearBuilt, setYearBuilt] = React.useState("");
-  const [askPrice, setAskPrice] = React.useState("");
-
-  const handleChangePropertyType = (event) => {
-    setPropertyType(event.target.value);
-  };
-
-  const handleChangeNumberOfBedrooms = (event) => {
-    setNumberOfBedrooms(event.target.value);
-  };
-
-  const handleChangeNumberOfBathrooms = (event) => {
-    setNumberOfBathrooms(event.target.value);
-  };
-
-  const handleChangePropertySize = (event) => {
-    setPropertySize(event.target.value);
-  };
-
-  const handleChangeYearBuilt = (event) => {
-    setYearBuilt(event.target.value);
-  };
-
-  const handleChangeAskPrice = (event) => {
-    setAskPrice(event.target.value);
-  };
-
-  return (
+   return (
     <Grid container className={Sellstyle.formstyleform}>
       <NestedRightGrid
         title={"Is This The Correct Address? If Not Click Here?"}
@@ -82,9 +54,10 @@ const PropertyDetailForm = ({
                 <StyledSelect
                   labelId="property-type-label"
                   id="property-type"
-                  value={propertyType}
+                  value={propertyDetailInfo.type}
                   label="Property Type"
-                  onChange={handleChangePropertyType}
+                  onChange={handlePropertyDetailChange}
+                  name="type"
                 >
                 {PropertyDetail.propertyType.map((property) => (
                     <MenuItem key={property.id} value={property.name}>
@@ -102,9 +75,10 @@ const PropertyDetailForm = ({
                 <StyledSelect
                   labelId="number-of-bedrooms-label"
                   id="number-of-bedrooms"
-                  value={numberOfBedrooms}
+                  value={propertyDetailInfo.beds}
                   label="Number Of Bedrooms"
-                  onChange={handleChangeNumberOfBedrooms}
+                  onChange={handlePropertyDetailChange}
+                  name="beds"
                 >
                  {PropertyDetail.beds.map((bed) => (
                     <MenuItem key={bed.id} value={bed.name}>
@@ -122,9 +96,10 @@ const PropertyDetailForm = ({
                 <StyledSelect
                   labelId="number-of-bathrooms-label"
                   id="number-of-bathrooms"
-                  value={numberOfBathrooms}
+                  value={propertyDetailInfo.baths}
                   label="Number Of Bathrooms"
-                  onChange={handleChangeNumberOfBathrooms}
+                  onChange={handlePropertyDetailChange}
+                  name="baths"
                 >
                   {PropertyDetail.baths.map((bath) => (
                     <MenuItem key={bath.id} value={bath.name} >
@@ -136,18 +111,18 @@ const PropertyDetailForm = ({
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <StyledTextField id="outlined-basic" label=" Property Size"  className={textStyle.inputStyle} />
+                <StyledTextField id="outlined-basic" label=" Property Size"  className={textStyle.inputStyle}  onChange={handlePropertyDetailChange} name="size"/>
               </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                 <StyledTextField id="outlined-basic" label="Year Built" variant="outlined" className={textStyle.inputStyle} />
+                 <StyledTextField id="outlined-basic" label="Year Built" variant="outlined" className={textStyle.inputStyle}  onChange={handlePropertyDetailChange} name="yearBuilt"/>
                
               </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <StyledTextField id="outlined-basic" label="Ask Price" variant="outlined" className={textStyle.inputStyle} />
+                <StyledTextField id="outlined-basic" label="Ask Price" variant="outlined" className={textStyle.inputStyle}  onChange={handlePropertyDetailChange} name="price"/>
               </StyledFormControl>
             </Grid>
           </Grid>

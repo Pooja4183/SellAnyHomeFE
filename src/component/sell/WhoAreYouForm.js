@@ -10,7 +10,6 @@ import StyledButton from "../custom/StyledButton";
 import StyledFormControlLabel from "../custom/StyledFormControlLabel";
 import NestedRightGrid from "../custom/NestedRightGrid";
 import NestedLeftGrid from "../custom/NestedLeftGrid";
-import { TextField } from "@mui/material";
 
 const WhoAreYouForm = ({
   houseWorthInfo,
@@ -30,7 +29,6 @@ const WhoAreYouForm = ({
     houseWorthInfo.address = houseWorth;
     console.log("HouseWorth:", houseWorthInfo)
     history.push("/sell-landing/listingplatform");
-    //handleHouseWorthChange(event);
   }
 
   return (
@@ -72,7 +70,6 @@ const WhoAreYouForm = ({
               </StyledButton>
             </Stack>
           </FormControl>
-          <TextField id="houseWorth" label="Outlined" variant="outlined" value={houseWorthInfo.address}  />
         </form>
       </NestedLeftGrid>
     </Grid>

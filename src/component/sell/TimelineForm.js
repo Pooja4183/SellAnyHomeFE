@@ -13,6 +13,8 @@ import Sellstyle from "./WhoAreYouForm.module.css";
 
 const TimelineForm = ({
   houseWorthInfo,
+  whoAreYouInfo,
+  listingPlatformInfo,
   timelineInfo,
   handleTimelineChange,
 }) => {
@@ -35,8 +37,8 @@ const TimelineForm = ({
           <FormControl>
           <Stack direction="column" spacing={2}>
             <RadioGroup
-              aria-labelledby="demo-controlled-radio-buttons-group"
-              name="controlled-radio-buttons-group"
+              aria-labelledby="duration"
+              name="duration"
               value={timelineInfo.address}
               onChange={handleTimelineChange}
             >

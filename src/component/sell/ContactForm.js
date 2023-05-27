@@ -22,10 +22,27 @@ const ContactForm = ({
 }) => {
   function handleSubmit(event) {
     event.preventDefault();
+    handleContactChange(event);
+    const formData =  {
+      address: houseWorthInfo.address,
+        sellerType: whoAreYouInfo.sellerType,
+        isListed: listingPlatformInfo.isListed,
+        duration: timelineInfo.duration,
+        type: propertyDetailInfo.type,
+        beds: propertyDetailInfo.beds,
+        baths:propertyDetailInfo.baths,
+        size: propertyDetailInfo.size,
+        yearBuilt: propertyDetailInfo.yearBuilt,
+        price: propertyDetailInfo.price,
+        name: contactInfo.name,
+        email: contactInfo.email,
+        phone: contactInfo.phone,
+    }
+
+    console.log("Form Data::", formData)
   }
 
   return (
-    <>
       <Grid container className={Sellstyle.formstyleform}>
         <NestedRightGrid
           title={"Is This The Correct Address? If Not Click Here?"}
@@ -35,38 +52,37 @@ const ContactForm = ({
         <Typography variant="subtitle1" gutterBottom sx={{paddingBottom:'4%', textAlign:'left'}}>
        Enter your information to get a call in minutes.
       </Typography>
-        <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
           <Grid
             container
             rowSpacing={2}
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             columns={{ xs: 12, sm: 4, md: 4, lg:4 }}
-        
-          >
-           
+             
+            >
+
            
             <Grid item xs={12} md={3}>
               <StyledFormControl fullWidth>
-                <StyledTextField id="outlined-basic" label="Your Full Name"  className={textStyle.inputStyle} />
+                <StyledTextField id="name" label="Your Full Name"  className={textStyle.inputStyle} name="name" onInput={handleContactChange}/>
               </StyledFormControl>
             </Grid>
             <Grid item xs={12} md={3}>
               <StyledFormControl fullWidth>
-                 <StyledTextField id="outlined-basic" label="Email" variant="outlined" className={textStyle.inputStyle} />
+                 <StyledTextField id="email" label="Email" variant="outlined" className={textStyle.inputStyle}  type="email" name="email"   onInput={handleContactChange} />
                
               </StyledFormControl>
             </Grid>
             <Grid item xs={12} md={3}>
               <StyledFormControl fullWidth>
-                <StyledTextField id="outlined-basic" label="Phone" variant="outlined" className={textStyle.inputStyle} />
+                <StyledTextField id="phone" label="Phone" variant="outlined" className={textStyle.inputStyle}  name="phone"   onInput={handleContactChange}/>
               </StyledFormControl>
             </Grid>
           </Grid>
-
           <StyledButton type="submit" variant="outlined">
               I'am Interested
             </StyledButton>
-        </form>
+          </form>
           
         </NestedLeftGrid>
       </Grid>
@@ -77,7 +93,6 @@ const ContactForm = ({
 
       
      
-    </>
   );
 };
 

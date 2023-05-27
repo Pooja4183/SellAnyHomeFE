@@ -5,8 +5,6 @@ import ContactForm from "./ContactForm";
 import PropertyDetailForm from "./PropertyDetailForm";
 import TimelineForm from "./TimelineForm";
 import WhoAreYouForm from "./WhoAreYouForm";
-import HouseWorthForm from "./HouseWorthForm";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const SellForm = () => {
   const [houseWorth, setHouseWorth] = useState({
@@ -26,8 +24,8 @@ const SellForm = () => {
 
   const [propertyDetail, setPropertyDetail] = useState({
     type: "",
-    beds: 0,
-    baths: 0,
+    beds: 1,
+    baths: 1,
     size: 0,
     yearBuilt: 0,
     price: 0.0,
@@ -39,17 +37,8 @@ const SellForm = () => {
     phone: "",
   });
 
-  const handleHouseWorthChange = (event) => {
-    const { name, value } = event.target;
-   
-    setHouseWorth({ ...houseWorth, [name]: value });
-    console.log("HouseWorth", houseWorth)
-  };
-
   const handleWhoAreYouChange = (event) => {
     const { name, value } = event.target;
-    console.log("Event Name", name, ":", value);
-    //setHouseWorth({ ...houseWorth, [name]: value });
     setWhoAreYou({ ...whoAreYou, [name]: value });
   };
 
@@ -63,7 +52,7 @@ const SellForm = () => {
     setTimeline({ ...timeline, [name]: value });
   };
 
-  const handleProperttDetailChange = (event) => {
+  const handlePropertyDetailChange = (event) => {
     const { name, value } = event.target;
     setPropertyDetail({ ...propertyDetail, [name]: value });
   };
@@ -108,13 +97,13 @@ const SellForm = () => {
             <WhoAreYouForm
               houseWorthInfo={houseWorth}
               whoAreYouInfo={whoAreYou}
-              handleHouseWorthChange={handleHouseWorthChange}
               handleWhoAreYouChange={handleWhoAreYouChange}
             />
           </Route>
           <Route path="/sell-landing/listingplatform" exact>
             <ListingPlatformForm
               houseWorthInfo={houseWorth}
+              whoAreYouInfo={whoAreYou}
               listingPlatformInfo={listingPlatform}
               handleListingPlatformChange={handleListingPlatformChange}
             />
@@ -122,15 +111,20 @@ const SellForm = () => {
           <Route path="/sell-landing/timeline" exact>
             <TimelineForm
               houseWorthInfo={houseWorth}
+              whoAreYouInfo={whoAreYou}
+              listingPlatformInfo={listingPlatform}
               timelineInfo={timeline}
               handleTimelineChange={handleTimelineChange}
             />
           </Route>
           <Route path="/sell-landing/propertyDetail" exact>
             <PropertyDetailForm
-              houseWorthInfo={houseWorth}
+               houseWorthInfo={houseWorth}
+               whoAreYouInfo={whoAreYou}
+               listingPlatformInfo={listingPlatform}
+               timelineInfo={timeline}
               propertyDetailInfo={propertyDetail}
-              handleProperttDetailChange={handleProperttDetailChange}
+              handlePropertyDetailChange={handlePropertyDetailChange}
             />
           </Route>
           <Route path="/sell-landing/contact" exact>
