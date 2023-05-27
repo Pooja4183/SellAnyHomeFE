@@ -21,61 +21,68 @@ const ListProducts = ({ title }) => {
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
-          sx={{paddingLeft:1, paddingBottom:4 }}
+          sx={{ paddingLeft: 1, paddingBottom: 4 }}
         >
-          <Typography variant="h4" component="h4" sx={{fontFamily:'Cooper Std'}}>
+          <Typography
+            variant="h4"
+            component="h4"
+            sx={{ fontFamily: "Cooper Std" }}
+          >
             {title}
           </Typography>
-          
         </Grid>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
-          
         >
-           {productListing.map((product) => (
-         
-            <Grid xs={12} sm={6} md={4} lg={4}   >
-             
-                <Card className={style.cardBorder}>
-                  <CardActionArea sx={{borderRadius:'none!important'}}>
-                    <Link to={"/product/" + product.id}>
-                      <CardMedia
-                        component="img"
-                        height="240"
-                        image={product.img1}
-                        alt="green iguana"
-                      />
-                    </Link>
-                    <CardContent sx={{paddingLeft:'0'}}>
-                     
-                    <Typography variant="subtitle2" color="text.secondary" sx={{ display: 'flex', justifyContent: 'space-between', color:'black' }}>
-  <span>INR {product.price}</span>
-  <span>{`${product.bed} Bed | ${product.bath} Bath | ${product.sqFt} SqFt`}</span>
-</Typography>
+          {productListing.map((product) => (
+            <Grid xs={12} sm={6} md={4} lg={4}>
+              <Card className={style.cardBorder}>
+                <CardActionArea sx={{ borderRadius: "none!important" }}>
+                  <Link to={"/product/" + product.id}>
+                    <CardMedia
+                      component="img"
+                      height="240"
+                      image={product.img1}
+                      alt="green iguana"
+                    />
+                  </Link>
+                  <CardContent sx={{ paddingLeft: "0" }}>
+                    <Typography
+                      variant="subtitle2"
+                      color="text.secondary"
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        color: "black",
+                      }}
+                    >
+                      <span>AED {product.price}</span>
+                      <span>{`${product.bed} Bed | ${product.bath} Bath | ${product.sqFt} SqFt`}</span>
+                    </Typography>
 
-                      <Typography gutterBottom variant="caption" component="div">
-                       
-                       {product.address}, {product.city}
-                   
-                   </Typography>
-                   <Typography gutterBottom variant="caption" component="div"sx={{color:'blue'}}>
-                       
+                    <Typography gutterBottom variant="caption" component="div">
+                      {product.address}, {product.city}
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      variant="caption"
+                      component="div"
+                      sx={{ color: "blue" }}
+                    >
                       Apartment For Sale
-                   
-                   </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-             
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
             </Grid>
-           ))}
+          ))}
         </Grid>
       </Box>
     )
   );
-}
+};
 
 export default ListProducts;
 

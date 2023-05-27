@@ -22,7 +22,6 @@ const Banner = () => {
   useEffect(()=> {
     if(isSubmitted) {
       let uri = "/buy-list?search="+address;
-      console.log("URI", uri);
       history.push(uri);
     }
 
@@ -38,7 +37,7 @@ const Banner = () => {
        
         <div className={styles.luxeryHeader}>
           <form onSubmit={handleSubmit}>
-          <h2 text>Find The Perfect</h2>
+          <h2>Find The Perfect</h2>
           <h1>Luxury Home</h1>
           <label className={styles.label}>
             <input

@@ -13,6 +13,7 @@ import Sellstyle from "./WhoAreYouForm.module.css";
 
 const ListingPlatformForm = ({
   houseWorthInfo,
+  whoAreYouInfo,
   listingPlatformInfo,
   handleListingPlatformChange,
 }) => {
@@ -35,7 +36,7 @@ const ListingPlatformForm = ({
             <FormControl>
               <RadioGroup
                 aria-labelledby="demo-controlled-radio-buttons-group"
-                name="controlled-radio-buttons-group"
+                name="isListed"
                 value={listingPlatformInfo.address}
                 onChange={handleListingPlatformChange}
               >
