@@ -10,9 +10,8 @@ import NestedRightGrid from "../custom/NestedRightGrid";
 import NestedLeftGrid from "../custom/NestedLeftGrid";
 import Sellstyle from "./WhoAreYouForm.module.css";
 import PropertyDetail from '../../master.json';
-import TextField from '@mui/material/TextField';
 import textStyle from './PropertyDetailForm.module.css';
-import { Input } from "@mui/material";
+import StyledTextField from "../custom/StyledTextField";
 
 
 
@@ -137,18 +136,18 @@ const PropertyDetailForm = ({
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <TextField id="outlined-basic" label=" Property Size"  className={textStyle.inputStyle} />
+                <StyledTextField id="outlined-basic" label=" Property Size"  className={textStyle.inputStyle} />
               </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                 <TextField id="outlined-basic" label="Year Built" variant="outlined" className={textStyle.inputStyle} />
+                 <StyledTextField id="outlined-basic" label="Year Built" variant="outlined" className={textStyle.inputStyle} />
                
               </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <TextField id="outlined-basic" label="Ask Price" variant="outlined" className={textStyle.inputStyle} />
+                <StyledTextField id="outlined-basic" label="Ask Price" variant="outlined" className={textStyle.inputStyle} />
               </StyledFormControl>
             </Grid>
           </Grid>

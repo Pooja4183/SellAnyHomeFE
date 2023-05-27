@@ -5,9 +5,8 @@ const StyledButton = styled(Button)`
   width: fit-content;
   border: 1px solid rgb(0, 0, 222);
   border-radius:20px;
-  width:15%;
   margin-top:2%;
-  padding: 12px 60px;
+  padding: 15px 30px;
   font-size: small;
   text-transform: capitalize;
   color:black;

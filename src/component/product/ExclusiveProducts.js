@@ -4,6 +4,8 @@ import { fetchExclusiveProducts } from "../../store/productAction";
 import ListProducts from "./ListProducts";
 import { Container } from "react-bootstrap";
 import style from "./product.module.css";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 
 const ExclusiveProducts = () => {
   const dispatch = useDispatch();
@@ -13,10 +15,22 @@ const ExclusiveProducts = () => {
   }, [dispatch]);
 
   return (
-    <Container fluid className={style.produtCont}>
-      
-      <ListProducts title="Our Exclusive Homes" />
-    </Container>
+
+<Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={3}  className={style.headinExclusive}>
+        
+       
+        <Grid item xs={12} >
+          
+        <ListProducts title="Our Exclusive Homes"/>
+        </Grid>
+        
+      </Grid>
+    </Box>
+
+
+
+    
   );
 };
 
