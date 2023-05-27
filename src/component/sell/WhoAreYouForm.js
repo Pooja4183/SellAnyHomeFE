@@ -27,7 +27,6 @@ const WhoAreYouForm = ({
   function handleSubmit(event) {
     event.preventDefault();
     houseWorthInfo.address = houseWorth;
-    console.log("HouseWorth:", houseWorthInfo)
     history.push("/sell-landing/listingplatform");
   }
 
