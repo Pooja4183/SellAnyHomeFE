@@ -1,5 +1,5 @@
 import styles from "../bannerStyle.module.css";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import banerimg from "../../images/banner_sellAnyHome.jpg";
 import { useHistory } from "react-router-dom";
 

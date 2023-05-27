@@ -22,7 +22,6 @@ const Banner = () => {
   useEffect(()=> {
     if(isSubmitted) {
       let uri = "/buy-list?search="+address;
-      console.log("URI", uri);
       history.push(uri);
     }
 
