@@ -1,0 +1,21 @@
+.filterStyle{
+    padding-top: 0px !important;
+}
+
+.filterinput label{
+    margin: auto;
+
+}
+
+.filterinput Label{
+    margin-top: 0px !important;
+    padding: 2% 5%;
+
+}
+
+.filterStyle button{
+    padding: 0% 10% !important;
+    font-size: small;
+    text-transform: capitalize;
+    height: 100% !important;
+}
