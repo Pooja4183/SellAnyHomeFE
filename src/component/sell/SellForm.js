@@ -24,8 +24,8 @@ const SellForm = () => {
 
   const [propertyDetail, setPropertyDetail] = useState({
     type: "",
-    beds: 1,
-    baths: 1,
+    beds: "",
+    baths: "",
     size: 0,
     yearBuilt: 0,
     price: 0.0,

@@ -23,6 +23,8 @@ const ListingPlatformForm = ({
     event.preventDefault();
     history.push("/sell-landing/timeline");
   }
+
+  const isFormValid = listingPlatformInfo.isListed !== "";
   return (
       <Grid container className={Sellstyle.formstyleform}>
       <NestedRightGrid
@@ -54,7 +56,7 @@ const ListingPlatformForm = ({
                   label="No"
                 />
               </RadioGroup>
-              <StyledButton type="submit" variant="outlined">
+              <StyledButton type="submit" variant="outlined"  disabled={!isFormValid}>
                 Next
               </StyledButton>
             </FormControl>

@@ -40,6 +40,11 @@ const ContactForm = ({
     console.log("Form Data::", formData);
   }
 
+  const isFormValid =  contactInfo.name !== "" 
+  && contactInfo.email !== "" 
+  && contactInfo.phone !== "" ;
+
+
   return (
     <Grid container className={Sellstyle.formstyleform}>
       <NestedRightGrid
@@ -47,7 +52,7 @@ const ContactForm = ({
         value={houseWorthInfo.address}
       />
       <NestedLeftGrid
-        title={"We'd Love To Connect Width You"}
+        title={"We'd Love To Connect With You"}
         sx={{ paddingBottom: "50px" }}
       >
         <Typography
@@ -101,7 +106,7 @@ const ContactForm = ({
               </StyledFormControl>
             </Grid>
           </Grid>
-          <StyledButton type="submit" variant="outlined">
+          <StyledButton type="submit" variant="outlined"   disabled={!isFormValid}>
             I'am Interested
           </StyledButton>
         </form>

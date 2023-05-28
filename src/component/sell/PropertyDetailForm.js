@@ -9,11 +9,9 @@ import StyledSelect from "../custom/StyledSelect";
 import NestedRightGrid from "../custom/NestedRightGrid";
 import NestedLeftGrid from "../custom/NestedLeftGrid";
 import Sellstyle from "./WhoAreYouForm.module.css";
-import PropertyDetail from '../../master.json';
-import textStyle from './PropertyDetailForm.module.css';
+import PropertyDetail from "../../master.json";
+import textStyle from "./PropertyDetailForm.module.css";
 import StyledTextField from "../custom/StyledTextField";
-
-
 
 const PropertyDetailForm = ({
   houseWorthInfo,
@@ -30,7 +28,14 @@ const PropertyDetailForm = ({
     history.push("/sell-landing/contact");
   };
 
-   return (
+  const isFormValid =  propertyDetailInfo.type !== "" 
+                      && propertyDetailInfo.beds !== "" 
+                      && propertyDetailInfo.baths !== "" 
+                      && propertyDetailInfo.yearBuilt !== "" 
+                      && propertyDetailInfo.size !== "" 
+                      && propertyDetailInfo.price !== "";
+
+  return (
     <Grid container className={Sellstyle.formstyleform}>
       <NestedRightGrid
         title={"Is This The Correct Address? If Not Click Here?"}
@@ -59,11 +64,11 @@ const PropertyDetailForm = ({
                   onChange={handlePropertyDetailChange}
                   name="type"
                 >
-                {PropertyDetail.propertyType.map((property) => (
+                  {PropertyDetail.propertyType.map((property) => (
                     <MenuItem key={property.id} value={property.name}>
                       {property.name}
                     </MenuItem>
-                     ))}
+                  ))}
                 </StyledSelect>
               </StyledFormControl>
             </Grid>
@@ -80,11 +85,12 @@ const PropertyDetailForm = ({
                   onChange={handlePropertyDetailChange}
                   name="beds"
                 >
-                 {PropertyDetail.beds.map((bed) => (
+               
+                  {PropertyDetail.beds.map((bed) => (
                     <MenuItem key={bed.id} value={bed.name}>
                       {bed.name}
                     </MenuItem>
-                     ))}
+                  ))}
                 </StyledSelect>
               </StyledFormControl>
             </Grid>
@@ -101,8 +107,9 @@ const PropertyDetailForm = ({
                   onChange={handlePropertyDetailChange}
                   name="baths"
                 >
+                  
                   {PropertyDetail.baths.map((bath) => (
-                    <MenuItem key={bath.id} value={bath.name} >
+                    <MenuItem key={bath.id} value={bath.name}>
                       {bath.name}
                     </MenuItem>
                   ))}
@@ -111,23 +118,46 @@ const PropertyDetailForm = ({
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <StyledTextField id="outlined-basic" label=" Property Size"  className={textStyle.inputStyle}  onChange={handlePropertyDetailChange} name="size"/>
+                <StyledTextField
+                  id="outlined-basic"
+                  label=" Property Size"
+                  className={textStyle.inputStyle}
+                  onChange={handlePropertyDetailChange}
+                  name="size"
+                />
               </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                 <StyledTextField id="outlined-basic" label="Year Built" variant="outlined" className={textStyle.inputStyle}  onChange={handlePropertyDetailChange} name="yearBuilt"/>
-               
+                <StyledTextField
+                  id="outlined-basic"
+                  label="Year Built"
+                  variant="outlined"
+                  className={textStyle.inputStyle}
+                  onChange={handlePropertyDetailChange}
+                  name="yearBuilt"
+                />
               </StyledFormControl>
             </Grid>
             <Grid item xs={6} md={3}>
               <StyledFormControl fullWidth>
-                <StyledTextField id="outlined-basic" label="Ask Price" variant="outlined" className={textStyle.inputStyle}  onChange={handlePropertyDetailChange} name="price"/>
+                <StyledTextField
+                  id="outlined-basic"
+                  label="Ask Price"
+                  variant="outlined"
+                  className={textStyle.inputStyle}
+                  onChange={handlePropertyDetailChange}
+                  name="price"
+                />
               </StyledFormControl>
             </Grid>
           </Grid>
 
-          <StyledButton type="submit" variant="outlined">
+          <StyledButton
+            type="submit"
+            variant="outlined"
+            disabled={!isFormValid}
+          >
             Submit
           </StyledButton>
         </form>

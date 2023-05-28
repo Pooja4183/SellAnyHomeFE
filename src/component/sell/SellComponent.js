@@ -16,6 +16,8 @@ const SellComponent = () => {
     history.push("/sell-landing?houseWorth=" + houseWorthInfo);
   };
 
+  const isFormValid = houseWorthInfo.trim() !== "";
+
   return (
     <div
       className={styles.banner}
@@ -34,7 +36,7 @@ const SellComponent = () => {
               value={houseWorthInfo.address}
               onChange={handleHouseWorthChange}
             />
-            <button type="submit" className={styles.button}>
+            <button type="submit" className={styles.button} disabled={!isFormValid}>
               Estimate
             </button>
           </label>

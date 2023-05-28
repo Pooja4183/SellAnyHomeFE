@@ -24,6 +24,7 @@ const TimelineForm = ({
     event.preventDefault();
     history.push("/sell-landing/propertydetail");
   }
+  const isFormValid = timelineInfo.duration !== "";
 
   return (
     <Grid container className={Sellstyle.formstyleform}>
@@ -66,7 +67,7 @@ const TimelineForm = ({
               </Stack>
             </RadioGroup>
 
-            <StyledButton type="submit" variant="outlined">
+            <StyledButton type="submit" variant="outlined"  disabled={!isFormValid}>
               Next
             </StyledButton>
             </Stack>

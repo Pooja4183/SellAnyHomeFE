@@ -29,6 +29,7 @@ const WhoAreYouForm = ({
     houseWorthInfo.address = houseWorth;
     history.push("/sell-landing/listingplatform");
   }
+  const isFormValid = whoAreYouInfo.sellerType !== "";
 
   return (
     <Grid container className={Sellstyle.formstyleform}>
@@ -41,7 +42,7 @@ const WhoAreYouForm = ({
           <FormControl>
             <Stack direction="column" spacing={2}>
               <RadioGroup
-                name="whoAreYou"
+                name="sellerType"
                 value={whoAreYouInfo.value}
                 onChange={handleWhoAreYouChange}
               >
@@ -64,7 +65,7 @@ const WhoAreYouForm = ({
                 </Stack>
               </RadioGroup>
 
-              <StyledButton type="submit" variant="outlined">
+              <StyledButton type="submit" variant="outlined"  disabled={!isFormValid}>
                 Next
               </StyledButton>
             </Stack>
