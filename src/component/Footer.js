@@ -1,62 +1,63 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
+import Logo from "../images/SAH_Images/tomor_adobe_express.svg";
+import { Grid, Typography } from "@mui/material";
 
 const Footer = () => {
-  return (
-    <div className='container-fluid bg-black mb-0'>
-      <footer className='d-flex flex-wrap justify-content-between align-items-center p-3 my-0 border-top'>
-        <div className='col-md-4 d-flex align-items-center'>
-          <a
-            href='/'
-            className='mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1'
-          >
-            <img
-              src='/logo.png'
-              width='30'
-              height='30'
-              className='d-inline-block align-top'
-              alt='Sellanyhome'
-            />
-          </a>
-          <span className='text-muted'>&copy; 2023 Company, Inc</span>
-        </div>
+  const pages = [
+    "About Us",
+    "Team",
+    "Careers",
+    "Help",
+    "Term of Use",
+    "Contact Us",
+  ];
+  const social = [
+    "Facebook",
+    "Twitter",
+    "Instagram",
+    "LinkedIn",
+    "YouTube",
+    "PInterest",
+  ];
 
-        <ul className='nav col-md-4 justify-content-end list-unstyled d-flex'>
-          <li>
-            <a className='text-muted' href='/twitter/sellanyhome'>
+  return (
+    <>
+      <Grid
+        container
+        spacing={2}
+        justifyContent="center"
+        alignItems="center"
+        sx={{ height: "100%", textAlign: "center" }}
+      >
+        <Grid item xs={12} md={12} lg={12}>
+          <Typography>
+            <Link to={`/`}>
               <img
-                src='/Twitter.png'
-                width='20'
-                height='20'
-                className='d-inline-block align-top'
-                alt='twitter'
+                src={Logo}
+                style={{ height: "100%", objectFit: "contain", width: "30%" }}
+                alt="Tomorrow.luxury property"
               />
-            </a>
-          </li>
-          <li className='ms-3'>
-            <a className='text-muted' href='/facebook/sellanyhome'>
-              <img
-                src='/facebook.png'
-                width='20'
-                height='20'
-                className='d-inline-block align-top'
-                alt='facebook'
-              />
-            </a>
-          </li>
-          <li className='ms-3'>
-            <a className='text-muted' href='/instagram/sellanyhome'>
-              <img
-                src='/insta.png'
-                width='20'
-                height='20'
-                className='d-inline-block align-top'
-                alt='insta'
-              />
-            </a>
-          </li>
-        </ul>
-      </footer>
-    </div>
+            </Link>
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={12} lg={12}>
+          {pages.map((page) => (
+            <Link to={`/${page.toLowerCase()}`}>{page}&nbsp; &nbsp;</Link>
+          ))}
+        </Grid>
+        <Grid item xs={12} md={12} lg={12}>
+          {social.map((page) => (
+            <Link to={`/${page.toLowerCase()}`}>{page}&nbsp; | </Link>
+          ))}
+        </Grid>
+        <Grid item xs={12} md={12} lg={12}>
+          <Typography variant="p">
+            DO NOT SELL MY PERSONAL INFORMATION
+          </Typography>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 
