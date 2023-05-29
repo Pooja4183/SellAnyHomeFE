@@ -64,3 +64,28 @@ export const searchAndFilter = (formData) => async (dispatch) => {
     console.log("Searched products...", response);
     dispatch(productActions.getProducts({ products: response.data.property || [] }));
 };
+
+
+export const createProduct = (formData) => async (dispatch) => {
+  try {
+    const response = await backendAPI.post('/property', formData);
+    console.log("Success1")
+    dispatch(createProductSuccess(response.data));
+   
+  } catch (error) 
+  {
+    console.log("Failure1")
+    dispatch(createProductFailure(error.message));
+
+  }
+};
+
+export const createProductSuccess = (product) => ({
+  type: 'CREATE_PRODUCT_SUCCESS',
+  payload: product,
+});
+
+export const createProductFailure = (error) => ({
+  type: 'CREATE_PRODUCT_FAILURE',
+  payload: error,
+});

@@ -8,6 +8,8 @@ import StyledTextField from "../custom/StyledTextField";
 import textStyle from "./PropertyDetailForm.module.css";
 import StyledFormControl from "../custom/StyledFormControl";
 import Typography from "@mui/material/Typography";
+import { useDispatch, useSelector } from "react-redux";
+import { createProduct } from "../../store/productAction";
 
 const ContactForm = ({
   houseWorthInfo,
@@ -18,6 +20,10 @@ const ContactForm = ({
   contactInfo,
   handleContactChange,
 }) => {
+
+  const dispatch = useDispatch();
+  const { error } = "";//useSelector((state) => state.product);
+
   function handleSubmit(event) {
     event.preventDefault();
     handleContactChange(event);
@@ -26,10 +32,10 @@ const ContactForm = ({
       sellerType: whoAreYouInfo.sellerType,
       isListed: listingPlatformInfo.isListed,
       duration: timelineInfo.duration,
-      type: propertyDetailInfo.type,
-      beds: propertyDetailInfo.beds,
-      baths: propertyDetailInfo.baths,
-      size: propertyDetailInfo.size,
+      homeType: propertyDetailInfo.type,
+      bed: propertyDetailInfo.beds,
+      bath: propertyDetailInfo.baths,
+      sqFt: propertyDetailInfo.size,
       yearBuilt: propertyDetailInfo.yearBuilt,
       price: propertyDetailInfo.price,
       name: contactInfo.name,
@@ -38,6 +44,7 @@ const ContactForm = ({
     };
 
     console.log("Form Data::", formData);
+    dispatch(createProduct(formData));
   }
 
   const isFormValid =  contactInfo.name !== "" 
@@ -109,6 +116,7 @@ const ContactForm = ({
           <StyledButton type="submit" variant="outlined"   disabled={!isFormValid}>
             I'am Interested
           </StyledButton>
+          {error && <p>Error: {error}</p>}
         </form>
       </NestedLeftGrid>
     </Grid>

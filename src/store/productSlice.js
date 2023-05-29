@@ -5,7 +5,8 @@ const initialState = {
   product: null,
   page:0,
   pageSize:0,
-  records:0
+  records:0,
+  error: null
 };
 
 const productSlice = createSlice({
@@ -33,7 +34,23 @@ const productSlice = createSlice({
     },
     searchAndFilter(state,action) {
 
-    }
+    },
+
+    createProductSuccess(state, action){
+      console.log("Success")
+      state.product =  action.payload;
+      state.error = null; 
+    },
+
+ 
+    createProductFailure(state, action) {
+      state.product = null;
+      state.error = action.payload;
+      console.log("Failure")
+    },
+    
+
+
   },
 });
 
