@@ -30,7 +30,7 @@ export default function Neighburhood() {
   }, []);
 
   return (
-    <div>
+    <>
       <div>
         {position ? (
           <div>
@@ -41,11 +41,11 @@ export default function Neighburhood() {
         )}
       </div>
 
-      <Box sx={{ flexGrow: 1 }}>
+      <Box >
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 1, sm: 8, md: 12 }}
+          columns={{ xs: 1, sm: 8, md: 15 }}
           className={styles.Nabour}
         >
           <Grid container spacing={2}>
@@ -81,8 +81,9 @@ export default function Neighburhood() {
               </Item>
             </Grid>
           ))}
+      
         </Grid>
       </Box>
-    </div>
+    </>
   );
 }
