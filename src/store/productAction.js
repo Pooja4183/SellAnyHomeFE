@@ -33,8 +33,8 @@ export const fetchExclusiveProducts = () => async (dispatch) => {
 };
 
 export const fetchProductsById = (id) => (dispatch) => {
-  let nid = parseInt(id);
-  dispatch(productActions.getProductById({ id: nid }));
+ // let nid = parseInt(id);
+  dispatch(productActions.getProductById({ id: id }));
 };
 
 // export const setProducts = (products) => {
