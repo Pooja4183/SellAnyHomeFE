@@ -28,12 +28,13 @@ class App extends Component {
           <Route path='/feedback' exact>
             <Feedback />
           </Route>
+          <Route path='/property/:id' exact>
+            <Product />
+          </Route>
           <Route path='/' exact>
             <Home />
           </Route>
-          <Route path='/product/:id' exact>
-            <Product />
-          </Route>
+        
         </Switch>
       </>
 

@@ -40,7 +40,7 @@ const ListProducts = ({ title }) => {
             <Grid xs={12} sm={6} md={4} lg={4}>
               <Card className={style.cardBorder}>
                 <CardActionArea sx={{ borderRadius: "none!important" }}>
-                  <Link to={"/product/" + product.id}>
+                  <Link to={"/property/" + product._id}>
                     <CardMedia
                       component="img"
                       height="240"
