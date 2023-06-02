@@ -6,7 +6,7 @@ import ProductDetail from '../component/product/ProductDetail';
 const Product = () => {
   return (
     <>
-      <Header />
+      <Header showSearch={true}/>
       <ProductDetail />
       <Footer />
     </>

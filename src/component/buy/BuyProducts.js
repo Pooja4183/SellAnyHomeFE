@@ -266,6 +266,19 @@ const BuyList = () => {
       <Grid item xs={12} sx={{ padding: "0% 7%" }}>
         <ListProducts />
       </Grid>
+      <TablePagination
+                component="div"
+                count={count}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                getItemAriaLabel={defaultGetAriaLabel}
+                labelDisplayedRows={labelDisplayedRows}
+                labelRowsPerPage=""
+                rowsPerPageOptions={[]}
+                name="page"
+              />
     </Box>
   );
 };
