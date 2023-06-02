@@ -69,9 +69,9 @@ const ListProducts = ({ title }) => {
                       gutterBottom
                       variant="caption"
                       component="div"
-                      sx={{ color: "blue" }}
+                      sx={{ color: "blue", textTransform:'capitalize' }}
                     >
-                      Apartment For Sale
+                      {product.homeType} for sale
                     </Typography>
                   </CardContent>
                 </CardActionArea>

@@ -8,10 +8,11 @@ padding: 5% 10% 2% 10%;
 
 .offer{
 
-padding: 5%;
+padding:0% 10% 5% 10%;
 text-align: left;
 
 }
+
 
 .offerContent {
 
@@ -30,5 +31,21 @@ color: #404040;
     color: blue;
     font-size: small;
     font-weight: bold;
+    position: relative;
+    
+    
+}
+
+.step p:after{
+    content: "";
+    display: block;
+    width: 50px;
+    height: 2px;
+    background: darkgray;
+    left: 0;
+    top: 50%;
+    position: absolute;
+    right: 0.5em;
+  margin-left:-20%;
     
 }

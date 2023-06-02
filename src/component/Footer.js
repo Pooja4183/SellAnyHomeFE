@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../images/SAH_Images/tomor_adobe_express.svg";
+import Logo from "../images/SAH_Images/tomo._adobe.svg";
 import { Grid, Typography } from "@mui/material";
 
 const Footer = () => {
