@@ -32,7 +32,7 @@ padding: 3% 10% ;
     .propertyImg{
        display: block; 
        width: 100%;
-    height: auto;
+    height: 150px;
     margin: 0 auto;
     }
 
@@ -53,4 +53,10 @@ padding: 3% 10% ;
         padding-bottom: 0px !important;
         padding-top: 0px !important;;
                     
+                }
+
+                .content p{
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    font-family: Verdana, Geneva, Tahoma, sans-serif;
                 }

@@ -39,10 +39,10 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar
-      sx={{ backgroundColor: "transparent", position: "absolute" }}
+      sx={{ backgroundColor: "transparent", position: "absolute",}}
       className={styles.appbarShadow}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" className={styles.headerPadding}>
         <Toolbar disableGutters>
           <Link to={`/`}>
             <img

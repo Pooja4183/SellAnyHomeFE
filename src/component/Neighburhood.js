@@ -5,7 +5,18 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import styles from "./Neighburhood.module.css";
-import propertyImg from "../images/neighbor.jpg";
+
+import downtown from "../images/SAH_Images/downtown dubai.jpg";
+import dubaiHill from "../images/SAH_Images/dubai hill.jpeg";
+import emirates from "../images/SAH_Images/emirates hills.jpg";
+import dubaiMarina from "../images/SAH_Images/dubai marina.jpg";
+import jumeirah from "../images/SAH_Images/jumeirah-1_uBRSD_xl.jpg";
+import palmJumeirah from "../images/SAH_Images/palm jume.jpg";
+
+const imagePaths = [emirates, downtown, dubaiHill, dubaiMarina, jumeirah, palmJumeirah];
+
+const cityNames = [ "Dubai Hills", "Downtown Dubai","Emirates Hills","Dubai Marina", "Jumeirah", "Palm Jumeirah"];
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -66,17 +77,17 @@ export default function Neighburhood() {
               </Grid>
             </Grid>
           </Grid>
-          {Array.from(Array(6)).map((_, index) => (
+          {imagePaths.map((image, index) => (
             <Grid item xs={2} sm={4} md={4} key={index}>
               <Item sx={{ padding: 0 }} className={styles.property}>
                 {/* <img src={`path/to/image-${index}.jpg`} alt={`Image ${index}`} /> */}
                 <img
-                  alt="neighborhood"
-                  src={propertyImg}
+                   alt={`neighborhood-${index}`}
+                   src={image}
                   className={styles.propertyImg}
                 />
                 <div className={styles.content}>
-                  <p>Cities nearby.</p>
+                  <p>{cityNames[index]}</p>
                 </div>
               </Item>
             </Grid>

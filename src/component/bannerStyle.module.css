@@ -76,6 +76,13 @@ font-size: 14px;
   }
  
 
+  .headerPadding{
+
+    padding: 1% 4%;
+  }
+
+
+
   @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     .luxeryHeader {
       width: auto;
