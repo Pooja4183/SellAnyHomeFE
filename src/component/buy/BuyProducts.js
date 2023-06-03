@@ -102,8 +102,8 @@ const BuyList = () => {
   return (
     <Box
       sx={{
-        marginTop: "5%",
-        marginBottom: "5%",
+        marginTop: "110px",
+        marginBottom: "0%",
       }}
     >
       <form onSubmit={handleSubmit} >
@@ -114,7 +114,6 @@ const BuyList = () => {
             padding: "1% 10%",
             borderBottom: "0.5px solid #decebd",
             justifyContent: "center",
-            
             borderTop: "0.5px solid #decebd",
           }}
         >
@@ -159,7 +158,7 @@ const BuyList = () => {
             </FormControl>
           </Grid>
           <Grid item xs={2} className={styles.filterStyle}>
-            <FormControl fullWidth>
+            <FormControl fullWidth className={styles.formstyle}>
               <StyledInputLabel id="demo-simple-select-label">
                 No Min Price
               </StyledInputLabel>
@@ -170,7 +169,6 @@ const BuyList = () => {
                 label="MinPrice"
                 onChange={handleChange}
                 name="minPrice"
-                className={styles.filterinput}
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -184,7 +182,7 @@ const BuyList = () => {
             </FormControl>
           </Grid>
           <Grid item xs={2} className={styles.filterStyle}>
-            <FormControl fullWidth>
+            <FormControl fullWidth className={styles.formstyle}>
               <StyledInputLabel id="demo-simple-select-label">
                 No Max Price
               </StyledInputLabel>
@@ -208,7 +206,7 @@ const BuyList = () => {
             </FormControl>
           </Grid>
           <Grid item xs={2} className={styles.filterStyle}>
-            <Button type="submit" variant="outlined">
+            <Button type="submit" variant="outlined" className={styles.formstyle}>
               Update Search
             </Button>
           </Grid>

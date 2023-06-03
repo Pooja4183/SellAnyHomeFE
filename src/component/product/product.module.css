@@ -1,211 +1,199 @@
+.gridStyling{
+
+padding: 0%;
+}
 .ProductDetailContainer{
 
-  border-top: 2px solid lightgray;
-  padding-top: 0%;
+border-top: 2px solid lightgray;
+padding-top: 0%;
+
+}
+
+.ProperryTytle{
+  margin:0% 5%;
+
+
+}
+
+.carouselStyle{
+  width: 100%;
+  height: 600px;
+
+ 
+}
+.agent img{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+
+}
+
+.agentContainer{
+
+  padding: 0% 5%;
+
+}
+
+.gridStyling p,h3{
+  text-align: left;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 2%;
+}
+ 
+.agentBorder{
+
+border-bottom: 1px solid grey;
+
+}
+
+
+
+.headinExclusive{
+
+  padding: 2% 10%;
+  };
+
+
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .cardBorder{
+    box-shadow: none !;
   }
-  
-  .ProperryTytle{
-    padding: 0% 4%;
-  }
-  
-  .carouselStyle{
-    width: 100%;
-    height: 700px;
-   
-  }
+
+
+
+.rounded {
+  margin-left: 1%;
+}
+.proTtile {
+  font-size: 16px;
+  margin-top: inherit;
+  font-weight: 500;
+  color: #282c3f;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.proTtile a {
+  color: #282c3f;
+}
+.proText {
+  font-size: 16px;
+  font-weight: 400;
+  color: #535766;
+  float: left;
+}
+.colpadding {
+  padding: 0% 1% 0% 1%;
+}
+.pro {
+  font-size: 16px;
+  font-weight: 400;
+  color: #535766;
+  float: right;
+}
+
+.thin {
+  border: none !important;
+ 
+}
+
+.feed {
+  text-align: center;
+}
+
+.about {
+  margin-top: 8%;
+}
+
+.imageHeight {
+  height: 500px;
+  width: 150px;
+}
+.cardImage {
+ 
+width: 100%;
+display: block; 
+height: auto;
+margin: 0 auto;
+padding: 0%;
+border-radius: 0% !important;
+}
+.imgInside {
+  width: 100%;
+  max-height: 200px;
+}
+.produtCont h2 {
+ font-weight: bold;
+ margin-bottom: 5%;
+ padding-left: 1%;
+
+}
+
+
+.produtRow {
+ padding: 0% 10%;
+}
+
+.cardI{
+
+  border-radius: 0px !important;
+}
+
+
+
+
+@media only screen and (min-width: 960px) {
+  /* styles for browsers larger than 960px; */
   .agent img{
     width: 150px;
     height: 150px;
     border-radius: 50%;
   
   }
-  
-  .agentContainer{
-  
-    padding: 2% 5%;
-  
-  }
-  
-  .gridStyling p{
-    text-align: left;
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-   
-  .agentBorder{
-  padding-left: 5%;
-  padding-right: 5%;
-  border-bottom: 1px solid grey;
-  
-  }
-  
-  
-  
-  .headinExclusive{
-  
-    padding: 2% 10%;
-    };
-  
-    .cardBorder{
-      box-shadow: none !important;
-      border: none;
-    }
-  
-
-
-.rounded {
-    margin-left: 1%;
-  }
-  .proTtile {
-    font-size: 16px;
-    margin-top: inherit;
-    font-weight: 500;
-    color: #282c3f;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .proTtile a {
-    color: #282c3f;
-  }
-  .proText {
-    font-size: 16px;
-    font-weight: 400;
-    color: #535766;
-    float: left;
-  }
-  .colpadding {
-    padding: 0% 1% 0% 1%;
-  }
-  .pro {
-    font-size: 16px;
-    font-weight: 400;
-    color: #535766;
-    float: right;
-  }
-  
-  .thin {
-    border: none !important;
-   
-  }
-  
-  .feed {
-    text-align: center;
-  }
-  
-  .about {
-    margin-top: 8%;
-  }
-  
-  .imageHeight {
-    height: 500px;
-    width: 150px;
-  }
-  .cardImage {
-   
+}
+@media only screen and (min-width: 1440px) {
+  /* styles for browsers larger than 1440px; */
+}
+@media only screen and (min-width: 2000px) {
+  /* for sumo sized (mac) screens */
+}
+@media only screen and (max-device-width: 480px) {
+ /* styles for mobile browsers smaller than 480px; (iPhone) */
+ .carouselStyle{
   width: 100%;
-  display: block; 
-  height: auto;
-  margin: 0 auto;
-  padding: 0%;
-  border-radius: 0% !important;
-  }
-  .imgInside {
-    width: 100%;
-    max-height: 200px;
-  }
-  .produtCont h2 {
-   font-weight: bold;
-   margin-bottom: 5%;
-   padding-left: 1%;
-  
-  }
-  
-  
-  .produtRow {
-   padding: 0% 10%;
-  }
-  
-  .cardI{
-  
-    border-radius: 0px !important;
-  }
-  
-  .headinExclusive{
-  
-padding: 2% 10%;
-  }
-  
-  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-    .imageHeight {
-      height: 150px;
-      margin-top: 12%;
-    }
-    .feed {
-      text-align: center;
-    }
-  
-    .proHeading {
-      margin-top: 5%;
-      margin-left: 0.5rem;
-      font-size: 18px;
-    }
-    .produtCont {
-      padding-left: 0px;
-      padding-right: 0px;
-      background-color: blue;
-    }
-  
-    .produtRow {
-      margin-top: 1%;
-    }
-  
-    .colpadding {
-      margin-top: 4%;
-      border-radius: 0% !important;
-    }
-  
-    .cardBody {
-      padding: 2%;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-    }
-    .thinCard {
-      height: 320px;
-    }
-    .cardImage {
-      height: auto;
-      width: 100%;
-      position: absolute;
-      bottom: 20%;
-      padding: 2%;
-    }
-  
-    .proTtile {
-      font-weight: 500;
-      line-height: 1.57;
-      text-align: left;
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .proText {
-      font-size: 13px;
-      font-weight: 400;
-    }
-  
-    .pro {
-      font-size: 13px;
-      font-weight: 400;
-    }
-  } 
+  height: 300px !important;
+}
+.agent img{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 
-  .cardBorder{
-    box-shadow: none !important;
-    border-radius: 0% !important;
-  }
-  
-  
+}
+
+}
+@media only screen and (device-width: 768px) {
+ /* default iPad screens */
+}
+/* different techniques for iPad screening */
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+/* For portrait layouts only */
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+/* For landscape layouts only */
+}
+

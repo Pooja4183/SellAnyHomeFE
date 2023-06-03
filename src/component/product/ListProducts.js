@@ -38,18 +38,16 @@ const ListProducts = ({ title }) => {
         >
           {productListing.map((product) => (
             <Grid xs={12} sm={6} md={4} lg={4}>
-               <Link to={"/property/" + product._id}>
               <Card className={style.cardBorder}>
-             
                 <CardActionArea sx={{ borderRadius: "none!important" }}>
-                 
+                  <Link to={"/property/" + product._id}>
                     <CardMedia
                       component="img"
                       height="240"
                       image={product.img1}
                       alt="green iguana"
                     />
-                  
+                  </Link>
                   <CardContent sx={{ paddingLeft: "0" }}>
                     <Typography
                       variant="subtitle2"
@@ -78,7 +76,6 @@ const ListProducts = ({ title }) => {
                   </CardContent>
                 </CardActionArea>
               </Card>
-              </Link>
             </Grid>
           ))}
         </Grid>
@@ -88,3 +85,33 @@ const ListProducts = ({ title }) => {
 };
 
 export default ListProducts;
+
+// <Container fluid className={style.produtCont}>
+// <Row className={style.headinExclusive}> <Col><h2>{title}</h2></Col></Row>
+// <Row xs={2} md={3} className='g-4 mx-2 produtRow'>
+//   {productListing.map((product) => (
+//     <Col className={style.colpadding} key={product.id}>
+//       <Card  className={style.thinCard}>
+//         <Card.Body className={style.cardImage} >
+//           <Link to={'/product/' + product.id}>
+//             <Card.Img  src={product.img1} className={style.cardI}   />
+//           </Link>
+//         </Card.Body>
+
+//         <Card.Footer className={style.cardBody}  >
+//           <Card.Title className={style.proTtile}  >
+//             {' '}
+//             <Link to={'/product/' + product.id}>
+//               {product.title}
+//             </Link>{' '}
+//           </Card.Title>
+//           <Card.Text>
+//             <span className={style.protext}> INR {product.price}</span>
+//             <span className={style.pro}>{product.bed} Bed | {product.bath} Bath | {product.sqFt} SqFt  </span>
+//           </Card.Text>
+//         </Card.Footer>
+//       </Card>
+//     </Col>
+//   ))}
+// </Row>
+// </Container>

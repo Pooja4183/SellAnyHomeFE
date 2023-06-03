@@ -82,6 +82,7 @@ function ResponsiveAppBar({showSearch}) {
                 display: "flex",
                 alignItems: "center",
                 width: 400,
+                marginLeft:'15%'
               }}
               onSubmit={handleSubmit}
             >
