@@ -1,4 +1,4 @@
-import * as React from "react";
+import {React, useState, useEffect} from "react";
 import Grid from "@mui/material/Grid";
 import Sellstyle from "./WhoAreYouForm.module.css";
 import StyledButton from "../custom/StyledButton";
@@ -22,29 +22,45 @@ const ContactForm = ({
 }) => {
 
   const dispatch = useDispatch();
+  const [isSubmitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    address: houseWorthInfo.address,
+    sellerType: whoAreYouInfo.sellerType,
+    isListed: listingPlatformInfo.isListed,
+    duration: timelineInfo.duration,
+    homeType: propertyDetailInfo.type,
+    bed: propertyDetailInfo.beds,
+    bath: propertyDetailInfo.baths,
+    sqFt: propertyDetailInfo.size,
+    yearBuilt: propertyDetailInfo.yearBuilt,
+    price: propertyDetailInfo.price,
+    name: contactInfo.name,
+    email: contactInfo.email,
+    phone: contactInfo.phone,
+  });
   const { error } = "";//useSelector((state) => state.product);
+
+  useEffect(() => {
+    console.log("Form Data name::", formData.name);
+    if(isFormValid) {
+      dispatch(createProduct(formData));
+    }
+   
+  }, [dispatch, isSubmitted]);
 
   function handleSubmit(event) {
     event.preventDefault();
     handleContactChange(event);
-    const formData = {
-      address: houseWorthInfo.address,
-      sellerType: whoAreYouInfo.sellerType,
-      isListed: listingPlatformInfo.isListed,
-      duration: timelineInfo.duration,
-      homeType: propertyDetailInfo.type,
-      bed: propertyDetailInfo.beds,
-      bath: propertyDetailInfo.baths,
-      sqFt: propertyDetailInfo.size,
-      yearBuilt: propertyDetailInfo.yearBuilt,
-      price: propertyDetailInfo.price,
+    setFormData({
+      ...formData,
       name: contactInfo.name,
       email: contactInfo.email,
       phone: contactInfo.phone,
-    };
+    });
 
     console.log("Form Data::", formData);
-    dispatch(createProduct(formData));
+   
+    setSubmitted(true);
   }
 
   const isFormValid =  contactInfo.name !== "" 
@@ -77,6 +93,7 @@ const ContactForm = ({
             columns={{ xs: 12, sm: 4, md: 4, lg: 4 }}
           >
             <Grid item xs={12} md={3}>
+           
               <StyledFormControl fullWidth>
                 <StyledTextField
                   id="name"
@@ -117,7 +134,9 @@ const ContactForm = ({
             I'am Interested
           </StyledButton>
           {error && <p>Error: {error}</p>}
+          {isSubmitted && (<Typography variant="p" component="p" sx={{color:'green'}}>Thanks for your Interest! Our Agent will connect with you soon!</Typography>)}
         </form>
+       
       </NestedLeftGrid>
     </Grid>
   );
