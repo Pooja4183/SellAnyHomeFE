@@ -31,7 +31,9 @@ const productSlice = createSlice({
       console.log("Fetching Id", action.payload.id);
       state.product = state.products.find(
         (element) => element._id === action.payload.id
+       
       );
+      console.log("Fetched::", state.product);
     },
     searchAndFilter(state,action) {
 

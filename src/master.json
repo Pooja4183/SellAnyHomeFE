@@ -1,65 +1,176 @@
 {
-    "propertyType": [
-      { "id": "Bunglow", "name": "Bunglow" },
-      { "id": "Apartment", "name": "Apartment" },
-      { "id":  "Townhouse", "name": "Townhouse" },
-      { "id": "Co-op", "name": "Co-op" },
-      { "id":  "Other", "name": "Other" }
-
+  "propertyType": [
+    {
+      "id": "Bunglow",
+      "name": "Bunglow"
+    },
+    {
+      "id": "Apartment",
+      "name": "Apartment"
+    },
+    {
+      "id": "Townhouse",
+      "name": "Townhouse"
+    },
+    {
+      "id": "Co-op",
+      "name": "Co-op"
+    },
+    {
+      "id": "Other",
+      "name": "Other"
+    }
+  ],
+  "beds": [
+    {
+      "id": 1,
+      "name": 1
+    },
+    {
+      "id": 2,
+      "name": 2
+    },
+    {
+      "id": 3,
+      "name": 3
+    },
+    {
+      "id": 4,
+      "name": 4
+    },
+    {
+      "id": 5,
+      "name": 5
+    }
+  ],
+  "baths": [
+    {
+      "id": 1,
+      "name": 1
+    },
+    {
+      "id": 2,
+      "name": 2
+    },
+    {
+      "id": 3,
+      "name": 3
+    },
+    {
+      "id": 4,
+      "name": 4
+    },
+    {
+      "id": 5,
+      "name": 5
+    }
+  ],
+  "minPrice": [
+    {
+      "id": 1000,
+      "name": 1000
+    },
+    {
+      "id": 2000,
+      "name": 2000
+    },
+    {
+      "id": 3000,
+      "name": 3000
+    },
+    {
+      "id": 4000,
+      "name": 4000
+    },
+    {
+      "id": 5000,
+      "name": 5000
+    },
+    {
+      "id": 6000,
+      "name": 6000
+    },
+    {
+      "id": 7000,
+      "name": 7000
+    },
+    {
+      "id": 8000,
+      "name": 8000
+    },
+    {
+      "id": 9000,
+      "name": 9000
+    }
+  ],
+  "maxPrice": [
+    {
+      "id": 1000,
+      "name": 1000
+    },
+    {
+      "id": 2000,
+      "name": 2000
+    },
+    {
+      "id": 3000,
+      "name": 3000
+    },
+    {
+      "id": 4000,
+      "name": 4000
+    },
+    {
+      "id": 5000,
+      "name": 5000
+    },
+    {
+      "id": 6000,
+      "name": 6000
+    },
+    {
+      "id": 7000,
+      "name": 7000
+    },
+    {
+      "id": 8000,
+      "name": 8000
+    },
+    {
+      "id": 9000,
+      "name": 9000
+    },
+    {
+      "id": 10000,
+      "name": 10000
+    }
+  ],
+  "sortBy": [
+    {
+      "id": "Recommended",
+      "name": "Recommended"
+    },
+    {
+      "id": "Popular",
+      "name": "Popular"
+    },
+    {
+      "id": "High",
+      "name": "High To Low"
+    },
+    {
+      "id": "Low",
+      "name": "Low to High"
+    }
+  ],
+  "neighbourhood": {
+    "cityNames": [
+      "Dubai Hills",
+      "Downtown Dubai",
+      "Emirates Hills",
+      "Dubai Marina",
+      "Jumeirah",
+      "Palm Jumeirah"
     ]
-  ,
-
-  
-    "beds": [
-      { "id": 1, "name": 1 },
-      { "id": 2, "name": 2 },
-      { "id": 3, "name": 3 },
-      { "id": 4, "name": 4 },
-      { "id": 5, "name": 5 }
-    ]
-  ,
-
-  
-    "baths": [
-      { "id": 1, "name": 1 },
-      { "id": 2, "name": 2 },
-      { "id": 3, "name": 3 },
-      { "id": 4, "name": 4 },
-      { "id": 5, "name": 5 }
-    ],
-  
-    "minPrice": [
-      { "id": 1000, "name": 1000 },
-      { "id": 2000, "name": 2000 },
-      { "id": 3000, "name": 3000 },
-      { "id": 4000, "name": 4000 },
-      { "id": 5000, "name": 5000 },
-      { "id": 6000, "name": 6000 },
-      { "id": 7000, "name": 7000 },
-      { "id": 8000, "name": 8000 },
-      { "id": 9000, "name": 9000 }
-    ],
-    "maxPrice": [
-      { "id": 1000, "name": 1000 },
-      { "id": 2000, "name": 2000 },
-      { "id": 3000, "name": 3000 },
-      { "id": 4000, "name": 4000 },
-      { "id": 5000, "name": 5000 },
-      { "id": 6000, "name": 6000 },
-      { "id": 7000, "name": 7000 },
-      { "id": 8000, "name": 8000 },
-      { "id": 9000, "name": 9000 },
-      { "id": 10000, "name": 10000 }
-    ],
-
-    "sortBy": [
-      { "id": "Recommended", "name": "Recommended" },
-      { "id": "Popular", "name": "Popular" },
-      { "id": "High", "name": "High To Low" },
-      { "id": "Low", "name": "Low to High" }
-    ]
-  
-   
-
+  }
 }
-
