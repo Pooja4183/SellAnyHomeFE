@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import styles from "./Neighburhood.module.css";
 import { Link } from "react-router-dom";
 
+import Master from './../master.json';
 import downtown from "../images/SAH_Images/downtown dubai.jpg";
 import dubaiHill from "../images/SAH_Images/dubai hill.jpeg";
 import emirates from "../images/SAH_Images/emirates hills.jpg";
@@ -16,8 +17,7 @@ import palmJumeirah from "../images/SAH_Images/palm jume.jpg";
 
 const imagePaths = [emirates, downtown, dubaiHill, dubaiMarina, jumeirah, palmJumeirah];
 
-const cityNames = [ "Dubai Hills", "Downtown Dubai","Emirates Hills","Dubai Marina", "Jumeirah", "Palm Jumeirah"];
-
+const cityNames = Master.neighbourhood.cityNames;
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
