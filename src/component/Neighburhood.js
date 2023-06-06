@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import styles from "./Neighburhood.module.css";
+import { Link } from "react-router-dom";
 
 import downtown from "../images/SAH_Images/downtown dubai.jpg";
 import dubaiHill from "../images/SAH_Images/dubai hill.jpeg";
@@ -79,6 +80,7 @@ export default function Neighburhood() {
           </Grid>
           {imagePaths.map((image, index) => (
             <Grid item xs={2} sm={4} md={4} key={index}>
+               <Link to={"/buy-list?search=" + cityNames[index]}>
               <Item sx={{ padding: 0 }} className={styles.property}>
                 {/* <img src={`path/to/image-${index}.jpg`} alt={`Image ${index}`} /> */}
                 <img
@@ -90,6 +92,7 @@ export default function Neighburhood() {
                   <p>{cityNames[index]}</p>
                 </div>
               </Item>
+              </Link>
             </Grid>
           ))}
       
