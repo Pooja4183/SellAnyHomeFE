@@ -1,9 +1,7 @@
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import * as React from "react";
@@ -15,6 +13,7 @@ import agentImage from "../../images/SAH_Images/agentProfile.png";
 import { fetchProductsById } from "../../store/productAction";
 import styles from "./product.module.css";
 import OLMap from "../custom/Map";
+import ContactForm from "../buy/ContactForm";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -29,6 +28,7 @@ const ProductDetail = () => {
   const { id } = useParams();
   const product = useSelector((state) => state.products.product);
   const dispatch = useDispatch();
+ 
 
   useEffect(() => {
     dispatch(fetchProductsById(id));
@@ -206,40 +206,7 @@ const ProductDetail = () => {
               md={5}
               sx={{ display: "flex", justifyContent: "center" }}
             >
-              <Box
-                sx={{
-                  width: 400,
-                  maxWidth: "100%",
-                  margin: 1,
-                  borderTop: 0.5,
-                }}
-              >
-                <Stack
-                  spacing={2}
-                  sx={{ width: 380, marginTop: 5, marginLeft: 1 }}
-                >
-                  <Typography
-                    variant="h6"
-                    sx={{ textAlign: "left", fontWeight: "bold" }}
-                  >
-                    CONTACT TEAM(S)
-                  </Typography>
-
-                  <TextField fullWidth label="Name" id="fullWidth" />
-                  <TextField fullWidth label="Email" id="fullWidth" />
-                  <TextField fullWidth label="Phone" id="fullWidth" />
-                  <TextField
-                    fullWidth
-                    label="i would like to gain more information about..."
-                    id="fullWidth"
-                    multiline
-                    rows={4}
-                  />
-                </Stack>
-                <Button variant="outlined" sx={{ marginTop: 2, marginLeft: 1 }}>
-                  Send Message
-                </Button>
-              </Box>
+              <ContactForm/>
             </Grid>
           </Grid>
         </Grid>

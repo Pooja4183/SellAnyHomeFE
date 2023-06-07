@@ -28,14 +28,14 @@ const Footer = () => {
         spacing={2}
         justifyContent="center"
         alignItems="center"
-        sx={{ height: "100%", textAlign: "center" }}
+        sx={{ height: "100%", textAlign: "center", borderTop: 1, borderColor: "lightgray", marginTop: 15 }}
       >
         <Grid item xs={12} md={12} lg={12}>
           <Typography>
             <Link to={`/`}>
               <img
                 src={Logo}
-                style={{ height: "100%", objectFit: "contain", width: "30%" }}
+                style={{ height: "100%", objectFit: "contain", width: "25%" }}
                 alt="Tomorrow.luxury property"
               />
             </Link>
