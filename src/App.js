@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import Home from './pages/Home';
-import Feedback from './pages/Feedback';
 import { Route, Switch } from 'react-router-dom';
 import Product from './pages/Product';
 import Sell from './pages/Sell';
@@ -25,9 +24,7 @@ class App extends Component {
           <Route path='/buy-list' exact>
             <Buy />
           </Route>
-          <Route path='/feedback' exact>
-            <Feedback />
-          </Route>
+         
           <Route path='/property/:id' exact>
             <Product />
           </Route>
