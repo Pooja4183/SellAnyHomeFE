@@ -13,13 +13,12 @@
 
   .luxeryHeader {
     width: auto;
-    margin: 18% 20% 20% 20%;
+    margin: 15% 20% 20% 20%;
   }
   
 
   .banner .luxeryHeader h2{
 
-    margin: 0 10px;
     justify-content: center;
     align-items: center;
     font-weight: bold;
@@ -32,37 +31,11 @@
 
    
     color: white;
-    margin: 0 10px;
     
   }
 
-  .bannerinput{
-    height: 50px;
-    width: 500px;
-    margin: 10px;
-    padding: 0 16px;
-    border: none;
-    box-sizing: border-box;
-    background-color: white;
 
-  }
-
-  .button{
-font-size: 14px;
-    cursor: pointer;
-    margin: 10px;
-    padding: 0 16px;
-    border: none;
-    position: absolute;
-    letter-spacing: 2px;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    text-transform: uppercase;
-   background-color:slateblue;
-   color: black;
-
-  }
+  
 
   label{
     position: relative;
