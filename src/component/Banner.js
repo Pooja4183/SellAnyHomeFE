@@ -50,12 +50,20 @@ const Banner = () => {
   const TextItem = styled(TextField)(({ theme }) => ({
     backgroundColor:'white',
     border: 0,
+    borderRadius:0,
     "& .MuiInputLabel-root": {
      
       marginTop:0
     },
     
-
+    "& .Mui-focused": {
+      borderRadius: 0,
+      color:'black',
+      border:'none',
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderRadius: 0
+    }
     
   
     
@@ -64,14 +72,13 @@ const Banner = () => {
   const ButtonStyling = styled(Button)(({ theme }) => ({
     fontSize: '14px',
     cursor: 'pointer',
-    margin: '10px',
     padding:'0 10%',
     border: 'none',
-    letterSpacing:' 2px',
-    textTransform: 'uppercase',
+    letterSpacing:'2px',
    backgroundColor:'slateblue',
    color: 'white',
-
+   borderRadius: 0,
+   textTransform:'uppercase',
    
     
   }));
@@ -87,7 +94,7 @@ const Banner = () => {
 
         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
  
-    <Grid item xs={2} sm={12} md={12}>
+    <Grid item xs={4} sm={6} md={12}>
       <Item className={styles.luxeryHeader}>
       <h2>Find The Perfect</h2>
       <h1>Luxury Home</h1>
@@ -100,8 +107,8 @@ const Banner = () => {
         marginTop:'3%'
       }}
     >
-       <Stack spacing={2} direction="row" variant="form"  onSubmit={handleSubmit}>
-      <TextItem fullWidth label="Address Neighborhood" id="fullWidth"  value={address}  onChange={inputEvent} />
+       <Stack spacing={2} direction="row" variant="form" onSubmit={handleSubmit}>
+      <TextItem fullWidth label="Address Neighborhood" id="fullWidth"  value={address}  onChange={inputEvent}  size="small" />
       {errors.address && <span className="error">{errors.address}</span>}
       <ButtonStyling variant="outlined" type="submit" >Search</ButtonStyling>
     </Stack>

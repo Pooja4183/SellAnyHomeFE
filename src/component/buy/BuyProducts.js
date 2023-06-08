@@ -4,6 +4,7 @@ import { fetchProducts } from "../../store/productAction";
 import ListProducts from "../product/ListProducts";
 import styles from "./BuyProduct.module.css";
 import StyledInputLabel from "../custom/StyledInputLabel";
+import Item from '@mui/material/Grid';
 
 import {
   FormControl,
@@ -127,6 +128,7 @@ const BuyList = () => {
               onChange={handleChange}
               name="address"
               className={styles.filterinput}
+              size="small"
             />
           </Grid>
           <Grid item xs={2} className={styles.filterStyle}>
@@ -145,6 +147,7 @@ const BuyList = () => {
                 onChange={handleChange}
                 autoWidth
                 name="homeType"
+                size="small"
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -169,6 +172,7 @@ const BuyList = () => {
                 label="MinPrice"
                 onChange={handleChange}
                 name="minPrice"
+                size="small"
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -193,6 +197,7 @@ const BuyList = () => {
                 label="Age"
                 onChange={handleChange}
                 name="maxPrice"
+                size="small"
               >
                 <MenuItem value="">
                   <em>None</em>
@@ -232,14 +237,15 @@ const BuyList = () => {
             </Grid>
 
             <Grid item xs={2} sm={4} md={6} >
-              <Typography variant="h2" sx={{ textAlign: "center" }}>
+              <Item sx={{textAlign:'center'}}>   <h2>
                 {formData.search}
-              </Typography>
-              <Typography variant="h6" sx={{ textAlign: "center" }}>
+              </h2></Item>
+           
+              <Typography variant="subtitle1"  sx={{ textAlign: "center"}}>
                 Residential House For Sale
               </Typography>
             </Grid>
-            <Grid item xs={2} sm={4} md={3} sx={{ alignSelf: "flex-end" }}>
+            <Grid item xs={2} sm={4} md={3} sx={{ alignSelf: "flex-end" ,}}>
               Sort By
               <Select
                 labelId="sortby_select_label"
@@ -250,6 +256,8 @@ const BuyList = () => {
                 autoWidth
                 defaultValue={"Recommended"}
                 name="sort"
+                size="small"
+                sx={{ marginLeft:'10px'}}
               >
                 {PropertyDetail.sortBy.map((property) => (
                   <MenuItem key={property.id} value={property.name}>

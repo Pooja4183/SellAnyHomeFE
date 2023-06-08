@@ -90,6 +90,10 @@
 }
 @media only screen and (max-device-width: 480px) {
  /* styles for mobile browsers smaller than 480px; (iPhone) */
+ .luxeryHeader {
+  width: auto;
+  margin: 25% 5% 25% 5%;
+}
 
 
 }

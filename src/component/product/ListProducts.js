@@ -38,8 +38,8 @@ const ListProducts = ({ title }) => {
         >
           {productListing.map((product) => (
             <Grid xs={12} sm={6} md={4} lg={4}>
-              <Card className={style.cardBorder}>
-                <CardActionArea sx={{ borderRadius: "none!important" }}>
+              <Card sx={{ borderRadius: 0, boxShadow:'none'}}>
+                <CardActionArea>
                   <Link to={"/property/" + product._id}>
                     <CardMedia
                       component="img"

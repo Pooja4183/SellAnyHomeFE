@@ -44,7 +44,7 @@ export default function ResponsiveGrid() {
           </Grid>
 
         {Array.from(Array(3)).map((_, index) => (
-          <Grid item xs={2} sm={4} md={4} key={index} sx={{padding: 0}} >
+          <Grid item xs={12} sm={6} md={4} key={index} sx={{padding: 0}} >
 
 
             <Item  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' ,boxShadow:'none'}}>
