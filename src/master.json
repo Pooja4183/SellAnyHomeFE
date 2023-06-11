@@ -172,5 +172,31 @@
       "Jumeirah",
       "Palm Jumeirah"
     ]
-  }
+  },
+  "amenities": [
+    "Club House",
+    "Swimming Pool",
+    "Gym",
+    "Nearby Highways",
+    "Shopping Centers",
+    "Covered Parking",
+    "Lounge Terrace",
+    "Finished Basement",
+    "Terrace Garden",
+    "Bath Tub",
+    "Kids Playarea",
+    "Pet Garden"
+
+  ],
+  "isListed": [
+    "Yes",
+    "No"
+  ],
+  "duration":[
+    "ASAP",
+    "2-4 Weeks",
+    "4-6 Weeks",
+    "Check Estimate Offer"
+  ]
+
 }
