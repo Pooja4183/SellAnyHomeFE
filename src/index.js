@@ -16,19 +16,16 @@ const theme = createTheme({
     },
    
   },
-  textField: {
-    "& .MuiInputLabel-root": {
-      marginTop: 0,
+  components: {
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          marginTop: 0,
+        },
+      },
     },
-    "& .Mui-focused": {
-      borderRadius: 0,
-      color: "black",
-      border: "none",
-    },
-    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderRadius: 0,
-    },
-  }
+  },
+
 });
 
 const headingVariants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];

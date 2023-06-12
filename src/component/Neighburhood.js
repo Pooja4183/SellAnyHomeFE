@@ -14,6 +14,7 @@ import emirates from "../images/SAH_Images/emirates hills.jpg";
 import dubaiMarina from "../images/SAH_Images/dubai marina.jpg";
 import jumeirah from "../images/SAH_Images/jumeirah-1_uBRSD_xl.jpg";
 import palmJumeirah from "../images/SAH_Images/palm jume.jpg";
+import { Typography } from "@mui/material";
 
 const imagePaths = [emirates, downtown, dubaiHill, dubaiMarina, jumeirah, palmJumeirah];
 
@@ -63,7 +64,7 @@ export default function Neighburhood() {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Item sx={{ borderRadius: 0, boxShadow: "none" }}>
-                <h2>Find the Neighborhood For You</h2>
+                <Typography variant="h2">Find the Neighborhood For You</Typography>
               </Item>
               <Grid item xs={12}>
                 <Item

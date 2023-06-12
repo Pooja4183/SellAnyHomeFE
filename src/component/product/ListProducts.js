@@ -24,10 +24,7 @@ const ListProducts = ({ title }) => {
           sx={{ paddingLeft: 1, paddingBottom: 4 }}
         >
           <Typography
-            variant="h4"
-            component="h4"
-            sx={{ fontFamily: "Cooper Std" }}
-          >
+            variant="h2">
             {title}
           </Typography>
         </Grid>
