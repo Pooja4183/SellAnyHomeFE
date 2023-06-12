@@ -24,10 +24,7 @@ const ListProducts = ({ title }) => {
           sx={{ paddingLeft: 1, paddingBottom: 4 }}
         >
           <Typography
-            variant="h4"
-            component="h4"
-            sx={{ fontFamily: "Cooper Std" }}
-          >
+            variant="h2">
             {title}
           </Typography>
         </Grid>
@@ -38,8 +35,8 @@ const ListProducts = ({ title }) => {
         >
           {productListing.map((product) => (
             <Grid xs={12} sm={6} md={4} lg={4}>
-              <Card className={style.cardBorder}>
-                <CardActionArea sx={{ borderRadius: "none!important" }}>
+              <Card sx={{ borderRadius: 0, boxShadow:'none'}}>
+                <CardActionArea>
                   <Link to={"/property/" + product._id}>
                     <CardMedia
                       component="img"

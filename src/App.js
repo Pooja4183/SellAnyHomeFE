@@ -5,6 +5,7 @@ import Product from './pages/Product';
 import Sell from './pages/Sell';
 import SellLandingPage from './pages/SellLandingPage';
 import Buy from './pages/Buy';
+import Admin from './pages/Admin';
 
 class App extends Component {
   render() {
@@ -27,6 +28,9 @@ class App extends Component {
          
           <Route path='/property/:id' exact>
             <Product />
+          </Route>\
+          <Route path='/admin' exact>
+            <Admin />
           </Route>
           <Route path='/' exact>
             <Home />

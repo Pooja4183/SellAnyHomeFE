@@ -9,7 +9,6 @@ import Steps from "../component/Steps";
 const Sell = () => {
   return (
     <>
-      <Header />
       <SellComponent />
       <Steps />
       <ExclusiveProducts />

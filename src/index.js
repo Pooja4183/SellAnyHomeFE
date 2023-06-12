@@ -4,12 +4,44 @@ import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import { store } from './store/index';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+const theme = createTheme({
+  typography: {
+    variants: {
+      success: {
+        color: "green",
+      },
+      
+    },
+   
+  },
+  components: {
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          marginTop: 0,
+        },
+      },
+    },
+  },
+
+});
+
+const headingVariants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+
+headingVariants.forEach((variant) => {
+  theme.typography[variant] = {
+    fontFamily: 'Cooper Std, sans-serif', // Font family for the heading variant
+  };
+});
 
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
+    <ThemeProvider theme={theme}>
       <App />
+      </ThemeProvider>
     </Provider>
   </BrowserRouter>,
   document.getElementById('root')
