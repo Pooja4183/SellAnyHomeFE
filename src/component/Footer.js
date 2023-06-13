@@ -43,12 +43,12 @@ const Footer = () => {
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
           {pages.map((page) => (
-            <Link to={`/${page.toLowerCase()}`}>{page}&nbsp; &nbsp;</Link>
+            <Link key={page} to={`/${page.toLowerCase()}`}>{page}&nbsp; &nbsp;</Link>
           ))}
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
           {social.map((page) => (
-            <Link to={`/${page.toLowerCase()}`}>{page}&nbsp; | </Link>
+            <Link key={page} to={`/${page.toLowerCase()}`}>{page}&nbsp; | </Link>
           ))}
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
