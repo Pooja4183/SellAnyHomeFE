@@ -34,10 +34,10 @@ const ListProducts = ({ title }) => {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           {productListing.map((product) => (
-            <Grid xs={12} sm={6} md={4} lg={4}>
+            <Grid xs={12} sm={6} md={4} lg={4} key={product._id}>
               <Card sx={{ borderRadius: 0, boxShadow:'none'}}>
                 <CardActionArea>
-                  <Link to={"/property/" + product._id}>
+                  <Link to={"/property/" + product.id}>
                     <CardMedia
                       component="img"
                       height="240"

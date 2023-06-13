@@ -8,7 +8,7 @@ import StyledTextField from "../custom/StyledTextField";
 import textStyle from "./PropertyDetailForm.module.css";
 import StyledFormControl from "../custom/StyledFormControl";
 import Typography from "@mui/material/Typography";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createProduct } from "../../store/productAction";
 
 const ContactForm = ({
@@ -40,14 +40,6 @@ const ContactForm = ({
   });
   const { error } = "";//useSelector((state) => state.product);
 
-  useEffect(() => {
-    console.log("Form Data name::", formData.name);
-    if(isFormValid) {
-      dispatch(createProduct(formData));
-    }
-   
-  }, [dispatch, isSubmitted]);
-
   function handleSubmit(event) {
     event.preventDefault();
     handleContactChange(event);
@@ -59,8 +51,10 @@ const ContactForm = ({
     });
 
     console.log("Form Data::", formData);
-   
-    setSubmitted(true);
+    if(isFormValid) {
+      dispatch(createProduct(formData));
+      setSubmitted(true);
+    }
   }
 
   const isFormValid =  contactInfo.name !== "" 
