@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
+  Button,
   Checkbox,
   FormControlLabel,
   IconButton,
@@ -25,6 +26,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { alpha, styled } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 
@@ -167,7 +169,7 @@ function EnhancedTableHead(props) {
   );
 }
 
-const PropertyGrid = () => {
+const PropertyGrid = ({onPropertySelect}) => {
   const dispatch = useDispatch();
   const rows = useSelector((state) => state.admin.sellProducts);
 
@@ -195,6 +197,8 @@ const PropertyGrid = () => {
 
   const handleClick = (event, row) => {
     const selectedIndex = selected.indexOf(row);
+    console.log("Selected Index",selectedIndex, "Row::", row);
+    onPropertySelect(row);
     let newSelected = [];
 
     if (selectedIndex === -1) {
@@ -211,6 +215,7 @@ const PropertyGrid = () => {
     }
 
     setSelected(newSelected);
+    console.log("Selected::", selected);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -309,13 +314,16 @@ const PropertyGrid = () => {
                       selected={isItemSelected}
                     >
                       <StyledTableCell padding="checkbox">
-                        <Checkbox
+                        {/* <Checkbox
                           color="primary"
                           checked={isItemSelected}
                           inputProps={{
                             'aria-labelledby': labelId,
                           }}
-                        />
+                        /> */}
+                        <IconButton color="primary" aria-label='View'>
+                          <EditIcon/>
+                        </IconButton>
                       </StyledTableCell>
                       <StyledTableCell component="th" id={labelId} scope="row" padding="none">
                         {row.homeType}
