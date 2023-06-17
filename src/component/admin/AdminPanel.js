@@ -27,12 +27,12 @@ const AdminPanel = () => {
       }}
     >
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6} lg={6}>
           <Item  elevation={6}>
             <PropertyGrid onPropertySelect={setSelectedProperty}/>
           </Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}  sm={6} lg={6}>
           <Item elevation={6}>
             <PropertyForm selectedProperty={selectedProperty}/>
           </Item>

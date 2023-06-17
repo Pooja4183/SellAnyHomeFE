@@ -1,15 +1,18 @@
 import { initializeApp } from 'firebase/app';
+import {getStorage} from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCxAYMIBuHSRqkLebqD0BNFPLwAA_5Zuj0',
-  authDomain: 'sellanyhome-3e638.firebaseapp.com',
-  databaseURL: 'https://sellanyhome-3e638-default-rtdb.firebaseio.com',
-  projectId: 'sellanyhome-3e638',
-  storageBucket: 'sellanyhome-3e638.appspot.com',
-  messagingSenderId: '720798309186',
-  appId: '1:720798309186:web:013e15deea08ea466c06db',
+  apiKey: "AIzaSyDVObfYPR4_Uf29i1CtiPz4R746eIpYtMA",
+  authDomain: "sellanyhome-66c20.firebaseapp.com",
+  projectId: "sellanyhome-66c20",
+  storageBucket: "sellanyhome-66c20.appspot.com",
+  messagingSenderId: "681192197284",
+  appId: "1:681192197284:web:2c2f01c69ec016c2bbaa31"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+
+export {app, storage};
 export default app;
