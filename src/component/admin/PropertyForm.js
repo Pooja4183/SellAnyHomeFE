@@ -174,10 +174,10 @@ const PropertyForm = ({ selectedProperty }) => {
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={6} sm={6} spacing={6}>
+          <Grid item xs={6} sm={6}>
             <Stack spacing={3}>
               <TextField
-                label="ID"
+                label="ID (*match last 6 chars)"
                 name="ID"
                 value={formData.id}
                 onChange={handleChange}
