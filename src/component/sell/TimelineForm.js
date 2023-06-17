@@ -10,6 +10,7 @@ import NestedLeftGrid from "../custom/NestedLeftGrid";
 import Grid from "@mui/material/Grid";
 import StyledFormControlLabel from "../custom/StyledFormControlLabel";
 import Sellstyle from "./WhoAreYouForm.module.css";
+import PropertyMaster from "../../master.json";
 
 const TimelineForm = ({
   houseWorthInfo,
@@ -44,26 +45,15 @@ const TimelineForm = ({
               onChange={handleTimelineChange}
             >
                 <Stack direction="column" spacing={2}>
-              <StyledFormControlLabel
-                value="asap"
-                control={<Radio />}
-                label="ASAP"
-              />
-              <StyledFormControlLabel
-                value="2-4 weeks"
-                control={<Radio />}
-                label=" 2-4 Weeks"
-              />
-              <StyledFormControlLabel
-                value="4-6 weeks"
-                control={<Radio />}
-                label="4-6 Weeks"
-              />
-              <StyledFormControlLabel
-                value="check estimate offer"
-                control={<Radio/>}
-                label="Check Estimate Offer"
-              />
+                {PropertyMaster.duration.map((option) => (
+                    <StyledFormControlLabel
+                    value={option}
+                    control={<Radio />}
+                    label={option}
+                  />
+                 
+                ))}
+             
               </Stack>
             </RadioGroup>
 

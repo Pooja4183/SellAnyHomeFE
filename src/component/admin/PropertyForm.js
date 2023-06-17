@@ -387,7 +387,7 @@ const PropertyForm = ({ selectedProperty }) => {
               <InputLabel>Availability Duration</InputLabel>
               <Select
                 name="sellDuration"
-                value={formData.sellDuration}
+                value={PropertyMaster.duration.find((option) => formData.sellDuration.toLowerCase() === option.toLowerCase()) || ''}
                 onChange={handleChange}
                 required
                 size="small"
