@@ -132,10 +132,15 @@ const PropertyForm = ({ selectedProperty }) => {
     dispatch(createOrUpdateProduct(formData));
   };
 
-  const handleCheckboxChange = (value) => (e) => {
-    handleChange({
-      target: { name: "amenities", value, checked: e.target.checked },
-    });
+  const handleCheckboxChange = (value) => (event) => {
+    const { value, checked } = event.target;
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      amenities: checked
+        ? [...prevFormData.amenities, value] // add the selected option
+        : prevFormData.amenities.filter((option) => option !== value), // remove the deselected option
+    }));
   };
 
   const handleImageGalleryUpload = async (event) => {
@@ -403,12 +408,14 @@ const PropertyForm = ({ selectedProperty }) => {
           <Grid item>
             <BorderItem title="Amenities">
               <FormControl component="fieldset">
+                {console.log("Form Data",formData.amenities)}
+                {console.log("Master Data",PropertyMaster.amenities)}
                 <FormGroup>
                   <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
                     {PropertyMaster.amenities.map((option) => (
                       <Grid item xs={2} sm={4} md={4} key={option}>
                         <FormControlLabel
-                          key={option}
+                          key={'fcl'+option}
                           control={
                             <Checkbox
                               name="amenities"
