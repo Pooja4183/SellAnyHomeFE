@@ -16,7 +16,7 @@ const ListProducts = ({ title }) => {
 
   return (
     productListing && (
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, minHeight:'450px' }}>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}

@@ -13,7 +13,7 @@
 
   .luxeryHeader {
     width: auto;
-    margin: 15% 20% 20% 20%;
+    margin: 15% 40% 13% 15%;
   }
   
 
@@ -54,28 +54,39 @@
     padding: 1% 4%;
   }
 
+  .appbarShadow{
+
+    box-shadow: none !important;
+    border: none !important;
+  }
+
 
 
   @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
     .luxeryHeader {
       width: auto;
       margin: auto;
-
   }
 
   .bannerinput{
     width: 300px;
-   
 
+  }
+
+  .banner .luxeryHeader h2{
+ 
+    font-size: 26px;
+  }
+  
+  .banner .luxeryHeader h1{
+  
+    font-size: 46px;
   }
 
 }
 
-.appbarShadow{
 
-  box-shadow: none !important;
-  border: none !important;
-}
+
 
 
 @media only screen and (min-width: 960px) {

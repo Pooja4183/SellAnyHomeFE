@@ -23,7 +23,18 @@ const adminSlice = createSlice({
         state.error =  action.payload;
         state.sellProducts = [];
     },
-    
+    createOrUpdateProductSuccess(state, action){
+      console.log("Success")
+      state.product =  action.payload;
+      state.error = null; 
+    },
+
+ 
+    createOrUpdateProductFailure(state, action) {
+      state.product = null;
+      state.error = action.payload;
+      console.log("Failure")
+    },
   },
 });
 
