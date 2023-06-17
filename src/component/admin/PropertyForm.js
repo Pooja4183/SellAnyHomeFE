@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   TextField,
   Checkbox,
@@ -16,16 +16,17 @@ import {
   IconButton,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import { AttachFile } from '@mui/icons-material';
 import PropertyMaster from "../../master.json";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import { useEffect } from "react";
 import { grey, red } from "@mui/material/colors";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage} from "../../Firebase";
+import { storage } from "../../Firebase";
 import Gallery from "./Gallery";
 import { useDispatch } from "react-redux";
-import { createOrUpdateProduct } from '../../store/adminAction';
+import { createOrUpdateProduct } from "../../store/adminAction";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -143,14 +144,44 @@ const PropertyForm = ({ selectedProperty }) => {
     }));
   };
 
-  const handleImageGalleryUpload = async (event) => {
-    const file = selectedImage;
-    console.log("Files::", selectedImage);
+  const fileInputRef = useRef(null);
+
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const [previewAvatar, setPreviewAvatar] = useState(null);
+
+  const handleIconButtonClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleAvatarUpload = async (event) => {
+    const file = event.target.files[0];
+    setSelectedAvatar(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewAvatar(reader.result);
+    };
+    reader.readAsDataURL(file);
 
     const storageRef = ref(storage, file.name); // Create a reference to the storage location
     await uploadBytes(storageRef, file); // Upload the file to the storage location
     const imageUrl = await getDownloadURL(storageRef); // G
-    console.log("imageURL", imageUrl);
+    console.debug("Avatar URL", imageUrl);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      img1: imageUrl,
+    }));
+    console.debug("Form Data", formData);
+  };
+
+  const handleImageGalleryUpload = async (event) => {
+    const file = selectedImage;
+    console.debug("Files::", selectedImage);
+
+    const storageRef = ref(storage, file.name); // Create a reference to the storage location
+    await uploadBytes(storageRef, file); // Upload the file to the storage location
+    const imageUrl = await getDownloadURL(storageRef); // G
+    console.debug("imageURL", imageUrl);
     setFormData((prevFormData) => ({
       ...prevFormData,
       images: [...prevFormData.images, imageUrl],
@@ -203,6 +234,7 @@ const PropertyForm = ({ selectedProperty }) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Item>
+             
               <img
                 src={formData.img1}
                 alt=""
@@ -210,9 +242,25 @@ const PropertyForm = ({ selectedProperty }) => {
                 width="100%"
                 height="166"
               />
-              <EditIconButton>
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleAvatarUpload}
+              />
+              <label htmlFor="file-input">
+                <IconButton
+                  component="span"
+                  aria-label="Upload File"
+                  onClick={handleIconButtonClick}
+                >
+                  <AttachFile />
+                </IconButton>
+              </label>
+
+              {/* <EditIconButton onClick={handleAvatarUpload}>
                 <EditIcon />
-              </EditIconButton>
+              </EditIconButton> */}
             </Item>
           </Grid>
           <Grid item xs={12}>
@@ -392,7 +440,13 @@ const PropertyForm = ({ selectedProperty }) => {
               <InputLabel>Availability Duration</InputLabel>
               <Select
                 name="sellDuration"
-                value={PropertyMaster.duration.find((option) => formData.sellDuration.toLowerCase() === option.toLowerCase()) || ''}
+                value={
+                  PropertyMaster.duration.find(
+                    (option) =>
+                      formData.sellDuration.toLowerCase() ===
+                      option.toLowerCase()
+                  ) || ""
+                }
                 onChange={handleChange}
                 required
                 size="small"
@@ -408,14 +462,12 @@ const PropertyForm = ({ selectedProperty }) => {
           <Grid item>
             <BorderItem title="Amenities">
               <FormControl component="fieldset">
-                {console.log("Form Data",formData.amenities)}
-                {console.log("Master Data",PropertyMaster.amenities)}
                 <FormGroup>
                   <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
                     {PropertyMaster.amenities.map((option) => (
                       <Grid item xs={2} sm={4} md={4} key={option}>
                         <FormControlLabel
-                          key={'fcl'+option}
+                          key={"fcl" + option}
                           control={
                             <Checkbox
                               name="amenities"
@@ -451,7 +503,13 @@ const PropertyForm = ({ selectedProperty }) => {
                 />
               )}
               {selectedImage && (
-                <Button onClick={handleImageGalleryUpload}  variant="contained" color="secondary">Upload Image</Button>
+                <Button
+                  onClick={handleImageGalleryUpload}
+                  variant="contained"
+                  color="secondary"
+                >
+                  Upload Image
+                </Button>
               )}
             </div>
           </Grid>
