@@ -16,7 +16,7 @@ import {
   IconButton,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { AttachFile } from '@mui/icons-material';
+import { AttachFile } from "@mui/icons-material";
 import PropertyMaster from "../../master.json";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import { useEffect } from "react";
@@ -114,6 +114,7 @@ const PropertyForm = ({ selectedProperty }) => {
         ...prevFormData,
         ...selectedProperty,
       }));
+      console.log("Effect Form Data::", formData);
     }
   }, [selectedProperty]);
 
@@ -129,7 +130,7 @@ const PropertyForm = ({ selectedProperty }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Submit form logic here
-    console.log(formData);
+    console.log("Submitted",formData);
     dispatch(createOrUpdateProduct(formData));
   };
 
@@ -174,23 +175,36 @@ const PropertyForm = ({ selectedProperty }) => {
     console.debug("Form Data", formData);
   };
 
+  const fileInputGalleryRef = useRef(null);
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const handleGalleryIconButtonClick = () => {
+    fileInputGalleryRef.current.click();
+  };
+
   const handleImageGalleryUpload = async (event) => {
-    const file = selectedImage;
-    console.debug("Files::", selectedImage);
+    const file = event.target.files[0];
+    setSelectedImage(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewImage(reader.result);
+    };
+    reader.readAsDataURL(file);
 
     const storageRef = ref(storage, file.name); // Create a reference to the storage location
     await uploadBytes(storageRef, file); // Upload the file to the storage location
     const imageUrl = await getDownloadURL(storageRef); // G
-    console.debug("imageURL", imageUrl);
+    console.debug("Gallery URL", imageUrl);
     setFormData((prevFormData) => ({
       ...prevFormData,
       images: [...prevFormData.images, imageUrl],
-      //   img1: imageUrl, // Update the specific image field with the URL
     }));
+    console.debug("Form Data", formData);
   };
 
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -234,7 +248,6 @@ const PropertyForm = ({ selectedProperty }) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Item>
-             
               <img
                 src={formData.img1}
                 alt=""
@@ -257,10 +270,6 @@ const PropertyForm = ({ selectedProperty }) => {
                   <AttachFile />
                 </IconButton>
               </label>
-
-              {/* <EditIconButton onClick={handleAvatarUpload}>
-                <EditIcon />
-              </EditIconButton> */}
             </Item>
           </Grid>
           <Grid item xs={12}>
@@ -490,27 +499,22 @@ const PropertyForm = ({ selectedProperty }) => {
               <Gallery list={formData.images} />
             </BorderItem>
             <div>
+           
               <input
                 type="file"
-                accept="image/*"
-                onChange={handleImageChange}
+                ref={fileInputGalleryRef}
+                style={{ display: "none" }}
+                onChange={handleImageGalleryUpload}
               />
-              {previewImage && (
-                <img
-                  src={previewImage}
-                  alt="Preview"
-                  style={{ width: "300px" }}
-                />
-              )}
-              {selectedImage && (
-                <Button
-                  onClick={handleImageGalleryUpload}
-                  variant="contained"
-                  color="secondary"
+              <label htmlFor="file-input">
+                <IconButton
+                  component="span"
+                  aria-label="Upload File"
+                  onClick={handleGalleryIconButtonClick}
                 >
-                  Upload Image
-                </Button>
-              )}
+                  <AttachFile />
+                </IconButton>
+              </label> 
             </div>
           </Grid>
 
