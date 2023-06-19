@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   TextField,
   Checkbox,
@@ -16,16 +16,17 @@ import {
   IconButton,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import { AttachFile } from "@mui/icons-material";
 import PropertyMaster from "../../master.json";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import { useEffect } from "react";
 import { grey, red } from "@mui/material/colors";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage} from "../../Firebase";
+import { storage } from "../../Firebase";
 import Gallery from "./Gallery";
 import { useDispatch } from "react-redux";
-import { createOrUpdateProduct } from '../../store/adminAction';
+import { createOrUpdateProduct } from "../../store/adminAction";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -113,6 +114,7 @@ const PropertyForm = ({ selectedProperty }) => {
         ...prevFormData,
         ...selectedProperty,
       }));
+      console.log("Effect Form Data::", formData);
     }
   }, [selectedProperty]);
 
@@ -128,33 +130,81 @@ const PropertyForm = ({ selectedProperty }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Submit form logic here
-    console.log(formData);
+    console.log("Submitted",formData);
     dispatch(createOrUpdateProduct(formData));
   };
 
-  const handleCheckboxChange = (value) => (e) => {
-    handleChange({
-      target: { name: "amenities", value, checked: e.target.checked },
-    });
+  const handleCheckboxChange = (value) => (event) => {
+    const { value, checked } = event.target;
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      amenities: checked
+        ? [...prevFormData.amenities, value] // add the selected option
+        : prevFormData.amenities.filter((option) => option !== value), // remove the deselected option
+    }));
   };
 
-  const handleImageGalleryUpload = async (event) => {
-    const file = selectedImage;
-    console.log("Files::", selectedImage);
+  const fileInputRef = useRef(null);
+
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const [previewAvatar, setPreviewAvatar] = useState(null);
+
+  const handleIconButtonClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleAvatarUpload = async (event) => {
+    const file = event.target.files[0];
+    setSelectedAvatar(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewAvatar(reader.result);
+    };
+    reader.readAsDataURL(file);
 
     const storageRef = ref(storage, file.name); // Create a reference to the storage location
     await uploadBytes(storageRef, file); // Upload the file to the storage location
     const imageUrl = await getDownloadURL(storageRef); // G
-    console.log("imageURL", imageUrl);
+    console.debug("Avatar URL", imageUrl);
     setFormData((prevFormData) => ({
       ...prevFormData,
-      images: [...prevFormData.images, imageUrl],
-      //   img1: imageUrl, // Update the specific image field with the URL
+      img1: imageUrl,
     }));
+    console.debug("Form Data", formData);
   };
+
+  const fileInputGalleryRef = useRef(null);
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+
+  const handleGalleryIconButtonClick = () => {
+    fileInputGalleryRef.current.click();
+  };
+
+  const handleImageGalleryUpload = async (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(file);
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewImage(reader.result);
+    };
+    reader.readAsDataURL(file);
+
+    const storageRef = ref(storage, file.name); // Create a reference to the storage location
+    await uploadBytes(storageRef, file); // Upload the file to the storage location
+    const imageUrl = await getDownloadURL(storageRef); // G
+    console.debug("Gallery URL", imageUrl);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      images: [...prevFormData.images, imageUrl],
+    }));
+    console.debug("Form Data", formData);
+  };
+
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -174,10 +224,10 @@ const PropertyForm = ({ selectedProperty }) => {
       </Typography>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={6} sm={6} spacing={6}>
+          <Grid item xs={6} sm={6}>
             <Stack spacing={3}>
               <TextField
-                label="ID"
+                label="ID (*match last 6 chars)"
                 name="ID"
                 value={formData.id}
                 onChange={handleChange}
@@ -205,9 +255,21 @@ const PropertyForm = ({ selectedProperty }) => {
                 width="100%"
                 height="166"
               />
-              <EditIconButton>
-                <EditIcon />
-              </EditIconButton>
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleAvatarUpload}
+              />
+              <label htmlFor="file-input">
+                <IconButton
+                  component="span"
+                  aria-label="Upload File"
+                  onClick={handleIconButtonClick}
+                >
+                  <AttachFile />
+                </IconButton>
+              </label>
             </Item>
           </Grid>
           <Grid item xs={12}>
@@ -387,7 +449,13 @@ const PropertyForm = ({ selectedProperty }) => {
               <InputLabel>Availability Duration</InputLabel>
               <Select
                 name="sellDuration"
-                value={formData.sellDuration}
+                value={
+                  PropertyMaster.duration.find(
+                    (option) =>
+                      formData.sellDuration.toLowerCase() ===
+                      option.toLowerCase()
+                  ) || ""
+                }
                 onChange={handleChange}
                 required
                 size="small"
@@ -408,7 +476,7 @@ const PropertyForm = ({ selectedProperty }) => {
                     {PropertyMaster.amenities.map((option) => (
                       <Grid item xs={2} sm={4} md={4} key={option}>
                         <FormControlLabel
-                          key={option}
+                          key={"fcl" + option}
                           control={
                             <Checkbox
                               name="amenities"
@@ -431,21 +499,22 @@ const PropertyForm = ({ selectedProperty }) => {
               <Gallery list={formData.images} />
             </BorderItem>
             <div>
+           
               <input
                 type="file"
-                accept="image/*"
-                onChange={handleImageChange}
+                ref={fileInputGalleryRef}
+                style={{ display: "none" }}
+                onChange={handleImageGalleryUpload}
               />
-              {previewImage && (
-                <img
-                  src={previewImage}
-                  alt="Preview"
-                  style={{ width: "300px" }}
-                />
-              )}
-              {selectedImage && (
-                <Button onClick={handleImageGalleryUpload}  variant="contained" color="secondary">Upload Image</Button>
-              )}
+              <label htmlFor="file-input">
+                <IconButton
+                  component="span"
+                  aria-label="Upload File"
+                  onClick={handleGalleryIconButtonClick}
+                >
+                  <AttachFile />
+                </IconButton>
+              </label> 
             </div>
           </Grid>
 
