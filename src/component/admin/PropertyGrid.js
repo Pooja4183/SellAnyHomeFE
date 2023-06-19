@@ -4,9 +4,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
+  Button,
   Checkbox,
   FormControlLabel,
   IconButton,
+  InputLabel,
   Paper,
   Switch,
   Table,
@@ -25,6 +27,7 @@ import { tableCellClasses } from '@mui/material/TableCell';
 import { alpha, styled } from '@mui/material/styles';
 import { visuallyHidden } from '@mui/utils';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 
@@ -53,7 +56,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const headCells = [
-  {
+   {
     id: 'homeType',
     numeric: false,
     disablePadding: true,
@@ -128,15 +131,8 @@ function EnhancedTableHead(props) {
     <TableHead>
       <StyledTableRow>
         <StyledTableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all properties',
-            }}
-          />
+          <InputLabel sx={{color: 'white',  fontSize: 14, paddingLeft: 2}}      
+          ># ID </InputLabel>
         </StyledTableCell>
         {headCells.map((headCell) => (
           <StyledTableCell
@@ -167,13 +163,13 @@ function EnhancedTableHead(props) {
   );
 }
 
-const PropertyGrid = () => {
+const PropertyGrid = ({onPropertySelect}) => {
   const dispatch = useDispatch();
   const rows = useSelector((state) => state.admin.sellProducts);
 
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('price');
-  const [selected, setSelected] = useState([]);
+  const [selectedRow, setSelectedRow] = useState([]); // Track the selected row
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [dense, setDense] = useState(false);
@@ -184,33 +180,9 @@ const PropertyGrid = () => {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
-
   const handleClick = (event, row) => {
-    const selectedIndex = selected.indexOf(row);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, row);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
+    setSelectedRow(row); // Update the selected row
+    onPropertySelect(row);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -226,15 +198,12 @@ const PropertyGrid = () => {
     setDense(event.target.checked);
   };
 
-  const isSelected = (row) => selected.indexOf(row) !== -1;
-
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   useEffect(() => {
     dispatch(fetchProductsForSale());
   }, [dispatch]);
-
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
@@ -242,20 +211,20 @@ const PropertyGrid = () => {
           sx={{
             pl: { sm: 2 },
             pr: { xs: 1, sm: 1 },
-            ...(selected.length > 0 && {
+            ...(selectedRow.length > 0 && {
               bgcolor: (theme) =>
                 alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
             }),
           }}
         >
-          {selected.length > 0 ? (
+          {selectedRow.length > 0 ? (
             <Typography
               sx={{ flex: '1 1 100%' }}
               color="inherit"
               variant="subtitle1"
               component="div"
             >
-              {selected.length} selected
+              {selectedRow.length} selected
             </Typography>
           ) : (
             <Typography sx={{ flex: '1 1 100%' }} variant="h6" id="tableTitle" component="div">
@@ -263,7 +232,7 @@ const PropertyGrid = () => {
             </Typography>
           )}
 
-          {selected.length > 0 ? (
+          {selectedRow.length > 0 ? (
             <Tooltip title="Delete">
               <IconButton>
                 <DeleteIcon />
@@ -278,64 +247,51 @@ const PropertyGrid = () => {
           )}
         </Toolbar>
         <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+        <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={dense ? 'small' : 'medium'}>
+          <EnhancedTableHead
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+            rowCount={rows.length}
+          />
+          <TableBody>
+            {stableSort(rows, getComparator(order, orderBy))
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => {
+                const isItemSelected = selectedRow === row; // Check if the row is selected
+                const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    <StyledTableRow
-                      hover
-                      onClick={(event) => handleClick(event, row)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row}
-                      selected={isItemSelected}
-                    >
-                      <StyledTableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
-                        />
-                      </StyledTableCell>
-                      <StyledTableCell component="th" id={labelId} scope="row" padding="none">
-                        {row.homeType}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">{row.address}</StyledTableCell>
-                      <StyledTableCell align="right">{row.price}</StyledTableCell>
-                      <StyledTableCell align="right">{row.sqFt}</StyledTableCell>
-                      <StyledTableCell align="right">{row.duration}</StyledTableCell>
-                      <StyledTableCell align="right">{row.contactName}</StyledTableCell>
-                    </StyledTableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <StyledTableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <StyledTableCell colSpan={6} />
-                </StyledTableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+                return (
+                  <StyledTableRow
+                    hover
+                    onClick={(event) => handleClick(event, row)}
+                    role="checkbox"
+                    aria-checked={isItemSelected}
+                    tabIndex={-1}
+                    key={row.id}
+                    selected={isItemSelected}
+                  >
+                    {/* Remove the checkbox column */}
+                    <StyledTableCell align="right">#{row.id.slice(18)}</StyledTableCell>
+                    <StyledTableCell component="th" id={labelId} scope="row" padding="none">
+                      {row.homeType}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.address}</StyledTableCell>
+                    <StyledTableCell align="right">{row.price}</StyledTableCell>
+                    <StyledTableCell align="right">{row.sqFt}</StyledTableCell>
+                    <StyledTableCell align="right">{row.duration}</StyledTableCell>
+                    <StyledTableCell align="right">{row.contactName}</StyledTableCell>
+                  </StyledTableRow>
+                );
+              })}
+            {emptyRows > 0 && (
+              <StyledTableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                <StyledTableCell colSpan={6} />
+              </StyledTableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"

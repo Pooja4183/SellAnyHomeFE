@@ -1,14 +1,11 @@
 import styles from "./bannerStyle.module.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import banerimg from "../images/banner_sellAnyHome.jpg";
 import { useHistory } from "react-router-dom";
 import Header from "../component/Header";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import { experimentalStyled as styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import StyledButtonHome from "./custom/StyledButtonHome";
 import { Typography } from "@mui/material";

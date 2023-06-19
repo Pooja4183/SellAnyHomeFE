@@ -68,7 +68,7 @@ const ProductDetail = () => {
               {product.images &&
                 product.images.map((item) => (
                   <>
-                    <img src={item} className={styles.carouselStyle} />
+                    <img src={item} className={styles.carouselStyle} alt="property img"/>
                   </>
                 ))}
             </Carousel>
@@ -153,7 +153,7 @@ const ProductDetail = () => {
               sx={{ justifyContent: "center" }}
             >
               <Item className={styles.agent}>
-                <img src={agentImage} />
+                <img src={agentImage} alt="Agent"/>
               </Item>
               <Item sx={{ textAlign: "left" }}>
                 <Typography
