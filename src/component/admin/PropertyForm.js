@@ -16,7 +16,7 @@ import {
   IconButton,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { AttachFile } from "@mui/icons-material";
+import { Approval, AttachFile, Save } from "@mui/icons-material";
 import PropertyMaster from "../../master.json";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import { useEffect } from "react";
@@ -80,7 +80,11 @@ const BorderItem = styled(Paper)(({ theme, title }) => ({
 
 const PropertyForm = ({ selectedProperty }) => {
   const dispatch = useDispatch();
-  const [isSuccess, setSuccess] = useState(false);
+  const [eventStatus, setEventStatus] = useState({
+    isSuccess: false,
+    msg: "",
+    error: null,
+  });
   const [error, setError] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -112,6 +116,7 @@ const PropertyForm = ({ selectedProperty }) => {
   });
 
   useEffect(() => {
+    let isMounted = true;
     if (selectedProperty) {
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -119,6 +124,10 @@ const PropertyForm = ({ selectedProperty }) => {
       }));
       console.log("Effect Form Data::", formData);
     }
+    return () => {
+      // Cleanup function to cancel any ongoing tasks or subscriptions
+      isMounted = false;
+    };
   }, [selectedProperty]);
 
   const handleChange = (event) => {
@@ -133,17 +142,42 @@ const PropertyForm = ({ selectedProperty }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Submit form logic here
+    let msg = "";
     console.log("Submitted", formData);
-
     try {
-      await dispatch(createOrUpdateProduct(formData));
-      setSuccess(true);
-      setError(null);
+      const clickedButton = event.nativeEvent.submitter;
+      console.log("Clicked::", clickedButton.id, " Evaluate ", clickedButton.id === "approveBtn");
+      if (clickedButton.id === "approveBtn") {
+        console.log("Submit button 1 clicked");
+        // Access the updated formData value by using the callback function in setFormData
+        await dispatch(createOrUpdateProduct(formData, "APPROVED"));
+        msg= "Property Data Saved And Approved Successfully!";
+
+      } else {
+       
+        await dispatch(createOrUpdateProduct(formData, "DRAFT"));
+        msg= "Property Data Saved Successfully!";
+      
+      }
+      console.log("Data::", formData);
+      setEventStatus({
+        isSuccess: true,
+        msg: msg,
+        error: null,
+      });
     } catch (error) {
-      setSuccess(false);
-      setError(error.message);
+      setEventStatus({
+        isSuccess: false,
+        msg: null,
+        error: "An Error Occured: " + error.message,
+      });
     }
   };
+
+  // Use the updated formData value outside of the handleSubmit function
+  useEffect(() => {
+    console.log("Updated Data:", formData);
+  }, [formData]);
 
   const handleCheckboxChange = (value) => (event) => {
     const { value, checked } = event.target;
@@ -528,23 +562,39 @@ const PropertyForm = ({ selectedProperty }) => {
           </Grid>
 
           <Grid item xs={12}>
-            {isSuccess && (
+            {eventStatus.isSuccess && (
               <Typography
                 variant="success"
                 sx={{ marginTop: 2, marginLeft: 1, color: "green" }}
               >
-                Property Details Saved Successfully!
+                {eventStatus.msg}
               </Typography>
             )}
-            {error && (
+            {eventStatus.error && (
               <Typography variant="error" sx={{ marginTop: 2, marginLeft: 1 }}>
-                An error occurred: {error}
+                {eventStatus.error}
               </Typography>
             )}
           </Grid>
           <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              id="saveBtn"
+            >
               Save
+              <Save sx={{ marginLeft: 1 }} />
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              sx={{ marginLeft: 2 }}
+              id="approveBtn"
+            >
+              Save And Approve
+              <Approval sx={{ marginLeft: 1 }} />
             </Button>
           </Grid>
         </Grid>

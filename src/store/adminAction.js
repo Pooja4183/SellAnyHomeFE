@@ -3,10 +3,10 @@ import { adminActions } from './adminSlice';
 
 export const fetchProductsForSale = () => async (dispatch) => {
     try {
-      const response = await backendAPI.get('/property?status=Approved');
-      console.log("Success1", response.data.property)
+      const response = await backendAPI.get('/property?status=DRAFT');
+      console.debug("Success1", response.data.property)
       dispatch(adminActions.fetchProductsForSale(response.data.property));
-      console.log("HEaders::", response.data.headers);
+      console.debug("HEaders::", response.data.headers);
       dispatch(adminActions.updateSellTableHeader(response.data.headers))
      
     } catch (error) 
@@ -18,9 +18,11 @@ export const fetchProductsForSale = () => async (dispatch) => {
   };
   
   
-export const createOrUpdateProduct = (formData) => async (dispatch) => {
-  console.log("Property Id::", formData.id, "URL::", '/property/'+ formData.id);
+export const createOrUpdateProduct = (formData, status) => async (dispatch) => {
+  console.debug("Property Id::", formData.id, "URL::", '/property/'+ formData.id, "Status::", status);
   try {
+    formData.status = status;
+    console.debug("Form Data::", formData);
     const response = await backendAPI.put('/property/'+ formData.id, formData);
     console.log("Success1")
     dispatch(createOrUpdateProductSuccess(response.data));
