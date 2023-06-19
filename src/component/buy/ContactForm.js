@@ -42,7 +42,6 @@ const ContactForm = () => {
   return (
     <Box
       sx={{
-        width: 400,
         maxWidth: "100%",
         margin: 1,
         borderTop: 0.5,
@@ -50,8 +49,8 @@ const ContactForm = () => {
       component="form"
       onSubmit={handleSubmit}
     >
-      <Stack spacing={2} sx={{ width: 380, marginTop: 5, marginLeft: 1 }}>
-        <Typography variant="h6" sx={{ textAlign: "left", fontWeight: "bold" }}>
+      <Stack spacing={2} sx={{ width: 350, marginTop: 5, }}>
+        <Typography variant="h3" sx={{ textAlign: "left", fontWeight: "bold" }}>
           CONTACT TEAM(S)
         </Typography>
 
@@ -62,6 +61,7 @@ const ContactForm = () => {
           required
           name="name"
           onChange={handleChange}
+          
         />
         <TextField
           fullWidth
