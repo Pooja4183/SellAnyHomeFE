@@ -10,7 +10,7 @@ const Gallery=(itemss)=> {
     useEffect(()=> {
         setItems(itemss.list);
     },[itemss, items]);
-
+    
   return (
     <ImageList cols={3} rowHeight={164}>
       {items && items.map((item) => (

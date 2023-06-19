@@ -80,6 +80,9 @@ const BorderItem = styled(Paper)(({ theme, title }) => ({
 
 const PropertyForm = ({ selectedProperty }) => {
   const dispatch = useDispatch();
+  const [isSuccess, setSuccess] = useState(false);
+  const [error, setError] = useState(null);
+
   const [formData, setFormData] = useState({
     id: "",
     homeType: "",
@@ -127,11 +130,19 @@ const PropertyForm = ({ selectedProperty }) => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Submit form logic here
-    console.log("Submitted",formData);
-    dispatch(createOrUpdateProduct(formData));
+    console.log("Submitted", formData);
+
+    try {
+      await dispatch(createOrUpdateProduct(formData));
+      setSuccess(true);
+      setError(null);
+    } catch (error) {
+      setSuccess(false);
+      setError(error.message);
+    }
   };
 
   const handleCheckboxChange = (value) => (event) => {
@@ -204,7 +215,6 @@ const PropertyForm = ({ selectedProperty }) => {
     }));
     console.debug("Form Data", formData);
   };
-
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -499,7 +509,6 @@ const PropertyForm = ({ selectedProperty }) => {
               <Gallery list={formData.images} />
             </BorderItem>
             <div>
-           
               <input
                 type="file"
                 ref={fileInputGalleryRef}
@@ -514,10 +523,25 @@ const PropertyForm = ({ selectedProperty }) => {
                 >
                   <AttachFile />
                 </IconButton>
-              </label> 
+              </label>
             </div>
           </Grid>
 
+          <Grid item xs={12}>
+            {isSuccess && (
+              <Typography
+                variant="success"
+                sx={{ marginTop: 2, marginLeft: 1, color: "green" }}
+              >
+                Property Details Saved Successfully!
+              </Typography>
+            )}
+            {error && (
+              <Typography variant="error" sx={{ marginTop: 2, marginLeft: 1 }}>
+                An error occurred: {error}
+              </Typography>
+            )}
+          </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary">
               Save
