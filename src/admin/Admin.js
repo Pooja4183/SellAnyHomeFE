@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '../component/Footer';
 import Header from '../component/Header';
-import AdminPanel from '../component/admin/AdminPanel';
+import DashBoard from './pages/Dashboard';
 
 
 const Admin = () => {
@@ -9,9 +9,9 @@ const Admin = () => {
 
   return (
     <>
-    <Header /> 
-    <AdminPanel/>
-    <Footer />
+    <Header/>
+    <DashBoard/> 
+    <Footer/>
     </>
   );
 };

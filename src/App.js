@@ -5,7 +5,7 @@ import Product from './pages/Product';
 import Sell from './pages/Sell';
 import SellLandingPage from './pages/SellLandingPage';
 import Buy from './pages/Buy';
-import Admin from './pages/Admin';
+import Admin from './admin/Admin';
 
 class App extends Component {
   render() {
