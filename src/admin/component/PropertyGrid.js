@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
-  Button,
-  Checkbox,
   FormControlLabel,
-  IconButton,
   InputLabel,
   Paper,
   Switch,
@@ -18,18 +15,20 @@ import {
   TableRow,
   TableSortLabel,
   Toolbar,
-  Tooltip,
   Typography,
 } from "@mui/material";
-import { grey, blue } from "@mui/material/colors";
+import { blue } from "@mui/material/colors";
 import { tableCellClasses } from "@mui/material/TableCell";
 import { alpha, styled } from "@mui/material/styles";
 import { visuallyHidden } from "@mui/utils";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import FilterListIcon from "@mui/icons-material/FilterList";
 
-import { fetchProductsForSale } from "../../store/adminAction";
+import {
+  fetchProductsForSale,
+  fetchProductsForBuy,
+  fetchProductsForApproved,
+  fetchProductsForDraft,
+  fetchProductsForAll,
+} from "../../store/adminAction";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -173,9 +172,54 @@ function EnhancedTableHead(props) {
   );
 }
 
-const PropertyGrid = ({ onPropertySelect }) => {
+const PropertyGrid = ({ title, type, onPropertySelect }) => {
   const dispatch = useDispatch();
-  const rows = useSelector((state) => state.admin.sellProducts);
+  const adminState = useSelector((state) => state.admin);
+  let rows = [];
+
+  switch (type) {
+    case "sell":
+      rows = adminState.sellProducts;
+      break;
+    case "buy":
+      rows = adminState.buyProducts;
+      break;
+    case "approved":
+      rows = adminState.approvedProducts;
+      break;
+    case "draft":
+      rows = adminState.draftProducts;
+      break;
+    case "all":
+      rows = adminState.allProducts;
+      break;
+    default:
+      // setRows(adminState.sellProducts);
+      break;
+  }
+  useEffect(() => {
+    console.debug("Rows::", rows, "Type", type);
+    switch (type) {
+      case "sell":
+        dispatch(fetchProductsForSale());
+        break;
+      case "buy":
+        dispatch(fetchProductsForBuy());
+        break;
+      case "approved":
+        dispatch(fetchProductsForApproved());
+        break;
+      case "draft":
+        dispatch(fetchProductsForDraft());
+        break;
+      case "all":
+        dispatch(fetchProductsForAll());
+        break;
+      default:
+        // setRows(adminState.sellProducts);
+        break;
+    }
+  }, [dispatch]);
 
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("price");
@@ -211,9 +255,6 @@ const PropertyGrid = ({ onPropertySelect }) => {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
-  useEffect(() => {
-    dispatch(fetchProductsForSale());
-  }, [dispatch]);
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -239,7 +280,7 @@ const PropertyGrid = ({ onPropertySelect }) => {
             id="tableTitle"
             component="div"
           >
-            Properties for Sale
+            {title}
           </Typography>
         </Toolbar>
         <TableContainer>

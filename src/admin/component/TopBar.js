@@ -5,7 +5,6 @@ import { grey } from "@mui/material/colors";
 
 const TopBar = ({ onItemClick }) => {
   const [activeSection, setActiveSection] = useState("");
-  const [uri, setUri] = useState("/admin");
 
   const handleSmallItemClick = (section) => {
     onItemClick(section);
@@ -20,16 +19,16 @@ const TopBar = ({ onItemClick }) => {
         <SmallItem text="Buy Bookings" value="10" onClick={() => handleSmallItemClick("buy")} />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
-        <SmallItem text="Sale Bookings" value="15" onClick={() => handleSmallItemClick("sell")} />
+        <SmallItem text="Sell Bookings" value="15" onClick={() => handleSmallItemClick("sell")} />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
-        <SmallItem text="Approved Properties" value="15" />
+        <SmallItem text="Approved Properties" value="15"  onClick={() => handleSmallItemClick("approved")} />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
-        <SmallItem text="Draft Properties" value="20" />
+        <SmallItem text="Draft Properties" value="20"   onClick={() => handleSmallItemClick("draft")} />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
-        <SmallItem text="Total Available" value="30" />
+        <SmallItem text="Total Available" value="30"   onClick={() => handleSmallItemClick("all")} />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
         <SmallItem text="Total Agents" value="10" />
