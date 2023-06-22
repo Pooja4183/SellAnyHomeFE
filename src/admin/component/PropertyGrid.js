@@ -1,7 +1,5 @@
-
-
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Button,
@@ -13,7 +11,7 @@ import {
   Switch,
   Table,
   TableBody,
-  TableCell,  
+  TableCell,
   TableContainer,
   TableHead,
   TablePagination,
@@ -21,76 +19,75 @@ import {
   TableSortLabel,
   Toolbar,
   Tooltip,
-  Typography
-} from '@mui/material';
-import { tableCellClasses } from '@mui/material/TableCell';
-import { alpha, styled } from '@mui/material/styles';
-import { visuallyHidden } from '@mui/utils';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import FilterListIcon from '@mui/icons-material/FilterList';
+  Typography,
+} from "@mui/material";
+import { grey, blue } from "@mui/material/colors";
+import { tableCellClasses } from "@mui/material/TableCell";
+import { alpha, styled } from "@mui/material/styles";
+import { visuallyHidden } from "@mui/utils";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import FilterListIcon from "@mui/icons-material/FilterList";
 
-
-import { fetchProductsForSale } from '../../store/adminAction';
-
+import { fetchProductsForSale } from "../../store/adminAction";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.primary.dark,
     color: theme.palette.common.white,
   },
-  
+
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
   // hide last border
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 1,
   },
 }));
 
 const headCells = [
-   {
-    id: 'homeType',
+  {
+    id: "homeType",
     numeric: false,
     disablePadding: true,
-    label: 'Home Type',
+    label: "Home Type",
   },
   {
-    id: 'address',
+    id: "address",
     numeric: true,
     disablePadding: false,
-    label: 'Address',
+    label: "Address",
   },
   {
-    id: 'price',
+    id: "price",
     numeric: true,
     disablePadding: false,
-    label: 'Price (ASD)',
+    label: "Price (ASD)",
   },
   {
-    id: 'sqFt',
+    id: "sqFt",
     numeric: true,
     disablePadding: false,
-    label: 'Area (sqft)',
+    label: "Area (sqft)",
   },
   {
-    id: 'duration',
+    id: "duration",
     numeric: true,
     disablePadding: false,
-    label: 'Availability',
+    label: "Availability",
   },
   {
-    id: 'contactName',
+    id: "contactName",
     numeric: true,
     disablePadding: false,
-    label: 'Seller Name',
+    label: "Seller Name",
   },
 ];
 
@@ -105,7 +102,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === 'desc'
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -121,8 +118,14 @@ function stableSort(array, comparator) {
 }
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
+  const {
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -131,52 +134,59 @@ function EnhancedTableHead(props) {
     <TableHead>
       <StyledTableRow>
         <StyledTableCell padding="checkbox">
-          <InputLabel sx={{color: 'white',  fontSize: 14, paddingLeft: 2}}      
-          ># ID </InputLabel>
+          <InputLabel sx={{ color: "white", fontSize: 14, paddingLeft: 2 }}>
+            # ID{" "}
+          </InputLabel>
         </StyledTableCell>
         {headCells.map((headCell) => (
           <StyledTableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            align={headCell.numeric ? "right" : "left"}
+            padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
-            className={`${headCell.id === orderBy ? tableCellClasses.head : ''} ${orderBy !== false ? tableCellClasses[`head${order === 'desc' ? '-descending' : '-ascending'}`] : ''}`}
-
+            className={`${
+              headCell.id === orderBy ? tableCellClasses.head : ""
+            } ${
+              orderBy !== false
+                ? tableCellClasses[
+                    `head${order === "desc" ? "-descending" : "-ascending"}`
+                  ]
+                : ""
+            }`}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </Box>
               ) : null}
             </TableSortLabel>
           </StyledTableCell>
         ))}
-       
       </StyledTableRow>
     </TableHead>
   );
 }
 
-const PropertyGrid = ({onPropertySelect}) => {
+const PropertyGrid = ({ onPropertySelect }) => {
   const dispatch = useDispatch();
   const rows = useSelector((state) => state.admin.sellProducts);
 
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('price');
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("price");
   const [selectedRow, setSelectedRow] = useState([]); // Track the selected row
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [dense, setDense] = useState(false);
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
@@ -205,93 +215,102 @@ const PropertyGrid = ({onPropertySelect}) => {
     dispatch(fetchProductsForSale());
   }, [dispatch]);
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%", mb: 2 }}>
         <Toolbar
           sx={{
             pl: { sm: 2 },
             pr: { xs: 1, sm: 1 },
+            mb: 1,
+
+            background: blue[200],
             ...(selectedRow.length > 0 && {
               bgcolor: (theme) =>
-                alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+                alpha(
+                  theme.palette.primary.main,
+                  theme.palette.action.activatedOpacity
+                ),
             }),
           }}
         >
-          {selectedRow.length > 0 ? (
-            <Typography
-              sx={{ flex: '1 1 100%' }}
-              color="inherit"
-              variant="subtitle1"
-              component="div"
-            >
-              {selectedRow.length} selected
-            </Typography>
-          ) : (
-            <Typography sx={{ flex: '1 1 100%' }} variant="h6" id="tableTitle" component="div">
-              Properties for Sale
-            </Typography>
-          )}
-
-          {selectedRow.length > 0 ? (
-            <Tooltip title="Delete">
-              <IconButton>
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
-          ) : (
-            <Tooltip title="Filter list">
-              <IconButton>
-                <FilterListIcon />
-              </IconButton>
-            </Tooltip>
-          )}
+          <Typography
+            sx={{ flex: "1 1 100%", background: blue[200] }}
+            variant="h6"
+            id="tableTitle"
+            component="div"
+          >
+            Properties for Sale
+          </Typography>
         </Toolbar>
         <TableContainer>
-        <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={dense ? 'small' : 'medium'}>
-          <EnhancedTableHead
-            order={order}
-            orderBy={orderBy}
-            onRequestSort={handleRequestSort}
-            rowCount={rows.length}
-          />
-          <TableBody>
-            {stableSort(rows, getComparator(order, orderBy))
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, index) => {
-                const isItemSelected = selectedRow === row; // Check if the row is selected
-                const labelId = `enhanced-table-checkbox-${index}`;
+          <Table
+            sx={{ minWidth: 750 }}
+            aria-labelledby="tableTitle"
+            size={dense ? "small" : "medium"}
+          >
+            <EnhancedTableHead
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleRequestSort}
+              rowCount={rows.length}
+            />
+            <TableBody>
+              {stableSort(rows, getComparator(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  const isItemSelected = selectedRow === row; // Check if the row is selected
+                  const labelId = `enhanced-table-checkbox-${index}`;
 
-                return (
-                  <StyledTableRow
-                    hover
-                    onClick={(event) => handleClick(event, row)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row.id}
-                    selected={isItemSelected}
-                  >
-                    {/* Remove the checkbox column */}
-                    <StyledTableCell align="right">#{row.id.slice(18)}</StyledTableCell>
-                    <StyledTableCell component="th" id={labelId} scope="row" padding="none">
-                      {row.homeType}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{row.address}</StyledTableCell>
-                    <StyledTableCell align="right">{row.price}</StyledTableCell>
-                    <StyledTableCell align="right">{row.sqFt}</StyledTableCell>
-                    <StyledTableCell align="right">{row.duration}</StyledTableCell>
-                    <StyledTableCell align="right">{row.contactName}</StyledTableCell>
-                  </StyledTableRow>
-                );
-              })}
-            {emptyRows > 0 && (
-              <StyledTableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                <StyledTableCell colSpan={6} />
-              </StyledTableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                  return (
+                    <StyledTableRow
+                      hover
+                      onClick={(event) => handleClick(event, row)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row.id}
+                      selected={isItemSelected}
+                    >
+                      {/* Remove the checkbox column */}
+                      <StyledTableCell align="right">
+                        #{row.id.slice(18)}
+                      </StyledTableCell>
+                      <StyledTableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.homeType}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {row.address}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {row.price}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {row.sqFt}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {row.duration}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {row.contactName}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  );
+                })}
+              {emptyRows > 0 && (
+                <StyledTableRow
+                  style={{ height: (dense ? 33 : 53) * emptyRows }}
+                >
+                  <StyledTableCell colSpan={6} />
+                </StyledTableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"

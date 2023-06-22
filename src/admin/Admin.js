@@ -14,36 +14,7 @@ const Admin = () => {
   return (
     <>
       <Header />
-      <Box
-        sx={{
-          mt: 10,
-          ml: 1,
-          mr: 1,
-          backgroundColor: grey[50],
-        }}
-      >
-        <Typography
-          variant="h6"
-          component="p"
-          sx={{ background: grey[300], mb: 1, padding: 1 }}
-        >
-          Dashboard
-        </Typography>
-
-        <TopBar />
-        <Switch>
-        <Route path="/admin/sell" exact>
-            <BookingSale />
-            <LowerBar />
-          </Route>
-          <Route path="/admin" exact>
-            <MidBar />
-            <LowerBar />
-          </Route>
-          
-        </Switch>
-      </Box>
-
+      <DashBoard />
       <Footer />
     </>
   );

@@ -1,45 +1,26 @@
-import { Grid } from "@mui/material";
+import React, { useState } from "react";
+import { Grid, Typography } from "@mui/material";
 import SmallItem from "./SmallItem";
-import { Link, useHistory, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
+import { grey } from "@mui/material/colors";
 
-const TopBar = () => {
-  const history = useHistory();
+const TopBar = ({ onItemClick }) => {
+  const [activeSection, setActiveSection] = useState("");
   const [uri, setUri] = useState("/admin");
 
-  useEffect(()=> {
-    let isMounted = true;
-    //if(isSubmitted) {
-      //let uri = "/buy-list?search="+address;
-      history.push(uri);
-    //}
-    return () => {
-      // Cleanup function to cancel any ongoing tasks or subscriptions
-      isMounted = false;
-    };
-  },[uri,history]);
-
-  const handleSmallItemClick = () => {
-    console.log("Small Item Clicked");
-  };
-  
-  const handleSaleClick = () => {
-    setUri("/admin/sell");
-    //history.push(uri);
+  const handleSmallItemClick = (section) => {
+    onItemClick(section);
+    setActiveSection(section);
+   
   };
 
   return (
     <Grid container spacing={3}>
+
       <Grid item xs={2} sm={2} md={2}>
-        <SmallItem
-          text="Buy Bookings"
-          value="10"
-          onClick={handleSmallItemClick}
-        />
+        <SmallItem text="Buy Bookings" value="10" onClick={() => handleSmallItemClick("buy")} />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
-        <SmallItem text="Sale Bookings" value="15"  onClick={handleSaleClick}/>
+        <SmallItem text="Sale Bookings" value="15" onClick={() => handleSmallItemClick("sell")} />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
         <SmallItem text="Approved Properties" value="15" />

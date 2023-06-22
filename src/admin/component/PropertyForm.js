@@ -20,7 +20,7 @@ import { Approval, AttachFile, Save } from "@mui/icons-material";
 import PropertyMaster from "../../master.json";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import { useEffect } from "react";
-import { grey, red } from "@mui/material/colors";
+import { grey, blue } from "@mui/material/colors";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase";
@@ -263,7 +263,7 @@ const PropertyForm = ({ selectedProperty }) => {
 
   return (
     <>
-      <Typography variant="h4" mt={-3} mb={-5} ml={1}>
+      <Typography variant="h4" sx= {{padding:2.5, mb:1 ,background: blue[200]}}>
         Property
       </Typography>
       <form onSubmit={handleSubmit}>
