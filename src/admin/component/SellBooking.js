@@ -2,42 +2,59 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import Grid from "@mui/material/Grid";
-import PropertyGrid from "./PropertyGrid";
-import PropertyForm from "./PropertyForm";
-import { useState } from "react";
+import TableContainer from "@mui/material/TableContainer";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableBody from "@mui/material/TableBody";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
+import {
+  fetchProductsForSale,
+} from "../../store/adminAction";
+import { Typography } from "@mui/material";
+import { grey } from "@mui/material/colors";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(1),
- // textAlign: "center",
   color: theme.palette.text.secondary,
 }));
 
 const SellBooking = () => {
+  const dispatch = useDispatch();
+  const rows = useSelector((state) => state.admin.sellProducts);
 
-  const [selectedProperty, setSelectedProperty] = useState(null);
+  useEffect(() => {
+    dispatch(fetchProductsForSale());
+    console.log("Rows::", rows);
+  }, [dispatch]);
 
   return (
-    <Box
-      sx={{
-        marginBottom: "0%",
-      }}
-    >
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={12} sm={6} lg={6}>
-          <Item  elevation={6}>
-            <PropertyGrid onPropertySelect={setSelectedProperty}/>
-          </Item>
-        </Grid>
-        <Grid item xs={12}  sm={6} lg={6}>
-          <Item elevation={6}>
-            <PropertyForm selectedProperty={selectedProperty}/>
-          </Item>
-        </Grid>
-      </Grid>
-    </Box>
+   
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead sx={{background: grey[400], fontWeight: "bold"}}>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Price</TableCell>
+              <TableCell>Type</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.slice(0, 3).map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>...{item.id.slice(18)}</TableCell>
+                <TableCell>{item.price}</TableCell>
+                <TableCell>{item.homeType}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
   );
 };
 

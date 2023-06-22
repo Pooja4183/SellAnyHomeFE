@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, InputLabel, Stack } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import TopBar from "../component/TopBar";
 import BuyBooking from "../component/BuyBooking";
@@ -29,18 +29,52 @@ const Dashboard = () => {
         variant="h6"
         component="p"
         sx={{ background: grey[300], mb: 1, padding: 1 }}
-        onClick={() => handleSmallItemClick("dashboard")}
       >
-        <DashboardIcon /> Dashboard
+        <Stack direction={"row"}>
+          <DashboardIcon
+            onClick={() => handleSmallItemClick("dashboard")}
+          />
+          <InputLabel
+            sx={{fontWeight: "bold"}}
+            onClick={() => handleSmallItemClick("dashboard")}
+          >
+            Dashboard
+          </InputLabel>
+        </Stack>
       </Typography>
 
       <TopBar onItemClick={handleSmallItemClick} />
 
-      {activeSection === "buy" && <PropertyCriteriaResult type="buy" title="Buyer Interested Properties | Approved" />}
-      {activeSection === "sell" && <PropertyCriteriaResult type="sell" title="Properties Submitted by Sellers | Not Yet Approved" />}
-      {activeSection === "approved" && <PropertyCriteriaResult type="approved" title="All Approved Properties" />}
-      {activeSection === "draft" && <PropertyCriteriaResult type="draft" title="All Properties Waiting for Approval | Draft" />}
-      {activeSection === "all" && <PropertyCriteriaResult type="all" title="All Properties | Draft + Approval" />}
+      {activeSection === "buy" && (
+        <PropertyCriteriaResult
+          type="buy"
+          title="Buyer Interested Properties | Approved"
+        />
+      )}
+      {activeSection === "sell" && (
+        <PropertyCriteriaResult
+          type="sell"
+          title="Properties Submitted by Sellers | Not Yet Approved"
+        />
+      )}
+      {activeSection === "approved" && (
+        <PropertyCriteriaResult
+          type="approved"
+          title="All Approved Properties"
+        />
+      )}
+      {activeSection === "draft" && (
+        <PropertyCriteriaResult
+          type="draft"
+          title="All Properties Waiting for Approval | Draft"
+        />
+      )}
+      {activeSection === "all" && (
+        <PropertyCriteriaResult
+          type="all"
+          title="All Properties | Draft + Approval"
+        />
+      )}
       {activeSection === "dashboard" && (
         <>
           <MidBar />
