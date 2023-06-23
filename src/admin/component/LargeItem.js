@@ -13,17 +13,22 @@ import {
     lime,
     grey,
   } from "@mui/material/colors";
+
+  import OLMap from "../../component/custom/Map";
+import HistogramChart from "./HistogramChart";
   
-const LargeItem = ({ text, value }) => {
+const LargeItem = ({type, text }) => {
     const colors = [blue[100], orange[100], purple[100]];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     return (
-      <Card sx={{ mb: 3, height: 250, background: randomColor }} elevation={20}>
+      <Card sx={{ mb: 3, height: 400, background: randomColor }} elevation={20}>
         <CardContent>
-          <Typography variant="h3" component="h3">
+          <Typography variant="h5" component="h5">
             {text}
           </Typography>
-          {/* Add content for graph */}
+          
+          {type === "map" &&  <OLMap height="100"/>}
+          {type === "chart" &&  <HistogramChart /> }
         </CardContent>
       </Card>
     );
