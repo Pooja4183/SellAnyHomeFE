@@ -1,7 +1,7 @@
 import React from "react";
-import Footer from "../component/Footer";
-import Header from "../component/Header";
 import DashBoard from "./pages/Dashboard";
+import Header from "./section/Header";
+import Footer from "./section/Footer";
 
 const Admin = () => {
   return (
