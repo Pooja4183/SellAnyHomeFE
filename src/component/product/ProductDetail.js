@@ -78,7 +78,7 @@ const ProductDetail = () => {
           className={styles.agentContainer}
           container
           spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
+          columns={{ xs: 4, sm: 8, md: 12, }}
         >
           <Grid
             item
@@ -90,7 +90,7 @@ const ProductDetail = () => {
             <Item>
               <div className={styles.gridStyling}>
                 <Typography
-                  variant="h6"
+                  variant="h3"
                   gutterBottom
                   sx={{ textAlign: "left", fontWeight: "bold" }}
                 >
@@ -99,7 +99,7 @@ const ProductDetail = () => {
                 <Typography variant="body2">{product.description}</Typography>
                 <Typography variant="h3">&nbsp;</Typography>
                 <Typography
-                  variant="h6"
+                  variant="h3"
                   gutterBottom
                   sx={{ textAlign: "left", fontWeight: "bold" }}
                 >
@@ -135,9 +135,17 @@ const ProductDetail = () => {
             xs={12}
             sm={12}
             md={6}
+            
             sx={{ display: "flex", justifyContent: "center" }}
           >
             <Stack
+              direction="row"
+              spacing={2}
+              useFlexGap
+              flexWrap="wrap"
+              sx={{ justifyContent: "center" }}
+            >
+               <Stack
               direction="row"
               spacing={2}
               useFlexGap
@@ -166,29 +174,52 @@ const ProductDetail = () => {
                 <p>sellanyhome.com</p>
                 <p>p:88598444578</p>
               </Item>
+          
+              </Stack>
+            <Grid
+            
+              item
+              xs={5}
+              sm={5}
+              md={6}
+              sx={{ display: "flex", justifyContent: "center", width:'100%' }}
+            >
+             <ContactForm/>
+            </Grid>
             </Stack>
           </Grid>
-          <Grid item>
-            <Typography
-              variant="h6"
-              gutterBottom
-              sx={{ textAlign: "left", fontWeight: "bold", marginLeft:3 }}
-            >
-              Location Map
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              gutterBottom
-              sx={{ textAlign: "left", fontWeight: "bold", marginLeft:3 }}
-            >
-              {product.address}
-            </Typography>
-          </Grid>
+         
           <Grid
             container
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
+             <Grid item 
+              xs={6}
+              sm={6}
+              md={6}
+              sx={{ display: "flex", justifyContent: "left", marginLeft:6 }}>
+                 <Stack
+              direction="column"
+              spacing={2}
+              useFlexGap
+              flexWrap="wrap"
+              sx={{ justifyContent: "center" }}
+            >
+            <Typography
+              variant="h4"
+              sx={{ textAlign: "left", fontWeight: "bold" }}
+            >
+              Location Map
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              sx={{ textAlign: "left", fontWeight: "bold" }}
+            >
+              {product.address}
+            </Typography>
+            </Stack>
+          </Grid>
             <Grid
               item
               xs={6}
@@ -199,15 +230,7 @@ const ProductDetail = () => {
               <OLMap />
             </Grid>
 
-            <Grid
-              item
-              xs={5}
-              sm={5}
-              md={5}
-              sx={{ display: "flex", justifyContent: "center" }}
-            >
-              <ContactForm/>
-            </Grid>
+          
           </Grid>
         </Grid>
       </Box>

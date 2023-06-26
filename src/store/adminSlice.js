@@ -1,39 +1,78 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   sellProducts: [],
-  sellTableHeaders:[],
-  error: null
+  sellTableHeaders: [],
+  buyProducts: [],
+  buyTableHeeaders: [],
+  approvedProducts: [],
+  approvedTableHeeaders: [],
+  draftProducts: [],
+  draftTableHeeaders: [],
+  allProducts: [],
+  allTableHeeaders: [],
+  error: null,
 };
 
 const adminSlice = createSlice({
-  name: 'admin',
+  name: "admin",
 
   initialState,
 
   reducers: {
     fetchProductsForSale(state, action) {
-        state.sellProducts=  action.payload;
-        state.error = null;
+      state.sellProducts = action.payload;
+      state.error = null;
     },
-    updateSellTableHeader(state,action) {
-        state.sellTableHeaders= action.payload;
+    fetchProductsForBuy(state, action) {
+      state.buyProducts = action.payload;
+      state.error = null;
+    },
+    fetchProductsForApproved(state, action) {
+      state.approvedProducts = action.payload;
+      state.error = null;
+    },
+    fetchProductsForDraft(state, action) {
+      state.draftProducts = action.payload;
+      state.error = null;
+    },
+    fetchProductsForAll(state, action) {
+      state.allProducts = action.payload;
+      state.error = null;
+    },
+    updateSellTableHeader(state, action) {
+      state.sellTableHeaders = action.payload;
     },
     fetchProductsForSaleFailure(state, action) {
-        state.error =  action.payload;
-        state.sellProducts = [];
+      state.error = action.payload;
+      state.sellProducts = [];
     },
-    createOrUpdateProductSuccess(state, action){
-      console.log("Success")
-      state.product =  action.payload;
-      state.error = null; 
+    fetchProductsForBuyFailure(state, action) {
+      state.error = action.payload;
+      state.buyProducts = [];
+    },
+    fetchProductsForApprovedFailure(state, action) {
+      state.error = action.payload;
+      state.approvedProducts = [];
+    },
+    fetchProductsForAllFailure(state, action) {
+      state.error = action.payload;
+      state.allProducts = [];
+    },
+    fetchProductsForDraftFailure(state, action) {
+      state.error = action.payload;
+      state.draftProducts = [];
+    },
+    createOrUpdateProductSuccess(state, action) {
+      console.log("Success");
+      state.product = action.payload;
+      state.error = null;
     },
 
- 
     createOrUpdateProductFailure(state, action) {
       state.product = null;
       state.error = action.payload;
-      console.log("Failure")
+      console.log("Failure");
     },
   },
 });

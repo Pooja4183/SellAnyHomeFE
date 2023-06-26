@@ -6,7 +6,7 @@ import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
 
 
-const OLMap = () => {
+const OLMap = (height) => {
     const mapRef = useRef(null);
   
     useEffect(() => {
@@ -30,7 +30,7 @@ const OLMap = () => {
       };
     }, []);
   
-    return <div ref={mapRef} style={{ width: '100%', height: '400px' }} />;
+    return <div ref={mapRef} style={{ width: '100%', height: '400px'}} />;
   };
   
   export default OLMap;

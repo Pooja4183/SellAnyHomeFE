@@ -16,11 +16,11 @@ import {
   IconButton,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { AttachFile } from "@mui/icons-material";
+import { Approval, AttachFile, Save } from "@mui/icons-material";
 import PropertyMaster from "../../master.json";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import { useEffect } from "react";
-import { grey, red } from "@mui/material/colors";
+import { grey, blue } from "@mui/material/colors";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase";
@@ -80,6 +80,13 @@ const BorderItem = styled(Paper)(({ theme, title }) => ({
 
 const PropertyForm = ({ selectedProperty }) => {
   const dispatch = useDispatch();
+  const [eventStatus, setEventStatus] = useState({
+    isSuccess: false,
+    msg: "",
+    error: null,
+  });
+  const [error, setError] = useState(null);
+
   const [formData, setFormData] = useState({
     id: "",
     homeType: "",
@@ -109,6 +116,7 @@ const PropertyForm = ({ selectedProperty }) => {
   });
 
   useEffect(() => {
+    let isMounted = true;
     if (selectedProperty) {
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -116,6 +124,10 @@ const PropertyForm = ({ selectedProperty }) => {
       }));
       console.log("Effect Form Data::", formData);
     }
+    return () => {
+      // Cleanup function to cancel any ongoing tasks or subscriptions
+      isMounted = false;
+    };
   }, [selectedProperty]);
 
   const handleChange = (event) => {
@@ -127,12 +139,45 @@ const PropertyForm = ({ selectedProperty }) => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Submit form logic here
-    console.log("Submitted",formData);
-    dispatch(createOrUpdateProduct(formData));
+    let msg = "";
+    console.log("Submitted", formData);
+    try {
+      const clickedButton = event.nativeEvent.submitter;
+      console.log("Clicked::", clickedButton.id, " Evaluate ", clickedButton.id === "approveBtn");
+      if (clickedButton.id === "approveBtn") {
+        console.log("Submit button 1 clicked");
+        // Access the updated formData value by using the callback function in setFormData
+        await dispatch(createOrUpdateProduct(formData, "APPROVED"));
+        msg= "Property Data Saved And Approved Successfully!";
+
+      } else {
+       
+        await dispatch(createOrUpdateProduct(formData, "DRAFT"));
+        msg= "Property Data Saved Successfully!";
+      
+      }
+      console.log("Data::", formData);
+      setEventStatus({
+        isSuccess: true,
+        msg: msg,
+        error: null,
+      });
+    } catch (error) {
+      setEventStatus({
+        isSuccess: false,
+        msg: null,
+        error: "An Error Occured: " + error.message,
+      });
+    }
   };
+
+  // Use the updated formData value outside of the handleSubmit function
+  useEffect(() => {
+    console.log("Updated Data:", formData);
+  }, [formData]);
 
   const handleCheckboxChange = (value) => (event) => {
     const { value, checked } = event.target;
@@ -205,7 +250,6 @@ const PropertyForm = ({ selectedProperty }) => {
     console.debug("Form Data", formData);
   };
 
-
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     setSelectedImage(file);
@@ -219,7 +263,7 @@ const PropertyForm = ({ selectedProperty }) => {
 
   return (
     <>
-      <Typography variant="h4" mt={-3} mb={-5} ml={1}>
+      <Typography variant="h4" sx= {{padding:2.5, mb:1 ,background: blue[200]}}>
         Property
       </Typography>
       <form onSubmit={handleSubmit}>
@@ -499,7 +543,6 @@ const PropertyForm = ({ selectedProperty }) => {
               <Gallery list={formData.images} />
             </BorderItem>
             <div>
-           
               <input
                 type="file"
                 ref={fileInputGalleryRef}
@@ -514,13 +557,44 @@ const PropertyForm = ({ selectedProperty }) => {
                 >
                   <AttachFile />
                 </IconButton>
-              </label> 
+              </label>
             </div>
           </Grid>
 
           <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary">
+            {eventStatus.isSuccess && (
+              <Typography
+                variant="success"
+                sx={{ marginTop: 2, marginLeft: 1, color: "green" }}
+              >
+                {eventStatus.msg}
+              </Typography>
+            )}
+            {eventStatus.error && (
+              <Typography variant="error" sx={{ marginTop: 2, marginLeft: 1 }}>
+                {eventStatus.error}
+              </Typography>
+            )}
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              id="saveBtn"
+            >
               Save
+              <Save sx={{ marginLeft: 1 }} />
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              sx={{ marginLeft: 2 }}
+              id="approveBtn"
+            >
+              Save And Approve
+              <Approval sx={{ marginLeft: 1 }} />
             </Button>
           </Grid>
         </Grid>
