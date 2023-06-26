@@ -25,7 +25,7 @@ const Header = () => {
               <CustomLink to={`/`}>Tomorrow</CustomLink>
             </Typography>
             <Typography variant="p" component="p" sx={{ textAlign: "end" }}>
-              .luxuryproperty
+            <CustomLink to={`/`}>.luxuryproperty</CustomLink>
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2}>
