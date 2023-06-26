@@ -1,10 +1,11 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import productSlice from './productSlice';
 import cartSlice from './cartSlice';
 import buyContactSlice from './buyContactSlice';
 import adminSlice from './adminSlice';
+import thunk from 'redux-thunk';
 
 const persistConfig = {
   key: 'root',
@@ -22,6 +23,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
+  middleware: [thunk]
 });
 
 export const persistor = persistStore(store);
