@@ -24,7 +24,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const SellBooking = () => {
+const BuyBooking = () => {
   const dispatch = useDispatch();
   const rows = useSelector((state) => state.admin.sellProducts);
 
@@ -58,4 +58,4 @@ const SellBooking = () => {
   );
 };
 
-export default SellBooking;
+export default BuyBooking;
