@@ -172,54 +172,8 @@ function EnhancedTableHead(props) {
   );
 }
 
-const PropertyGrid = ({ title, type, onPropertySelect }) => {
-  const dispatch = useDispatch();
-  const adminState = useSelector((state) => state.admin);
-  let rows = [];
-
-  switch (type) {
-    case "sell":
-      rows = adminState.sellProducts;
-      break;
-    case "buy":
-      rows = adminState.buyProducts;
-      break;
-    case "approved":
-      rows = adminState.approvedProducts;
-      break;
-    case "draft":
-      rows = adminState.draftProducts;
-      break;
-    case "all":
-      rows = adminState.allProducts;
-      break;
-    default:
-      // setRows(adminState.sellProducts);
-      break;
-  }
-  useEffect(() => {
-    console.debug("Rows::", rows, "Type", type);
-    switch (type) {
-      case "sell":
-        dispatch(fetchProductsForSale());
-        break;
-      case "buy":
-        dispatch(fetchProductsForBuy());
-        break;
-      case "approved":
-        dispatch(fetchProductsForApproved());
-        break;
-      case "draft":
-        dispatch(fetchProductsForDraft());
-        break;
-      case "all":
-        dispatch(fetchProductsForAll());
-        break;
-      default:
-        // setRows(adminState.sellProducts);
-        break;
-    }
-  }, [dispatch]);
+const PropertyGrid = ({rows, title, type, onPropertySelect }) => {
+  console.log("Rows::", rows);
 
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("price");
