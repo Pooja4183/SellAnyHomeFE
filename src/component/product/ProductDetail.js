@@ -28,11 +28,15 @@ const ProductDetail = () => {
   const { id } = useParams();
   const product = useSelector((state) => state.products.product);
   const dispatch = useDispatch();
- 
 
   useEffect(() => {
     dispatch(fetchProductsById(id));
   }, [dispatch, id]);
+
+  if(!product) {
+    return null;
+  }
+
   return (
     product && (
       <Box sx={{ flexGrow: 1, marginTop: 15 }}>
