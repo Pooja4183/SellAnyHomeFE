@@ -102,7 +102,7 @@ const PropertyForm = ({ selectedProperty }) => {
     title: "",
     description: "",
     images: [],
-    img1: "/home.png",
+    img1: "/home3.jpg",
     img2: "",
     yearBuilt: "",
     contactName: "",
