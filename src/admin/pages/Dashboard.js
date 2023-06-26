@@ -34,7 +34,7 @@ const Dashboard = () => {
     >
       <Typography
         variant="h6"
-        component="p"
+       
         sx={{ background: grey[300], mb: 1, padding: 1 }}
       >
         <Stack direction={"row"}>
