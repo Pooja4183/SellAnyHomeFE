@@ -16,7 +16,7 @@ class App extends Component {
           <Route path='/sell' exact>
             <Sell />
           </Route>
-          <Route path='/sell-landing' exact>
+          <Route path='/sell-landing'>
             <SellLandingPage/>
           </Route>
           <Route path='/buy' exact>
