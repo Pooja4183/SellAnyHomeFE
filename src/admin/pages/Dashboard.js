@@ -6,6 +6,7 @@ import {
   Stack,
   Button,
   ButtonGroup,
+  Grid,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import TopBar from "../component/TopBar";
@@ -15,6 +16,8 @@ import LowerBar from "../component/LowerBar";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import RoofingIcon from "@mui/icons-material/Roofing";
 import PropertyCriteriaResult from "../component/PropertyCriteriaResult";
+import PropertyForm from "../component/PropertyForm";
+import AgentForm from "../component/AgentForm";
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -34,10 +37,9 @@ const Dashboard = () => {
     >
       <Typography
         variant="h6"
-       
         sx={{ background: grey[300], mb: 1, padding: 1 }}
       >
-        <Stack direction={"row"}>
+        <Stack direction={"row"} justifyContent={"space-between"}>
           <Button
             startIcon={<DashboardIcon />}
             onClick={() => handleSmallItemClick("dashboard")}
@@ -45,10 +47,18 @@ const Dashboard = () => {
             Dashboard
           </Button>
           <Stack direction={"row"} spacing={3} ml={4}>
-            <Button variant="contained" startIcon={<RoofingIcon />}>
+            <Button
+              variant="contained"
+              startIcon={<RoofingIcon />}
+              onClick={() => handleSmallItemClick("createProperty")}
+            >
               Create Property
             </Button>
-            <Button variant="contained" startIcon={<PersonAddAltIcon />}>
+            <Button
+              variant="contained"
+              startIcon={<PersonAddAltIcon />}
+              onClick={() => handleSmallItemClick("createAgent")}
+            >
               Create Agent
             </Button>
           </Stack>
@@ -91,6 +101,28 @@ const Dashboard = () => {
         <>
           <MidBar />
           <LowerBar />
+        </>
+      )}
+      {activeSection === "createProperty" && (
+        <>
+          <Grid container>
+            <Grid item xs={1} md={2} lg={3}></Grid>
+            <Grid item xs={10} md={8} lg={6}>
+              <PropertyForm />
+            </Grid>
+            <Grid item xs={1} md={2} lg={3}></Grid>
+          </Grid>
+        </>
+      )}
+      {activeSection === "createAgent" && (
+        <>
+         <Grid container>
+            <Grid item xs={1} md={2} lg={4}></Grid>
+            <Grid item xs={10} md={8} lg={4}>
+              <AgentForm />
+            </Grid>
+            <Grid item xs={1} md={2} lg={4}></Grid>
+          </Grid>
         </>
       )}
     </Box>

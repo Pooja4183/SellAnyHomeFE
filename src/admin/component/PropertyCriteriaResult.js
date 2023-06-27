@@ -104,9 +104,9 @@ const PropertyCriteriaResult = ({ title, type }) => {
           </Item>
         </Grid>
         <Grid item xs={12} sm={6} lg={6}>
-          <Item elevation={6}>
+          
             <PropertyForm selectedProperty={selectedProperty} />
-          </Item>
+         
         </Grid>
       </Grid>
     </Box>

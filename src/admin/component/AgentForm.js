@@ -15,6 +15,7 @@ import {
   Stack,
   IconButton,
   Box,
+  Badge,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { Approval, AttachFile, Save } from "@mui/icons-material";
@@ -32,7 +33,6 @@ import { createOrUpdateProduct } from "../../store/adminAction";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
-  padding: theme.spacing(2),
   textAlign: "center",
   color: theme.palette.text.secondary,
   position: "relative",
@@ -79,7 +79,7 @@ const BorderItem = styled(Paper)(({ theme, title }) => ({
   },
 }));
 
-const PropertyForm = ({ selectedProperty }) => {
+const AgentForm = ({ isEdit, selectedProperty }) => {
   const dispatch = useDispatch();
   const [eventStatus, setEventStatus] = useState({
     isSuccess: false,
@@ -103,7 +103,7 @@ const PropertyForm = ({ selectedProperty }) => {
     title: "",
     description: "",
     images: [],
-    img1: "/home3.jpg",
+    img1: "/profile.png",
     img2: "",
     yearBuilt: "",
     contactName: "",
@@ -265,67 +265,64 @@ const PropertyForm = ({ selectedProperty }) => {
   };
 
   return (
-    <Paper elevation={24} sx={{padding: 1, mb:5}} >
-      <Grid container sx={{ paddingTop: 1, mb: 1, background: blue[200] }} justifyContent={"space-between"}>
+    <Paper elevation={24} sx={{ padding: 1, mb: 5 }}>
+      <Grid
+        container
+        sx={{ paddingTop: 1, mb: 1, background: blue[200] }}
+        justifyContent={"space-between"}
+      >
         <Grid item xs={6} sm={6} lg={6}>
-          <Typography variant="h4" sx={{paddingLeft: 2}} >Property</Typography>
+          <Typography variant="h4" sx={{ paddingLeft: 2 }}>
+            Agent
+          </Typography>
         </Grid>
-        <Grid item>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            id="saveBtn"
-          >
-            Save
-            <Save sx={{ marginLeft: 1 }} />
-          </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            sx={{marginLeft:1, marginRight: 2 }}
-            id="approveBtn"
-          >
-            Save And Approve
-            <Approval sx={{ marginLeft: 1 }} />
-          </Button>
-        </Grid>
-      
       </Grid>
 
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={6} sm={6}>
+          <Grid item xs={8} sm={8}>
             <Stack spacing={3}>
+              {isEdit && (
+                <TextField
+                  label="ID (*match last 6 chars)"
+                  name="ID"
+                  value={formData.id}
+                  onChange={handleChange}
+                  fullWidth
+                  disabled
+                />
+              )}
+
               <TextField
-                label="ID (*match last 6 chars)"
-                name="ID"
-                value={formData.id}
+                label="Full Name"
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
                 fullWidth
-                disabled
-              />
-              <TextField
-                label="Property Description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                fullWidth
-                multiline
-                required
-                rows={4}
+                size="small"
               />
             </Stack>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Item>
+          <Grid item xs={4} sm={4}>
+            <Badge
+                badgeContent={
+                    <label htmlFor="file-input">
+                    <IconButton
+                      component="span"
+                      aria-label="Upload File"
+                      onClick={handleIconButtonClick}
+                    >
+                      <AttachFile />
+                    </IconButton>
+                  </label>
+                }
+                variant="solid">
               <img
                 src={formData.img1}
                 alt=""
                 loading="lazy"
                 width="100%"
-                height="166"
+                height={"100%"}
               />
               <input
                 type="file"
@@ -333,22 +330,16 @@ const PropertyForm = ({ selectedProperty }) => {
                 style={{ display: "none" }}
                 onChange={handleAvatarUpload}
               />
-              <label htmlFor="file-input">
-                <IconButton
-                  component="span"
-                  aria-label="Upload File"
-                  onClick={handleIconButtonClick}
-                >
-                  <AttachFile />
-                </IconButton>
-              </label>
-            </Item>
+             
+            </Badge>
+           
+          
           </Grid>
           <Grid item xs={12}>
             <TextField
-              label="Property Title"
-              name="title"
-              value={formData.title}
+              label="Personal Email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
               fullWidth
               required
@@ -357,9 +348,9 @@ const PropertyForm = ({ selectedProperty }) => {
           </Grid>
           <Grid item xs={12}>
             <TextField
-              label="Property Full Address"
-              name="address"
-              value={formData.address}
+              label="Preferred Phone"
+              name="phone"
+              value={formData.phone}
               onChange={handleChange}
               fullWidth
               multiline
@@ -367,9 +358,10 @@ const PropertyForm = ({ selectedProperty }) => {
               size="small"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+
+          <Grid item xs={12} sm={12}>
             <FormControl fullWidth>
-              <InputLabel>How Many Beds</InputLabel>
+              <InputLabel>What is your Individual Sales Volume? </InputLabel>
               <Select
                 name="bath"
                 value={formData.bed}
@@ -385,210 +377,6 @@ const PropertyForm = ({ selectedProperty }) => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel>How Many Baths</InputLabel>
-              <Select
-                name="bath"
-                value={formData.bath}
-                onChange={handleChange}
-                required
-                size="small"
-              >
-                {PropertyMaster.baths.map((option) => (
-                  <MenuItem key={option.id} value={option.name}>
-                    {option.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Property Size"
-              name="sqFt"
-              type="number"
-              value={formData.sqFt}
-              onChange={handleChange}
-              fullWidth
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Property Price"
-              name="price"
-              type="number"
-              value={formData.price}
-              onChange={handleChange}
-              fullWidth
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel>Home Type</InputLabel>
-              <Select
-                name="homeType"
-                value={formData.homeType}
-                onChange={handleChange}
-                required
-                size="small"
-              >
-                {PropertyMaster.propertyType.map((option) => (
-                  <MenuItem key={option.id} value={option.name}>
-                    {option.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Year Built"
-              name="yearBuilt"
-              type="number"
-              value={formData.yearBuilt}
-              onChange={handleChange}
-              fullWidth
-              inputProps={{
-                min: 2000,
-              }}
-              size="small"
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Contact Name"
-              name="contactName"
-              value={formData.contactName}
-              onChange={handleChange}
-              fullWidth
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Contact Email"
-              name="contactEmail"
-              value={formData.contactEmail}
-              onChange={handleChange}
-              fullWidth
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Contact Phone"
-              name="contactPhone"
-              value={formData.contactPhone}
-              onChange={handleChange}
-              fullWidth
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Seller Type"
-              name="sellerType"
-              value={formData.sellerType}
-              onChange={handleChange}
-              fullWidth
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel>Is Listed</InputLabel>
-              <Select
-                name="isListed"
-                value={formData.isListed}
-                onChange={handleChange}
-                required
-                size="small"
-              >
-                {PropertyMaster.isListed.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
-              <InputLabel>Availability Duration</InputLabel>
-              <Select
-                name="sellDuration"
-                value={
-                  PropertyMaster.duration.find(
-                    (option) =>
-                      formData.sellDuration.toLowerCase() ===
-                      option.toLowerCase()
-                  ) || ""
-                }
-                onChange={handleChange}
-                required
-                size="small"
-              >
-                {PropertyMaster.duration.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item>
-            <BorderItem title="Amenities">
-              <FormControl component="fieldset">
-                <FormGroup>
-                  <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
-                    {PropertyMaster.amenities.map((option) => (
-                      <Grid item xs={2} sm={4} md={4} key={option}>
-                        <FormControlLabel
-                          key={"fcl" + option}
-                          control={
-                            <Checkbox
-                              name="amenities"
-                              value={option}
-                              checked={formData.amenities.includes(option)}
-                              onChange={handleCheckboxChange(option)}
-                            />
-                          }
-                          label={option}
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
-                </FormGroup>
-              </FormControl>
-            </BorderItem>
-          </Grid>
-          <Grid item>
-            <BorderItem title="Image Gallery">
-              <Gallery list={formData.images} />
-            </BorderItem>
-            <div>
-              <input
-                type="file"
-                ref={fileInputGalleryRef}
-                style={{ display: "none" }}
-                onChange={handleImageGalleryUpload}
-              />
-              <label htmlFor="file-input">
-                <IconButton
-                  component="span"
-                  aria-label="Upload File"
-                  onClick={handleGalleryIconButtonClick}
-                >
-                  <AttachFile />
-                </IconButton>
-              </label>
-            </div>
-          </Grid>
-
           <Grid item xs={12}>
             {eventStatus.isSuccess && (
               <Typography
@@ -614,21 +402,11 @@ const PropertyForm = ({ selectedProperty }) => {
               Save
               <Save sx={{ marginLeft: 1 }} />
             </Button>
-            <Button
-              type="submit"
-              variant="contained"
-              color="secondary"
-              sx={{ marginLeft: 2 }}
-              id="approveBtn"
-            >
-              Save And Approve
-              <Approval sx={{ marginLeft: 1 }} />
-            </Button>
           </Grid>
         </Grid>
       </form>
-      </Paper>
+    </Paper>
   );
 };
 
-export default PropertyForm;
+export default AgentForm;
