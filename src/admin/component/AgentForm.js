@@ -281,7 +281,7 @@ const AgentForm = ({ isEdit, selectedProperty }) => {
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={8} sm={8}>
-            <Stack spacing={3}>
+            <Stack spacing={1}>
               {isEdit && (
                 <TextField
                   label="ID (*match last 6 chars)"
@@ -289,7 +289,7 @@ const AgentForm = ({ isEdit, selectedProperty }) => {
                   value={formData.id}
                   onChange={handleChange}
                   fullWidth
-                  disabled
+                  size="small"
                 />
               )}
 
@@ -301,22 +301,42 @@ const AgentForm = ({ isEdit, selectedProperty }) => {
                 fullWidth
                 size="small"
               />
+              <TextField
+                label="Personal Email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                fullWidth
+                required
+                size="small"
+              />
+              <TextField
+                label="Preferred Phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                fullWidth
+                multiline
+                required
+                size="small"
+              />
             </Stack>
           </Grid>
           <Grid item xs={4} sm={4}>
             <Badge
-                badgeContent={
-                    <label htmlFor="file-input">
-                    <IconButton
-                      component="span"
-                      aria-label="Upload File"
-                      onClick={handleIconButtonClick}
-                    >
-                      <AttachFile />
-                    </IconButton>
-                  </label>
-                }
-                variant="solid">
+              badgeContent={
+                <label htmlFor="file-input">
+                  <IconButton
+                    component="span"
+                    aria-label="Upload File"
+                    onClick={handleIconButtonClick}
+                  >
+                    <AttachFile />
+                  </IconButton>
+                </label>
+              }
+              variant="solid"
+            >
               <img
                 src={formData.img1}
                 alt=""
@@ -330,33 +350,7 @@ const AgentForm = ({ isEdit, selectedProperty }) => {
                 style={{ display: "none" }}
                 onChange={handleAvatarUpload}
               />
-             
             </Badge>
-           
-          
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Personal Email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              fullWidth
-              required
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Preferred Phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              fullWidth
-              multiline
-              required
-              size="small"
-            />
           </Grid>
 
           <Grid item xs={12} sm={12}>
