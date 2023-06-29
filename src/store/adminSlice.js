@@ -11,6 +11,9 @@ const initialState = {
   draftTableHeeaders: [],
   allProducts: [],
   allTableHeeaders: [],
+  agents:[],
+  agentTableHeaders: [],
+  agent:null,
   error: null,
 };
 
@@ -73,6 +76,22 @@ const adminSlice = createSlice({
       state.product = null;
       state.error = action.payload;
       console.log("Failure");
+    },
+    /* Agent Stuff */
+    fetchAgents(state, action) {
+      state.agents = action.payload;
+      state.error = null;
+    },
+    updateAgentTableHeader(state, action) {
+      state.agentTableHeaders = action.payload;
+    },
+    createOrUpdateAgentSuccess(state, action) {
+      state.agent = action.payload;
+      state.error = null;
+    },
+    createOrUpdateAgentFailure(state, action) {
+      state.agent = null;
+      state.error = action.payload;
     },
   },
 });

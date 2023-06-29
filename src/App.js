@@ -6,6 +6,7 @@ import Sell from './pages/Sell';
 import SellLandingPage from './pages/SellLandingPage';
 import Buy from './pages/Buy';
 import Admin from './admin/Admin';
+import Agent from './pages/Agent';
 
 class App extends Component {
   render() {
@@ -16,7 +17,7 @@ class App extends Component {
           <Route path='/sell' exact>
             <Sell />
           </Route>
-          <Route path='/sell-landing' exact>
+          <Route path='/sell-landing'>
             <SellLandingPage/>
           </Route>
           <Route path='/buy' exact>
@@ -31,6 +32,9 @@ class App extends Component {
           </Route>
           <Route path='/admin' exact>
             <Admin />
+          </Route>
+          <Route path='/agent' exact>
+            <Agent />
           </Route>
           
           <Route path='/' exact>

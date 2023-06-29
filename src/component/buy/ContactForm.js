@@ -1,5 +1,5 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { submitBuyerInterest } from "../../store/buyContactAction";
 import { useParams } from "react-router-dom/cjs/react-router-dom";

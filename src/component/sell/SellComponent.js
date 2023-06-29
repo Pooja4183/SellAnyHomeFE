@@ -52,6 +52,7 @@ const SellComponent = () => {
                   id="address"
                   value={houseWorthInfo.address}
                   onChange={handleHouseWorthChange}
+                  required
                   size="small"
                   sx={{
                     background: "white",
@@ -64,7 +65,6 @@ const SellComponent = () => {
                 <StyledButtonHome
                   variant="outlined"
                   type="submit"
-                  disabled={!isFormValid}
                 >
                   Estimate
                 </StyledButtonHome>

@@ -1,9 +1,10 @@
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store/index';
 import './index.css';
 import App from './App';
-import { store } from './store/index';
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -39,9 +40,11 @@ headingVariants.forEach((variant) => {
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <App />
-      </ThemeProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </PersistGate>
     </Provider>
   </BrowserRouter>,
   document.getElementById('root')

@@ -110,3 +110,59 @@ export const createOrUpdateProductFailure = (error) => ({
   type: 'UPDATE_PRODUCT_FAILURE',
   payload: error,
 });
+
+export const createAgent = (formData, status) => async (dispatch) => {
+  formData.status = status;
+  console.log("Inside action", formData);
+  try {
+    const response = await backendAPI.post('/agent/', formData);
+    dispatch(createOrUpdateAgentSuccess(response.data));
+   
+  } catch (error) 
+  {
+    console.log("Failure1")
+    dispatch(createOrUpdateAgentFailure(error.message));
+
+  }
+};
+
+export const createOrUpdateAgent = (formData, status) => async (dispatch) => {
+  formData.status = status;
+  console.log("Inside action", formData);
+  try {
+    const response = await backendAPI.put('/agent/'+ formData.id, formData);
+    dispatch(createOrUpdateAgentSuccess(response.data));
+   
+  } catch (error) 
+  {
+    console.log("Failure1")
+    dispatch(createOrUpdateAgentFailure(error.message));
+
+  }
+};
+
+export const createOrUpdateAgentSuccess = (product) => ({
+  type: 'CREATE_UPDATE_AGENT_SUCCESS',
+  payload: product,
+});
+
+export const createOrUpdateAgentFailure = (error) => ({
+  type: 'CREATE_UPDATE_AGENT_FAILURE',
+  payload: error,
+});
+
+export const fetchAgents = () => async (dispatch) => {
+  try {
+    const response = await backendAPI.get('/agent');
+    console.debug("Success1", response.data.agents)
+    dispatch(adminActions.fetchAgents(response.data.agents));
+    console.debug("HEaders::", response.data.headers);
+    dispatch(adminActions.updateAgentTableHeader(response.data.headers))
+   
+  } catch (error) 
+  {
+    console.log("Failure1")
+    dispatch(adminActions.fetchProductsForAllFailure(error.message));
+
+  }
+};

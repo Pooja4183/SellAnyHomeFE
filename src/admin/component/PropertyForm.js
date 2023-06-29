@@ -14,6 +14,7 @@ import {
   Paper,
   Stack,
   IconButton,
+  Box,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { Approval, AttachFile, Save } from "@mui/icons-material";
@@ -102,7 +103,7 @@ const PropertyForm = ({ selectedProperty }) => {
     title: "",
     description: "",
     images: [],
-    img1: "/home.png",
+    img1: "/home3.jpg",
     img2: "",
     yearBuilt: "",
     contactName: "",
@@ -146,18 +147,20 @@ const PropertyForm = ({ selectedProperty }) => {
     console.log("Submitted", formData);
     try {
       const clickedButton = event.nativeEvent.submitter;
-      console.log("Clicked::", clickedButton.id, " Evaluate ", clickedButton.id === "approveBtn");
+      console.log(
+        "Clicked::",
+        clickedButton.id,
+        " Evaluate ",
+        clickedButton.id === "approveBtn"
+      );
       if (clickedButton.id === "approveBtn") {
         console.log("Submit button 1 clicked");
         // Access the updated formData value by using the callback function in setFormData
         await dispatch(createOrUpdateProduct(formData, "APPROVED"));
-        msg= "Property Data Saved And Approved Successfully!";
-
+        msg = "Property Data Saved And Approved Successfully!";
       } else {
-       
         await dispatch(createOrUpdateProduct(formData, "DRAFT"));
-        msg= "Property Data Saved Successfully!";
-      
+        msg = "Property Data Saved Successfully!";
       }
       console.log("Data::", formData);
       setEventStatus({
@@ -262,10 +265,35 @@ const PropertyForm = ({ selectedProperty }) => {
   };
 
   return (
-    <>
-      <Typography variant="h4" sx= {{padding:2.5, mb:1 ,background: blue[200]}}>
-        Property
-      </Typography>
+    <Paper elevation={24} sx={{padding: 1, mb:5}} >
+      <Grid container sx={{ paddingTop: 1, mb: 1, background: blue[200] }} justifyContent={"space-between"}>
+        <Grid item xs={6} sm={6} lg={6}>
+          <Typography variant="h4" sx={{paddingLeft: 2}} >Property</Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            id="saveBtn"
+          >
+            Save
+            <Save sx={{ marginLeft: 1 }} />
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            sx={{marginLeft:1, marginRight: 2 }}
+            id="approveBtn"
+          >
+            Save And Approve
+            <Approval sx={{ marginLeft: 1 }} />
+          </Button>
+        </Grid>
+      
+      </Grid>
+
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={6} sm={6}>
@@ -599,7 +627,7 @@ const PropertyForm = ({ selectedProperty }) => {
           </Grid>
         </Grid>
       </form>
-    </>
+      </Paper>
   );
 };
 

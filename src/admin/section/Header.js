@@ -10,6 +10,8 @@ import AppLogo from "./AppLogo";
 import RoofingIcon from "@mui/icons-material/Roofing";
 import StoreIcon from "@mui/icons-material/Store";
 import StorefrontIcon from "@mui/icons-material/Storefront";
+import { Link } from "react-router-dom";
+import CustomLink from "../component/CustomLink";
 
 const Header = () => {
   const theme = useTheme();
@@ -20,14 +22,16 @@ const Header = () => {
         <Toolbar sx={{ justifyContent: "space-between" }}>
           <Stack direction="row" alignItems="flex-end">
             <Typography variant="h1" component={"h1"}>
-              Tomorrow
+              <CustomLink to={`/`}>Tomorrow</CustomLink>
             </Typography>
             <Typography variant="p" component="p" sx={{ textAlign: "end" }}>
-              .luxuryproperty
+            <CustomLink to={`/`}>.luxuryproperty</CustomLink>
             </Typography>
           </Stack>
           <Stack direction="row" spacing={2}>
             <Button
+             component="a"
+             href="/buy"
               variant="contained"
               startIcon={<StoreIcon />}
               sx={{
@@ -39,6 +43,8 @@ const Header = () => {
               Buy
             </Button>
             <Button
+              component="a"
+              href="/sell"
               variant="contained"
               startIcon={<StorefrontIcon />}
               sx={{
