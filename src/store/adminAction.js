@@ -91,7 +91,7 @@ export const createOrUpdateProduct = (formData, status) => async (dispatch) => {
     console.debug("Form Data::", formData);
     const response = await backendAPI.put('/property/'+ formData.id, formData);
     console.log("Success1")
-    dispatch(createOrUpdateProductSuccess(response.data));
+    dispatch(adminActions.createOrUpdateProductSuccess(response.data.property));
    
   } catch (error) 
   {
@@ -116,7 +116,7 @@ export const createAgent = (formData, status) => async (dispatch) => {
   console.log("Inside action", formData);
   try {
     const response = await backendAPI.post('/agent/', formData);
-    dispatch(createOrUpdateAgentSuccess(response.data));
+    dispatch(createOrUpdateAgentSuccess(response.data.agent));
    
   } catch (error) 
   {
@@ -131,12 +131,13 @@ export const createOrUpdateAgent = (formData, status) => async (dispatch) => {
   console.log("Inside action", formData);
   try {
     const response = await backendAPI.put('/agent/'+ formData.id, formData);
-    dispatch(createOrUpdateAgentSuccess(response.data));
+    console.log("Response::", response.data.agent);
+    dispatch(adminActions.createOrUpdateAgentSuccess(response.data.agent));
    
   } catch (error) 
   {
     console.log("Failure1")
-    dispatch(createOrUpdateAgentFailure(error.message));
+    dispatch(adminActions.createOrUpdateAgentFailure(error.message));
 
   }
 };

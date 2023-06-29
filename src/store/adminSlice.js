@@ -69,6 +69,13 @@ const adminSlice = createSlice({
     createOrUpdateProductSuccess(state, action) {
       console.log("Success");
       state.product = action.payload;
+      const index = state.products.findIndex(
+        (element) => element.id === action.payload.id
+       
+      );
+      if(index != -1){
+        state.products[index]=action.payload;
+      }
       state.error = null;
     },
 
@@ -87,6 +94,13 @@ const adminSlice = createSlice({
     },
     createOrUpdateAgentSuccess(state, action) {
       state.agent = action.payload;
+      const index = state.agents.findIndex(
+        (element) => element.id === action.payload.id
+       
+      );
+      if(index != -1){
+        state.agents[index]=action.payload;
+      }
       state.error = null;
     },
     createOrUpdateAgentFailure(state, action) {
