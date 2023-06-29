@@ -31,7 +31,7 @@ const TopBar = ({ onItemClick }) => {
         <SmallItem text="Total Available" value="30"   onClick={() => handleSmallItemClick("all")} />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
-        <SmallItem text="Total Agents" value="10" />
+        <SmallItem text="Total Agents" value="10"  onClick={() => handleSmallItemClick("agent")} />
       </Grid>
     </Grid>
   );

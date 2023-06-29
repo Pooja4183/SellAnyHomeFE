@@ -22,6 +22,7 @@ const AgentForm = () => {
     email: "",
     phone: "",
     salesVolume: "",
+    status: "DRAFT"
   });
 
   const handleChange = (e) => {

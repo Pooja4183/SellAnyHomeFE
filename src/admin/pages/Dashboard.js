@@ -18,6 +18,7 @@ import RoofingIcon from "@mui/icons-material/Roofing";
 import PropertyCriteriaResult from "../component/PropertyCriteriaResult";
 import PropertyForm from "../component/PropertyForm";
 import AgentForm from "../component/AgentForm";
+import AgentCriteriaResult from "../component/AgentCriteriaResult";
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -94,7 +95,13 @@ const Dashboard = () => {
       {activeSection === "all" && (
         <PropertyCriteriaResult
           type="all"
-          title="All Properties | Draft + Approval"
+          title="All Properties | Draft + Approved"
+        />
+      )}
+       {activeSection === "agent" && (
+        <AgentCriteriaResult
+          type="all"
+          title="All Agents | Draft + Approved"
         />
       )}
       {activeSection === "dashboard" && (
