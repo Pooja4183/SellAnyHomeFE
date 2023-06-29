@@ -123,7 +123,7 @@ const Dashboard = () => {
       )}
       {activeSection === "createAgent" && (
         <>
-         <Grid container>
+         <Grid container sx={{mb:34}}>
             <Grid item xs={1} md={2} lg={4}></Grid>
             <Grid item xs={10} md={8} lg={4}>
               <AgentForm />
