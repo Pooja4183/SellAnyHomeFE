@@ -28,7 +28,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase";
 import Gallery from "./Gallery";
 import { useDispatch } from "react-redux";
-import { createOrUpdateProduct } from "../../store/adminAction";
+import { createOrUpdateAgent } from "../../store/adminAction";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -90,30 +90,10 @@ const AgentForm = ({ isEdit, selectedProperty }) => {
 
   const [formData, setFormData] = useState({
     id: "",
-    homeType: "",
-    isBuy: false,
-    bed: "",
-    bath: "",
-    price: "",
-    currency: "",
-    sqFt: "",
-    address: "",
-    city: "",
-    state: "",
-    title: "",
-    description: "",
-    images: [],
     img1: "/profile.png",
-    img2: "",
-    yearBuilt: "",
-    contactName: "",
-    contactEmail: "",
-    contactPhone: "",
-    sellerType: "",
-    isListed: "",
-    sellDuration: "",
-    amenities: [],
-    status: "",
+    name: "",
+    email: "",
+    phone: "",
   });
 
   useEffect(() => {
@@ -123,7 +103,6 @@ const AgentForm = ({ isEdit, selectedProperty }) => {
         ...prevFormData,
         ...selectedProperty,
       }));
-      console.log("Effect Form Data::", formData);
     }
     return () => {
       // Cleanup function to cancel any ongoing tasks or subscriptions
@@ -146,23 +125,8 @@ const AgentForm = ({ isEdit, selectedProperty }) => {
     let msg = "";
     console.log("Submitted", formData);
     try {
-      const clickedButton = event.nativeEvent.submitter;
-      console.log(
-        "Clicked::",
-        clickedButton.id,
-        " Evaluate ",
-        clickedButton.id === "approveBtn"
-      );
-      if (clickedButton.id === "approveBtn") {
-        console.log("Submit button 1 clicked");
-        // Access the updated formData value by using the callback function in setFormData
-        await dispatch(createOrUpdateProduct(formData, "APPROVED"));
-        msg = "Property Data Saved And Approved Successfully!";
-      } else {
-        await dispatch(createOrUpdateProduct(formData, "DRAFT"));
-        msg = "Property Data Saved Successfully!";
-      }
-      console.log("Data::", formData);
+        await dispatch(createOrUpdateAgent(formData));
+        msg = "Agent Boarded Sucessfully!";
       setEventStatus({
         isSuccess: true,
         msg: msg,
@@ -182,16 +146,7 @@ const AgentForm = ({ isEdit, selectedProperty }) => {
     console.log("Updated Data:", formData);
   }, [formData]);
 
-  const handleCheckboxChange = (value) => (event) => {
-    const { value, checked } = event.target;
 
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      amenities: checked
-        ? [...prevFormData.amenities, value] // add the selected option
-        : prevFormData.amenities.filter((option) => option !== value), // remove the deselected option
-    }));
-  };
 
   const fileInputRef = useRef(null);
 

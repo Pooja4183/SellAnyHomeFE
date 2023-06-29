@@ -197,6 +197,14 @@
     "2-4 Weeks",
     "4-6 Weeks",
     "Check Estimate Offer"
+  ],
+  "agentSalesVolume": [
+    "50K AED - 100K AED",
+    "100K AED - 200K AED",
+    "200K AED - 300K AED",
+    "300K AED - 400K AED",
+    "400K AED - 500K AED",
+    "Above 500K AED"
   ]
-
+  
 }

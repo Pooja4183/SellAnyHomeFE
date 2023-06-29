@@ -11,6 +11,8 @@ const initialState = {
   draftTableHeeaders: [],
   allProducts: [],
   allTableHeeaders: [],
+  agents:[],
+  agent:null,
   error: null,
 };
 

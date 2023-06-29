@@ -110,3 +110,26 @@ export const createOrUpdateProductFailure = (error) => ({
   type: 'UPDATE_PRODUCT_FAILURE',
   payload: error,
 });
+
+export const createOrUpdateAgent = (formData) => async (dispatch) => {
+  try {
+    const response = await backendAPI.put('/agent/'+ formData.id, formData);
+    dispatch(createOrUpdateAgentSuccess(response.data));
+   
+  } catch (error) 
+  {
+    console.log("Failure1")
+    dispatch(createOrUpdateAgentFailure(error.message));
+
+  }
+};
+
+export const createOrUpdateAgentSuccess = (product) => ({
+  type: 'CREATE_UPDATE_AGENT_SUCCESS',
+  payload: product,
+});
+
+export const createOrUpdateAgentFailure = (error) => ({
+  type: 'CREATE_UPDATE_AGENT_FAILURE',
+  payload: error,
+});
