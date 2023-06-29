@@ -79,7 +79,7 @@ const BorderItem = styled(Paper)(({ theme, title }) => ({
   },
 }));
 
-const AgentForm = ({ isEdit, selectedProperty }) => {
+const AgentForm = ({ isEdit, selectedItem }) => {
   const dispatch = useDispatch();
   const [eventStatus, setEventStatus] = useState({
     isSuccess: false,
@@ -90,25 +90,27 @@ const AgentForm = ({ isEdit, selectedProperty }) => {
 
   const [formData, setFormData] = useState({
     id: "",
-    img1: "/profile.png",
+    img: "/profile.png",
     name: "",
     email: "",
     phone: "",
+    salesVolume: "",
+    status: ""
   });
 
   useEffect(() => {
     let isMounted = true;
-    if (selectedProperty) {
+    if (selectedItem) {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        ...selectedProperty,
+        ...selectedItem,
       }));
     }
     return () => {
       // Cleanup function to cancel any ongoing tasks or subscriptions
       isMounted = false;
     };
-  }, [selectedProperty]);
+  }, [selectedItem]);
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -228,7 +230,7 @@ const AgentForm = ({ isEdit, selectedProperty }) => {
       >
         <Grid item xs={6} sm={6} lg={6}>
           <Typography variant="h4" sx={{ paddingLeft: 2 }}>
-            Agent
+            Agent : {formData.id}
           </Typography>
         </Grid>
       </Grid>
@@ -237,17 +239,6 @@ const AgentForm = ({ isEdit, selectedProperty }) => {
         <Grid container spacing={2}>
           <Grid item xs={8} sm={8}>
             <Stack spacing={1}>
-              {isEdit && (
-                <TextField
-                  label="ID (*match last 6 chars)"
-                  name="ID"
-                  value={formData.id}
-                  onChange={handleChange}
-                  fullWidth
-                  size="small"
-                />
-              )}
-
               <TextField
                 label="Full Name"
                 name="name"
@@ -313,14 +304,14 @@ const AgentForm = ({ isEdit, selectedProperty }) => {
               <InputLabel>What is your Individual Sales Volume? </InputLabel>
               <Select
                 name="bath"
-                value={formData.bed}
+                value={formData.salesVolume}
                 onChange={handleChange}
                 required
                 size="small"
               >
-                {PropertyMaster.beds.map((option) => (
-                  <MenuItem key={option.id} value={option.name}>
-                    {option.name}
+                {PropertyMaster.agentSalesVolume.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
                   </MenuItem>
                 ))}
               </Select>

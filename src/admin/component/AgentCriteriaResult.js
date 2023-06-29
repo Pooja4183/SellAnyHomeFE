@@ -3,16 +3,15 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import PropertyGrid from "./PropertyGrid";
-import PropertyForm from "./PropertyForm";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchProductsForSale,
-  fetchProductsForBuy,
-  fetchProductsForApproved,
-  fetchProductsForDraft,
-  fetchProductsForAll,
+    fetchProductsForSale,
+    fetchProductsForBuy,
+    fetchProductsForApproved,
+    fetchProductsForDraft,
+    fetchProductsForAll,
+    fetchAgents,
 } from "../../store/adminAction";
 import AgentForm from "./AgentForm";
 import AgentGrid from "./AgentGrid";
@@ -25,66 +24,28 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const AgentCriteriaResult = ({ title, type }) => {
-  const [selectedProperty, setSelectedProperty] = useState(null);
+const AgentCriteriaResult = ({ title }) => {
+  const [selectedItem, setSelectedItem] = useState(null);
   const dispatch = useDispatch();
-  const adminState = useSelector((state) => state.admin);
-  let rows = [];
+  const rows = useSelector((state) => state.admin.agents);
 
-  switch (type) {
-    case "sell":
-      rows = adminState.sellProducts;
-      break;
-    case "buy":
-      rows = adminState.buyProducts;
-      break;
-    case "approved":
-      rows = adminState.approvedProducts;
-      break;
-    case "draft":
-      rows = adminState.draftProducts;
-      break;
-    case "all":
-      rows = adminState.allProducts;
-      break;
-    default:
-      // setRows(adminState.sellProducts);
-      break;
-  }
+
   useEffect(() => {
-    console.debug("Rows::", rows, "Type", type);
+    console.debug("Rows::", rows);
     const fetchData = async () => {
       try {
-        switch (type) {
-          case "sell":
-            dispatch(fetchProductsForSale());
-            break;
-          case "buy":
-            dispatch(fetchProductsForBuy());
-            break;
-          case "approved":
-            dispatch(fetchProductsForApproved());
-            break;
-          case "draft":
-            dispatch(fetchProductsForDraft());
-            break;
-          case "all":
-            dispatch(fetchProductsForAll());
-            break;
-          default:
-            // setRows(adminState.sellProducts);
-            break;
-        }
+        dispatch(fetchAgents());
+       
         if(rows && rows.length>0) {
-          setSelectedProperty(rows[0]);
+          setSelectedItem(rows[0]);
         }
        
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Error fetching Agents:", error);
       }
     };
     fetchData();
-  }, [dispatch, type]);
+  }, [dispatch]);
 
   return (
     <Box
@@ -99,15 +60,14 @@ const AgentCriteriaResult = ({ title, type }) => {
               <AgentGrid
                 rows={rows}
                 title={title}
-                type={type}
-                onPropertySelect={setSelectedProperty}
+                onItemSelect={setSelectedItem}
               />
             )}
           </Item>
         </Grid>
         <Grid item xs={12} sm={6} lg={6}>
           
-            <AgentForm selectedProperty={selectedProperty} />
+            <AgentForm selectedItem={selectedItem} />
          
         </Grid>
       </Grid>

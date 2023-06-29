@@ -53,41 +53,36 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const headCells = [
   {
-    id: "homeType",
+    id: "name",
     numeric: false,
     disablePadding: true,
-    label: "Home Type",
+    label: "Name",
   },
   {
-    id: "address",
+    id: "email",
     numeric: true,
     disablePadding: false,
-    label: "Address",
+    label: "Email",
   },
   {
-    id: "price",
+    id: "phone",
     numeric: true,
     disablePadding: false,
-    label: "Price (ASD)",
+    label: "Phone",
   },
   {
-    id: "sqFt",
+    id: "salesVolume",
     numeric: true,
     disablePadding: false,
-    label: "Area (sqft)",
+    label: "Sales Volume",
   },
   {
-    id: "duration",
+    id: "status",
     numeric: true,
     disablePadding: false,
-    label: "Availability",
+    label: "Status",
   },
-  {
-    id: "contactName",
-    numeric: true,
-    disablePadding: false,
-    label: "Seller Name",
-  },
+
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -172,7 +167,7 @@ function EnhancedTableHead(props) {
   );
 }
 
-const AgentGrid = ({rows, title, type, onPropertySelect }) => {
+const AgentGrid = ({rows, title, onItemSelect }) => {
   console.log("Rows::", rows);
 
   const [order, setOrder] = useState("asc");
@@ -182,15 +177,15 @@ const AgentGrid = ({rows, title, type, onPropertySelect }) => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [dense, setDense] = useState(false);
 
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
+  const handleRequestSort = (event, item) => {
+    const isAsc = orderBy === item && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
+    setOrderBy(item);
   };
 
   const handleClick = (event, row) => {
     setSelectedRow(row); // Update the selected row
-    onPropertySelect(row);
+    onItemSelect(row);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -276,22 +271,19 @@ const AgentGrid = ({rows, title, type, onPropertySelect }) => {
                         scope="row"
                         padding="none"
                       >
-                        {row.homeType}
+                        {row.name}
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        {row.address}
+                        {row.email}
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        {row.price}
+                        {row.phone}
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        {row.sqFt}
+                        {row.salesVolume}
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        {row.duration}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {row.contactName}
+                        {row.status}
                       </StyledTableCell>
                     </StyledTableRow>
                   );
