@@ -3,13 +3,13 @@ import styles from "../component/bannerStyle.module.css";
 import banerimg from "../images/banner_sellAnyHome.jpg";
 import Footer from "../component/Footer";
 import Header from "../component/Header";
-import { Box, Card, CardContent, CardHeader, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import PerkCompare from "../component/agent/PerkCompare";
 import AgentConnect from "../component/agent/AgentConnect";
 
 
 const Agent = () => {
-  const handleSubmit = () => {};
+
   return (
     <>
       <div
