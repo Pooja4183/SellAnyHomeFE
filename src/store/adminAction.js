@@ -111,7 +111,8 @@ export const createOrUpdateProductFailure = (error) => ({
   payload: error,
 });
 
-export const createAgent = (formData) => async (dispatch) => {
+export const createAgent = (formData, status) => async (dispatch) => {
+  formData.status = status;
   console.log("Inside action", formData);
   try {
     const response = await backendAPI.post('/agent/', formData);
@@ -125,7 +126,8 @@ export const createAgent = (formData) => async (dispatch) => {
   }
 };
 
-export const createOrUpdateAgent = (formData) => async (dispatch) => {
+export const createOrUpdateAgent = (formData, status) => async (dispatch) => {
+  formData.status = status;
   console.log("Inside action", formData);
   try {
     const response = await backendAPI.put('/agent/'+ formData.id, formData);

@@ -100,8 +100,8 @@ const Dashboard = () => {
       )}
        {activeSection === "agent" && (
         <AgentCriteriaResult
-          type="all"
           title="All Agents | Draft + Approved"
+          editable
         />
       )}
       {activeSection === "dashboard" && (

@@ -35,7 +35,7 @@ const AgentForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await dispatch(createAgent(formData));
+      await dispatch(createAgent(formData, "DRAFT"));
       setSuccess(true);
       setError(null);
     } catch (error) {

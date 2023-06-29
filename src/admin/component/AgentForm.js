@@ -26,9 +26,8 @@ import { grey, blue } from "@mui/material/colors";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase";
-import Gallery from "./Gallery";
 import { useDispatch } from "react-redux";
-import { createOrUpdateAgent } from "../../store/adminAction";
+import { createAgent, createOrUpdateAgent } from "../../store/adminAction";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -79,7 +78,7 @@ const BorderItem = styled(Paper)(({ theme, title }) => ({
   },
 }));
 
-const AgentForm = ({ isEdit, selectedItem }) => {
+const AgentForm = ({ selectedItem, editable }) => {
   const dispatch = useDispatch();
   const [eventStatus, setEventStatus] = useState({
     isSuccess: false,
@@ -127,8 +126,32 @@ const AgentForm = ({ isEdit, selectedItem }) => {
     let msg = "";
     console.log("Submitted", formData);
     try {
-        await dispatch(createOrUpdateAgent(formData));
-        msg = "Agent Boarded Sucessfully!";
+      const clickedButton = event.nativeEvent.submitter;
+      console.log(
+        "Clicked::",
+        clickedButton.id,
+        " Evaluate ",
+        clickedButton.id === "approveBtn"
+      );
+      if (clickedButton.id === "approveBtn") {
+        console.log("Submit button 1 clicked");
+        // Access the updated formData value by using the callback function in setFormData
+        if(editable){
+          await dispatch(createOrUpdateAgent(formData, "APPROVED"));
+        } else{
+          await dispatch(createAgent(formData, "APPROVED"));
+        }
+       
+        msg = "Agent Data Saved And Approved Successfully!";
+      } else {
+        if(editable){
+          await dispatch(createOrUpdateAgent(formData, "DRAFT"));
+        } else{
+          await dispatch(createAgent(formData, "DRAFT"));
+        }
+        msg = "Agent Data Saved Successfully!";
+      }
+
       setEventStatus({
         isSuccess: true,
         msg: msg,
@@ -142,13 +165,6 @@ const AgentForm = ({ isEdit, selectedItem }) => {
       });
     }
   };
-
-  // Use the updated formData value outside of the handleSubmit function
-  useEffect(() => {
-    console.log("Updated Data:", formData);
-  }, [formData]);
-
-
 
   const fileInputRef = useRef(null);
 
@@ -175,7 +191,7 @@ const AgentForm = ({ isEdit, selectedItem }) => {
     console.debug("Avatar URL", imageUrl);
     setFormData((prevFormData) => ({
       ...prevFormData,
-      img1: imageUrl,
+      img: imageUrl,
     }));
     console.debug("Form Data", formData);
   };
@@ -237,7 +253,7 @@ const AgentForm = ({ isEdit, selectedItem }) => {
 
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={8} sm={8}>
+          <Grid item xs={9} sm={9}>
             <Stack spacing={1}>
               <TextField
                 label="Full Name"
@@ -245,6 +261,7 @@ const AgentForm = ({ isEdit, selectedItem }) => {
                 value={formData.name}
                 onChange={handleChange}
                 fullWidth
+                required
                 size="small"
               />
               <TextField
@@ -253,7 +270,6 @@ const AgentForm = ({ isEdit, selectedItem }) => {
                 value={formData.email}
                 onChange={handleChange}
                 fullWidth
-                required
                 size="small"
               />
               <TextField
@@ -268,7 +284,7 @@ const AgentForm = ({ isEdit, selectedItem }) => {
               />
             </Stack>
           </Grid>
-          <Grid item xs={4} sm={4}>
+          <Grid item xs={3} sm={3} lg={3}>
             <Badge
               badgeContent={
                 <label htmlFor="file-input">
@@ -284,7 +300,7 @@ const AgentForm = ({ isEdit, selectedItem }) => {
               variant="solid"
             >
               <img
-                src={formData.img1}
+                src={formData.img}
                 alt=""
                 loading="lazy"
                 width="100%"
@@ -303,10 +319,9 @@ const AgentForm = ({ isEdit, selectedItem }) => {
             <FormControl fullWidth>
               <InputLabel>What is your Individual Sales Volume? </InputLabel>
               <Select
-                name="bath"
+                name="salesVolume"
                 value={formData.salesVolume}
                 onChange={handleChange}
-                required
                 size="small"
               >
                 {PropertyMaster.agentSalesVolume.map((option) => (
@@ -341,6 +356,16 @@ const AgentForm = ({ isEdit, selectedItem }) => {
             >
               Save
               <Save sx={{ marginLeft: 1 }} />
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              sx={{ marginLeft: 2 }}
+              id="approveBtn"
+            >
+              Save And Approve
+              <Approval sx={{ marginLeft: 1 }} />
             </Button>
           </Grid>
         </Grid>
