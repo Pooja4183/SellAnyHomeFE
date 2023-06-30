@@ -48,12 +48,7 @@ const AgentCriteriaResult = ({ title, editable }) => {
   }, [dispatch]);
 
   return (
-    <Box
-      sx={{
-        marginBottom: "0%",
-      }}
-    >
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{mb:15}}>
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{mb:12}}>
         <Grid item xs={12} sm={6} lg={6}>
           <Item elevation={6}>
             {rows && (
@@ -66,12 +61,9 @@ const AgentCriteriaResult = ({ title, editable }) => {
           </Item>
         </Grid>
         <Grid item xs={12} sm={6} lg={6}>
-          
             <AgentForm selectedItem={selectedItem} editable/>
-         
         </Grid>
       </Grid>
-    </Box>
   );
 };
 

@@ -73,7 +73,7 @@ const adminSlice = createSlice({
         (element) => element.id === action.payload.id
        
       );
-      if(index != -1){
+      if(index !== -1){
         state.products[index]=action.payload;
       }
       state.error = null;
@@ -98,7 +98,7 @@ const adminSlice = createSlice({
         (element) => element.id === action.payload.id
        
       );
-      if(index != -1){
+      if(index !== -1){
         state.agents[index]=action.payload;
       }
       state.error = null;

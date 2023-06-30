@@ -251,9 +251,8 @@ const AgentForm = ({ selectedItem, editable }) => {
         </Grid>
       </Grid>
 
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={9} sm={9}>
+        <Grid container spacing={2} component={"form"} onSubmit={handleSubmit}>
+          <Grid item xs={9} sm={9} lg={9}>
             <Stack spacing={1}>
               <TextField
                 label="Full Name"
@@ -285,7 +284,7 @@ const AgentForm = ({ selectedItem, editable }) => {
             </Stack>
           </Grid>
           <Grid item xs={3} sm={3} lg={3}>
-            <Badge
+          <Badge
               badgeContent={
                 <label htmlFor="file-input">
                   <IconButton
@@ -297,13 +296,16 @@ const AgentForm = ({ selectedItem, editable }) => {
                   </IconButton>
                 </label>
               }
-              variant="solid"
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
             >
               <img
                 src={formData.img}
                 alt=""
                 loading="lazy"
-                width="100%"
+                width={"100%"}
                 height={"100%"}
               />
               <input
@@ -369,7 +371,6 @@ const AgentForm = ({ selectedItem, editable }) => {
             </Button>
           </Grid>
         </Grid>
-      </form>
     </Paper>
   );
 };
