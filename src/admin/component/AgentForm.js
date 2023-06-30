@@ -196,46 +196,8 @@ const AgentForm = ({ selectedItem, editable }) => {
     console.debug("Form Data", formData);
   };
 
-  const fileInputGalleryRef = useRef(null);
 
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null);
 
-  const handleGalleryIconButtonClick = () => {
-    fileInputGalleryRef.current.click();
-  };
-
-  const handleImageGalleryUpload = async (event) => {
-    const file = event.target.files[0];
-    setSelectedImage(file);
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreviewImage(reader.result);
-    };
-    reader.readAsDataURL(file);
-
-    const storageRef = ref(storage, file.name); // Create a reference to the storage location
-    await uploadBytes(storageRef, file); // Upload the file to the storage location
-    const imageUrl = await getDownloadURL(storageRef); // G
-    console.debug("Gallery URL", imageUrl);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      images: [...prevFormData.images, imageUrl],
-    }));
-    console.debug("Form Data", formData);
-  };
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedImage(file);
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreviewImage(reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
 
   return (
     <Paper elevation={24} sx={{ padding: 1, mb: 5 }}>
