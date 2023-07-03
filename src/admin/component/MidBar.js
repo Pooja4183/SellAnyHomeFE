@@ -25,15 +25,14 @@ const MidBar = ({onItemClick}) => {
         <Item type="sell" text="Latest 3 Sale Bookings"  onItemSelect={setSelectedItem}/>
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
-        <Item type="buy" text=" Latest 3 Buy Bookings" />
+        <Item type="buy" text=" Latest 3 Buy Bookings"   onItemSelect={setSelectedItem}/>
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
-        <Item  type="all" text="All Properties" />
+        <Item  type="all" text="All Properties"   onItemSelect={setSelectedItem}/>
       </Grid>
     </Grid>
     {selectedItem && (
         <>
-        <h5> Hello {selectedItem.id}</h5>
         <Grid container>
           <Grid item ml={"20%"} mr={"20%"}>
           <PropertyForm selectedProperty={selectedItem}/>

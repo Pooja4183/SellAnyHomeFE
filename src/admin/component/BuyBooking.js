@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -24,14 +24,21 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const BuyBooking = () => {
+const BuyBooking = ({onItemSelect}) => {
   const dispatch = useDispatch();
   const rows = useSelector((state) => state.admin.sellProducts);
+
+  const [selectedRow, setSelectedRow] = useState(0); // Track the selected row
 
   useEffect(() => {
     dispatch(fetchProductsForSale());
     console.log("Rows::", rows);
   }, [dispatch]);
+
+  const handleClick = (event, row) => {
+    setSelectedRow(row); // Update the selected row
+    onItemSelect(row);
+  };
 
   return (
    
@@ -45,11 +52,11 @@ const BuyBooking = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(0, 3).map((item) => (
-              <TableRow key={item.id}>
-                <TableCell>...{item.id.slice(18)}</TableCell>
-                <TableCell>{item.price}</TableCell>
-                <TableCell>{item.homeType}</TableCell>
+            {rows.slice(0, 3).map((row) => (
+              <TableRow key={row.id}  onClick={(event) => handleClick(event, row)}>
+                <TableCell>...{row.id.slice(18)}</TableCell>
+                <TableCell>{row.price}</TableCell>
+                <TableCell>{row.homeType}</TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -40,8 +40,8 @@ const Item = ({ type, text,onItemSelect }) => {
           {text}
         </Typography>
         {type === "sell" && <SellBooking onItemSelect={onItemSelect}/>}
-        {type === "buy" && <BuyBooking />}
-        {type === "all" && <BuyBooking />}
+        {type === "buy" && <BuyBooking  onItemSelect={onItemSelect}/>}
+        {type === "all" && <BuyBooking  onItemSelect={onItemSelect}/>}
       </CardContent>
     </Card>
   );

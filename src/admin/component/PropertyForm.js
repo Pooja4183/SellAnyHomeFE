@@ -15,7 +15,9 @@ import {
   Stack,
   IconButton,
   Box,
+  Badge,
 } from "@mui/material";
+import RoofingIcon from '@mui/icons-material/Roofing';
 import EditIcon from "@mui/icons-material/Edit";
 import { Approval, AttachFile, Save } from "@mui/icons-material";
 import PropertyMaster from "../../master.json";
@@ -35,7 +37,6 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   textAlign: "center",
   color: theme.palette.text.secondary,
-  position: "relative",
 }));
 
 const EditIconButton = styled(IconButton)(({ theme }) => ({
@@ -268,7 +269,10 @@ const PropertyForm = ({ selectedProperty }) => {
     <Paper elevation={24} sx={{padding: 1, mb:5}} >
       <Grid container sx={{ paddingTop: 1, mb: 1, background: blue[200] }} justifyContent={"space-between"}>
         <Grid item xs={6} sm={6} lg={6}>
-          <Typography variant="h4" sx={{paddingLeft: 2}} >Property : {formData.id}</Typography>
+          <IconButton>
+          <RoofingIcon/>
+          <Typography variant="h4" sx={{paddingLeft: 2}}> Property : {formData.id}</Typography>
+          </IconButton>
         </Grid>
         <Grid item>
           <Button
@@ -296,8 +300,7 @@ const PropertyForm = ({ selectedProperty }) => {
 
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={6} sm={6}>
-            <Stack spacing={3}>
+          <Grid item xs={6} sm={6} lg={6}>
               <TextField
                 label="Property Description"
                 name="description"
@@ -306,18 +309,33 @@ const PropertyForm = ({ selectedProperty }) => {
                 fullWidth
                 multiline
                 required
-                rows={9}
+                rows={16}
               />
-            </Stack>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Item>
+          <Grid item xs={6} sm={6} lg={6} sx={{ display: 'flex' }}>
+            <Item >
+            <Badge
+              badgeContent={
+                <label htmlFor="file-input">
+                  <IconButton
+                    component="span"
+                    aria-label="Upload File"
+                    onClick={handleIconButtonClick}
+                  >
+                    <AttachFile />
+                  </IconButton>
+                </label>
+              }
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+            >
               <img
                 src={formData.img1}
                 alt=""
                 loading="lazy"
-                width="100%"
-                height="166"
+                style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'scale-down'}}
               />
               <input
                 type="file"
@@ -325,15 +343,7 @@ const PropertyForm = ({ selectedProperty }) => {
                 style={{ display: "none" }}
                 onChange={handleAvatarUpload}
               />
-              <label htmlFor="file-input">
-                <IconButton
-                  component="span"
-                  aria-label="Upload File"
-                  onClick={handleIconButtonClick}
-                >
-                  <AttachFile />
-                </IconButton>
-              </label>
+            </Badge>
             </Item>
           </Grid>
           <Grid item xs={12}>
