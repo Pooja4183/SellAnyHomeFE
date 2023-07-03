@@ -35,7 +35,7 @@ const MidBar = ({onItemClick}) => {
         <>
         <Grid container>
           <Grid item ml={"20%"} mr={"20%"}>
-          <PropertyForm selectedProperty={selectedItem}/>
+          <PropertyForm selectedProperty={selectedItem} editable/>
           </Grid>
         </Grid>
        
