@@ -1,6 +1,5 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
@@ -14,7 +13,6 @@ import { useEffect } from "react";
 import {
   fetchProductsForSale,
 } from "../../store/adminAction";
-import { Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import { useState } from "react";
 
@@ -33,12 +31,10 @@ const SellBooking = ({onItemSelect}) => {
 
   useEffect(() => {
     dispatch(fetchProductsForSale());
-    console.log("Rows::", rows);
   }, [dispatch]);
 
   const handleClick = (event, row) => {
     setSelectedRow(row); // Update the selected row
-    console.log("Row Selected::", row);
     onItemSelect(row);
   };
 

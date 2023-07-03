@@ -1,17 +1,11 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    fetchProductsForSale,
-    fetchProductsForBuy,
-    fetchProductsForApproved,
-    fetchProductsForDraft,
-    fetchProductsForAll,
-    fetchAgents,
+  fetchAgents
 } from "../../store/adminAction";
 import AgentForm from "./AgentForm";
 import AgentGrid from "./AgentGrid";

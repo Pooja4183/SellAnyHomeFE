@@ -268,7 +268,7 @@ const PropertyForm = ({ selectedProperty }) => {
     <Paper elevation={24} sx={{padding: 1, mb:5}} >
       <Grid container sx={{ paddingTop: 1, mb: 1, background: blue[200] }} justifyContent={"space-between"}>
         <Grid item xs={6} sm={6} lg={6}>
-          <Typography variant="h4" sx={{paddingLeft: 2}} >Property</Typography>
+          <Typography variant="h4" sx={{paddingLeft: 2}} >Property : {formData.id}</Typography>
         </Grid>
         <Grid item>
           <Button
@@ -299,14 +299,6 @@ const PropertyForm = ({ selectedProperty }) => {
           <Grid item xs={6} sm={6}>
             <Stack spacing={3}>
               <TextField
-                label="ID (*match last 6 chars)"
-                name="ID"
-                value={formData.id}
-                onChange={handleChange}
-                fullWidth
-                disabled
-              />
-              <TextField
                 label="Property Description"
                 name="description"
                 value={formData.description}
@@ -314,7 +306,7 @@ const PropertyForm = ({ selectedProperty }) => {
                 fullWidth
                 multiline
                 required
-                rows={4}
+                rows={9}
               />
             </Stack>
           </Grid>
