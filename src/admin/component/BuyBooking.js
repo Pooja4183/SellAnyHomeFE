@@ -12,7 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import {
-  fetchProductsForSale,
+  fetchProductsForBuy,
+  fetchDirectlyCreatedProducts
 } from "../../store/adminAction";
 import { Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
@@ -24,14 +25,28 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const BuyBooking = ({onItemSelect}) => {
+const BuyBooking = ({type,onItemSelect}) => {
   const dispatch = useDispatch();
-  const rows = useSelector((state) => state.admin.sellProducts);
+  let rows = [];
+   let selector = useSelector((state) => state.admin);
+   if(type=== 'buy'){
+    rows = selector.buyProducts;
+   } else{
+    rows = selector.directProducts;
+   }
 
   const [selectedRow, setSelectedRow] = useState(0); // Track the selected row
 
   useEffect(() => {
-    dispatch(fetchProductsForSale());
+    switch(type){
+      case 'buy':
+        dispatch(fetchProductsForBuy());
+        break;
+      case 'direct':
+        dispatch(fetchDirectlyCreatedProducts())
+        break;
+    }
+   
     console.log("Rows::", rows);
   }, [dispatch]);
 
@@ -49,14 +64,16 @@ const BuyBooking = ({onItemSelect}) => {
               <TableCell>ID</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Type</TableCell>
+              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(0, 3).map((row) => (
+            {rows && rows.slice(0, 3).map((row) => (
               <TableRow key={row.id}  onClick={(event) => handleClick(event, row)}>
                 <TableCell>...{row.id.slice(18)}</TableCell>
                 <TableCell>{row.price}</TableCell>
                 <TableCell>{row.homeType}</TableCell>
+                <TableCell>{row.status}</TableCell>
               </TableRow>
             ))}
           </TableBody>

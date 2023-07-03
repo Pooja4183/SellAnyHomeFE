@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import {
-  fetchProductsForSale,
+  fetchProductsForSell,
 } from "../../store/adminAction";
 import { grey } from "@mui/material/colors";
 import { useState } from "react";
@@ -30,7 +30,7 @@ const SellBooking = ({onItemSelect}) => {
   const [selectedRow, setSelectedRow] = useState(0); // Track the selected row
 
   useEffect(() => {
-    dispatch(fetchProductsForSale());
+    dispatch(fetchProductsForSell());
   }, [dispatch]);
 
   const handleClick = (event, row) => {

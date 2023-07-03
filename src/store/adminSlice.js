@@ -10,6 +10,7 @@ const initialState = {
   draftProducts: [],
   draftTableHeeaders: [],
   allProducts: [],
+  directProducts:[],
   allTableHeeaders: [],
   agents:[],
   agentTableHeaders: [],
@@ -41,6 +42,10 @@ const adminSlice = createSlice({
     },
     fetchProductsForAll(state, action) {
       state.allProducts = action.payload;
+      state.error = null;
+    },
+    fetchDirectlyCreatedProducts(state,action){
+      state.directProducts = action.payload;
       state.error = null;
     },
     updateSellTableHeader(state, action) {

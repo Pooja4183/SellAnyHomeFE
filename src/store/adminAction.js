@@ -1,9 +1,9 @@
 import backendAPI from '../apis/backendAPI';
 import { adminActions } from './adminSlice';
 
-export const fetchProductsForSale = () => async (dispatch) => {
+export const fetchProductsForSell = () => async (dispatch) => {
     try {
-      const response = await backendAPI.get('/property?status=DRAFT');
+      const response = await backendAPI.get('/property?status=DRAFT&isBuy=false');
       console.debug("Success1", response.data.property)
       dispatch(adminActions.fetchProductsForSale(response.data.property));
       console.debug("HEaders::", response.data.headers);
@@ -82,6 +82,24 @@ export const fetchProductsForSale = () => async (dispatch) => {
   
     }
   };
+
+  export const fetchDirectlyCreatedProducts = () => async (dispatch) => {
+    try {
+      const response = await backendAPI.get('/property?isBuy=true');
+      console.debug("Success1", response.data.property)
+      dispatch(adminActions.fetchDirectlyCreatedProducts(response.data.property));
+      console.debug("HEaders::", response.data.headers);
+      dispatch(adminActions.updateSellTableHeader(response.data.headers))
+     
+    } catch (error) 
+    {
+      console.log("Failure1")
+      dispatch(adminActions.fetchProductsForAllFailure(error.message));
+  
+    }
+  };
+
+  
   export const createProduct = (formData, status) => async (dispatch) => {
     console.debug("Property Id::", formData.id, "URL::", '/property/', "Status::", status);
     try {

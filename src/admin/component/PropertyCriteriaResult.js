@@ -8,7 +8,7 @@ import PropertyForm from "./PropertyForm";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchProductsForSale,
+  fetchProductsForSell,
   fetchProductsForBuy,
   fetchProductsForApproved,
   fetchProductsForDraft,
@@ -55,7 +55,7 @@ const PropertyCriteriaResult = ({ title, type }) => {
       try {
         switch (type) {
           case "sell":
-            dispatch(fetchProductsForSale());
+            dispatch(fetchProductsForSell());
             break;
           case "buy":
             dispatch(fetchProductsForBuy());
