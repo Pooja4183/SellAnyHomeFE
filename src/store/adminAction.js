@@ -82,7 +82,22 @@ export const fetchProductsForSale = () => async (dispatch) => {
   
     }
   };
- 
+  export const createProduct = (formData, status) => async (dispatch) => {
+    console.debug("Property Id::", formData.id, "URL::", '/property/', "Status::", status);
+    try {
+      formData.status = status;
+      console.debug("Form Data::", formData);
+      const response = await backendAPI.post('/property/', formData);
+      console.log("Success1")
+      dispatch(adminActions.createOrUpdateProductSuccess(response.data.property));
+     
+    } catch (error) 
+    {
+      console.log("Failure1")
+      dispatch(createOrUpdateProductFailure(error.message));
+  
+    }
+  };
   
 export const createOrUpdateProduct = (formData, status) => async (dispatch) => {
   console.debug("Property Id::", formData.id, "URL::", '/property/'+ formData.id, "Status::", status);

@@ -29,7 +29,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase";
 import Gallery from "./Gallery";
 import { useDispatch } from "react-redux";
-import { createOrUpdateProduct } from "../../store/adminAction";
+import { createOrUpdateProduct, createProduct } from "../../store/adminAction";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -80,7 +80,7 @@ const BorderItem = styled(Paper)(({ theme, title }) => ({
   },
 }));
 
-const PropertyForm = ({ selectedProperty }) => {
+const PropertyForm = ({ selectedProperty, editable }) => {
   const dispatch = useDispatch();
   const [eventStatus, setEventStatus] = useState({
     isSuccess: false,
@@ -92,7 +92,7 @@ const PropertyForm = ({ selectedProperty }) => {
   const [formData, setFormData] = useState({
     id: "",
     homeType: "",
-    isBuy: false,
+    isBuy: true, // Significance of property directly listed for Buying.
     bed: "",
     bath: "",
     price: "",
@@ -157,10 +157,18 @@ const PropertyForm = ({ selectedProperty }) => {
       if (clickedButton.id === "approveBtn") {
         console.log("Submit button 1 clicked");
         // Access the updated formData value by using the callback function in setFormData
-        await dispatch(createOrUpdateProduct(formData, "APPROVED"));
+        if (editable) {
+          await dispatch(createOrUpdateProduct(formData, "APPROVED"));
+        } else {
+          await dispatch(createProduct(formData, "APPROVED"));
+        }
         msg = "Property Data Saved And Approved Successfully!";
       } else {
-        await dispatch(createOrUpdateProduct(formData, "DRAFT"));
+        if (editable) {
+          await dispatch(createOrUpdateProduct(formData, "DRAFT"));
+        } else {
+          await dispatch(createProduct(formData, "DRAFT"));
+        }
         msg = "Property Data Saved Successfully!";
       }
       console.log("Data::", formData);
@@ -373,7 +381,7 @@ const PropertyForm = ({ selectedProperty }) => {
             <FormControl fullWidth>
               <InputLabel>How Many Beds</InputLabel>
               <Select
-                name="bath"
+                name="bed"
                 value={formData.bed}
                 onChange={handleChange}
                 required
