@@ -14,25 +14,19 @@ const TopBar = ({ onItemClick }) => {
    
   };
 
-  const [metaInfo, setMetaInfo] = useState({
-    cnt_sellProducts: 0,
-    cnt_buyProducts: 0,
-    cnt_approvedProducts: 0,
-    cnt_draftProducts:0,
-    cnt_allProducts: 0,
-    cnt_agents: 0
-  });
+ 
   const dispatch = useDispatch();
 
-  const cnt_sellProducts = useSelector((state) => state.admin.sellProducts.length);
-  const cnt_buyProducts = useSelector((state) => state.admin.buyProducts.length);
-  const cnt_approvedProducts = useSelector((state) => state.admin.approvedProducts.length);
-  const cnt_draftProducts = useSelector((state) => state.admin.draftProducts.length);
-  const cnt_allProducts = useSelector((state) => state.admin.allProducts.length);
+  const cnt_sellProducts = useSelector((state) => state.admin.cnt_sellProducts);
+  const cnt_buyProducts = useSelector((state) => state.admin.cnt_buyProducts);
+  const cnt_approvedProducts = useSelector((state) => state.admin.cnt_approvedProducts);
+  const cnt_draftProducts = useSelector((state) => state.admin.cnt_draftProducts);
+  const cnt_allProducts = useSelector((state) => state.admin.cnt_allProducts);
   const cnt_agents = useSelector((state) => state.admin.agents.length);
 
   useEffect(()=> {
     dispatch(fetchProductsMeta());
+  
   }, [dispatch])
 
   return (
@@ -51,7 +45,7 @@ const TopBar = ({ onItemClick }) => {
         <SmallItem text="Draft Properties" value={cnt_draftProducts}  onClick={() => handleSmallItemClick("draft")} />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
-        <SmallItem text="Total Available" value={cnt_allProducts}   onClick={() => handleSmallItemClick("all")} />
+        <SmallItem text="Total Available" value={cnt_allProducts}  onClick={() => handleSmallItemClick("all")} />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
         <SmallItem text="Total Agents" value={cnt_agents}  onClick={() => handleSmallItemClick("agent")} />

@@ -7,10 +7,16 @@ const initialState = {
   approvedProducts: [],
   draftProducts: [],
   allProducts: [],
-  directProducts:[],
-  agents:[],
+  directProducts: [],
+  agents: [],
   agentTableHeaders: [],
-  agent:null,
+  agent: null,
+  cnt_sellProducts: 0,
+  cnt_buyProducts: 0,
+  cnt_approvedProducts: 0,
+  cnt_draftProducts: 0,
+  cnt_allProducts: 0,
+  cnt_agents: 0,
   error: null,
 };
 
@@ -21,26 +27,31 @@ const adminSlice = createSlice({
 
   reducers: {
     fetchProductsForSale(state, action) {
-      state.sellProducts = action.payload;
+      state.sellProducts = action.payload.property;
+      state.cnt_sellProducts = action.payload.totalRecords;
       state.error = null;
     },
     fetchProductsForBuy(state, action) {
-      state.buyProducts = action.payload;
+      state.buyProducts = action.payload.property;
+      state.cnt_buyProducts = action.payload.totalRecords;
       state.error = null;
     },
     fetchProductsForApproved(state, action) {
-      state.approvedProducts = action.payload;
+      state.approvedProducts = action.payload.property;
+      state.cnt_approvedProducts = action.payload.totalRecords;
       state.error = null;
     },
     fetchProductsForDraft(state, action) {
-      state.draftProducts = action.payload;
+      state.draftProducts = action.payload.property;
+      state.cnt_draftProducts = action.payload.totalRecords;
       state.error = null;
     },
     fetchProductsForAll(state, action) {
-      state.allProducts = action.payload;
+      state.allProducts = action.payload.property;
+      state.cnt_allProducts = action.payload.totalRecords;
       state.error = null;
     },
-    fetchDirectlyCreatedProducts(state,action){
+    fetchDirectlyCreatedProducts(state, action) {
       state.directProducts = action.payload;
       state.error = null;
     },
@@ -72,10 +83,9 @@ const adminSlice = createSlice({
       state.product = action.payload;
       const index = state.products.findIndex(
         (element) => element.id === action.payload.id
-       
       );
-      if(index !== -1){
-        state.products[index]=action.payload;
+      if (index !== -1) {
+        state.products[index] = action.payload;
       }
       state.error = null;
     },
@@ -87,7 +97,8 @@ const adminSlice = createSlice({
     },
     /* Agent Stuff */
     fetchAgents(state, action) {
-      state.agents = action.payload;
+      state.agents = action.payload.agents;
+      state.cnt_agents = action.payload.totalRecords;
       state.error = null;
     },
     updateAgentTableHeader(state, action) {
@@ -97,10 +108,9 @@ const adminSlice = createSlice({
       state.agent = action.payload;
       const index = state.agents.findIndex(
         (element) => element.id === action.payload.id
-       
       );
-      if(index !== -1){
-        state.agents[index]=action.payload;
+      if (index !== -1) {
+        state.agents[index] = action.payload;
       }
       state.error = null;
     },

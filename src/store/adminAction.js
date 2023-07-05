@@ -24,7 +24,7 @@ export const fetchProductsForSell = () => async (dispatch) => {
     try {
       const response = await backendAPI.get('/property?status=DRAFT&isBuy=false');
       console.debug("Success1", response.data.property)
-      dispatch(adminActions.fetchProductsForSale(response.data.property));
+      dispatch(adminActions.fetchProductsForSale(response.data));
       console.debug("HEaders::", response.data.headers);
       dispatch(adminActions.updateProductTableHeaders(response.data.headers))
      
@@ -40,7 +40,7 @@ export const fetchProductsForSell = () => async (dispatch) => {
     try {
       const response = await backendAPI.get('/property?status=APPROVED');
       console.debug("Success1", response.data.property)
-      dispatch(adminActions.fetchProductsForBuy(response.data.property));
+      dispatch(adminActions.fetchProductsForBuy(response.data));
       console.debug("HEaders::", response.data.headers);
       dispatch(adminActions.updateProductTableHeaders(response.data.headers))
      
@@ -55,8 +55,8 @@ export const fetchProductsForSell = () => async (dispatch) => {
   export const fetchProductsForApproved = () => async (dispatch) => {
     try {
       const response = await backendAPI.get('/property?status=APPROVED');
-      console.debug("Success1", response.data.property)
-      dispatch(adminActions.fetchProductsForApproved(response.data.property));
+      console.debug("Success1", response.data)
+      dispatch(adminActions.fetchProductsForApproved(response.data));
       console.debug("HEaders::", response.data.headers);
       dispatch(adminActions.updateProductTableHeaders(response.data.headers))
      
@@ -72,8 +72,8 @@ export const fetchProductsForSell = () => async (dispatch) => {
   export const fetchProductsForDraft = () => async (dispatch) => {
     try {
       const response = await backendAPI.get('/property?status=DRAFT');
-      console.debug("Success1", response.data.property)
-      dispatch(adminActions.fetchProductsForDraft(response.data.property));
+      console.debug("Success1", response.data)
+      dispatch(adminActions.fetchProductsForDraft(response.data));
       console.debug("HEaders::", response.data.headers);
       dispatch(adminActions.updateProductTableHeaders(response.data.headers))
      
@@ -90,7 +90,7 @@ export const fetchProductsForSell = () => async (dispatch) => {
     try {
       const response = await backendAPI.get('/property');
       console.debug("Success1 Fetch All", response.data.property)
-      dispatch(adminActions.fetchProductsForAll(response.data.property));
+      dispatch(adminActions.fetchProductsForAll(response.data));
       console.debug("HEaders::", response.data.headers);
       dispatch(adminActions.updateProductTableHeaders(response.data.headers))
      
@@ -208,7 +208,7 @@ export const fetchAgents = () => async (dispatch) => {
   try {
     const response = await backendAPI.get('/agent');
     console.debug("Success1", response.data.agents)
-    dispatch(adminActions.fetchAgents(response.data.agents));
+    dispatch(adminActions.fetchAgents(response.data));
     console.debug("HEaders::", response.data.headers);
     dispatch(adminActions.updateAgentTableHeader(response.data.headers))
    
