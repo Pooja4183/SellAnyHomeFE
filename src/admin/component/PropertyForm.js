@@ -11,21 +11,16 @@ import {
   Grid,
   Typography,
   FormGroup,
-  Paper,
-  Stack,
-  IconButton,
-  Box,
-  Badge,
+  Paper, IconButton, Badge
 } from "@mui/material";
 import RoofingIcon from '@mui/icons-material/Roofing';
-import EditIcon from "@mui/icons-material/Edit";
 import { Approval, AttachFile, Save } from "@mui/icons-material";
 import PropertyMaster from "../../master.json";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import { useEffect } from "react";
 import { grey, blue } from "@mui/material/colors";
 
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase";
 import Gallery from "./Gallery";
 import { useDispatch } from "react-redux";

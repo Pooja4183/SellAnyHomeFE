@@ -1,31 +1,23 @@
 import React, { useState, useRef } from "react";
 import {
-  TextField,
-  Checkbox,
-  FormControlLabel,
-  Button,
+  TextField, Button,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   Grid,
-  Typography,
-  FormGroup,
-  Paper,
+  Typography, Paper,
   Stack,
-  IconButton,
-  Box,
-  Badge,
+  IconButton, Badge
 } from "@mui/material";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import EditIcon from "@mui/icons-material/Edit";
 import { Approval, AttachFile, Save } from "@mui/icons-material";
 import PropertyMaster from "../../master.json";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import { useEffect } from "react";
 import { grey, blue } from "@mui/material/colors";
 
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase";
 import { useDispatch } from "react-redux";
 import { createAgent, createOrUpdateAgent } from "../../store/adminAction";
