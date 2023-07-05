@@ -2,16 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   sellProducts: [],
-  sellTableHeaders: [],
+  productTableHeaders: [],
   buyProducts: [],
-  buyTableHeeaders: [],
   approvedProducts: [],
-  approvedTableHeeaders: [],
   draftProducts: [],
-  draftTableHeeaders: [],
   allProducts: [],
   directProducts:[],
-  allTableHeeaders: [],
   agents:[],
   agentTableHeaders: [],
   agent:null,
@@ -48,8 +44,8 @@ const adminSlice = createSlice({
       state.directProducts = action.payload;
       state.error = null;
     },
-    updateSellTableHeader(state, action) {
-      state.sellTableHeaders = action.payload;
+    updateProductTableHeaders(state, action) {
+      state.productTableHeaders = action.payload;
     },
     fetchProductsForSaleFailure(state, action) {
       state.error = action.payload;
