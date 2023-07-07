@@ -68,7 +68,7 @@ const Banner = () => {
                 paddingTop={4}
               >
                 <TextField
-                  fullWidth
+                  
                   name="address"
                   label="Address Neighborhood"
                   id="address"
@@ -79,7 +79,7 @@ const Banner = () => {
                     background: "white",
                     border: 0,
                     borderRadius: 0,
-                  
+                  width:'50%'
                   }}
                 />
 

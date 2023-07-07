@@ -4,7 +4,7 @@ import { styled } from "@mui/system";
 const StyledButtonHome = styled(Button)(({ theme }) => ({
     fontSize: "14px",
     cursor: "pointer",
-    padding: "0 10%",
+    padding: "0 5%",
     border: "none",
     letterSpacing: "2px",
     backgroundColor: "slateblue",
