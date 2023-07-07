@@ -44,15 +44,7 @@ export default function Neighburhood() {
 
   return (
     <>
-      <div>
-        {position ? (
-          <div>
-            <p>Lat: {position.coords.latitude} Lon: {position.coords.longitude}</p>
-          </div>
-        ) : (
-          <p>Getting your location...</p>
-        )}
-      </div>
+     
 
       <Box >
         <Grid
@@ -66,17 +58,7 @@ export default function Neighburhood() {
               <Item sx={{ borderRadius: 0, boxShadow: "none" }}>
                 <Typography variant="h2">Find the Neighborhood For You</Typography>
               </Item>
-              <Grid item xs={12}>
-                <Item
-                  sx={{ borderRadius: 0, boxShadow: "none" }}
-                  className={styles.Nabourp}
-                >
-                  <p className={styles.Nabourp}>
-                    The neighborhoods best suited to your lifestyle, and the
-                    agents who know them best.
-                  </p>
-                </Item>
-              </Grid>
+             
             </Grid>
           </Grid>
           {imagePaths.map((image, index) => (
