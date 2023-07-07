@@ -25,7 +25,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const BuyBooking = ({type,onItemSelect}) => {
+const BuyBooking = ({type,text,onItemSelect}) => {
   const dispatch = useDispatch();
   let rows = [];
    let selector = useSelector((state) => state.admin);
@@ -52,7 +52,7 @@ const BuyBooking = ({type,onItemSelect}) => {
 
   const handleClick = (event, row) => {
     setSelectedRow(row); // Update the selected row
-    onItemSelect(row);
+    onItemSelect({row:row, text:text});
   };
 
   return (
