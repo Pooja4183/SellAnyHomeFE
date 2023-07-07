@@ -8,11 +8,12 @@ git pull origin main
 echo "New changes copied to server !"
 
 echo "Installing Dependencies..."
+
 npm install --yes
 
 
 echo "Creating Production Build..."
-npm run build
+npm run --max-old-space-size=4096 build
 
 #echo "PM2 Reload for TomorrowDubai.com"
 #pm2 reload tomorrowdubai
