@@ -1,0 +1,25 @@
+name: Build and Deploy
+
+# Trigger the workflow on push and
+# pull request events on the main branch
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+# Authenticate to the server via SSH
+# and run our deployment script
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Deploy to Server
+        uses: ./.github/actions/ssh-deploy
+        with:
+          ssh_private_key: ${{ secrets.SSHKEY }}
+          ssh_user: ${{ secrets.USERNAME }}
+          ssh_host: ${{ secrets.HOST }}
+          ssh_port: ${{ secrets.PORT }}
