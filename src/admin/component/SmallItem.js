@@ -1,17 +1,9 @@
-import { Button, Grid, Link, Paper, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import {
-  purple,
-  red,
-  deepOrange,
-  deepPurple,
-  white,
-  blue,
+  purple, blue,
   green,
   yellow,
-  orange,
-  cyan,
-  lime,
-  grey,
+  orange
 } from "@mui/material/colors";
 import { useState } from "react";
 

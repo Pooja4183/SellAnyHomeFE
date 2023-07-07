@@ -11,23 +11,20 @@ import {
   Grid,
   Typography,
   FormGroup,
-  Paper,
-  Stack,
-  IconButton,
-  Box,
+  Paper, IconButton, Badge
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import RoofingIcon from '@mui/icons-material/Roofing';
 import { Approval, AttachFile, Save } from "@mui/icons-material";
 import PropertyMaster from "../../master.json";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import { useEffect } from "react";
 import { grey, blue } from "@mui/material/colors";
 
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase";
 import Gallery from "./Gallery";
 import { useDispatch } from "react-redux";
-import { createOrUpdateProduct } from "../../store/adminAction";
+import { createOrUpdateProduct, createProduct } from "../../store/adminAction";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -35,7 +32,6 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   textAlign: "center",
   color: theme.palette.text.secondary,
-  position: "relative",
 }));
 
 const EditIconButton = styled(IconButton)(({ theme }) => ({
@@ -79,7 +75,7 @@ const BorderItem = styled(Paper)(({ theme, title }) => ({
   },
 }));
 
-const PropertyForm = ({ selectedProperty }) => {
+const PropertyForm = ({ selectedProperty, editable }) => {
   const dispatch = useDispatch();
   const [eventStatus, setEventStatus] = useState({
     isSuccess: false,
@@ -91,7 +87,7 @@ const PropertyForm = ({ selectedProperty }) => {
   const [formData, setFormData] = useState({
     id: "",
     homeType: "",
-    isBuy: false,
+    isBuy: true, // Significance of property directly listed for Buying.
     bed: "",
     bath: "",
     price: "",
@@ -156,10 +152,18 @@ const PropertyForm = ({ selectedProperty }) => {
       if (clickedButton.id === "approveBtn") {
         console.log("Submit button 1 clicked");
         // Access the updated formData value by using the callback function in setFormData
-        await dispatch(createOrUpdateProduct(formData, "APPROVED"));
+        if (editable) {
+          await dispatch(createOrUpdateProduct(formData, "APPROVED"));
+        } else {
+          await dispatch(createProduct(formData, "APPROVED"));
+        }
         msg = "Property Data Saved And Approved Successfully!";
       } else {
-        await dispatch(createOrUpdateProduct(formData, "DRAFT"));
+        if (editable) {
+          await dispatch(createOrUpdateProduct(formData, "DRAFT"));
+        } else {
+          await dispatch(createProduct(formData, "DRAFT"));
+        }
         msg = "Property Data Saved Successfully!";
       }
       console.log("Data::", formData);
@@ -268,7 +272,10 @@ const PropertyForm = ({ selectedProperty }) => {
     <Paper elevation={24} sx={{padding: 1, mb:5}} >
       <Grid container sx={{ paddingTop: 1, mb: 1, background: blue[200] }} justifyContent={"space-between"}>
         <Grid item xs={6} sm={6} lg={6}>
-          <Typography variant="h4" sx={{paddingLeft: 2}} >Property</Typography>
+          <IconButton>
+          <RoofingIcon/>
+          <Typography variant="h4" sx={{paddingLeft: 2}}> Property : {formData.id}</Typography>
+          </IconButton>
         </Grid>
         <Grid item>
           <Button
@@ -296,16 +303,7 @@ const PropertyForm = ({ selectedProperty }) => {
 
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={6} sm={6}>
-            <Stack spacing={3}>
-              <TextField
-                label="ID (*match last 6 chars)"
-                name="ID"
-                value={formData.id}
-                onChange={handleChange}
-                fullWidth
-                disabled
-              />
+          <Grid item xs={6} sm={6} lg={6}>
               <TextField
                 label="Property Description"
                 name="description"
@@ -314,18 +312,33 @@ const PropertyForm = ({ selectedProperty }) => {
                 fullWidth
                 multiline
                 required
-                rows={4}
+                rows={16}
               />
-            </Stack>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Item>
+          <Grid item xs={6} sm={6} lg={6} sx={{ display: 'flex' }}>
+            <Item >
+            <Badge
+              badgeContent={
+                <label htmlFor="file-input">
+                  <IconButton
+                    component="span"
+                    aria-label="Upload File"
+                    onClick={handleIconButtonClick}
+                  >
+                    <AttachFile />
+                  </IconButton>
+                </label>
+              }
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+            >
               <img
                 src={formData.img1}
                 alt=""
                 loading="lazy"
-                width="100%"
-                height="166"
+                style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'scale-down'}}
               />
               <input
                 type="file"
@@ -333,15 +346,7 @@ const PropertyForm = ({ selectedProperty }) => {
                 style={{ display: "none" }}
                 onChange={handleAvatarUpload}
               />
-              <label htmlFor="file-input">
-                <IconButton
-                  component="span"
-                  aria-label="Upload File"
-                  onClick={handleIconButtonClick}
-                >
-                  <AttachFile />
-                </IconButton>
-              </label>
+            </Badge>
             </Item>
           </Grid>
           <Grid item xs={12}>
@@ -371,7 +376,7 @@ const PropertyForm = ({ selectedProperty }) => {
             <FormControl fullWidth>
               <InputLabel>How Many Beds</InputLabel>
               <Select
-                name="bath"
+                name="bed"
                 value={formData.bed}
                 onChange={handleChange}
                 required

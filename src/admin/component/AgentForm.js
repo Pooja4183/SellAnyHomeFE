@@ -1,30 +1,23 @@
 import React, { useState, useRef } from "react";
 import {
-  TextField,
-  Checkbox,
-  FormControlLabel,
-  Button,
+  TextField, Button,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   Grid,
-  Typography,
-  FormGroup,
-  Paper,
+  Typography, Paper,
   Stack,
-  IconButton,
-  Box,
-  Badge,
+  IconButton, Badge
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import { Approval, AttachFile, Save } from "@mui/icons-material";
 import PropertyMaster from "../../master.json";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import { useEffect } from "react";
 import { grey, blue } from "@mui/material/colors";
 
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase";
 import { useDispatch } from "react-redux";
 import { createAgent, createOrUpdateAgent } from "../../store/adminAction";
@@ -94,7 +87,7 @@ const AgentForm = ({ selectedItem, editable }) => {
     email: "",
     phone: "",
     salesVolume: "",
-    status: ""
+    status: "",
   });
 
   useEffect(() => {
@@ -136,17 +129,17 @@ const AgentForm = ({ selectedItem, editable }) => {
       if (clickedButton.id === "approveBtn") {
         console.log("Submit button 1 clicked");
         // Access the updated formData value by using the callback function in setFormData
-        if(editable){
+        if (editable) {
           await dispatch(createOrUpdateAgent(formData, "APPROVED"));
-        } else{
+        } else {
           await dispatch(createAgent(formData, "APPROVED"));
         }
-       
+
         msg = "Agent Data Saved And Approved Successfully!";
       } else {
-        if(editable){
+        if (editable) {
           await dispatch(createOrUpdateAgent(formData, "DRAFT"));
-        } else{
+        } else {
           await dispatch(createAgent(formData, "DRAFT"));
         }
         msg = "Agent Data Saved Successfully!";
@@ -196,47 +189,6 @@ const AgentForm = ({ selectedItem, editable }) => {
     console.debug("Form Data", formData);
   };
 
-  const fileInputGalleryRef = useRef(null);
-
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null);
-
-  const handleGalleryIconButtonClick = () => {
-    fileInputGalleryRef.current.click();
-  };
-
-  const handleImageGalleryUpload = async (event) => {
-    const file = event.target.files[0];
-    setSelectedImage(file);
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreviewImage(reader.result);
-    };
-    reader.readAsDataURL(file);
-
-    const storageRef = ref(storage, file.name); // Create a reference to the storage location
-    await uploadBytes(storageRef, file); // Upload the file to the storage location
-    const imageUrl = await getDownloadURL(storageRef); // G
-    console.debug("Gallery URL", imageUrl);
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      images: [...prevFormData.images, imageUrl],
-    }));
-    console.debug("Form Data", formData);
-  };
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedImage(file);
-
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreviewImage(reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
-
   return (
     <Paper elevation={24} sx={{ padding: 1, mb: 5 }}>
       <Grid
@@ -245,131 +197,135 @@ const AgentForm = ({ selectedItem, editable }) => {
         justifyContent={"space-between"}
       >
         <Grid item xs={6} sm={6} lg={6}>
-          <Typography variant="h4" sx={{ paddingLeft: 2 }}>
-            Agent : {formData.id}
-          </Typography>
+          <IconButton>
+            <PersonAddAltIcon />
+            <Typography variant="h4" sx={{ paddingLeft: 2 }}>
+              Agent : {formData.id}
+            </Typography>
+          </IconButton>
         </Grid>
       </Grid>
 
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={9} sm={9}>
-            <Stack spacing={1}>
-              <TextField
-                label="Full Name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                fullWidth
-                required
-                size="small"
-              />
-              <TextField
-                label="Personal Email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                fullWidth
-                size="small"
-              />
-              <TextField
-                label="Preferred Phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                fullWidth
-                multiline
-                required
-                size="small"
-              />
-            </Stack>
-          </Grid>
-          <Grid item xs={3} sm={3} lg={3}>
-            <Badge
-              badgeContent={
-                <label htmlFor="file-input">
-                  <IconButton
-                    component="span"
-                    aria-label="Upload File"
-                    onClick={handleIconButtonClick}
-                  >
-                    <AttachFile />
-                  </IconButton>
-                </label>
-              }
-              variant="solid"
-            >
-              <img
-                src={formData.img}
-                alt=""
-                loading="lazy"
-                width="100%"
-                height={"100%"}
-              />
-              <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                onChange={handleAvatarUpload}
-              />
-            </Badge>
-          </Grid>
-
-          <Grid item xs={12} sm={12}>
-            <FormControl fullWidth>
-              <InputLabel>What is your Individual Sales Volume? </InputLabel>
-              <Select
-                name="salesVolume"
-                value={formData.salesVolume}
-                onChange={handleChange}
-                size="small"
-              >
-                {PropertyMaster.agentSalesVolume.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            {eventStatus.isSuccess && (
-              <Typography
-                variant="success"
-                sx={{ marginTop: 2, marginLeft: 1, color: "green" }}
-              >
-                {eventStatus.msg}
-              </Typography>
-            )}
-            {eventStatus.error && (
-              <Typography variant="error" sx={{ marginTop: 2, marginLeft: 1 }}>
-                {eventStatus.error}
-              </Typography>
-            )}
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              id="saveBtn"
-            >
-              Save
-              <Save sx={{ marginLeft: 1 }} />
-            </Button>
-            <Button
-              type="submit"
-              variant="contained"
-              color="secondary"
-              sx={{ marginLeft: 2 }}
-              id="approveBtn"
-            >
-              Save And Approve
-              <Approval sx={{ marginLeft: 1 }} />
-            </Button>
-          </Grid>
+      <Grid container spacing={2} component={"form"} onSubmit={handleSubmit}>
+        <Grid item xs={9} sm={9} lg={9}>
+          <Stack spacing={1}>
+            <TextField
+              label="Full Name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              fullWidth
+              required
+              size="small"
+            />
+            <TextField
+              label="Personal Email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              fullWidth
+              size="small"
+            />
+            <TextField
+              label="Preferred Phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              fullWidth
+              multiline
+              required
+              size="small"
+            />
+          </Stack>
         </Grid>
-      </form>
+        <Grid item xs={3} sm={3} lg={3}>
+          <Badge
+            badgeContent={
+              <label htmlFor="file-input">
+                <IconButton
+                  component="span"
+                  aria-label="Upload File"
+                  onClick={handleIconButtonClick}
+                >
+                  <AttachFile />
+                </IconButton>
+              </label>
+            }
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+          >
+            <img
+              src={formData.img}
+              alt=""
+              loading="lazy"
+              width={"100%"}
+              height={"100%"}
+            />
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              onChange={handleAvatarUpload}
+            />
+          </Badge>
+        </Grid>
+
+        <Grid item xs={12} sm={12}>
+          <FormControl fullWidth>
+            <InputLabel>What is your Individual Sales Volume? </InputLabel>
+            <Select
+              name="salesVolume"
+              value={formData.salesVolume}
+              onChange={handleChange}
+              size="small"
+            >
+              {PropertyMaster.agentSalesVolume.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          {eventStatus.isSuccess && (
+            <Typography
+              variant="success"
+              sx={{ marginTop: 2, marginLeft: 1, color: "green" }}
+            >
+              {eventStatus.msg}
+            </Typography>
+          )}
+          {eventStatus.error && (
+            <Typography variant="error" sx={{ marginTop: 2, marginLeft: 1 }}>
+              {eventStatus.error}
+            </Typography>
+          )}
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            id="saveBtn"
+          >
+            Save
+            <Save sx={{ marginLeft: 1 }} />
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            sx={{ marginLeft: 2 }}
+            id="approveBtn"
+          >
+            Save And Approve
+            <Approval sx={{ marginLeft: 1 }} />
+          </Button>
+        </Grid>
+      </Grid>
     </Paper>
   );
 };

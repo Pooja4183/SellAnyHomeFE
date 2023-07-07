@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import {
   Box,
   FormControlLabel,
@@ -22,13 +21,6 @@ import { tableCellClasses } from "@mui/material/TableCell";
 import { alpha, styled } from "@mui/material/styles";
 import { visuallyHidden } from "@mui/utils";
 
-import {
-  fetchProductsForSale,
-  fetchProductsForBuy,
-  fetchProductsForApproved,
-  fetchProductsForDraft,
-  fetchProductsForAll,
-} from "../../store/adminAction";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

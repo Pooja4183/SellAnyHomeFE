@@ -6,11 +6,8 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import AppLogo from "./AppLogo";
-import RoofingIcon from "@mui/icons-material/Roofing";
 import StoreIcon from "@mui/icons-material/Store";
 import StorefrontIcon from "@mui/icons-material/Storefront";
-import { Link } from "react-router-dom";
 import CustomLink from "../component/CustomLink";
 
 const Header = () => {

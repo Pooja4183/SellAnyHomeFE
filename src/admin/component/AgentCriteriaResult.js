@@ -1,17 +1,11 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    fetchProductsForSale,
-    fetchProductsForBuy,
-    fetchProductsForApproved,
-    fetchProductsForDraft,
-    fetchProductsForAll,
-    fetchAgents,
+  fetchAgents
 } from "../../store/adminAction";
 import AgentForm from "./AgentForm";
 import AgentGrid from "./AgentGrid";
@@ -48,12 +42,7 @@ const AgentCriteriaResult = ({ title, editable }) => {
   }, [dispatch]);
 
   return (
-    <Box
-      sx={{
-        marginBottom: "0%",
-      }}
-    >
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{mb:12}}>
         <Grid item xs={12} sm={6} lg={6}>
           <Item elevation={6}>
             {rows && (
@@ -66,12 +55,9 @@ const AgentCriteriaResult = ({ title, editable }) => {
           </Item>
         </Grid>
         <Grid item xs={12} sm={6} lg={6}>
-          
             <AgentForm selectedItem={selectedItem} editable/>
-         
         </Grid>
       </Grid>
-    </Box>
   );
 };
 

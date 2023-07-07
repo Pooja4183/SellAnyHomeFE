@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 import {
   Typography,
-  Box,
-  InputLabel,
-  Stack,
-  Button,
-  ButtonGroup,
-  Grid,
+  Box, Stack,
+  Button, Grid
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import TopBar from "../component/TopBar";
@@ -123,7 +119,7 @@ const Dashboard = () => {
       )}
       {activeSection === "createAgent" && (
         <>
-         <Grid container>
+         <Grid container sx={{mb:34}}>
             <Grid item xs={1} md={2} lg={4}></Grid>
             <Grid item xs={10} md={8} lg={4}>
               <AgentForm />

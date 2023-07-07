@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -12,7 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import {
-  fetchProductsForSale,
+  fetchProductsForBuy,
+  fetchDirectlyCreatedProducts
 } from "../../store/adminAction";
 import { Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
@@ -24,14 +25,35 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const BuyBooking = () => {
+const BuyBooking = ({type,text,onItemSelect}) => {
   const dispatch = useDispatch();
-  const rows = useSelector((state) => state.admin.sellProducts);
+  let rows = [];
+   let selector = useSelector((state) => state.admin);
+   if(type=== 'buy'){
+    rows = selector.buyProducts;
+   } else{
+    rows = selector.directProducts;
+   }
+
+  const [selectedRow, setSelectedRow] = useState(0); // Track the selected row
 
   useEffect(() => {
-    dispatch(fetchProductsForSale());
+    switch(type){
+      case 'buy':
+        dispatch(fetchProductsForBuy());
+        break;
+      case 'direct':
+        dispatch(fetchDirectlyCreatedProducts())
+        break;
+    }
+   
     console.log("Rows::", rows);
   }, [dispatch]);
+
+  const handleClick = (event, row) => {
+    setSelectedRow(row); // Update the selected row
+    onItemSelect({row:row, text:text});
+  };
 
   return (
    
@@ -42,14 +64,16 @@ const BuyBooking = () => {
               <TableCell>ID</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Type</TableCell>
+              <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(0, 3).map((item) => (
-              <TableRow key={item.id}>
-                <TableCell>...{item.id.slice(18)}</TableCell>
-                <TableCell>{item.price}</TableCell>
-                <TableCell>{item.homeType}</TableCell>
+            {rows && rows.slice(0, 3).map((row) => (
+              <TableRow key={row.id}  onClick={(event) => handleClick(event, row)}>
+                <TableCell>...{row.id.slice(18)}</TableCell>
+                <TableCell>{row.price}</TableCell>
+                <TableCell>{row.homeType}</TableCell>
+                <TableCell>{row.status}</TableCell>
               </TableRow>
             ))}
           </TableBody>

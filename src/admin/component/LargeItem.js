@@ -1,18 +1,7 @@
 import { Card, CardContent, Typography } from "@mui/material";
 import {
-    purple,
-    red,
-    deepOrange,
-    deepPurple,
-    white,
-    blue,
-    green,
-    yellow,
-    orange,
-    cyan,
-    lime,
-    grey,
-  } from "@mui/material/colors";
+  purple, blue, orange
+} from "@mui/material/colors";
 
   import OLMap from "../../component/custom/Map";
 import HistogramChart from "./HistogramChart";

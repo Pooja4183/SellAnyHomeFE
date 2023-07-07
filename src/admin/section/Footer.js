@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../images/SAH_Images/tomo._adobe.svg";
 import { Grid, Stack, Typography } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -9,14 +8,7 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import {
-  blueGrey,
-  deepPurple,
-  grey,
-  purple,
-  cyan,
-  blue,
-  orange,
-  lime,
+  grey, lime
 } from "@mui/material/colors";
 
 const Footer = () => {
