@@ -44,8 +44,9 @@
 
   .button:hover{
 
-    background-color: teal;
+    background-color: #6A5ACD;
     transition: .8s;
+    
   }
  
 

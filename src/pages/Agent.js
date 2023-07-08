@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "../component/bannerStyle.module.css";
-import banerimg from "../images/banner_sellAnyHome.jpg";
+import banerimg from "../images/banner_sellAnyHome123.jpg";
 import Footer from "../component/Footer";
 import Header from "../component/Header";
 import { Box, Grid, Typography } from "@mui/material";
-import PerkCompare from "../component/agent/PerkCompare";
+// import PerkCompare from "../component/agent/PerkCompare";
 import AgentConnect from "../component/agent/AgentConnect";
 
 
@@ -14,7 +14,7 @@ const Agent = () => {
     <>
       <div
         className={styles.banner}
-        style={{ backgroundImage: `url(${banerimg})` }}
+        style={{backgroundColor:'#EAEFF1'}}
       >
         <Header />
         <Grid
@@ -24,16 +24,16 @@ const Agent = () => {
         >
           <Grid item xs={6} sm={8} md={12}>
             <Box className={styles.luxeryHeader}>
-              <Typography variant="h2">We're looking</Typography>
+              <Typography variant="h2" >We're looking</Typography>
               <Typography
                 variant="p"
-                sx={{ color: "white", fontSize: 66, fontFamily: "Cooper Std" }}
+                sx={{ color: "black", fontSize: 66, fontFamily: "Roboto', sans-serif" }}
               >
                 for <u>partners</u>
               </Typography>
               <Typography
                 variant="p"
-                sx={{ color: "white", fontSize: 30, fontFamily: "Cooper Std" }}
+                sx={{ color: "black", fontSize: 30, fontFamily: "Roboto', sans-serif" }}
               >
                 <br /><br/>
                 We made real estate <u>brokerage</u> simple, plug & play
@@ -43,7 +43,7 @@ const Agent = () => {
           </Grid>
         </Grid>
       </div>
-      <PerkCompare/>
+      {/* <PerkCompare/> */}
       <AgentConnect/>
       <Footer/>
     </>

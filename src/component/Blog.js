@@ -30,8 +30,8 @@ export default function ResponsiveGrid() {
 
       <Grid container spacing={2} className={styles.newsHeading} >
             <Grid item xs={12}>
-              <Item sx={{ borderRadius: 0, boxShadow: "none" , textAlign:'center', padding:0}}>
-                <h2>Latest Updates and News</h2>
+              <Item sx={{ borderRadius: 0, boxShadow: "none" , textAlign:'center', padding:0 ,}}>
+                <h2 style={{fontFamily:'Roboto, sans-serif '}}>Latest Updates and News</h2>
               </Item>
               
             </Grid>

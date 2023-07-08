@@ -43,9 +43,9 @@ h3{
 
  a {
   text-decoration: none;
-  color: grey;
+  color: white;
 }
 
 a:hover {
-  color: none;
+  color: #6A5ACD;
 }
