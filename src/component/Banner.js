@@ -1,6 +1,6 @@
 import styles from "./bannerStyle.module.css";
 import React, { useState } from "react";
-import banerimg from "../images/banner_sellAnyHome.jpg";
+import banerimg from "../images/banner_sellAnyHome123.jpg";
 import { useHistory } from "react-router-dom";
 import Header from "../component/Header";
 import Grid from "@mui/material/Grid";
@@ -28,20 +28,7 @@ const Banner = () => {
     history.push(uri);
   };
 
-  // const Item = styled(Box)(({ theme }) => ({
-  //   backgroundColor:'transparent',
-  //   ...theme.typography.body2,
-  //   padding: theme.spacing(2),
-  //   textAlign: 'left',
-  //   color: theme.palette.text.secondary,
-  //   boxShadow:'none'
-
-  // }));
-
-  // const TextItem = styled(TextField)(({ theme }) => ({
-
-  // }));
-
+ 
   return (
     <>
       <div
@@ -97,74 +84,3 @@ const Banner = () => {
 
 export default Banner;
 
-// import styles from "./bannerStyle.module.css";
-// import React, { useState, useEffect } from "react";
-// import banerimg from "../images/banner_sellAnyHome.jpg";
-// import { useHistory } from "react-router-dom";
-// import Header from '../component/Header';
-
-// const Banner = () => {
-//   const history = useHistory();
-//   const [address, setAddress] = useState("");
-//   const [isSubmitted, setIsSubmitted] = useState(false);
-//   const [errors, setErrors] = useState({});
-
-//   const inputEvent = (event) => {
-//     setAddress(event.target.value);
-//   };
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     setIsSubmitted(true);
-//   };
-
-//   useEffect(()=> {
-//     if(isSubmitted) {
-//       let uri = "/buy-list?search="+address;
-//       history.push(uri);
-//     }
-
-//   },[isSubmitted, history]);
-
-//   return (
-//     <>
-//       <div
-//         className={styles.banner}
-//         style={{ backgroundImage: `url(${banerimg})` }}
-//       >
-//         <Header/>
-
-//         <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} className={styles.luxeryHeader}>
-
-//     <Grid item xs={2} sm={12} md={12}>
-//       <Item>
-
-//       <form onSubmit={handleSubmit}>
-//           <h2>Find The Perfect</h2>
-//           <h1>Luxury Home</h1>
-//           <label className={styles.label}>
-//             <input
-//               className={styles.bannerinput}
-//               type="text"
-//               placeholder="Address Neighborhood"
-//               value={address}
-//               onChange={inputEvent}
-//             />
-//             <button className={styles.button} type="submit">
-//               Search
-//             </button>
-//             {errors.address && <span className="error">{errors.address}</span>}
-//           </label>
-//           </form>
-
-//       </Item>
-//     </Grid>
-
-// </Grid>
-
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Banner;

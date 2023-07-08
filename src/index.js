@@ -33,7 +33,7 @@ const headingVariants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
 headingVariants.forEach((variant) => {
   theme.typography[variant] = {
-    fontFamily: 'Cooper Std, sans-serif', // Font family for the heading variant
+    fontFamily: ' Roboto, sans-serif', // Font family for the heading variant
   };
 });
 

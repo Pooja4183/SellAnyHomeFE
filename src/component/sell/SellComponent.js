@@ -1,6 +1,6 @@
 import styles from "../bannerStyle.module.css";
 import React, { useState } from "react";
-import banerimg from "../../images/banner_sellAnyHome.jpg";
+import banerimg from "../../images/banner_sellAnyHome123.jpg";
 import { useHistory } from "react-router-dom";
 import StyledButtonHome from "../custom/StyledButtonHome";
 import { Box, Grid, Stack, TextField, Typography } from "@mui/material";

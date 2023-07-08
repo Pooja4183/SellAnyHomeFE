@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../bannerStyle.module.css";
-import banerimg from "../../images/banner_sellAnyHome.jpg";
+import banerimg from "../../images/banner_sellAnyHome123.jpg";
 import { useHistory } from "react-router-dom";
 
 import Grid from "@mui/material/Grid";

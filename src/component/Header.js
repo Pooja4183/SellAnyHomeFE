@@ -63,7 +63,7 @@ function ResponsiveAppBar({showSearch}) {
 
   return (
     <AppBar
-      sx={{ backgroundColor: "transparent", position: "absolute" }}
+      sx={{ backgroundColor: "transparent", position: "absolute", }}
       className={styles.appbarShadow}
     >
       <Container maxWidth="xl" className={styles.headerPadding}>
@@ -93,7 +93,7 @@ function ResponsiveAppBar({showSearch}) {
                 value={address}
                 onChange={inputEvent}
               />
-              <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+              <IconButton type="submit" sx={{ p: "10px", }} aria-label="search">
                 <SearchIcon />
               </IconButton>
             </Paper>
@@ -124,7 +124,7 @@ function ResponsiveAppBar({showSearch}) {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", md: "none" },
+                display: { xs: "block", md: "none", }
               }}
             >
               {pages.map((page) => (
@@ -155,7 +155,7 @@ function ResponsiveAppBar({showSearch}) {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Arush Verma" src="/static/images/avatar/2.jpg" />
@@ -183,7 +183,7 @@ function ResponsiveAppBar({showSearch}) {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>
