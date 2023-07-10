@@ -51,7 +51,7 @@ const ContactForm = () => {
     >
       <Stack spacing={2} sx={{ width: 350, marginTop: 5, }}>
         <Typography variant="h3" sx={{ textAlign: "left", fontWeight: "bold" }}>
-          CONTACT TEAM(S)
+          CONTACT TEAM
         </Typography>
 
         <TextField
@@ -107,7 +107,7 @@ const ContactForm = () => {
       )}
       <Button
         variant="outlined"
-        sx={{ marginTop: 2, marginLeft: 1 }}
+        sx={{ marginTop: 2, }}
         type="submit"
       >
         Send Message
