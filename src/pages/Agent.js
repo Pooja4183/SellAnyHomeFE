@@ -6,6 +6,7 @@ import Header from "../component/Header";
 import { Box, Grid, Typography } from "@mui/material";
 // import PerkCompare from "../component/agent/PerkCompare";
 import AgentConnect from "../component/agent/AgentConnect";
+import { fontSize } from "@mui/system";
 
 
 const Agent = () => {
@@ -24,18 +25,18 @@ const Agent = () => {
         >
           <Grid item xs={6} sm={8} md={12}>
             <Box className={styles.luxeryHeader}>
-              <Typography variant="h2" >We're looking</Typography>
+              <Typography className={styles.agentTytle} variant="h2"  sx={{ color: "black",}} >We're looking</Typography>
               <Typography
-                variant="p"
-                sx={{ color: "black", fontSize: 66, fontFamily: "Roboto', sans-serif" }}
+                variant="subtitle1"
+                sx={{ color: "black", fontSize: 66, }}
               >
                 for <u>partners</u>
               </Typography>
               <Typography
-                variant="p"
-                sx={{ color: "black", fontSize: 30, fontFamily: "Roboto', sans-serif" }}
+                variant="subtitle1"
+                sx={{ color: "black", fontSize: 30, }}
               >
-                <br /><br/>
+                <br />
                 We made real estate <u>brokerage</u> simple, plug & play
               </Typography>
              

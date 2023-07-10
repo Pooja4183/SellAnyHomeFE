@@ -56,7 +56,7 @@ export default function Neighburhood() {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Item sx={{ borderRadius: 0, boxShadow: "none" }}>
-                <Typography variant="h2">Find the Neighborhood For You</Typography>
+                <Typography variant="h2">Neighborhood For You</Typography>
               </Item>
              
             </Grid>
