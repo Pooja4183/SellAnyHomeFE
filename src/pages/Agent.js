@@ -36,7 +36,7 @@ const Agent = () => {
                 variant="subtitle1"
                 sx={{ color: "black", fontSize: 30, }}
               >
-                <br /><br/>
+                <br />
                 We made real estate <u>brokerage</u> simple, plug & play
               </Typography>
              
