@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
+import Currency from "../custom/Currency";
 
 const ListProducts = ({ title }) => {
   const productListing = useSelector((state) => state.products.products);
@@ -54,7 +55,7 @@ const ListProducts = ({ title }) => {
                         color: "black",
                       }}
                     >
-                      <span>AED {product.price}</span>
+                     <Currency value={product.price}/>
                       <span>{`${product.bed} Bed | ${product.bath} Bath | ${product.sqFt} SqFt`}</span>
                     </Typography>
 
