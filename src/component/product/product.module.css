@@ -191,6 +191,12 @@ border-radius: 0% !important;
   
   }
 
+  .headinExclusive h2{
+
+    font-size: x-large
+    };
+  
+
 }
 @media only screen and (device-width: 768px) {
  /* default iPad screens */
