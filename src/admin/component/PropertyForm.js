@@ -1,30 +1,32 @@
-import React, { useState, useRef } from "react";
-import {
-  TextField,
-  Checkbox,
-  FormControlLabel,
-  Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Grid,
-  Typography,
-  FormGroup,
-  Paper, IconButton, Badge
-} from "@mui/material";
-import RoofingIcon from '@mui/icons-material/Roofing';
 import { Approval, AttachFile, Save } from "@mui/icons-material";
-import PropertyMaster from "../../master.json";
+import RoofingIcon from '@mui/icons-material/Roofing';
+import {
+  Badge,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography
+} from "@mui/material";
+import { blue, grey } from "@mui/material/colors";
 import { experimentalStyled as styled } from "@mui/material/styles";
-import { useEffect } from "react";
-import { grey, blue } from "@mui/material/colors";
+import React, { useEffect, useRef, useState } from "react";
+import PropertyMaster from "../../master.json";
 
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "../../Firebase";
-import Gallery from "./Gallery";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useDispatch } from "react-redux";
-import { updateProduct, createProduct } from "../../store/adminAction";
+import { storage } from "../../Firebase";
+import AlertMessage from "../../component/custom/AlertMessage";
+import { createProduct, updateProduct } from "../../store/adminAction";
+import Gallery from "./Gallery";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -82,7 +84,6 @@ const PropertyForm = ({ selectedProperty, editable }) => {
     msg: "",
     error: null,
   });
-  const [error, setError] = useState(null);
 
   const [formData, setFormData] = useState({
     id: "",
@@ -173,6 +174,8 @@ const PropertyForm = ({ selectedProperty, editable }) => {
         msg: msg,
         error: null,
       });
+      setShowAlert(true);
+
     } catch (error) {
       setEventStatus({
         isSuccess: false,
@@ -269,13 +272,20 @@ const PropertyForm = ({ selectedProperty, editable }) => {
     reader.readAsDataURL(file);
   };
 
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
+
   return (
     <Paper elevation={24} sx={{padding: 1, mb:5}} >
+      <form onSubmit={handleSubmit}>
       <Grid container sx={{ paddingTop: 1, mb: 1, background: blue[200] }} justifyContent={"space-between"}>
-        <Grid item xs={6} sm={6} lg={6}>
+        <Grid item xs={6} sm={6} lg={6} pb={1}>
           <IconButton>
           <RoofingIcon/>
-          <Typography variant="h4" sx={{paddingLeft: 2}}> Property : {formData.id}</Typography>
+          <Typography  sx={{paddingLeft: 2, color: grey[900]}}> Property : {formData.id}</Typography>
           </IconButton>
         </Grid>
         <Grid item>
@@ -299,12 +309,21 @@ const PropertyForm = ({ selectedProperty, editable }) => {
             <Approval sx={{ marginLeft: 1 }} />
           </Button>
         </Grid>
-      
+        <Grid item xs={12}>
+            {eventStatus.isSuccess && (
+              <>
+              <AlertMessage type="success" message={eventStatus.msg} open={showAlert} onClose={handleCloseAlert}/>
+              </>
+            )}
+            {eventStatus.error && (
+               <AlertMessage type="error" message={eventStatus.error} open={showAlert} onClose={handleCloseAlert}/>
+            )}
+          </Grid>
       </Grid>
 
-      <form onSubmit={handleSubmit}>
+     
         <Grid container spacing={2}>
-          <Grid item xs={6} sm={6} lg={6}>
+          <Grid item xs={6} sm={6} lg={6} mt={1}>
               <TextField
                 label="Property Description"
                 name="description"
@@ -594,22 +613,6 @@ const PropertyForm = ({ selectedProperty, editable }) => {
               </label>
             </div>
           </Grid>
-
-          <Grid item xs={12}>
-            {eventStatus.isSuccess && (
-              <Typography
-                variant="success"
-                sx={{ marginTop: 2, marginLeft: 1, color: "green" }}
-              >
-                {eventStatus.msg}
-              </Typography>
-            )}
-            {eventStatus.error && (
-              <Typography variant="error" sx={{ marginTop: 2, marginLeft: 1 }}>
-                {eventStatus.error}
-              </Typography>
-            )}
-          </Grid>
           <Grid item xs={12}>
             <Button
               type="submit"
@@ -632,7 +635,7 @@ const PropertyForm = ({ selectedProperty, editable }) => {
             </Button>
           </Grid>
         </Grid>
-      </form>
+        </form>
       </Paper>
   );
 };
