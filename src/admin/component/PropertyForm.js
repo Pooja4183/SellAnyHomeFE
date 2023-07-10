@@ -24,7 +24,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase";
 import Gallery from "./Gallery";
 import { useDispatch } from "react-redux";
-import { createOrUpdateProduct, createProduct } from "../../store/adminAction";
+import { updateProduct, createProduct } from "../../store/adminAction";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -153,14 +153,14 @@ const PropertyForm = ({ selectedProperty, editable }) => {
         console.log("Submit button 1 clicked");
         // Access the updated formData value by using the callback function in setFormData
         if (editable) {
-          await dispatch(createOrUpdateProduct(formData, "APPROVED"));
+          await dispatch(updateProduct(formData, "APPROVED"));
         } else {
           await dispatch(createProduct(formData, "APPROVED"));
         }
         msg = "Property Data Saved And Approved Successfully!";
       } else {
         if (editable) {
-          await dispatch(createOrUpdateProduct(formData, "DRAFT"));
+          await dispatch(updateProduct(formData, "DRAFT"));
         } else {
           await dispatch(createProduct(formData, "DRAFT"));
         }

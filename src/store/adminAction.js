@@ -120,10 +120,10 @@ export const fetchProductsForSell = () => async (dispatch) => {
 
   
   export const createProduct = (formData, status) => async (dispatch) => {
-    console.debug("Property Id::", formData.id, "URL::", '/property/', "Status::", status);
+    console.log("Property Id::", formData.id, "URL::", '/property/', "Status::", status);
     try {
       formData.status = status;
-      console.debug("Form Data::", formData);
+      console.log("Form Data::", formData);
       const response = await backendAPI.post('/property/', formData);
       console.log("Success1")
       dispatch(adminActions.createOrUpdateProductSuccess(response.data.property));
@@ -136,11 +136,11 @@ export const fetchProductsForSell = () => async (dispatch) => {
     }
   };
   
-export const createOrUpdateProduct = (formData, status) => async (dispatch) => {
-  console.debug("Property Id::", formData.id, "URL::", '/property/'+ formData.id, "Status::", status);
+export const updateProduct = (formData, status) => async (dispatch) => {
+  console.log("Property Id::", formData.id, "URL::", '/property/'+ formData.id, "Status::", status);
   try {
     formData.status = status;
-    console.debug("Form Data::", formData);
+    console.log("Form Data::", formData);
     const response = await backendAPI.put('/property/'+ formData.id, formData);
     console.log("Success1")
     dispatch(adminActions.createOrUpdateProductSuccess(response.data.property));
