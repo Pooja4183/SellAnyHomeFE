@@ -39,6 +39,7 @@ padding-top: 0%;
 
 }
 
+
 .agentContainer{
 
   padding: 0% 5%;
@@ -178,6 +179,17 @@ border-radius: 0% !important;
   border-radius: 50%;
 
 }
+
+.headinExclusive{
+
+  padding: 2% 5% 5% 5%;
+  };
+
+  .ProperryTytle h2{
+    padding: 5%;
+  
+  
+  }
 
 }
 @media only screen and (device-width: 768px) {
