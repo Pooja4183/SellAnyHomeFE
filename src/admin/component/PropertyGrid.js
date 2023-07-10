@@ -3,6 +3,7 @@ import {
   FormControlLabel,
   InputLabel,
   Paper,
+  Radio,
   Switch,
   Table,
   TableBody,
@@ -20,7 +21,7 @@ import { blue } from "@mui/material/colors";
 import { alpha, styled } from "@mui/material/styles";
 import { visuallyHidden } from "@mui/utils";
 import React, { useState } from "react";
-import Currency from '../../component/custom/Currency';
+import Currency from "../../component/custom/Currency";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -44,6 +45,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const headCells = [
+  {
+    id: "id",
+    numeric: false,
+    disablePadding: false,
+    label: "ID",
+  },
   {
     id: "homeType",
     numeric: false,
@@ -108,7 +115,7 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-function EnhancedTableHead(props) {
+const EnhancedTableHead = (props) => {
   const {
     onSelectAllClick,
     order,
@@ -124,11 +131,13 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <StyledTableRow>
+        {/* Render the radio button column */}
         <StyledTableCell padding="checkbox">
           <InputLabel sx={{ color: "white", fontSize: 14, paddingLeft: 2 }}>
-            # ID{" "}
+           #
           </InputLabel>
         </StyledTableCell>
+        {/* Render the other table header cells */}
         {headCells.map((headCell) => (
           <StyledTableCell
             key={headCell.id}
@@ -162,14 +171,14 @@ function EnhancedTableHead(props) {
       </StyledTableRow>
     </TableHead>
   );
-}
+};
 
-const PropertyGrid = ({rows, title, type, onPropertySelect }) => {
+const PropertyGrid = ({ rows, title, type, onPropertySelect }) => {
   console.debug("Rows::", rows);
 
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("price");
-  const [selectedRow, setSelectedRow] = useState([]); // Track the selected row
+  const [selectedRow, setSelectedRow] = useState(null); // Track the selected row
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [dense, setDense] = useState(false);
@@ -211,7 +220,7 @@ const PropertyGrid = ({rows, title, type, onPropertySelect }) => {
             mb: 1,
 
             background: blue[200],
-            ...(selectedRow.length > 0 && {
+            ...(selectedRow > 0 && {
               bgcolor: (theme) =>
                 alpha(
                   theme.palette.primary.main,
@@ -220,10 +229,7 @@ const PropertyGrid = ({rows, title, type, onPropertySelect }) => {
             }),
           }}
         >
-          <Typography
-            sx={{ background: blue[200] }}
-            id="tableTitle"
-          >
+          <Typography sx={{ background: blue[200] }} id="tableTitle">
             {title}
           </Typography>
         </Toolbar>
@@ -250,12 +256,20 @@ const PropertyGrid = ({rows, title, type, onPropertySelect }) => {
                     <StyledTableRow
                       hover
                       onClick={(event) => handleClick(event, row)}
-                      role="checkbox"
+                      role="radio"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.id}
                       selected={isItemSelected}
                     >
+                      {/* Render the radio button */}
+                      <StyledTableCell align="right">
+                        <Radio
+                          checked={isItemSelected}
+                          onChange={(event) => handleClick(event, row)}
+                          inputProps={{ "aria-labelledby": labelId }}
+                        />
+                      </StyledTableCell>
                       {/* Remove the checkbox column */}
                       <StyledTableCell align="right">
                         #{row.id.slice(18)}
@@ -272,7 +286,7 @@ const PropertyGrid = ({rows, title, type, onPropertySelect }) => {
                         {row.address}
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                         <Currency value={row.price} hideSymbol/>
+                        <Currency value={row.price} hideSymbol />
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         {row.sqFt}
