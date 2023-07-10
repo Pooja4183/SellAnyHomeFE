@@ -1,5 +1,4 @@
 .gridStyling{
-
 padding: 0%;
 }
 .ProductDetailContainer{
@@ -15,9 +14,21 @@ padding-top: 0%;
 
 }
 
+.ProperryTytle h2{
+  padding-bottom: 0.5%;
+  color: black;
+  font-size:large;
+
+}
+
+.ProperryTytle p{
+ 
+  color: black;
+
+}
 .carouselStyle{
   width: 100%;
-  height: 800px;
+  height: 700px;
 
  
 }
@@ -51,7 +62,7 @@ border-bottom: 1px solid grey;
 
 .headinExclusive{
 
-  padding: 2% 10%;
+  padding: 2% 5% 5% 10%;
   };
 
 
