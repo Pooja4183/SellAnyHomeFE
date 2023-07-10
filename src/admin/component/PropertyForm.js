@@ -119,7 +119,7 @@ const PropertyForm = ({ selectedProperty, editable }) => {
         ...prevFormData,
         ...selectedProperty,
       }));
-      console.log("Effect Form Data::", formData);
+      console.debug("Effect Form Data::", formData);
     }
     return () => {
       // Cleanup function to cancel any ongoing tasks or subscriptions
@@ -140,33 +140,34 @@ const PropertyForm = ({ selectedProperty, editable }) => {
     event.preventDefault();
     // Submit form logic here
     let msg = "";
-    console.log("Submitted", formData);
+    console.debug("Submitted", formData);
     try {
       const clickedButton = event.nativeEvent.submitter;
-      console.log(
+      console.debug(
         "Clicked::",
         clickedButton.id,
         " Evaluate ",
         clickedButton.id === "approveBtn"
       );
       if (clickedButton.id === "approveBtn") {
-        console.log("Submit button 1 clicked");
+        console.debug("Submit button 1 clicked");
         // Access the updated formData value by using the callback function in setFormData
-        if (editable) {
+        console.debug("Editable ::", editable, "Selected Property::", selectedProperty);
+        if (selectedProperty.id) {
           await dispatch(updateProduct(formData, "APPROVED"));
         } else {
           await dispatch(createProduct(formData, "APPROVED"));
         }
         msg = "Property Data Saved And Approved Successfully!";
       } else {
-        if (editable) {
+        if (selectedProperty.id) {
           await dispatch(updateProduct(formData, "DRAFT"));
         } else {
           await dispatch(createProduct(formData, "DRAFT"));
         }
         msg = "Property Data Saved Successfully!";
       }
-      console.log("Data::", formData);
+      console.debug("Data::", formData);
       setEventStatus({
         isSuccess: true,
         msg: msg,
@@ -183,7 +184,7 @@ const PropertyForm = ({ selectedProperty, editable }) => {
 
   // Use the updated formData value outside of the handleSubmit function
   useEffect(() => {
-    console.log("Updated Data:", formData);
+    console.debug("Updated Data:", formData);
   }, [formData]);
 
   const handleCheckboxChange = (value) => (event) => {
