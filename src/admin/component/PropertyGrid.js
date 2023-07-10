@@ -165,7 +165,7 @@ function EnhancedTableHead(props) {
 }
 
 const PropertyGrid = ({rows, title, type, onPropertySelect }) => {
-  console.log("Rows::", rows);
+  console.debug("Rows::", rows);
 
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("price");
