@@ -29,7 +29,7 @@ const Footer = () => {
         spacing={2}
         justifyContent="center"
         alignItems="center"
-        sx={{ height: "100%", textAlign: "center", borderTop: 1, borderColor: "lightgray", marginTop: 15, }}
+        sx={{ height: "100%", textAlign: "center", borderTop: 1, borderColor: "lightgray", marginTop: 10, }}
       >
         <Grid item xs={12} md={12} lg={12}>
           <Typography>
