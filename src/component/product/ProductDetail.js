@@ -40,9 +40,9 @@ const ProductDetail = () => {
 
   return (
     product && (
-      <Box sx={{ flexGrow: 1, marginTop: 5 }}>
+      <Box sx={{ flexGrow: 1, marginTop:15 }}>
         <Grid
-          className={styles.ProductDetailContainer}
+          sx={{borderTop: '2px solid lightgray'}}
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
