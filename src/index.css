@@ -1,19 +1,4 @@
 
-@font-face {
-  font-family: 'Cooper Std';
-  src: url('./fonts/CooperBlack-Std.otf') format('otf'),
-       url('./fonts/CooperStdBlack.ttf') format('truetype'),
-       url('./fonts/COOPBL.TTF') format('truetype');
-      
-  /* Add additional formats if necessary */
-  /* Specify the correct paths to your font files */
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Cooper Std', sans-serif;
- 
-  
-}
 
 h2{
 
@@ -43,7 +28,7 @@ h3{
 
  a {
   text-decoration: none;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 a:hover {

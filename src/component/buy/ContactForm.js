@@ -61,6 +61,7 @@ const ContactForm = () => {
           required
           name="name"
           onChange={handleChange}
+          size="small"
           
         />
         <TextField
@@ -71,6 +72,7 @@ const ContactForm = () => {
           type="email"
           name="email"
           onChange={handleChange}
+          size="small"
         />
         <TextField
           fullWidth
@@ -79,6 +81,7 @@ const ContactForm = () => {
           required
           name="phone"
           onChange={handleChange}
+          size="small"
         />
         <TextField
           fullWidth
@@ -88,6 +91,7 @@ const ContactForm = () => {
           rows={4}
           name="moreInfo"
           onChange={handleChange}
+          size="small"
         />
       </Stack>
       

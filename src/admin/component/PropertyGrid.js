@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Box,
   FormControlLabel,
@@ -16,11 +15,12 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { blue } from "@mui/material/colors";
 import { tableCellClasses } from "@mui/material/TableCell";
+import { blue } from "@mui/material/colors";
 import { alpha, styled } from "@mui/material/styles";
 import { visuallyHidden } from "@mui/utils";
-
+import React, { useState } from "react";
+import Currency from '../../component/custom/Currency';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -60,7 +60,7 @@ const headCells = [
     id: "price",
     numeric: true,
     disablePadding: false,
-    label: "Price (ASD)",
+    label: "Price (AED)",
   },
   {
     id: "sqFt",
@@ -165,7 +165,7 @@ function EnhancedTableHead(props) {
 }
 
 const PropertyGrid = ({rows, title, type, onPropertySelect }) => {
-  console.log("Rows::", rows);
+  console.debug("Rows::", rows);
 
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("price");
@@ -221,10 +221,8 @@ const PropertyGrid = ({rows, title, type, onPropertySelect }) => {
           }}
         >
           <Typography
-            sx={{ flex: "1 1 100%", background: blue[200] }}
-            variant="h6"
+            sx={{ background: blue[200] }}
             id="tableTitle"
-            component="div"
           >
             {title}
           </Typography>
@@ -274,7 +272,7 @@ const PropertyGrid = ({rows, title, type, onPropertySelect }) => {
                         {row.address}
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        {row.price}
+                         <Currency value={row.price} hideSymbol/>
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         {row.sqFt}

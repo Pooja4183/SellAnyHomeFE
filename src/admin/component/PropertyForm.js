@@ -1,30 +1,32 @@
-import React, { useState, useRef } from "react";
-import {
-  TextField,
-  Checkbox,
-  FormControlLabel,
-  Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Grid,
-  Typography,
-  FormGroup,
-  Paper, IconButton, Badge
-} from "@mui/material";
-import RoofingIcon from '@mui/icons-material/Roofing';
 import { Approval, AttachFile, Save } from "@mui/icons-material";
-import PropertyMaster from "../../master.json";
+import RoofingIcon from '@mui/icons-material/Roofing';
+import {
+  Badge,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography
+} from "@mui/material";
+import { blue, grey } from "@mui/material/colors";
 import { experimentalStyled as styled } from "@mui/material/styles";
-import { useEffect } from "react";
-import { grey, blue } from "@mui/material/colors";
+import React, { useEffect, useRef, useState } from "react";
+import PropertyMaster from "../../master.json";
 
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "../../Firebase";
-import Gallery from "./Gallery";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useDispatch } from "react-redux";
-import { createOrUpdateProduct, createProduct } from "../../store/adminAction";
+import { storage } from "../../Firebase";
+import AlertMessage from "../../component/custom/AlertMessage";
+import { createProduct, updateProduct } from "../../store/adminAction";
+import Gallery from "./Gallery";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -82,7 +84,6 @@ const PropertyForm = ({ selectedProperty, editable }) => {
     msg: "",
     error: null,
   });
-  const [error, setError] = useState(null);
 
   const [formData, setFormData] = useState({
     id: "",
@@ -119,7 +120,7 @@ const PropertyForm = ({ selectedProperty, editable }) => {
         ...prevFormData,
         ...selectedProperty,
       }));
-      console.log("Effect Form Data::", formData);
+      console.debug("Effect Form Data::", formData);
     }
     return () => {
       // Cleanup function to cancel any ongoing tasks or subscriptions
@@ -140,38 +141,41 @@ const PropertyForm = ({ selectedProperty, editable }) => {
     event.preventDefault();
     // Submit form logic here
     let msg = "";
-    console.log("Submitted", formData);
+    console.debug("Submitted", formData);
     try {
       const clickedButton = event.nativeEvent.submitter;
-      console.log(
+      console.debug(
         "Clicked::",
         clickedButton.id,
         " Evaluate ",
         clickedButton.id === "approveBtn"
       );
       if (clickedButton.id === "approveBtn") {
-        console.log("Submit button 1 clicked");
+        console.debug("Submit button 1 clicked");
         // Access the updated formData value by using the callback function in setFormData
-        if (editable) {
-          await dispatch(createOrUpdateProduct(formData, "APPROVED"));
+        console.debug("Editable ::", editable, "Selected Property::", selectedProperty);
+        if (selectedProperty.id) {
+          await dispatch(updateProduct(formData, "APPROVED"));
         } else {
           await dispatch(createProduct(formData, "APPROVED"));
         }
         msg = "Property Data Saved And Approved Successfully!";
       } else {
-        if (editable) {
-          await dispatch(createOrUpdateProduct(formData, "DRAFT"));
+        if (selectedProperty.id) {
+          await dispatch(updateProduct(formData, "DRAFT"));
         } else {
           await dispatch(createProduct(formData, "DRAFT"));
         }
         msg = "Property Data Saved Successfully!";
       }
-      console.log("Data::", formData);
+      console.debug("Data::", formData);
       setEventStatus({
         isSuccess: true,
         msg: msg,
         error: null,
       });
+      setShowAlert(true);
+
     } catch (error) {
       setEventStatus({
         isSuccess: false,
@@ -183,7 +187,7 @@ const PropertyForm = ({ selectedProperty, editable }) => {
 
   // Use the updated formData value outside of the handleSubmit function
   useEffect(() => {
-    console.log("Updated Data:", formData);
+    console.debug("Updated Data:", formData);
   }, [formData]);
 
   const handleCheckboxChange = (value) => (event) => {
@@ -268,13 +272,20 @@ const PropertyForm = ({ selectedProperty, editable }) => {
     reader.readAsDataURL(file);
   };
 
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
+
   return (
     <Paper elevation={24} sx={{padding: 1, mb:5}} >
+      <form onSubmit={handleSubmit}>
       <Grid container sx={{ paddingTop: 1, mb: 1, background: blue[200] }} justifyContent={"space-between"}>
-        <Grid item xs={6} sm={6} lg={6}>
+        <Grid item xs={6} sm={6} lg={6} pb={1}>
           <IconButton>
           <RoofingIcon/>
-          <Typography variant="h4" sx={{paddingLeft: 2}}> Property : {formData.id}</Typography>
+          <Typography  sx={{paddingLeft: 2, color: grey[900]}}> Property : {formData.id}</Typography>
           </IconButton>
         </Grid>
         <Grid item>
@@ -298,12 +309,21 @@ const PropertyForm = ({ selectedProperty, editable }) => {
             <Approval sx={{ marginLeft: 1 }} />
           </Button>
         </Grid>
-      
+        <Grid item xs={12}>
+            {eventStatus.isSuccess && (
+              <>
+              <AlertMessage type="success" message={eventStatus.msg} open={showAlert} onClose={handleCloseAlert}/>
+              </>
+            )}
+            {eventStatus.error && (
+               <AlertMessage type="error" message={eventStatus.error} open={showAlert} onClose={handleCloseAlert}/>
+            )}
+          </Grid>
       </Grid>
 
-      <form onSubmit={handleSubmit}>
+     
         <Grid container spacing={2}>
-          <Grid item xs={6} sm={6} lg={6}>
+          <Grid item xs={6} sm={6} lg={6} mt={1}>
               <TextField
                 label="Property Description"
                 name="description"
@@ -593,22 +613,6 @@ const PropertyForm = ({ selectedProperty, editable }) => {
               </label>
             </div>
           </Grid>
-
-          <Grid item xs={12}>
-            {eventStatus.isSuccess && (
-              <Typography
-                variant="success"
-                sx={{ marginTop: 2, marginLeft: 1, color: "green" }}
-              >
-                {eventStatus.msg}
-              </Typography>
-            )}
-            {eventStatus.error && (
-              <Typography variant="error" sx={{ marginTop: 2, marginLeft: 1 }}>
-                {eventStatus.error}
-              </Typography>
-            )}
-          </Grid>
           <Grid item xs={12}>
             <Button
               type="submit"
@@ -631,7 +635,7 @@ const PropertyForm = ({ selectedProperty, editable }) => {
             </Button>
           </Grid>
         </Grid>
-      </form>
+        </form>
       </Paper>
   );
 };

@@ -40,16 +40,17 @@ const ProductDetail = () => {
 
   return (
     product && (
-      <Box sx={{ flexGrow: 1, marginTop: 15 }}>
+      <Box sx={{ flexGrow: 1, marginTop:15 }}>
         <Grid
-          className={styles.ProductDetailContainer}
+          sx={{borderTop: '2px solid lightgray',}}
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
+         
         >
           <Grid item xs={12} sm={12} md={12}>
-            <Item sx={{ textAlign: "left" }} className={styles.ProperryTytle}>
-              <h4>{product.title}</h4>
+            <Item sx={{ textAlign: "left" ,paddingTop:0 }} className={styles.ProperryTytle}>
+              <h2>{product.title}</h2>
               <p>{product.address}</p>
               <div
                 style={{
@@ -59,12 +60,12 @@ const ProductDetail = () => {
               >
                 <div>
                   {" "}
-                  <p style={{ fontSize: "large" }}>
+                  <p style={{ fontSize: "medium" }}>
                     <b>{product.bed}</b>&nbsp;Bed | <b>{product.bath}</b>
                     &nbsp;Bath | <b>{product.sqFt}</b> Sq. Ft
                   </p>
                 </div>
-                <div style={{ fontSize: "large", fontWeight: "bold" }}>
+                <div style={{ fontSize: "medium", fontWeight: "bold" ,color:'black'}}>
                    <Currency value={product.price}/>
                 </div>
               </div>
@@ -97,16 +98,15 @@ const ProductDetail = () => {
                 <Typography
                   variant="h3"
                   gutterBottom
-                  sx={{ textAlign: "left", fontWeight: "bold" }}
+                  sx={{ textAlign: "left", fontWeight: "bold", color:'black' }}
                 >
                   Description
                 </Typography>
-                <Typography variant="body2">{product.description}</Typography>
-                <Typography variant="h3">&nbsp;</Typography>
+                <Typography variant="body2" sx={{ lineHeight:2, color:'#383838'}}>{product.description}</Typography>
                 <Typography
                   variant="h3"
                   gutterBottom
-                  sx={{ textAlign: "left", fontWeight: "bold" }}
+                  sx={{ textAlign: "left", fontWeight: "bold" ,color:'black', paddingTop:10}}
                 >
                   Feature & Amenities
                 </Typography>
@@ -120,12 +120,12 @@ const ProductDetail = () => {
                 >
                   {product.amenities &&
                     product.amenities.map((item) => (
-                      <Item>
+                      <Item sx={{ padding:0}}>
                         {" "}
                         <Typography
                           variant="body2"
                           gutterBottom
-                          sx={{ fontWeight: "bold" }}
+                          sx={{ fontWeight: "bold",color:'#505050' }}
                         >
                           {item}
                         </Typography>
@@ -141,14 +141,14 @@ const ProductDetail = () => {
             sm={12}
             md={6}
             
-            sx={{ display: "flex", justifyContent: "center" }}
+            sx={{ display: "flex", justifyContent: "center"}}
           >
             <Stack
               direction="row"
               spacing={2}
               useFlexGap
               flexWrap="wrap"
-              sx={{ justifyContent: "center" }}
+              sx={{ justifyContent: "center" ,paddingTop:6 }}
             >
                <Stack
               direction="row"
@@ -171,7 +171,7 @@ const ProductDetail = () => {
                 <Typography
                   variant="body2"
                   gutterBottom
-                  sx={{ fontWeight: "bold" }}
+                  sx={{ fontWeight: "bold", color:'black' }}
                 >
                   Smith erne
                 </Typography>
@@ -219,7 +219,7 @@ const ProductDetail = () => {
             </Typography>
             <Typography
               variant="subtitle2"
-              sx={{ textAlign: "left", fontWeight: "bold" }}
+              sx={{ textAlign: "left", color:'#383838' }}
             >
               {product.address}
             </Typography>
