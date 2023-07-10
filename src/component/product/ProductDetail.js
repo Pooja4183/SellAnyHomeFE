@@ -14,6 +14,7 @@ import { fetchProductsById } from "../../store/productAction";
 import styles from "./product.module.css";
 import OLMap from "../custom/Map";
 import ContactForm from "../buy/ContactForm";
+import Currency from "../custom/Currency";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -64,7 +65,7 @@ const ProductDetail = () => {
                   </p>
                 </div>
                 <div style={{ fontSize: "large", fontWeight: "bold" }}>
-                  <p>AED {product.price}</p>
+                   <Currency value={product.price}/>
                 </div>
               </div>
             </Item>
