@@ -15,7 +15,7 @@ export const fetchProducts = (formData) => async (dispatch) => {
    let uri = '/property';
 
    const response = await backendAPI.get(uri, {params});
-  console.log("Feteched products...", response);
+  console.debug("Feteched products...", response);
   dispatch(productActions.getProducts({ 
     products: response.data.property || [] ,
     page: response.data.page,

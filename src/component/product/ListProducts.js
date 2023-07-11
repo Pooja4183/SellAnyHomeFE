@@ -9,6 +9,11 @@ import { CardActionArea } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Currency from "../custom/Currency";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const ListProducts = ({ title }) => {
   const productListing = useSelector((state) => state.products.products);
@@ -16,18 +21,14 @@ const ListProducts = ({ title }) => {
 
   return (
     productListing && (
-      <Box sx={{ flexGrow: 1, minHeight:'450px' }}>
+      <Box sx={{ flexGrow: 1, minHeight: "450px" }}>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
           sx={{ paddingLeft: 1, paddingBottom: 4 }}
         >
-          <Typography
-            variant="h2">
-            {title}
-           
-          </Typography>
+          <Typography variant="h2">{title}</Typography>
         </Grid>
         <Grid
           container
@@ -36,7 +37,7 @@ const ListProducts = ({ title }) => {
         >
           {productListing.map((product) => (
             <Grid xs={12} sm={6} md={4} lg={4} key={product._id}>
-              <Card sx={{ borderRadius: 0, boxShadow:'none'}}>
+              <Card sx={{ borderRadius: 0, boxShadow: "none" }}>
                 <CardActionArea>
                   <Link to={"/property/" + product.id}>
                     <CardMedia
@@ -56,8 +57,13 @@ const ListProducts = ({ title }) => {
                         color: "black",
                       }}
                     >
-                     <Currency value={product.price}/>
-                      <span>{`${product.bed} Bed | ${product.bath} Bath | ${product.sqFt} SqFt`}</span>
+                      <b>
+                        <Currency value={product.price} />
+                      </b>
+                      <span>
+                        <b>{product.bed}</b> Bed | <b>{product.bath}</b> Bath |{" "}
+                        <b>{product.sqFt}</b> SqFt
+                      </span>
                     </Typography>
 
                     <Typography gutterBottom variant="caption" component="div">
@@ -67,16 +73,37 @@ const ListProducts = ({ title }) => {
                       gutterBottom
                       variant="caption"
                       component="div"
-                      sx={{ color: "blue", textTransform:'capitalize' }}
+                      sx={{
+                        display: "flex",
+                        textTransform: "capitalize",
+                        justifyContent: "space-between",
+                      }}
                     >
-                      {product.homeType} for sale
+                      <span style={{ color: "blue" }}>
+                        {product.homeType} for sale
+                      </span>
+                      <span>Ref: {product.id}</span>
                     </Typography>
                   </CardContent>
                 </CardActionArea>
               </Card>
             </Grid>
           ))}
+       
         </Grid>
+        {productListing.length < 1 && (
+            <Grid
+              container
+              justifyContent= {"center"}
+               alignItems= {"center"}
+            >
+              <Grid item>
+                <Alert severity="info">
+                  Oops, We can't find the property you're looking for!
+                </Alert>
+              </Grid>
+            </Grid>
+          )}
       </Box>
     )
   );
