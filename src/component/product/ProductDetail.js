@@ -70,7 +70,7 @@ const ProductDetail = () => {
                 </div>
               </div>
             </Item>
-            <Carousel>
+            <Carousel autoPlay={false}>
               {product.images &&
                 product.images.map((item) => (
                   <>
