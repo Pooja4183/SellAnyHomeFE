@@ -191,7 +191,7 @@ const BuyList = () => {
                 </MenuItem>
                 {PropertyDetail.minPrice.map((property) => (
                   <MenuItem key={property.id} value={property.name}>
-                    {property.name}
+                    {parseInt(property.name).toLocaleString()} {/* Convert price to number and format it as currency */}
                   </MenuItem>
                 ))}
               </Select>
@@ -216,7 +216,7 @@ const BuyList = () => {
                 </MenuItem>
                 {PropertyDetail.maxPrice.map((property) => (
                   <MenuItem key={property.id} value={property.name}>
-                    {property.name}
+                   {parseInt(property.name).toLocaleString()} {/* Convert price to number and format it as currency */}
                   </MenuItem>
                 ))}
               </Select>
