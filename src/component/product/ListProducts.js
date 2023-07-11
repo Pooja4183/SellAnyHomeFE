@@ -26,6 +26,7 @@ const ListProducts = ({ title }) => {
           <Typography
             variant="h2">
             {title}
+           
           </Typography>
         </Grid>
         <Grid

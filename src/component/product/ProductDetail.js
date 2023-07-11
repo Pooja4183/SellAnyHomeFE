@@ -132,6 +132,41 @@ const ProductDetail = () => {
                       </Item>
                     ))}
                 </Stack>
+                <Grid item 
+              xs={12}
+              sm={12}
+              md={12}
+              sx={{ display: "flex", justifyContent: "left", paddingTop:10}}>
+                 <Stack
+              direction="column"
+              spacing={2}
+              useFlexGap
+              flexWrap="wrap"
+              sx={{ justifyContent: "center" }}
+            >
+            <Typography
+              variant="h4"
+              sx={{ textAlign: "left", fontWeight: "bold", color:'black' }}
+            >
+              Location Map
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              sx={{ textAlign: "left", color:'#383838' }}
+            >
+              {product.address}
+            </Typography>
+            </Stack>
+          </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={12}
+              sx={{ display: "flex", justifyContent: "left" }}
+            >
+              <OLMap />
+            </Grid>
               </div>
             </Item>
           </Grid>
@@ -148,15 +183,9 @@ const ProductDetail = () => {
               spacing={2}
               useFlexGap
               flexWrap="wrap"
-              sx={{ justifyContent: "center" ,paddingTop:6 }}
+              sx={{ justifyContent: "center" ,paddingTop:6, height:700 }}
             >
-               <Stack
-              direction="row"
-              spacing={2}
-              useFlexGap
-              flexWrap="wrap"
-              sx={{ justifyContent: "center" }}
-            >
+             
               <Item className={styles.agent}>
                 <img src={agentImage} alt="Agent"/>
               </Item>
@@ -180,12 +209,12 @@ const ProductDetail = () => {
                 <p>p:88598444578</p>
               </Item>
           
-              </Stack>
+              
             <Grid
             
               item
-              xs={5}
-              sm={5}
+              xs={6}
+              sm={6}
               md={6}
               sx={{ display: "flex", justifyContent: "center", width:'100%' }}
             >
@@ -194,49 +223,7 @@ const ProductDetail = () => {
             </Stack>
           </Grid>
          
-          <Grid
-            container
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 4, sm: 8, md: 12 }}
-          >
-             <Grid item 
-              xs={6}
-              sm={6}
-              md={6}
-              sx={{ display: "flex", justifyContent: "left", marginLeft:6 }}>
-                 <Stack
-              direction="column"
-              spacing={2}
-              useFlexGap
-              flexWrap="wrap"
-              sx={{ justifyContent: "center" }}
-            >
-            <Typography
-              variant="h4"
-              sx={{ textAlign: "left", fontWeight: "bold" }}
-            >
-              Location Map
-            </Typography>
-            <Typography
-              variant="subtitle2"
-              sx={{ textAlign: "left", color:'#383838' }}
-            >
-              {product.address}
-            </Typography>
-            </Stack>
-          </Grid>
-            <Grid
-              item
-              xs={6}
-              sm={6}
-              md={6}
-              sx={{ display: "flex", justifyContent: "left", marginLeft:6 }}
-            >
-              <OLMap />
-            </Grid>
-
-          
-          </Grid>
+         
         </Grid>
       </Box>
     )

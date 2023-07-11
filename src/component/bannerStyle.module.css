@@ -16,6 +16,9 @@
     margin: 15% 40% 13% 15%;
   }
   
+  .agentTytle{
+    color: black !important;
+  }
 
   .banner .luxeryHeader h2{
 
@@ -64,10 +67,7 @@
 
 
   @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-    .luxeryHeader {
-      width: auto;
-      margin: auto;
-  }
+   
 
   .bannerinput{
     width: 300px;
@@ -84,9 +84,13 @@
     font-size: 46px;
   }
 
+  .luxeryHeader {
+   
+    padding: 15% 0% 0% 0%;
+
 }
 
-
+  }
 
 
 
