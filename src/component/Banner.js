@@ -66,7 +66,7 @@ const Banner = () => {
                     background: "white",
                     border: 0,
                     borderRadius: 0,
-                  width:'50%'
+                  width:'60%'
                   }}
                 />
 

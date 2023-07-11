@@ -4,7 +4,8 @@ import { fetchProducts } from "../../store/productAction";
 import ListProducts from "../product/ListProducts";
 import styles from "./BuyProduct.module.css";
 import StyledInputLabel from "../custom/StyledInputLabel";
-import Item from '@mui/material/Grid';
+import Item from "@mui/material/Grid";
+import { useMediaQuery } from "@mui/material";
 
 import {
   FormControl,
@@ -29,8 +30,10 @@ const BuyList = () => {
   /* Pagination */
   const [page, setPage] = React.useState(0);
   const count = useSelector((state) => state.products.totalRecords) || 0;
-  const [rowsPerPage, setRowsPerPage] = React.useState(6);
-
+  const [rowsPerPage, setRowsPerPage] = React.useState(9);
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  // Conditionally set rowsPerPageOptions based on device type
+  const rowsPerPageOptions = isMobile ? [] : [9, 27, 99];
   /* Form Submission */
 
   const [formData, setFormData] = useState({
@@ -42,7 +45,7 @@ const BuyList = () => {
     maxPrice: "",
     page: page,
     sort: "Recommended",
-    size: 6,
+    size: rowsPerPage,
   });
 
   const [isSubmitted, setSubmitted] = React.useState(false);
@@ -51,9 +54,12 @@ const BuyList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // if(isSubmitted){
+    console.log("Size::", formData.size, "Page", formData.page);
     dispatch(fetchProducts(formData));
     setSubmitted(false);
-  }, [dispatch, isSubmitted]);
+    //}
+  }, [dispatch, formData, isSubmitted]);
 
   const handleChange = (e) => {
     setFormData({
@@ -78,11 +84,18 @@ const BuyList = () => {
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    const newRowsPerPage = +event.target.value;
+
+    const newPage = 0; //Math.floor((rowsPerPage * page) / newRowsPerPage);
+    console.log("Event triggered::", newRowsPerPage, "Page", newPage);
+    setRowsPerPage(newRowsPerPage);
+    setPage(0);
     setFormData({
       ...formData,
-      size: rowsPerPage,
+      size: newRowsPerPage,
+      page: newPage,
     });
+    console.log("Updated forms ::", formData);
     setSubmitted(true);
   };
 
@@ -106,7 +119,7 @@ const BuyList = () => {
         marginBottom: "0%",
       }}
     >
-      <form onSubmit={handleSubmit} >
+      <form onSubmit={handleSubmit}>
         <Grid
           container
           spacing={2}
@@ -210,41 +223,40 @@ const BuyList = () => {
             </FormControl>
           </Grid>
           <Grid item xs={2} className={styles.filterStyle}>
-            <Button type="submit" variant="outlined" className={styles.formstyle}>
+            <Button
+              type="submit"
+              variant="outlined"
+              className={styles.formstyle}
+            >
               Update Search
             </Button>
           </Grid>
         </Grid>
 
-        <Box sx={{ flexGrow: 1, padding:"2% 5%" }}>
-          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-            
-            <Grid item xs={2} sm={4} md={3} sx={{ alignSelf: "flex-end"}}>
-              <TablePagination
-                component="div"
-                count={count}
-                page={page}
-                onPageChange={handleChangePage}
-                rowsPerPage={rowsPerPage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                getItemAriaLabel={defaultGetAriaLabel}
-                labelDisplayedRows={labelDisplayedRows}
-                labelRowsPerPage=""
-                rowsPerPageOptions={[]}
-                name="page"
-              />
-            </Grid>
-
-            <Grid item xs={2} sm={4} md={6} >
-              <Item sx={{textAlign:'center'}}>   <h2>
-                {formData.search}
-              </h2></Item>
-           
-              <Typography variant="subtitle1"  sx={{ textAlign: "center"}}>
+        <Box sx={{ flexGrow: 1, padding: "2% 2%" }}>
+          <Item sx={{ textAlign: "center" }}>
+            {" "}
+            <h2>{formData.search}</h2>
+          </Item>
+          <Grid
+            container
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+            justifyContent={"space-between"}
+            sx={{ padding: "0% 5%" }}
+          >
+            <Grid item xs={2} sm={4} md={6}>
+              <Typography variant="subtitle1" sx={{ textAlign: "left" }}>
                 Residential House For Sale
               </Typography>
             </Grid>
-            <Grid item xs={2} sm={4} md={3} sx={{ alignSelf: "flex-end" ,}}>
+            <Grid
+              item
+              xs={2}
+              sm={4}
+              md={3}
+              sx={{ alignSelf: "flex-end", textAlign: "right" }}
+            >
               Sort By
               <Select
                 labelId="sortby_select_label"
@@ -256,7 +268,7 @@ const BuyList = () => {
                 defaultValue={"Recommended"}
                 name="sort"
                 size="small"
-                sx={{ marginLeft:'10px'}}
+                sx={{ marginLeft: "10px" }}
               >
                 {PropertyDetail.sortBy.map((property) => (
                   <MenuItem key={property.id} value={property.name}>
@@ -268,22 +280,32 @@ const BuyList = () => {
           </Grid>
         </Box>
       </form>
-      <Grid item xs={12} sx={{ padding: "0% 7%" }}>
-        <ListProducts />
+      <Grid container>
+        <Grid item xs={12} sx={{ padding: "0% 7%" }}>
+          <ListProducts />
+        </Grid>
       </Grid>
-      <TablePagination
-                component="div"
-                count={count}
-                page={page}
-                onPageChange={handleChangePage}
-                rowsPerPage={rowsPerPage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                getItemAriaLabel={defaultGetAriaLabel}
-                labelDisplayedRows={labelDisplayedRows}
-                labelRowsPerPage=""
-                rowsPerPageOptions={[]}
-                name="page"
-              />
+      <Grid container mt={5} sx={{ justifyContent: "center", alignItems: "center"}}>
+        <Grid
+          item
+        >
+          <TablePagination
+            component="div"
+            count={count}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            getItemAriaLabel={defaultGetAriaLabel}
+            labelDisplayedRows={labelDisplayedRows}
+            labelRowsPerPage="Pages"
+            rowsPerPageOptions={[9, 27, 99]}
+            name="page"
+           
+          /> 
+        </Grid>
+      </Grid>
+    
     </Box>
   );
 };
