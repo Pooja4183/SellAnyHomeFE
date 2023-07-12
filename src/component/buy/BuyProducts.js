@@ -243,7 +243,7 @@ const BuyList = () => {
         <Box sx={{ flexGrow: 1, padding: "2% 2%" }}>
           <Item sx={{ textAlign: "center" }}>
             {" "}
-            <h2>{formData.search}</h2>
+            <Typography variant="h2">{formData.search}</Typography>
           </Item>
           <Grid
             container
@@ -264,6 +264,7 @@ const BuyList = () => {
               md={3}
               sx={{ alignSelf: "flex-end", textAlign: "right" }}
             >
+              
               Sort By
               <Select
                 labelId="sortby_select_label"
