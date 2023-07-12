@@ -44,7 +44,7 @@ const ListProducts = ({ title }) => {
                       component="img"
                       height="240"
                       image={product.img1}
-                      alt="green iguana"
+                      alt="tomorrowdubai"
                     />
                   </Link>
                   <CardContent sx={{ paddingLeft: "0" }}>

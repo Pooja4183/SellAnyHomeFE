@@ -94,7 +94,7 @@ function ResponsiveAppBar({showSearch}) {
                 onChange={inputEvent}
               />
               <IconButton type="submit" sx={{ p: "10px", }} aria-label="search">
-                <SearchIcon />
+                <SearchIcon sx={{color:'blue'}}/>
               </IconButton>
             </Paper>
 )}
