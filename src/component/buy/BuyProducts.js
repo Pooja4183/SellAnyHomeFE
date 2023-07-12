@@ -1,45 +1,45 @@
+import Item from "@mui/material/Grid";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "../../store/productAction";
+import StyledInputLabel from "../custom/StyledInputLabel";
 import ListProducts from "../product/ListProducts";
 import styles from "./BuyProduct.module.css";
-import StyledInputLabel from "../custom/StyledInputLabel";
-import Item from "@mui/material/Grid";
-import { useMediaQuery } from "@mui/material";
 
 import {
+  Box,
+  Button,
   FormControl,
   Grid,
   MenuItem,
   Select,
   TextField,
   Typography,
-  Button,
+  useMediaQuery
 } from "@mui/material";
-import { Box } from "@mui/system";
 import TablePagination from "@mui/material/TablePagination";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import PropertyDetail from "../../master.json";
-import { useSelector } from "react-redux";
+import AutocompleteTextField from "../custom/AutoCompleteTextField";
 
 const BuyList = () => {
   /* Routing */
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-
+  const [searchString, setSearchString] = useState(queryParams.get("search"));
   /* Pagination */
   const [page, setPage] = React.useState(0);
   const count = useSelector((state) => state.products.totalRecords) || 0;
   const [rowsPerPage, setRowsPerPage] = React.useState(9);
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
   // Conditionally set rowsPerPageOptions based on device type
-  const rowsPerPageOptions = isMobile ? [] : [9, 27, 99];
   /* Form Submission */
 
   const [formData, setFormData] = useState({
     // Initialize form data with default values
-    search: queryParams.get("search"),
-    address: queryParams.get("search"),
+    search: searchString,
+    address: searchString,
     homeType: "",
     minPrice: "",
     maxPrice: "",
@@ -54,23 +54,29 @@ const BuyList = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // if(isSubmitted){
-    console.log("Size::", formData.size, "Page", formData.page);
     dispatch(fetchProducts(formData));
     setSubmitted(false);
-    //}
   }, [dispatch, formData, isSubmitted]);
 
-  const handleChange = (e) => {
+  const handleChange = (event) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     });
   };
+
+  const handleAutoChange=(event, value)=> {
+    setFormData({
+      ...formData,
+      search: value,
+      address: value,
+    });
+  }
   /* Form Submision */
   const handleSubmit = async (event) => {
     event.preventDefault();
     formData.search = formData.address;
+    console.debug("FormData submitted::", formData);
     setSubmitted(true);
   };
 
@@ -87,7 +93,7 @@ const BuyList = () => {
     const newRowsPerPage = +event.target.value;
 
     const newPage = 0; //Math.floor((rowsPerPage * page) / newRowsPerPage);
-    console.log("Event triggered::", newRowsPerPage, "Page", newPage);
+    console.debug("Event triggered::", newRowsPerPage, "Page", newPage);
     setRowsPerPage(newRowsPerPage);
     setPage(0);
     setFormData({
@@ -95,7 +101,7 @@ const BuyList = () => {
       size: newRowsPerPage,
       page: newPage,
     });
-    console.log("Updated forms ::", formData);
+    console.debug("Updated forms ::", formData);
     setSubmitted(true);
   };
 
@@ -131,17 +137,18 @@ const BuyList = () => {
           }}
         >
           <Grid item xs={4} className={styles.filterStyle}>
-            <TextField
-              id="address"
-              label="Address, Neighborhood"
-              variant="outlined"
-              sx={{ width: "100%" }}
-              value={formData.address}
-              onChange={handleChange}
-              name="address"
-              className={styles.filterinput}
-              size="small"
-            />
+          <AutocompleteTextField
+                  id="address"
+                  label="Address Neighborhood"
+                  onChange={handleAutoChange}
+                  nameProp="address"
+                  options={PropertyDetail.locations}
+                  value={formData.address}
+                  key="autoCompleteSearchString"
+                  setSearchString={setSearchString}
+                  width="60%"
+                />
+           
           </Grid>
           <Grid item xs={2} className={styles.filterStyle}>
             <FormControl fullWidth className={styles.formstyle}>

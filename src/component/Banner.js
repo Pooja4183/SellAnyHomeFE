@@ -1,25 +1,25 @@
-import styles from "./bannerStyle.module.css";
+import { Typography } from "@mui/material";
+import Autocomplete from "@mui/material/Autocomplete";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
-import banerimg from "../images/banner_sellAnyHome123.jpg";
 import { useHistory } from "react-router-dom";
 import Header from "../component/Header";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
+import banerimg from "../images/banner_sellAnyHome123.jpg";
+import PropertyDetail from "../master.json";
+import styles from "./bannerStyle.module.css";
 import StyledButtonHome from "./custom/StyledButtonHome";
-import { Typography } from "@mui/material";
+import AutocompleteTextField from "./custom/AutoCompleteTextField";
 
 const Banner = () => {
   const history = useHistory();
   const [searchString, setSearchString] = useState("");
 
-  const handleChange = (event) => {
-    // console.log("Event::", event.target.value);
-    // setSearchString(event.target.value);
-
-    const { name, value } = event.target;
-    setSearchString(event.target.value);
+  const handleChange = (event, value) => {
+    console.debug("Value", value);
+    setSearchString(value || "");
   };
 
   const handleSubmit = (event) => {
@@ -28,7 +28,6 @@ const Banner = () => {
     history.push(uri);
   };
 
- 
   return (
     <>
       <div
@@ -54,22 +53,17 @@ const Banner = () => {
                 onSubmit={handleSubmit}
                 paddingTop={4}
               >
-                <TextField
-                  
-                  name="address"
+                <AutocompleteTextField
+                  onChange={handleChange}
+                  nameProp="address"
                   label="Address Neighborhood"
                   id="address"
+                  options={PropertyDetail.locations}
                   value={searchString}
-                  onChange={handleChange}
-                  size="small"
-                  sx={{
-                    background: "white",
-                    border: 0,
-                    borderRadius: 0,
-                  width:'60%'
-                  }}
+                  key="autoCompleteSearchString"
+                  setSearchString={setSearchString}
+                  width="60%"
                 />
-
                 <StyledButtonHome variant="outlined" type="submit">
                   Search
                 </StyledButtonHome>
@@ -83,4 +77,3 @@ const Banner = () => {
 };
 
 export default Banner;
-

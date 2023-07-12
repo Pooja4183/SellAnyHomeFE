@@ -2,7 +2,7 @@ import backendAPI from '../apis/backendAPI';
 import { productActions } from './productSlice';
 
 export const fetchProducts = (formData) => async (dispatch) => {
-  console.log("Form Data:", formData);
+  console.debug("Form Data:", formData);
   const params = {
     search: formData.search,
     page: formData.page,
