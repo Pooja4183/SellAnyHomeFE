@@ -17,7 +17,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const ListProducts = ({ title }) => {
   const productListing = useSelector((state) => state.products.products);
-  console.log("Product Listing...", productListing);
+  console.debug("Product Listing...", productListing);
 
   return (
     productListing && (
