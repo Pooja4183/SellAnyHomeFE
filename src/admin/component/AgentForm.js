@@ -1,14 +1,17 @@
 import React, { useState, useRef } from "react";
 import {
-  TextField, Button,
+  TextField,
+  Button,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   Grid,
-  Typography, Paper,
+  Typography,
+  Paper,
   Stack,
-  IconButton, Badge
+  IconButton,
+  Badge,
 } from "@mui/material";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import { Approval, AttachFile, Save } from "@mui/icons-material";
@@ -21,6 +24,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase";
 import { useDispatch } from "react-redux";
 import { createAgent, createOrUpdateAgent } from "../../store/adminAction";
+import AlertMessage from "../../component/custom/AlertMessage";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -157,6 +161,7 @@ const AgentForm = ({ selectedItem, editable }) => {
         error: "An Error Occured: " + error.message,
       });
     }
+    setShowAlert(true);
   };
 
   const fileInputRef = useRef(null);
@@ -189,6 +194,12 @@ const AgentForm = ({ selectedItem, editable }) => {
     console.debug("Form Data", formData);
   };
 
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
+
   return (
     <Paper elevation={24} sx={{ padding: 1, mb: 5 }}>
       <Grid
@@ -199,7 +210,10 @@ const AgentForm = ({ selectedItem, editable }) => {
         <Grid item xs={6} sm={6} lg={6}>
           <IconButton>
             <PersonAddAltIcon />
-            <Typography variant="h4" sx={{ paddingLeft: 2 }}>
+            <Typography
+              variant="body1"
+              sx={{ paddingLeft: 2, color: grey[900] }}
+            >
               Agent : {formData.id}
             </Typography>
           </IconButton>
@@ -290,21 +304,6 @@ const AgentForm = ({ selectedItem, editable }) => {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          {eventStatus.isSuccess && (
-            <Typography
-              variant="success"
-              sx={{ marginTop: 2, marginLeft: 1, color: "green" }}
-            >
-              {eventStatus.msg}
-            </Typography>
-          )}
-          {eventStatus.error && (
-            <Typography variant="error" sx={{ marginTop: 2, marginLeft: 1 }}>
-              {eventStatus.error}
-            </Typography>
-          )}
-        </Grid>
-        <Grid item xs={12}>
           <Button
             type="submit"
             variant="contained"
@@ -326,6 +325,22 @@ const AgentForm = ({ selectedItem, editable }) => {
           </Button>
         </Grid>
       </Grid>
+      {eventStatus.isSuccess && (
+        <AlertMessage
+          type="success"
+          message={eventStatus.msg}
+          open={showAlert}
+          onClose={handleCloseAlert}
+        />
+      )}
+      {eventStatus.error && (
+        <AlertMessage
+          type="error"
+          message={eventStatus.error}
+          open={showAlert}
+          onClose={handleCloseAlert}
+        />
+      )}
     </Paper>
   );
 };
