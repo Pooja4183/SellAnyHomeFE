@@ -49,7 +49,7 @@ const headCells = [
     id: "id",
     numeric: false,
     disablePadding: false,
-    label: "ID",
+    label: "# ID",
   },
   {
     id: "homeType",
@@ -134,7 +134,7 @@ const EnhancedTableHead = (props) => {
         {/* Render the radio button column */}
         <StyledTableCell padding="checkbox">
           <InputLabel sx={{ color: "white", fontSize: 14, paddingLeft: 2 }}>
-           #
+           
           </InputLabel>
         </StyledTableCell>
         {/* Render the other table header cells */}
@@ -263,7 +263,8 @@ const PropertyGrid = ({ rows, title, type, onPropertySelect }) => {
                       selected={isItemSelected}
                     >
                       {/* Render the radio button */}
-                      <StyledTableCell align="right">
+                      <StyledTableCell  scope="row"
+                        padding="none">
                         <Radio
                           checked={isItemSelected}
                           onChange={(event) => handleClick(event, row)}

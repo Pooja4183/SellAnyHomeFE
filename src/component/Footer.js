@@ -49,7 +49,7 @@ const Footer = () => {
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
           {social.map((page) => (
-            <Link  key={page} to={`/${page.toLowerCase()}`} sx={{ color: 'yellow', '&:hover': { color: 'orange' } }}>{page}&nbsp; | </Link>
+            <Link  key={page} to={`/${page.toLowerCase()}`} >{page}&nbsp; | </Link>
           ))}
         </Grid>
         <Grid item xs={12} md={12} lg={12}>

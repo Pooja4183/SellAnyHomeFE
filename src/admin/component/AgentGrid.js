@@ -4,6 +4,7 @@ import {
   FormControlLabel,
   InputLabel,
   Paper,
+  Radio,
   Switch,
   Table,
   TableBody,
@@ -44,6 +45,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const headCells = [
+  {
+    id: "id",
+    numeric: false,
+    disablePadding: true,
+    label: "# ID",
+  },
   {
     id: "name",
     numeric: false,
@@ -119,9 +126,9 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <StyledTableRow>
-        <StyledTableCell padding="checkbox">
+          {/* Render the radio button column */}
+          <StyledTableCell padding="checkbox">
           <InputLabel sx={{ color: "white", fontSize: 14, paddingLeft: 2 }}>
-            # ID{" "}
           </InputLabel>
         </StyledTableCell>
         {headCells.map((headCell) => (
@@ -247,14 +254,23 @@ const AgentGrid = ({rows, title, onItemSelect }) => {
                     <StyledTableRow
                       hover
                       onClick={(event) => handleClick(event, row)}
-                      role="checkbox"
+                      role="radio"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.id}
                       selected={isItemSelected}
                     >
-                      {/* Remove the checkbox column */}
-                      <StyledTableCell align="right">
+                        {/* Render the radio button */}
+                        <StyledTableCell scope="row"
+                        padding="none">
+                        <Radio
+                          checked={isItemSelected}
+                          onChange={(event) => handleClick(event, row)}
+                          inputProps={{ "aria-labelledby": labelId }}
+                        />
+                      </StyledTableCell>
+                      <StyledTableCell scope="row"
+                        padding="none">
                         #{row.id.slice(18)}
                       </StyledTableCell>
                       <StyledTableCell
