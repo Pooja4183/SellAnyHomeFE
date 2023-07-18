@@ -65,7 +65,7 @@ const ProductDetail = () => {
                     &nbsp;Bath | <b>{product.sqFt}</b> Sq. Ft
                   </p>
                 </div>
-                <div style={{ fontSize: "medium", fontWeight: "bold" ,color:'black'}}>
+                <div style={{ fontSize: "x-large", fontWeight: "bold" ,color:'black',}}>
                    <Currency value={product.price}/>
                 </div>
               </div>

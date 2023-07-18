@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Currency from "../custom/Currency";
 import MuiAlert from "@mui/material/Alert";
+import ExclusiveProducts from "./ExclusiveProducts";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -44,7 +45,7 @@ const ListProducts = ({ title }) => {
                       component="img"
                       height="240"
                       image={product.img1}
-                      alt="green iguana"
+                      alt="tomorrowdubai"
                     />
                   </Link>
                   <CardContent sx={{ paddingLeft: "0" }}>
@@ -92,6 +93,7 @@ const ListProducts = ({ title }) => {
        
         </Grid>
         {productListing.length < 1 && (
+          <>
             <Grid
               container
               justifyContent= {"center"}
@@ -103,6 +105,8 @@ const ListProducts = ({ title }) => {
                 </Alert>
               </Grid>
             </Grid>
+            <ExclusiveProducts/>
+            </>
           )}
       </Box>
     )
@@ -111,32 +115,3 @@ const ListProducts = ({ title }) => {
 
 export default ListProducts;
 
-// <Container fluid className={style.produtCont}>
-// <Row className={style.headinExclusive}> <Col><h2>{title}</h2></Col></Row>
-// <Row xs={2} md={3} className='g-4 mx-2 produtRow'>
-//   {productListing.map((product) => (
-//     <Col className={style.colpadding} key={product.id}>
-//       <Card  className={style.thinCard}>
-//         <Card.Body className={style.cardImage} >
-//           <Link to={'/product/' + product.id}>
-//             <Card.Img  src={product.img1} className={style.cardI}   />
-//           </Link>
-//         </Card.Body>
-
-//         <Card.Footer className={style.cardBody}  >
-//           <Card.Title className={style.proTtile}  >
-//             {' '}
-//             <Link to={'/product/' + product.id}>
-//               {product.title}
-//             </Link>{' '}
-//           </Card.Title>
-//           <Card.Text>
-//             <span className={style.protext}> INR {product.price}</span>
-//             <span className={style.pro}>{product.bed} Bed | {product.bath} Bath | {product.sqFt} SqFt  </span>
-//           </Card.Text>
-//         </Card.Footer>
-//       </Card>
-//     </Col>
-//   ))}
-// </Row>
-// </Container>
