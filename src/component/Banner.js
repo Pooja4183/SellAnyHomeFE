@@ -30,7 +30,7 @@ const Banner = () => {
     <>
       <div
         className={styles.banner}
-    //    style={{ backgroundImage: `url(${banerimg})` }}
+     style={{ backgroundImage: `url(${banerimg})` }}
       >
         <Header />
 
