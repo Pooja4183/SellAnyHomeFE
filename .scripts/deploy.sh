@@ -13,7 +13,7 @@ npm install --yes
 
 
 echo "Creating Production Build..."
-npm run --max-old-space-size=4096 build
+npm run --max-old-space-size=2048 build
 
 #echo "PM2 Reload for TomorrowDubai.com"
 #pm2 reload tomorrowdubai
