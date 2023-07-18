@@ -28,22 +28,25 @@ const MidBar = () => {
         <Grid item xs={12} sm={6} md={4}>
           <Item
             type="sell"
-            text="Latest 3 Sell Bookings"
+            text="Latest 3 Seller Interests"
             onItemSelect={setSelectedItem}
+            selectedItem={selectedItem}
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <Item
             type="buy"
-            text=" Latest 3 Buy Bookings"
+            text=" Latest 3 Buyer Interests"
             onItemSelect={setSelectedItem}
+            selectedItem={selectedItem}
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <Item
             type="direct"
-            text="Direct Created Properties"
+            text="Admin Created Properties"
             onItemSelect={setSelectedItem}
+            selectedItem={selectedItem}
           />
         </Grid>
       </Grid>

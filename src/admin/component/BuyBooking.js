@@ -13,9 +13,9 @@ import { useEffect } from "react";
 
 import {
   fetchProductsForBuy,
-  fetchDirectlyCreatedProducts
+  fetchDirectlyCreatedProducts,
 } from "../../store/adminAction";
-import { Typography } from "@mui/material";
+import { Radio, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -25,60 +25,74 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const BuyBooking = ({type,text,onItemSelect}) => {
+const BuyBooking = ({ type, text, onItemSelect, selectedItem }) => {
   const dispatch = useDispatch();
   let rows = [];
-   let selector = useSelector((state) => state.admin);
-   if(type=== 'buy'){
+  let selector = useSelector((state) => state.admin);
+  if (type === "buy") {
     rows = selector.buyProducts;
-   } else{
+  } else {
     rows = selector.directProducts;
-   }
-
-  const [selectedRow, setSelectedRow] = useState(0); // Track the selected row
+  }
 
   useEffect(() => {
-    switch(type){
-      case 'buy':
+    switch (type) {
+      case "buy":
         dispatch(fetchProductsForBuy());
         break;
-      case 'direct':
-        dispatch(fetchDirectlyCreatedProducts())
+      case "direct":
+        dispatch(fetchDirectlyCreatedProducts());
         break;
     }
-   
-    console.log("Rows::", rows);
+
   }, [dispatch]);
 
+
+
   const handleClick = (event, row) => {
-    setSelectedRow(row); // Update the selected row
-    onItemSelect({row:row, text:text});
+    onItemSelect({ row: row, text: text });
   };
 
   return (
-   
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead sx={{background: grey[400], fontWeight: "bold"}}>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>Status</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows && rows.slice(0, 3).map((row) => (
-              <TableRow key={row.id}  onClick={(event) => handleClick(event, row)}>
-                <TableCell>...{row.id.slice(18)}</TableCell>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead sx={{ background: grey[400], fontWeight: "bold" }}>
+          <TableRow>
+            <TableCell></TableCell>
+            <TableCell>ID</TableCell>
+            <TableCell>Price</TableCell>
+            <TableCell>Type</TableCell>
+            <TableCell>Status</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows &&
+            rows.slice(0, 3).map((row,index) => {
+              const isItemSelected = selectedItem?.row?.id === row?.id; // Check if the row is selected
+              const labelId = `enhanced-table-checkbox-${index}`;
+              return(
+              <TableRow
+                key={row.id}
+                role="radio"
+                onClick={(event) => handleClick(event, row)}
+              >
+                <TableCell scope="row" padding="none">
+                  <Radio
+                    checked={isItemSelected}
+                    onChange={(event) => handleClick(event, row)}
+                    inputProps={{ "aria-labelledby": labelId }}
+                  />
+                </TableCell>
+                <TableCell>#{row.id.slice(18)}</TableCell>
                 <TableCell>{row.price}</TableCell>
                 <TableCell>{row.homeType}</TableCell>
                 <TableCell>{row.status}</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+              )
+            })}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
