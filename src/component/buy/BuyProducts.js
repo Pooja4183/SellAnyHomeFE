@@ -182,7 +182,7 @@ const BuyList = () => {
           <Grid item xs={2} className={styles.filterStyle}>
             <FormControl fullWidth className={styles.formstyle}>
               <StyledInputLabel id="demo-simple-select-label">
-                No Min Price
+                 Min Price (AED)
               </StyledInputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -207,7 +207,7 @@ const BuyList = () => {
           <Grid item xs={2} className={styles.filterStyle}>
             <FormControl fullWidth className={styles.formstyle}>
               <StyledInputLabel id="demo-simple-select-label">
-                No Max Price
+                Max Price (AED)
               </StyledInputLabel>
               <Select
                 labelId="demo-simple-select-label"

@@ -1,9 +1,7 @@
 import { Typography } from "@mui/material";
-import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Header from "../component/Header";
@@ -32,7 +30,7 @@ const Banner = () => {
     <>
       <div
         className={styles.banner}
-        style={{ backgroundImage: `url(${banerimg})` }}
+    //    style={{ backgroundImage: `url(${banerimg})` }}
       >
         <Header />
 

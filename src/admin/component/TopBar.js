@@ -33,10 +33,10 @@ const TopBar = ({ onItemClick }) => {
     <Grid container spacing={3}>
 
       <Grid item xs={2} sm={2} md={2}>
-        <SmallItem text="Buy Bookings" value={cnt_buyProducts} onClick={() => handleSmallItemClick("buy")} />
+        <SmallItem text="Buyer Interests" value={cnt_buyProducts} onClick={() => handleSmallItemClick("buy")} />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
-        <SmallItem text="Sell Bookings" value={cnt_sellProducts} onClick={() => handleSmallItemClick("sell")} />
+        <SmallItem text="Seller Interests" value={cnt_sellProducts} onClick={() => handleSmallItemClick("sell")} />
       </Grid>
       <Grid item xs={2} sm={2} md={2}>
         <SmallItem text="Approved Properties" value={cnt_approvedProducts}  onClick={() => handleSmallItemClick("approved")} />
