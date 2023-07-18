@@ -81,12 +81,13 @@ const BuyBooking = ({ type, text, onItemSelect, selectedItem }) => {
                     checked={isItemSelected}
                     onChange={(event) => handleClick(event, row)}
                     inputProps={{ "aria-labelledby": labelId }}
+                    size="small"
                   />
                 </TableCell>
-                <TableCell>#{row.id.slice(18)}</TableCell>
+                <TableCell padding="none">#{row.id.slice(18)}</TableCell>
                 <TableCell>{row.price}</TableCell>
-                <TableCell>{row.homeType}</TableCell>
-                <TableCell>{row.status}</TableCell>
+                <TableCell  padding="none">{row.homeType}</TableCell>
+                <TableCell>{row.status.toLocaleLowerCase()}</TableCell>
               </TableRow>
               )
             })}
