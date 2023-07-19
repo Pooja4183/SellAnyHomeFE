@@ -1,5 +1,5 @@
-import { Approval, AttachFile, Save } from "@mui/icons-material";
-import RoofingIcon from '@mui/icons-material/Roofing';
+import { Approval, AttachFile, Delete, Save } from "@mui/icons-material";
+import RoofingIcon from "@mui/icons-material/Roofing";
 import {
   Badge,
   Button,
@@ -14,7 +14,7 @@ import {
   Paper,
   Select,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import { blue, grey } from "@mui/material/colors";
 import { experimentalStyled as styled } from "@mui/material/styles";
@@ -25,7 +25,11 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useDispatch } from "react-redux";
 import { storage } from "../../Firebase";
 import AlertMessage from "../../component/custom/AlertMessage";
-import { createProduct, updateProduct } from "../../store/adminAction";
+import {
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} from "../../store/adminAction";
 import Gallery from "./Gallery";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -77,7 +81,7 @@ const BorderItem = styled(Paper)(({ theme, title }) => ({
   },
 }));
 
-const PropertyForm = ({ selectedProperty, editable }) => {
+const PropertyForm = ({ selectedProperty, editable, handleClose }) => {
   const dispatch = useDispatch();
   const [eventStatus, setEventStatus] = useState({
     isSuccess: false,
@@ -148,25 +152,34 @@ const PropertyForm = ({ selectedProperty, editable }) => {
         "Clicked::",
         clickedButton.id,
         " Evaluate ",
-        clickedButton.id === "approveBtn"
+        clickedButton.id === "deleteBtn"
       );
       if (clickedButton.id === "approveBtn") {
         console.debug("Submit button 1 clicked");
         // Access the updated formData value by using the callback function in setFormData
-        console.debug("Editable ::", editable, "Selected Property::", selectedProperty);
+        console.debug(
+          "Editable ::",
+          editable,
+          "Selected Property::",
+          selectedProperty
+        );
         if (selectedProperty.id) {
           await dispatch(updateProduct(formData, "APPROVED"));
         } else {
           await dispatch(createProduct(formData, "APPROVED"));
         }
         msg = "Property Data Saved And Approved Successfully!";
-      } else {
+      } else if (clickedButton.id === "saveBtn") {
         if (selectedProperty.id) {
           await dispatch(updateProduct(formData, "DRAFT"));
         } else {
           await dispatch(createProduct(formData, "DRAFT"));
         }
         msg = "Property Data Saved Successfully!";
+      } else if (clickedButton.id === "deleteBtn") {
+        console.log("Clicked Delete");
+        await dispatch(deleteProduct(formData));
+        msg = `Property ${formData.id} is Deleted Successfully!`;
       }
       console.debug("Data::", formData);
       setEventStatus({
@@ -175,7 +188,11 @@ const PropertyForm = ({ selectedProperty, editable }) => {
         error: null,
       });
       setShowAlert(true);
-
+      // Hide the message and close the form after 3 seconds
+      setTimeout(() => {
+        setShowAlert(false);
+        handleClose();
+      }, 3000);
     } catch (error) {
       setEventStatus({
         isSuccess: false,
@@ -279,94 +296,129 @@ const PropertyForm = ({ selectedProperty, editable }) => {
   };
 
   return (
-    <Paper elevation={24} sx={{padding: 1, mb:5}} >
+    <Paper elevation={24} sx={{ padding: 1, mb: 5 }}>
       <form onSubmit={handleSubmit}>
-      <Grid container sx={{ paddingTop: 1, mb: 1, background: blue[200] }} justifyContent={"space-between"}>
-        <Grid item xs={6} sm={6} lg={6} pb={1}>
-          <IconButton>
-          <RoofingIcon/>
-          <Typography  sx={{paddingLeft: 2, color: grey[900]}}> Property : {formData.id}</Typography>
-          </IconButton>
-        </Grid>
-        <Grid item>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            id="saveBtn"
-          >
-            Save
-            <Save sx={{ marginLeft: 1 }} />
-          </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            sx={{marginLeft:1, marginRight: 2 }}
-            id="approveBtn"
-          >
-            Save And Approve
-            <Approval sx={{ marginLeft: 1 }} />
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
+        <Grid
+          container
+          sx={{ paddingTop: 1, mb: 1, background: blue[200] }}
+          justifyContent={"space-between"}
+        >
+          <Grid item xs={6} sm={6} lg={6} pb={1}>
+            <IconButton>
+              <RoofingIcon />
+              <Typography sx={{ paddingLeft: 2, color: grey[900] }}>
+                {" "}
+                Property : {formData.id}
+              </Typography>
+            </IconButton>
+          </Grid>
+          <Grid item>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              id="saveBtn"
+              size="small"
+            >
+              Save
+              <Save />
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              sx={{ marginLeft: 0.5 }}
+              id="approveBtn"
+              size="small"
+            >
+              Approve
+              <Approval />
+            </Button>
+            {formData.id && (
+              <Button
+                type="submit"
+                variant="contained"
+                color="error"
+                sx={{ marginLeft: 0.5, mr: 0.5 }}
+                id="deleteBtn"
+                size="small"
+              >
+                DELETE
+                <Delete />
+              </Button>
+            )}
+          </Grid>
+          <Grid item xs={12}>
             {eventStatus.isSuccess && (
               <>
-              <AlertMessage type="success" message={eventStatus.msg} open={showAlert} onClose={handleCloseAlert}/>
+                <AlertMessage
+                  type="success"
+                  message={eventStatus.msg}
+                  open={showAlert}
+                  onClose={handleCloseAlert}
+                />
               </>
             )}
             {eventStatus.error && (
-               <AlertMessage type="error" message={eventStatus.error} open={showAlert} onClose={handleCloseAlert}/>
+              <AlertMessage
+                type="error"
+                message={eventStatus.error}
+                open={showAlert}
+                onClose={handleCloseAlert}
+              />
             )}
           </Grid>
-      </Grid>
+        </Grid>
 
-     
         <Grid container spacing={2}>
           <Grid item xs={6} sm={6} lg={6} mt={1}>
-              <TextField
-                label="Property Description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                fullWidth
-                multiline
-                required
-                rows={16}
-              />
+            <TextField
+              label="Property Description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              fullWidth
+              multiline
+              required
+              rows={16}
+            />
           </Grid>
-          <Grid item xs={6} sm={6} lg={6} sx={{ display: 'flex' }}>
-            <Item >
-            <Badge
-              badgeContent={
-                <label htmlFor="file-input">
-                  <IconButton
-                    component="span"
-                    aria-label="Upload File"
-                    onClick={handleIconButtonClick}
-                  >
-                    <AttachFile />
-                  </IconButton>
-                </label>
-              }
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-            >
-              <img
-                src={formData.img1}
-                alt=""
-                loading="lazy"
-                style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'scale-down'}}
-              />
-              <input
-                type="file"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                onChange={handleAvatarUpload}
-              />
-            </Badge>
+          <Grid item xs={6} sm={6} lg={6} sx={{ display: "flex" }}>
+            <Item>
+              <Badge
+                badgeContent={
+                  <label htmlFor="file-input">
+                    <IconButton
+                      component="span"
+                      aria-label="Upload File"
+                      onClick={handleIconButtonClick}
+                    >
+                      <AttachFile />
+                    </IconButton>
+                  </label>
+                }
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+              >
+                <img
+                  src={formData.img1}
+                  alt=""
+                  loading="lazy"
+                  style={{
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                    objectFit: "scale-down",
+                  }}
+                />
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
+                  onChange={handleAvatarUpload}
+                />
+              </Badge>
             </Item>
           </Grid>
           <Grid item xs={12}>
@@ -619,24 +671,39 @@ const PropertyForm = ({ selectedProperty, editable }) => {
               variant="contained"
               color="primary"
               id="saveBtn"
+              size="small"
             >
               Save
-              <Save sx={{ marginLeft: 1 }} />
+              <Save />
             </Button>
             <Button
               type="submit"
               variant="contained"
               color="secondary"
-              sx={{ marginLeft: 2 }}
+              sx={{ marginLeft: 0.5 }}
               id="approveBtn"
+              size="small"
             >
-              Save And Approve
-              <Approval sx={{ marginLeft: 1 }} />
+              Approve
+              <Approval />
             </Button>
+            {formData.id && (
+              <Button
+                type="submit"
+                variant="contained"
+                color="error"
+                sx={{ marginLeft: 0.5, mr: 0.5 }}
+                id="deleteBtn"
+                size="small"
+              >
+                DELETE
+                <Delete />
+              </Button>
+            )}
           </Grid>
         </Grid>
-        </form>
-      </Paper>
+      </form>
+    </Paper>
   );
 };
 

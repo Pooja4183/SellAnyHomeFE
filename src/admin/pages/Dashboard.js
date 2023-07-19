@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import {
   Typography,
-  Box, Stack,
-  Button, Grid
+  Box,
+  Stack,
+  Button,
+  Grid,
+  IconButton,
+  Paper,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import TopBar from "../component/TopBar";
@@ -15,12 +19,17 @@ import PropertyCriteriaResult from "../component/PropertyCriteriaResult";
 import PropertyForm from "../component/PropertyForm";
 import AgentForm from "../component/AgentForm";
 import AgentCriteriaResult from "../component/AgentCriteriaResult";
+import { Close } from "@mui/icons-material";
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
 
   const handleSmallItemClick = (section) => {
     setActiveSection(section);
+  };
+
+  const handleClose = () => {
+    setActiveSection("dashboard");
   };
 
   return (
@@ -94,11 +103,8 @@ const Dashboard = () => {
           title="All Properties | Draft + Approved"
         />
       )}
-       {activeSection === "agent" && (
-        <AgentCriteriaResult
-          title="All Agents | Draft + Approved"
-          editable
-        />
+      {activeSection === "agent" && (
+        <AgentCriteriaResult title="All Agents | Draft + Approved" editable />
       )}
       {activeSection === "dashboard" && (
         <>
@@ -108,24 +114,50 @@ const Dashboard = () => {
       )}
       {activeSection === "createProperty" && (
         <>
-          <Grid container>
-            <Grid item xs={1} md={2} lg={3}></Grid>
-            <Grid item xs={10} md={8} lg={6}>
-              <PropertyForm />
+          <Paper elevation={24} sx={{ ml: "18%", mr: "18%", mb: 2 }}>
+            <Grid container justifyContent={"space-between"}>
+              <Grid item>
+                <Typography
+                  variant="button"
+                  sx={{ fontWeight: "bold", padding: 1 }}
+                >
+                  Create Property
+                </Typography>
+              </Grid>
+              <Grid item>
+                <IconButton onClick={handleClose}>
+                  <Close />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <PropertyForm />
+              </Grid>
             </Grid>
-            <Grid item xs={1} md={2} lg={3}></Grid>
-          </Grid>
+          </Paper>
         </>
       )}
       {activeSection === "createAgent" && (
         <>
-         <Grid container sx={{mb:34}}>
-            <Grid item xs={1} md={2} lg={4}></Grid>
-            <Grid item xs={10} md={8} lg={4}>
-              <AgentForm />
+          <Paper elevation={24} sx={{ ml: "18%", mr: "18%", mb: 2 }}>
+            <Grid container justifyContent={"space-between"}>
+              <Grid item>
+                <Typography
+                  variant="button"
+                  sx={{ fontWeight: "bold", padding: 1 }}
+                >
+                  Create Agent
+                </Typography>
+              </Grid>
+              <Grid item>
+                <IconButton onClick={handleClose}>
+                  <Close />
+                </IconButton>
+              </Grid>
+              <Grid item>
+                <AgentForm />
+              </Grid>
             </Grid>
-            <Grid item xs={1} md={2} lg={4}></Grid>
-          </Grid>
+          </Paper>
         </>
       )}
     </Box>

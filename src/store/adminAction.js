@@ -153,13 +153,25 @@ export const updateProduct = (formData, status) => async (dispatch) => {
   }
 };
 
-export const createOrUpdateProductSuccess = (product) => ({
-  type: 'UPDATE_PRODUCT_SUCCESS',
-  payload: product,
-});
+export const deleteProduct = (formData) => async (dispatch) => {
+  console.log("Property Id::", formData.id);
+  try {
+    console.log("Form Data::", formData);
+    const response = await backendAPI.delete('/property/'+ formData.id);
+    console.log("Successfully Deleted")
+    dispatch(adminActions.deleteProductSuccess(response.data.property, 'DELETE_PRODUCT_SUCCESS'));
+   
+  } catch (error) 
+  {
+    console.log("Failure1")
+    dispatch(createOrUpdateProductFailure(error.message, 'DELETE_PRODUCT_FAILURE'));
 
-export const createOrUpdateProductFailure = (error) => ({
-  type: 'UPDATE_PRODUCT_FAILURE',
+  }
+};
+
+
+export const createOrUpdateProductFailure = (error, type) => ({
+  type: type || 'UPDATE_PRODUCT_FAILURE',
   payload: error,
 });
 

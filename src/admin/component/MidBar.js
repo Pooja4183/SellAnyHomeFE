@@ -1,21 +1,23 @@
 import { Grid, IconButton, Paper, Typography } from "@mui/material";
 import Item from "./Item";
 import { useEffect, useState } from "react";
-import LowerBar from "./LowerBar";
 import PropertyForm from "./PropertyForm";
 import { Close } from "@mui/icons-material";
 
 const MidBar = () => {
-  const [activeSection, setActiveSection] = useState("");
   const [selectedItem, setSelectedItem] = useState({
     row: null,
     type: null,
     text: null,
   });
 
-  const handleSmallItemClick = (section) => {
+  const handleClose = () => {
     //onItemClick(section);
-    setActiveSection(section);
+    setSelectedItem({
+      row: null,
+      type: null,
+      text: null,
+    })
   };
 
   useEffect(() => {
@@ -63,12 +65,12 @@ const MidBar = () => {
                 </Typography>
               </Grid>
               <Grid item >
-                <IconButton>
+                <IconButton onClick={handleClose}>
                   <Close />
                 </IconButton>
               </Grid>
               <Grid item>
-                <PropertyForm selectedProperty={selectedItem.row} editable />
+                <PropertyForm selectedProperty={selectedItem.row} editable  handleClose={handleClose}/>
               </Grid>
             </Grid>
           </Paper>
