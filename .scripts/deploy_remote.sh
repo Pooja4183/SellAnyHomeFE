@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd /var/www/SellAnyHomeFE
+cd /var/www/html
 ./.scripts/deploy.sh
