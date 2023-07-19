@@ -95,6 +95,18 @@ const adminSlice = createSlice({
       state.error = action.payload;
       console.log("Failure");
     },
+
+    deleteProductSuccess(state, action) {
+      console.log("Delete Success");
+      state.product = action.payload;
+      const index = state.products.findIndex(
+        (element) => element.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.products.splice(index, 1);
+      }
+      state.error = null;
+    },
     /* Agent Stuff */
     fetchAgents(state, action) {
       state.agents = action.payload.agents;
