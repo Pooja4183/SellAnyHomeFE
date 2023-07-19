@@ -105,7 +105,6 @@ const ListProducts = ({ title }) => {
                 </Alert>
               </Grid>
             </Grid>
-            <ExclusiveProducts/>
             </>
           )}
       </Box>
