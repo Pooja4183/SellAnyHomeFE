@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { submitBuyerInterest } from "../../store/buyContactAction";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
+import styles from '../../component/product/product.module.css'
 
 const ContactForm = () => {
   const { id } = useParams();
@@ -43,13 +44,13 @@ const ContactForm = () => {
     <Box
       sx={{
         maxWidth: "100%",
-        margin: 1,
         borderTop: 0.5,
       }}
       component="form"
       onSubmit={handleSubmit}
+     
     >
-      <Stack spacing={2} sx={{ width: 350, marginTop: 5, }}>
+      <Stack spacing={2} sx={{ width: 350, marginTop: 5 }}  className={styles.responsiveTeam} >
         <Typography variant="h3" sx={{ textAlign: "left", fontWeight: "bold" }}>
           CONTACT TEAM
         </Typography>
@@ -107,8 +108,9 @@ const ContactForm = () => {
       )}
       <Button
         variant="outlined"
-        sx={{ marginTop: 2, }}
+        sx={{ marginTop: 2, marginLeft:1 }}
         type="submit"
+        className={styles.responsiveTeamButton}
       >
         Send Message
       </Button>
