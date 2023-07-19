@@ -1,19 +1,22 @@
-import React from 'react';
-import Footer from '../component/Footer';
-import Banner from '../component/Banner';
- import ExclusiveProducts from '../component/product/ExclusiveProducts';
-import NeighburHood from '../component/Neighburhood';
-import Blog from '../component/Blog';
+import React, { Suspense } from "react";
+import Footer from "../component/Footer";
+import Banner from "../component/Banner";
 
-
+import NeighburHood from "../component/Neighburhood";
+import Blog from "../component/Blog";
+const ExclusiveProducts = React.lazy(() =>
+  import("../component/product/ExclusiveProducts")
+);
 
 const Home = () => {
   return (
     <>
       <Banner />
-      <NeighburHood/>
-      <ExclusiveProducts/>
-      <Blog/>
+      <NeighburHood />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ExclusiveProducts />
+      </Suspense>
+      <Blog />
       <Footer />
     </>
   );
