@@ -71,7 +71,7 @@ function ResponsiveAppBar({showSearch}) {
           <Link to={`/`}>
             <img
               src={Logo}
-              style={{ height: "100%", objectFit: "contain", width: "100%" }}
+              className={styles.logo}
               alt="Tomorrow.luxury property"
             />
           </Link>

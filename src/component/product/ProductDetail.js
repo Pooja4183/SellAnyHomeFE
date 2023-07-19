@@ -65,7 +65,7 @@ const ProductDetail = () => {
                     &nbsp;Bath | <b>{product.sqFt}</b> Sq. Ft
                   </p>
                 </div>
-                <div style={{ fontSize: "x-large", fontWeight: "bold" ,color:'black',}}>
+                <div className={styles.propertyDetail}>
                    <Currency value={product.price}/>
                 </div>
               </div>
@@ -145,7 +145,7 @@ const ProductDetail = () => {
               sx={{ justifyContent: "center" }}
             >
             <Typography
-              variant="h4"
+              variant="h3"
               sx={{ textAlign: "left", fontWeight: "bold", color:'black' }}
             >
               Location Map
@@ -184,6 +184,7 @@ const ProductDetail = () => {
               useFlexGap
               flexWrap="wrap"
               sx={{ justifyContent: "center" ,paddingTop:6, height:700 }}
+              className={styles.responsiveExclusisivePadding}
             >
              
               <Item className={styles.agent}>
