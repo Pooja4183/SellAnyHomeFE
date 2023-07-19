@@ -6,9 +6,17 @@ padding-top: 0%;
 
 
 }
-
+/* prperty detail styling    */
 .ProperryTytle{
   margin:0% 5%;
+
+}
+
+.propertyDetail{
+
+font-size: x-large;
+font-weight: bold;
+color: black;
 
 }
 
@@ -27,6 +35,7 @@ padding-top: 0%;
 .carouselStyle{
   width: 100%;
   height: 700px;
+  padding: 0%;
 
  
 }
@@ -167,10 +176,24 @@ border-radius: 0% !important;
 }
 @media only screen and (max-device-width: 480px) {
  /* styles for mobile browsers smaller than 480px; (iPhone) */
- .carouselStyle{
+
+.responsiveTeam{
+padding-left: 2%;
+padding-right: 2%;
+
+ }
+ .responsiveExclusisivePadding{
+  margin-bottom: 15%;
+ }
+ .responsiveTeamButton{
+margin-left: 2%;
+
+ }
+ .carouselStyle{ 
   width: 100%;
-  height: 300px !important;
+  height: auto !important;
 }
+
 .agent img{
   width: 150px;
   height: 150px;
@@ -184,17 +207,48 @@ border-radius: 0% !important;
   };
 
   .ProperryTytle h2{
-    padding: 5%;
-  
+  padding: 0%;
+
   
   }
 
   .headinExclusive h2{
-
+   
+  
     font-size: x-large
     };
   
+    .ProperryTytle{
+      margin:0% !important;
+    }
 
+    .ProperryTytle{
+      margin:0%;
+    }
+    
+
+
+    .agentContainer{
+
+      padding: 0%;
+    
+    }
+
+    .gridStyling{
+      text-align: left;
+     padding: 0% 2%;
+    }
+     
+
+
+    .propertyDetail{
+
+      font-size: medium;
+      font-weight: bold;
+    
+      
+      }
+      
 }
 @media only screen and (device-width: 768px) {
  /* default iPad screens */

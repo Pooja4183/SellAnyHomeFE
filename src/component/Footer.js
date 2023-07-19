@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../images/SAH_Images/tomo._adobe.svg";
 import { Grid, Typography } from "@mui/material";
+import styles from '../component/bannerStyle.module.css'
 
 const Footer = () => {
   const pages = [
@@ -34,7 +35,8 @@ const Footer = () => {
         <Grid item xs={12} md={12} lg={12}>
           <Typography>
             <Link to={`/`}>
-              <img
+              <img 
+              className={styles.footerLogo}
                 src={Logo}
                 style={{ height: "100%", objectFit: "contain", width: "25%" }}
                 alt="Tomorrow.luxury property"

@@ -64,34 +64,17 @@
     border: none !important;
   }
 
+/* Header.js file css classes  */
 
-
-  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-   
-
-  .bannerinput{
-    width: 300px;
-
-  }
-
-  .banner .luxeryHeader h2{
- 
-    font-size: 26px;
-  }
+.logo{ 
   
-  .banner .luxeryHeader h1{
-  
-    font-size: 46px;
-  }
-
-  .luxeryHeader {
-   
-    padding: 15% 0% 0% 0%;
+  height: 30%;
+  width: 30%;
+  object-fit: "contain";
 
 }
 
-  }
-
+ 
 
 
 @media only screen and (min-width: 960px) {
@@ -111,8 +94,42 @@
   margin: 25% 5% 25% 5%;
 }
 
+.logo{ 
+  
+  height: 100%;
+  width: 100%;
+  object-fit: "contain";
 
 }
+
+.bannerinput{
+  width: 300px;
+
+}
+
+.banner .luxeryHeader h2{
+
+  font-size: 26px;
+}
+
+.banner .luxeryHeader h1{
+
+  font-size: 46px;
+}
+
+.luxeryHeader {
+ 
+  padding: 15% 0% 0% 0%;
+
+}
+/*cfooter logo styling*/
+
+.footerLogo{
+  width: 60% !important;
+  height: 100%;
+}
+}
+
 @media only screen and (device-width: 768px) {
  /* default iPad screens */
 }

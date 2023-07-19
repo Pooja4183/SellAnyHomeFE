@@ -15,7 +15,7 @@ const Agent = () => {
     <>
       <div
         className={styles.banner}
-        style={{backgroundColor:'#EAEFF1'}}
+        style={{backgroundColor:'#ccd9ff'}}
       >
         <Header />
         <Grid
