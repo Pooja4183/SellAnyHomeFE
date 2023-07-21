@@ -49,7 +49,7 @@ const ProductDetail = () => {
          
         >
           <Grid item xs={12} sm={12} md={12}>
-            <Item sx={{ textAlign: "left" ,paddingTop:0 }} className={styles.ProperryTytle}>
+            <Item className={styles.ProperryTytle}>
               <h2>{product.title}</h2>
               <p>{product.address}</p>
               <div

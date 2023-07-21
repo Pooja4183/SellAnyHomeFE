@@ -8,7 +8,7 @@ const StyledButtonHome = styled(Button)(({ theme }) => ({
     padding: "0 5%",
     border: "none",
     letterSpacing: "2px",
-    backgroundColor: blue[900],
+    backgroundColor: '#0025e1',
     color: "white",
     borderRadius: 0,
     textTransform: "uppercase",
