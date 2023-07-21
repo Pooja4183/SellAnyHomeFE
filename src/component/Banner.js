@@ -37,7 +37,7 @@ const Banner = () => {
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 12, sm: 12, md: 12 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
         >
           <Grid item xs={12} sm={12} md={12}>
             <Box className={styles.luxeryHeader}>
@@ -60,7 +60,8 @@ const Banner = () => {
                   value={searchString}
                   key="autoCompleteSearchString"
                   setSearchString={setSearchString}
-                  width="60%"
+                  size='small'
+                  
                 />
                 <StyledButtonHome variant="outlined" type="submit">
                   Search

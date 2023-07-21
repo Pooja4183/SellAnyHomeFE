@@ -78,7 +78,6 @@ const HouseWorthForm = ({ houseWorthInfo, handleHouseWorthChange }) => {
 
               <Box
                 sx={{
-                  width: 500,
                   maxWidth: "100%",
                   marginTop: "3%",
                 }}

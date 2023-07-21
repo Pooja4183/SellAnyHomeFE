@@ -9,6 +9,9 @@ padding-top: 0%;
 /* prperty detail styling    */
 .ProperryTytle{
   margin:0% 5%;
+  padding-top: 0%;
+  text-align: left;
+
 
 }
 
@@ -191,7 +194,8 @@ margin-left: 2%;
  }
  .carouselStyle{ 
   width: 100%;
-  height: auto !important;
+  height: 250px !important;
+  object-fit: cover;
 }
 
 .agent img{
@@ -220,10 +224,12 @@ margin-left: 2%;
   
     .ProperryTytle{
       margin:0% !important;
+      padding: 0% !important;
     }
 
     .ProperryTytle{
       margin:0%;
+      padding: 0% 3% 2% 3%!important;
     }
     
 

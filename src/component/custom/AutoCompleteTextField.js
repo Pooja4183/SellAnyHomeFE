@@ -13,7 +13,7 @@ const AutocompleteTextField = ({
   setSearchString,
 }) => {
   if (!widthValue) {
-    widthValue = "100%";
+    widthValue = "60%";
   }
 
   const handleChange = (event, newValue) => {
