@@ -2,7 +2,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { MenuItem, Paper, Typography } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -10,16 +9,16 @@ import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
 import Menu from "@mui/material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import Tooltip from "@mui/material/Tooltip";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import Logo from "../images/SAH_Images/tomor_adobe_express.svg";
+import LogoOther from "../images/SAH_Images/tomor_adobe_expres.svg";
 import styles from "./bannerStyle.module.css";
 
 const pages = ["Buy", "Sell", "Agent"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function ResponsiveAppBar({showSearch}) {
+function ResponsiveAppBar({showSearch, isHome}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -68,10 +67,13 @@ function ResponsiveAppBar({showSearch}) {
     >
       <Container maxWidth="xl" className={styles.headerPadding}>
         <Toolbar disableGutters>
+        
           <Link to={`/`}>
+       
+           
             <img
-              src={Logo}
-              className={styles.logo}
+              src={isHome ? Logo : LogoOther}
+              className={isHome ? styles.logo : styles.logoOther}
               alt="Tomorrow.luxury property"
             />
           </Link>

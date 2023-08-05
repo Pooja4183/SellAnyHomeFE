@@ -83,7 +83,7 @@ const ListProducts = ({ title }) => {
                       <span style={{ color: "blue" }}>
                         {product.homeType} for sale
                       </span>
-                      <span>Ref: {product.id}</span>
+                      <span>Ref: TM{product.id.slice(18)}</span>
                     </Typography>
                   </CardContent>
                 </CardActionArea>
