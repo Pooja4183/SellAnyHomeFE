@@ -32,7 +32,7 @@ const Banner = () => {
         className={styles.banner}
      style={{ backgroundImage: `url(${banerimg})` }}
       >
-        <Header />
+        <Header isHome="true" />
 
         <Grid
           container

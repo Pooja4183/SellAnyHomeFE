@@ -332,7 +332,7 @@ const BuyList = () => {
             </Alert>
           </Grid>
           <Grid item>
-          <Neighburhood title="Similar Properties Available"/>
+          <Neighburhood title="Try These Locations"/>
           </Grid>
         </Grid>
       )}
