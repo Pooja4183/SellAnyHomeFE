@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <>
       <Banner />
-      <NeighburHood />
+      <NeighburHood title="Neighborhood For You"/>
       <Suspense fallback={<div>Loading...</div>}>
         <ExclusiveProducts />
       </Suspense>

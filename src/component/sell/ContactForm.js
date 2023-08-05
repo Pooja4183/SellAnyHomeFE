@@ -37,6 +37,7 @@ const ContactForm = ({
     name: contactInfo.name,
     email: contactInfo.email,
     phone: contactInfo.phone,
+    status: "DRAFT"
   });
   const { error } = "";//useSelector((state) => state.product);
 
@@ -50,7 +51,7 @@ const ContactForm = ({
       phone: contactInfo.phone,
     });
 
-    console.log("Form Data::", formData);
+    console.log("Contact Form Data::", formData);
     if(isFormValid) {
       dispatch(createProduct(formData));
       setSubmitted(true);

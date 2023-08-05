@@ -7,6 +7,7 @@ import ListProducts from "../product/ListProducts";
 import styles from "./BuyProduct.module.css";
 
 import {
+  Alert,
   Box,
   Button,
   FormControl,
@@ -15,13 +16,14 @@ import {
   Select,
   TextField,
   Typography,
-  useMediaQuery
+  useMediaQuery,
 } from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import PropertyDetail from "../../master.json";
 import AutocompleteTextField from "../custom/AutoCompleteTextField";
+import Neighburhood from "../Neighburhood";
 
 const BuyList = () => {
   /* Routing */
@@ -34,6 +36,9 @@ const BuyList = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(9);
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
   // Conditionally set rowsPerPageOptions based on device type
+
+  const products = useSelector((state) => state.products.products);
+
   /* Form Submission */
 
   const [formData, setFormData] = useState({
@@ -65,13 +70,13 @@ const BuyList = () => {
     });
   };
 
-  const handleAutoChange=(event, value)=> {
+  const handleAutoChange = (event, value) => {
     setFormData({
       ...formData,
       search: value,
       address: value,
     });
-  }
+  };
   /* Form Submision */
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -137,18 +142,17 @@ const BuyList = () => {
           }}
         >
           <Grid item xs={4} className={styles.filterStyle}>
-          <AutocompleteTextField
-                  id="address"
-                  label="Address Neighborhood"
-                  onChange={handleAutoChange}
-                  nameProp="address"
-                  options={PropertyDetail.locations}
-                  value={formData.address}
-                  key="autoCompleteSearchString"
-                  setSearchString={setSearchString}
-                  width="60%"
-                />
-           
+            <AutocompleteTextField
+              id="address"
+              label="Address Neighborhood"
+              onChange={handleAutoChange}
+              nameProp="address"
+              options={PropertyDetail.locations}
+              value={formData.address}
+              key="autoCompleteSearchString"
+              setSearchString={setSearchString}
+              width="60%"
+            />
           </Grid>
           <Grid item xs={2} className={styles.filterStyle}>
             <FormControl fullWidth className={styles.formstyle}>
@@ -182,7 +186,7 @@ const BuyList = () => {
           <Grid item xs={2} className={styles.filterStyle}>
             <FormControl fullWidth className={styles.formstyle}>
               <StyledInputLabel id="demo-simple-select-label">
-                 Min Price (AED)
+                Min Price (AED)
               </StyledInputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -198,7 +202,8 @@ const BuyList = () => {
                 </MenuItem>
                 {PropertyDetail.minPrice.map((property) => (
                   <MenuItem key={property.id} value={property.name}>
-                    {parseInt(property.name).toLocaleString()} {/* Convert price to number and format it as currency */}
+                    {parseInt(property.name).toLocaleString()}{" "}
+                    {/* Convert price to number and format it as currency */}
                   </MenuItem>
                 ))}
               </Select>
@@ -223,7 +228,8 @@ const BuyList = () => {
                 </MenuItem>
                 {PropertyDetail.maxPrice.map((property) => (
                   <MenuItem key={property.id} value={property.name}>
-                   {parseInt(property.name).toLocaleString()} {/* Convert price to number and format it as currency */}
+                    {parseInt(property.name).toLocaleString()}{" "}
+                    {/* Convert price to number and format it as currency */}
                   </MenuItem>
                 ))}
               </Select>
@@ -239,7 +245,7 @@ const BuyList = () => {
             </Button>
           </Grid>
         </Grid>
-
+        {products && products.length > 0 && (
         <Box sx={{ flexGrow: 1, padding: "2% 2%" }}>
           <Item sx={{ textAlign: "center" }}>
             {" "}
@@ -264,7 +270,6 @@ const BuyList = () => {
               md={3}
               sx={{ alignSelf: "flex-end", textAlign: "right" }}
             >
-              
               Sort By
               <Select
                 labelId="sortby_select_label"
@@ -287,33 +292,50 @@ const BuyList = () => {
             </Grid>
           </Grid>
         </Box>
+        )}
       </form>
-      <Grid container>
-        <Grid item xs={12} sx={{ padding: "0% 7%" }}>
-          <ListProducts />
+      {products && products.length > 0 && (
+        <>
+          <Grid container>
+            <Grid item xs={12} sx={{ padding: "0% 7%" }}>
+              <ListProducts />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            mt={5}
+            sx={{ justifyContent: "center", alignItems: "center" }}
+          >
+            <Grid item>
+              <TablePagination
+                component="div"
+                count={count}
+                page={page}
+                onPageChange={handleChangePage}
+                rowsPerPage={rowsPerPage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                getItemAriaLabel={defaultGetAriaLabel}
+                labelDisplayedRows={labelDisplayedRows}
+                labelRowsPerPage="Pages"
+                rowsPerPageOptions={[9, 27, 99]}
+                name="page"
+              />
+            </Grid>
+          </Grid>
+        </>
+      )}
+      {products && products.length <= 0 && (
+        <Grid container justifyContent={"center"} alignItems={"center"} mt={1}>
+          <Grid item>
+            <Alert severity="info">
+              Oops, We can't find the property you're looking for!
+            </Alert>
+          </Grid>
+          <Grid item>
+          <Neighburhood title="Similar Properties Available"/>
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid container mt={5} sx={{ justifyContent: "center", alignItems: "center"}}>
-        <Grid
-          item
-        >
-          <TablePagination
-            component="div"
-            count={count}
-            page={page}
-            onPageChange={handleChangePage}
-            rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            getItemAriaLabel={defaultGetAriaLabel}
-            labelDisplayedRows={labelDisplayedRows}
-            labelRowsPerPage="Pages"
-            rowsPerPageOptions={[9, 27, 99]}
-            name="page"
-           
-          /> 
-        </Grid>
-      </Grid>
-    
+      )}
     </Box>
   );
 };
