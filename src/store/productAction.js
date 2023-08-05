@@ -10,7 +10,8 @@ export const fetchProducts = (formData) => async (dispatch) => {
     minPrice: formData.minPrice,
     maxPrice: formData.maxPrice,
     sort: formData.sort,
-    size: formData.size
+    size: formData.size,
+    status: 'APPROVED'
   };
    let uri = '/property';
 
