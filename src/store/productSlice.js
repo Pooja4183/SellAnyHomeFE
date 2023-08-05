@@ -30,7 +30,7 @@ const productSlice = createSlice({
     getProductById(state, action) {
       console.log("Fetching Id", action.payload.id);
       state.product = state.products.find(
-        (element) => element.id === action.payload.id
+        (element) => element._id === action.payload.id
        
       );
       console.log("Fetched::", state.product);
