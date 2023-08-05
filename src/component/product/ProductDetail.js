@@ -35,25 +35,32 @@ const ProductDetail = () => {
     window.scrollTo(0, 0);
   }, [dispatch, id]);
 
-  if(!product) {
+  if (!product) {
     return null;
   }
 
   return (
     product && (
-      <Box sx={{ flexGrow: 1, marginTop:15 }}>
+      <Box sx={{ flexGrow: 1, marginTop: 15 }}>
         <Grid
-          sx={{borderTop: '2px solid lightgray',}}
+          sx={{ borderTop: "2px solid lightgray" }}
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
-         
         >
           <Grid item xs={12} sm={12} md={12}>
-          
             <Item className={styles.ProperryTytle}>
-              <h2>{product.title}</h2>
-              <p>{product.address}</p>
+              <Typography variant="h2">{product.title}</Typography>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <p>{product.homeType} for Sale</p>
+                <p>{product.address}</p>
+                <p>Ref: TM{product._id.slice(18)}</p>
+              </div>
               <div
                 style={{
                   display: "flex",
@@ -66,10 +73,9 @@ const ProductDetail = () => {
                     <b>{product.bed}</b>&nbsp;Bed | <b>{product.bath}</b>
                     &nbsp;Bath | <b>{product.sqFt}</b> Sq. Ft
                   </p>
-                  <p>Ref: TM{product.id.slice(18)}</p>
                 </div>
                 <div className={styles.propertyDetail}>
-                   <Currency value={product.price}/>
+                  <Currency value={product.price} />
                 </div>
               </div>
             </Item>
@@ -77,7 +83,11 @@ const ProductDetail = () => {
               {product.images &&
                 product.images.map((item) => (
                   <>
-                    <img src={item} className={styles.carouselStyle} alt="property img"/>
+                    <img
+                      src={item}
+                      className={styles.carouselStyle}
+                      alt="property img"
+                    />
                   </>
                 ))}
             </Carousel>
@@ -87,7 +97,7 @@ const ProductDetail = () => {
           className={styles.agentContainer}
           container
           spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12, }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
         >
           <Grid
             item
@@ -101,15 +111,25 @@ const ProductDetail = () => {
                 <Typography
                   variant="h3"
                   gutterBottom
-                  sx={{ textAlign: "left", fontWeight: "bold", color:'black' }}
+                  sx={{ textAlign: "left", fontWeight: "bold", color: "black" }}
                 >
                   Description
                 </Typography>
-                <Typography variant="body2" sx={{ lineHeight:2, color:'#383838'}}>{product.description}</Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ lineHeight: 2, color: "#383838" }}
+                >
+                  {product.description}
+                </Typography>
                 <Typography
                   variant="h3"
                   gutterBottom
-                  sx={{ textAlign: "left", fontWeight: "bold" ,color:'black', paddingTop:10}}
+                  sx={{
+                    textAlign: "left",
+                    fontWeight: "bold",
+                    color: "black",
+                    paddingTop: 10,
+                  }}
                 >
                   Feature & Amenities
                 </Typography>
@@ -123,53 +143,63 @@ const ProductDetail = () => {
                 >
                   {product.amenities &&
                     product.amenities.map((item) => (
-                      <Item sx={{ padding:0}}>
+                      <Item sx={{ padding: 0 }}>
                         {" "}
                         <Typography
                           variant="body2"
                           gutterBottom
-                          sx={{ fontWeight: "bold",color:'#505050' }}
+                          sx={{ fontWeight: "bold", color: "#505050" }}
                         >
                           {item}
                         </Typography>
                       </Item>
                     ))}
                 </Stack>
-                <Grid item 
-              xs={12}
-              sm={12}
-              md={12}
-              sx={{ display: "flex", justifyContent: "left", paddingTop:10}}>
-                 <Stack
-              direction="column"
-              spacing={2}
-              useFlexGap
-              flexWrap="wrap"
-              sx={{ justifyContent: "center" }}
-            >
-            <Typography
-              variant="h3"
-              sx={{ textAlign: "left", fontWeight: "bold", color:'black' }}
-            >
-              Location Map
-            </Typography>
-            <Typography
-              variant="subtitle2"
-              sx={{ textAlign: "left", color:'#383838' }}
-            >
-              {product.address}
-            </Typography>
-            </Stack>
-          </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={12}
-              sx={{ display: "flex", justifyContent: "left" }}
-            >
-              <OLMap />
-            </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "left",
+                    paddingTop: 10,
+                  }}
+                >
+                  <Stack
+                    direction="column"
+                    spacing={2}
+                    useFlexGap
+                    flexWrap="wrap"
+                    sx={{ justifyContent: "center" }}
+                  >
+                    <Typography
+                      variant="h3"
+                      sx={{
+                        textAlign: "left",
+                        fontWeight: "bold",
+                        color: "black",
+                      }}
+                    >
+                      Location Map
+                    </Typography>
+                    <Typography
+                      variant="subtitle2"
+                      sx={{ textAlign: "left", color: "#383838" }}
+                    >
+                      {product.address}
+                    </Typography>
+                  </Stack>
+                </Grid>
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={12}
+                  sx={{ display: "flex", justifyContent: "left" }}
+                >
+                  <OLMap />
+                </Grid>
               </div>
             </Item>
           </Grid>
@@ -178,20 +208,18 @@ const ProductDetail = () => {
             xs={12}
             sm={12}
             md={6}
-            
-            sx={{ display: "flex", justifyContent: "center"}}
+            sx={{ display: "flex", justifyContent: "center" }}
           >
             <Stack
               direction="row"
               spacing={2}
               useFlexGap
               flexWrap="wrap"
-              sx={{ justifyContent: "center" ,paddingTop:6, height:700 }}
+              sx={{ justifyContent: "center", paddingTop: 6, height: 700 }}
               className={styles.responsiveExclusisivePadding}
             >
-             
               <Item className={styles.agent}>
-                <img src={agentImage} alt="Agent"/>
+                <img src={agentImage} alt="Agent" />
               </Item>
               <Item sx={{ textAlign: "left" }}>
                 <Typography
@@ -204,7 +232,7 @@ const ProductDetail = () => {
                 <Typography
                   variant="body2"
                   gutterBottom
-                  sx={{ fontWeight: "bold", color:'black' }}
+                  sx={{ fontWeight: "bold", color: "black" }}
                 >
                   Smith erne
                 </Typography>
@@ -212,22 +240,22 @@ const ProductDetail = () => {
                 <p>sellanyhome.com</p>
                 <p>p:88598444578</p>
               </Item>
-          
-              
-            <Grid
-            
-              item
-              xs={6}
-              sm={6}
-              md={6}
-              sx={{ display: "flex", justifyContent: "center", width:'100%' }}
-            >
-             <ContactForm/>
-            </Grid>
+
+              <Grid
+                item
+                xs={6}
+                sm={6}
+                md={6}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+              >
+                <ContactForm />
+              </Grid>
             </Stack>
           </Grid>
-         
-         
         </Grid>
       </Box>
     )

@@ -9,7 +9,7 @@ const Product = () => {
     <>
       <Header showSearch={true}/>
       <ProductDetail />
-      <ExclusiveProducts/>
+      <ExclusiveProducts title={"Similar Properties"}/>
       <Footer />
     </>
   );
