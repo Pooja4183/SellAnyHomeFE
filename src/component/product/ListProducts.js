@@ -40,7 +40,7 @@ const ListProducts = ({ title }) => {
             <Grid xs={12} sm={6} md={4} lg={4} key={product._id}>
               <Card sx={{ borderRadius: 0, boxShadow: "none" }}>
                 <CardActionArea>
-                  <Link to={"/property/" + product.id}>
+                  <Link to={"/property/" + product._id}>
                     <CardMedia
                       component="img"
                       height="240"
@@ -83,7 +83,7 @@ const ListProducts = ({ title }) => {
                       <span style={{ color: "blue" }}>
                         {product.homeType} for sale
                       </span>
-                      <span>Ref: TM{product.id.slice(18)}</span>
+                      <span>Ref: TM{product._id.slice(18)}</span>
                     </Typography>
                   </CardContent>
                 </CardActionArea>
