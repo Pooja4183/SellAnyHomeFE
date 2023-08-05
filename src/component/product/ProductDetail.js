@@ -50,7 +50,7 @@ const ProductDetail = () => {
         >
           <Grid item xs={12} sm={12} md={12}>
             <Item className={styles.ProperryTytle}>
-              <h2>{product.title}</h2>
+              <Typography variant="h2">{product.title}</Typography>
               <div
                 style={{
                   display: "flex",

@@ -14,11 +14,12 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import Logo from "../images/SAH_Images/tomor_adobe_express.svg";
 import LogoOther from "../images/SAH_Images/tomor_adobe_expres.svg";
 import styles from "./bannerStyle.module.css";
+import { grey } from "@mui/material/colors";
 
 const pages = ["Buy", "Sell", "Agent"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function ResponsiveAppBar({showSearch, isHome}) {
+function ResponsiveAppBar({ showSearch, isHome }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -36,14 +37,12 @@ function ResponsiveAppBar({showSearch, isHome}) {
     setIsSubmitted(true);
   };
 
-  useEffect(()=> {
-    if(isSubmitted) {
-      let uri = "/buy-list?search="+address;
+  useEffect(() => {
+    if (isSubmitted) {
+      let uri = "/buy-list?search=" + address;
       history.push(uri);
     }
-
-  },[isSubmitted, history]);
-
+  }, [isSubmitted, history]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -62,29 +61,27 @@ function ResponsiveAppBar({showSearch, isHome}) {
 
   return (
     <AppBar
-      sx={{ backgroundColor: "transparent", position: "absolute", }}
+      sx={{ backgroundColor: "transparent", position: "absolute" }}
       className={styles.appbarShadow}
     >
       <Container maxWidth="xl" className={styles.headerPadding}>
         <Toolbar disableGutters>
-        
           <Link to={`/`}>
-       
-           
             <img
               src={isHome ? Logo : LogoOther}
               className={isHome ? styles.logo : styles.logoOther}
               alt="Tomorrow.luxury property"
             />
           </Link>
-           {showSearch && ( <Paper
+          {showSearch && (
+            <Paper
               component="form"
               sx={{
                 p: "2px 4px",
                 display: "flex",
                 alignItems: "center",
                 width: 400,
-                marginLeft:'15%'
+                marginLeft: "15%",
               }}
               onSubmit={handleSubmit}
             >
@@ -95,11 +92,11 @@ function ResponsiveAppBar({showSearch, isHome}) {
                 value={address}
                 onChange={inputEvent}
               />
-              <IconButton type="submit" sx={{ p: "10px", }} aria-label="search">
-                <SearchIcon sx={{color:'blue'}}/>
+              <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+                <SearchIcon sx={{ color: "blue" }} />
               </IconButton>
             </Paper>
-)}
+          )}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -126,13 +123,15 @@ function ResponsiveAppBar({showSearch, isHome}) {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: "block", md: "none", color: "white"}
+                display: { xs: "block", md: "none", color: "white" },
               }}
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
-                    <Link  to={`/${page}`}>{page}</Link>
+                    <Link to={`/${page}`} key={`/${page}`}>
+                      {page}
+                    </Link>
                   </Typography>
                 </MenuItem>
               ))}
@@ -152,12 +151,27 @@ function ResponsiveAppBar({showSearch, isHome}) {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                <Link to={`/${page.toLowerCase()}`}>{page}</Link>
+                {isHome && (
+                  <Link
+                    to={`/${page.toLowerCase()}`}
+                    key={`/${page}`}
+                    style={{ color: "white", fontWeight: "bold" }}
+                  >
+                    {page}
+                  </Link>
+                )}
+                {!isHome && (
+                  <Link
+                    to={`/${page.toLowerCase()}`}
+                    key={`/${page}`}
+                    style={{ color: grey[700], fontWeight: "bold" }}
+                  >
+                    {page}
+                  </Link>
+                )}
               </Button>
             ))}
           </Box>
-
-         
         </Toolbar>
       </Container>
     </AppBar>
