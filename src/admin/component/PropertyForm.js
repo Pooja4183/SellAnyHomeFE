@@ -163,21 +163,24 @@ const PropertyForm = ({ selectedProperty, editable, handleClose }) => {
           "Selected Property::",
           selectedProperty
         );
-        if (selectedProperty.id) {
+        if (selectedProperty && selectedProperty.id) {
           await dispatch(updateProduct(formData, "APPROVED"));
         } else {
           await dispatch(createProduct(formData, "APPROVED"));
         }
         msg = "Property Data Saved And Approved Successfully!";
       } else if (clickedButton.id === "saveBtn") {
-        if (selectedProperty.id) {
+        console.debug("Clicked Save Button::", selectedProperty);
+        if (selectedProperty && selectedProperty.id) {
+          console.debug("Updating property ", formData, "Status:", "draft")
           await dispatch(updateProduct(formData, "DRAFT"));
         } else {
+          console.debug("Creating property ", formData, "Status:", "draft");
           await dispatch(createProduct(formData, "DRAFT"));
         }
         msg = "Property Data Saved Successfully!";
       } else if (clickedButton.id === "deleteBtn") {
-        console.log("Clicked Delete");
+        console.debug("Clicked Delete");
         await dispatch(deleteProduct(formData));
         msg = `Property ${formData.id} is Deleted Successfully!`;
       }

@@ -79,14 +79,26 @@ const adminSlice = createSlice({
       state.draftProducts = [];
     },
     createOrUpdateProductSuccess(state, action) {
-      console.log("Success");
-      state.product = action.payload;
-      const index = state.products.findIndex(
-        (element) => element.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.products[index] = action.payload;
+      console.log("Inside Slice Success::", action);
+      let status = action.payload.status;
+      if ("DRAFT" === status.toUpperCase()){
+        console.log("Updating draft");
+        const index = state.draftProducts.findIndex(
+          (element) => element.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.draftProducts[index] = action.payload;
+        }
+      } else if ("APPROVED" === status.toUpperCase()){
+        console.log("Updating approved");
+        const index = state.approvedProducts.findIndex(
+          (element) => element.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.approvedProducts[index] = action.payload;
+        }
       }
+     
       state.error = null;
     },
 

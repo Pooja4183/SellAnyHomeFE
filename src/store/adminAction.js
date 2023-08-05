@@ -130,7 +130,7 @@ export const fetchProductsForSell = () => async (dispatch) => {
      
     } catch (error) 
     {
-      console.log("Failure1")
+      console.log("Failure::", error);
       dispatch(createOrUpdateProductFailure(error.message));
   
     }
