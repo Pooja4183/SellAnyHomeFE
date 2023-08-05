@@ -32,6 +32,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     dispatch(fetchProductsById(id));
+    window.scrollTo(0, 0);
   }, [dispatch, id]);
 
   if(!product) {
@@ -49,6 +50,7 @@ const ProductDetail = () => {
          
         >
           <Grid item xs={12} sm={12} md={12}>
+          
             <Item className={styles.ProperryTytle}>
               <h2>{product.title}</h2>
               <p>{product.address}</p>
@@ -64,6 +66,7 @@ const ProductDetail = () => {
                     <b>{product.bed}</b>&nbsp;Bed | <b>{product.bath}</b>
                     &nbsp;Bath | <b>{product.sqFt}</b> Sq. Ft
                   </p>
+                  <p>Ref: TM{product.id.slice(18)}</p>
                 </div>
                 <div className={styles.propertyDetail}>
                    <Currency value={product.price}/>
