@@ -77,30 +77,35 @@ const Dashboard = () => {
         <PropertyCriteriaResult
           type="buy"
           title="Buyer Interested Properties | Approved"
+          handleClose={handleClose}
         />
       )}
       {activeSection === "sell" && (
         <PropertyCriteriaResult
           type="sell"
           title="Properties Submitted by Sellers | Not Yet Approved"
+          handleClose={handleClose}
         />
       )}
       {activeSection === "approved" && (
         <PropertyCriteriaResult
           type="approved"
           title="All Approved Properties"
+          handleClose={handleClose}
         />
       )}
       {activeSection === "draft" && (
         <PropertyCriteriaResult
           type="draft"
           title="All Properties Waiting for Approval | Draft"
+          handleClose={handleClose}
         />
       )}
       {activeSection === "all" && (
         <PropertyCriteriaResult
           type="all"
           title="All Properties | Draft + Approved"
+          handleClose={handleClose}
         />
       )}
       {activeSection === "agent" && (

@@ -74,7 +74,7 @@ export const fetchProductsForSell = () => async (dispatch) => {
       const response = await backendAPI.get('/property?status=DRAFT');
       console.debug("Success1", response.data)
       dispatch(adminActions.fetchProductsForDraft(response.data));
-      console.debug("HEaders::", response.data.headers);
+      //console.debug("HEaders::", response.data.headers);
       dispatch(adminActions.updateProductTableHeaders(response.data.headers))
      
     } catch (error) 
@@ -91,7 +91,7 @@ export const fetchProductsForSell = () => async (dispatch) => {
       const response = await backendAPI.get('/property');
       console.debug("Success1 Fetch All", response.data.property)
       dispatch(adminActions.fetchProductsForAll(response.data));
-      console.debug("HEaders::", response.data.headers);
+      //console.debug("HEaders::", response.data.headers);
       dispatch(adminActions.updateProductTableHeaders(response.data.headers))
      
     } catch (error) 
@@ -107,7 +107,7 @@ export const fetchProductsForSell = () => async (dispatch) => {
       const response = await backendAPI.get('/property?isBuy=true');
       console.debug("Success1", response.data.property)
       dispatch(adminActions.fetchDirectlyCreatedProducts(response.data.property));
-      console.debug("HEaders::", response.data.headers);
+     // console.debug("HEaders::", response.data.headers);
       dispatch(adminActions.updateProductTableHeaders(response.data.headers))
      
     } catch (error) 
