@@ -23,7 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const PropertyCriteriaResult = ({ title, type }) => {
+const PropertyCriteriaResult = ({ title, type , handleClose}) => {
   const [selectedProperty, setSelectedProperty] = useState(null);
   const dispatch = useDispatch();
   const adminState = useSelector((state) => state.admin);
@@ -105,7 +105,7 @@ const PropertyCriteriaResult = ({ title, type }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={6}>
           
-            <PropertyForm selectedProperty={selectedProperty} />
+            <PropertyForm selectedProperty={selectedProperty} handleClose={handleClose}/>
          
         </Grid>
       </Grid>
