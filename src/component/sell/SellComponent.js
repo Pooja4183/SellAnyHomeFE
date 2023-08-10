@@ -27,7 +27,7 @@ const SellComponent = () => {
         className={styles.banner}
         style={{ backgroundImage: `url(${banerimg})` }}
       >
-        <Header />
+        <Header isHome={true}/>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}

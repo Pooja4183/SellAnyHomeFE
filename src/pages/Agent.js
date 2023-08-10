@@ -17,7 +17,7 @@ const Agent = () => {
         className={styles.banner}
         style={{backgroundColor:'#ccd9ff'}}
       >
-        <Header />
+        <Header isHome={true}/>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
