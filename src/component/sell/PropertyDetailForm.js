@@ -65,7 +65,7 @@ const PropertyDetailForm = ({
                   name="type"
                 >
                   {PropertyDetail.propertyType.map((property) => (
-                    <MenuItem key={property.id} value={property.name}>
+                    <MenuItem key={property._id} value={property.name}>
                       {property.name}
                     </MenuItem>
                   ))}

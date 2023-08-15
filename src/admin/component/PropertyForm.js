@@ -22,13 +22,14 @@ import React, { useEffect, useRef, useState } from "react";
 import PropertyMaster from "../../master.json";
 
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storage } from "../../Firebase";
 import AlertMessage from "../../component/custom/AlertMessage";
 import {
   createProduct,
   updateProduct,
   deleteProduct,
+  fetchAgents,
 } from "../../store/adminAction";
 import Gallery from "./Gallery";
 
@@ -81,7 +82,8 @@ const BorderItem = styled(Paper)(({ theme, title }) => ({
   },
 }));
 
-const PropertyForm = ({ selectedProperty, editable, handleClose }) => {
+const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
+  const agents = useSelector((state) => state.admin.agents);
   const dispatch = useDispatch();
   const [eventStatus, setEventStatus] = useState({
     isSuccess: false,
@@ -114,32 +116,78 @@ const PropertyForm = ({ selectedProperty, editable, handleClose }) => {
     isListed: "",
     sellDuration: "",
     amenities: [],
+    agent:{
+      _id:"",
+      name: ""
+    },
     status: "",
   });
 
-  useEffect(() => {
+  useEffect(async () => {
     let isMounted = true;
+  
+    // Fetch agents data
+    await dispatch(fetchAgents());
+  
+    console.log("Selected Property::", selectedProperty);
+  
     if (selectedProperty) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        ...selectedProperty,
-      }));
+      // Update the agent field with nested properties
+      if(selectedProperty.agent) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          ...selectedProperty,
+          agent: {
+            _id: selectedProperty.agent._id, // Keep the existing _id
+            name: selectedProperty.agent.name, // Keep the existing name
+          },
+        }));
+      } else {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          ...selectedProperty,
+          agent: {
+            _id:"", 
+            name: "", 
+          },
+        }));
+      }
+     
+  
       console.debug("Effect Form Data::", formData);
     }
+  
     return () => {
       // Cleanup function to cancel any ongoing tasks or subscriptions
       isMounted = false;
     };
-  }, [selectedProperty]);
+  }, [selectedProperty]); // Include 'agents' in the dependency array
+  
+
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
     const newValue = type === "checkbox" ? checked : value;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: newValue,
-    }));
+    console.log("Name::", name, " Value::", newValue);
+    if (name === "agent") {
+      // For the agent field, set the _id as the value
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        agent: {
+          ...prevFormData.agent,
+          _id: newValue, // Set the _id of the selected agent
+        },
+      }));
+    } else {
+      // For other fields, update as usual
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: newValue,
+      }));
+    }
   };
+  
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -537,8 +585,9 @@ const PropertyForm = ({ selectedProperty, editable, handleClose }) => {
               size="small"
             />
           </Grid>
-
-          <Grid item xs={12} sm={6}>
+          {!direct && (
+            <>
+            <Grid item xs={12} sm={6}>
             <TextField
               label="Contact Name"
               name="contactName"
@@ -596,6 +645,32 @@ const PropertyForm = ({ selectedProperty, editable, handleClose }) => {
               </Select>
             </FormControl>
           </Grid>
+          </>
+          )}
+           
+              <Grid item xs={12} sm={6}>
+              <FormControl fullWidth>
+                <InputLabel>Agent</InputLabel>
+                <Select
+                  name="agent"
+                  value={formData.agent._id}
+                  onChange={handleChange}
+                  required
+                  size="small"
+                >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                  {agents.map((agent) => (
+                    <MenuItem key={agent._id} value={agent._id}>
+                      {agent.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+          
+          
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
               <InputLabel>Availability Duration</InputLabel>

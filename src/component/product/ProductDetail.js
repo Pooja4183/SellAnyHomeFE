@@ -15,6 +15,7 @@ import styles from "./product.module.css";
 import OLMap from "../custom/Map";
 import ContactForm from "../buy/ContactForm";
 import Currency from "../custom/Currency";
+import { Email, Phone } from "@mui/icons-material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -28,10 +29,12 @@ const Item = styled(Paper)(({ theme }) => ({
 const ProductDetail = () => {
   const { id } = useParams();
   const product = useSelector((state) => state.products.product);
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchProductsById(id));
+    console.log("Product::", product);
     window.scrollTo(0, 0);
   }, [dispatch, id]);
 
@@ -219,7 +222,7 @@ const ProductDetail = () => {
               className={styles.responsiveExclusisivePadding}
             >
               <Item className={styles.agent}>
-                <img src={agentImage} alt="Agent" />
+                <img src={product.agent ? product.agent.img : agentImage} alt="Agent" />
               </Item>
               <Item sx={{ textAlign: "left" }}>
                 <Typography
@@ -234,11 +237,11 @@ const ProductDetail = () => {
                   gutterBottom
                   sx={{ fontWeight: "bold", color: "black" }}
                 >
-                  Smith erne
+                  {product.agent ? product.agent.name : "Smith Arene" }
                 </Typography>
                 <p>licensed associate</p>
-                <p>sellanyhome.com</p>
-                <p>p:88598444578</p>
+                <p> <Email fontSize="small"/> {product.agent ? product.agent.email : "contact@tomorrow.com" }</p>
+                <p> <Phone fontSize="small"/> {product.agent ? product.agent.phone : "88598444578"}</p>
               </Item>
 
               <Grid

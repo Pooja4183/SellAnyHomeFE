@@ -135,7 +135,7 @@ const Dashboard = () => {
                 </IconButton>
               </Grid>
               <Grid item>
-                <PropertyForm handleClose={handleClose}/>
+                <PropertyForm direct handleClose={handleClose} />
               </Grid>
             </Grid>
           </Paper>

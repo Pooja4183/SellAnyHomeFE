@@ -176,7 +176,7 @@ const BuyList = () => {
                   <em>None</em>
                 </MenuItem>
                 {PropertyDetail.propertyType.map((property) => (
-                  <MenuItem key={property.id} value={property.name}>
+                  <MenuItem key={property._id} value={property.name}>
                     {property.name}
                   </MenuItem>
                 ))}
@@ -201,7 +201,7 @@ const BuyList = () => {
                   <em>None</em>
                 </MenuItem>
                 {PropertyDetail.minPrice.map((property) => (
-                  <MenuItem key={property.id} value={property.name}>
+                  <MenuItem key={property._id} value={property.name}>
                     {parseInt(property.name).toLocaleString()}{" "}
                     {/* Convert price to number and format it as currency */}
                   </MenuItem>
@@ -227,7 +227,7 @@ const BuyList = () => {
                   <em>None</em>
                 </MenuItem>
                 {PropertyDetail.maxPrice.map((property) => (
-                  <MenuItem key={property.id} value={property.name}>
+                  <MenuItem key={property._id} value={property.name}>
                     {parseInt(property.name).toLocaleString()}{" "}
                     {/* Convert price to number and format it as currency */}
                   </MenuItem>
@@ -284,7 +284,7 @@ const BuyList = () => {
                 sx={{ marginLeft: "10px" }}
               >
                 {PropertyDetail.sortBy.map((property) => (
-                  <MenuItem key={property.id} value={property.name}>
+                  <MenuItem key={property._id} value={property.name}>
                     {property.name}
                   </MenuItem>
                 ))}
