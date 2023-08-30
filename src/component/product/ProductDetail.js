@@ -201,7 +201,7 @@ const ProductDetail = () => {
                   md={12}
                   sx={{ display: "flex", justifyContent: "left" }}
                 >
-                  <OLMap />
+                  <OLMap address={product.address} location={product.location}/>
                 </Grid>
               </div>
             </Item>

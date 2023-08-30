@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import 'ol/ol.css';
 import { Feature, Map, View } from 'ol';
 import TileLayer from 'ol/layer/Tile';
@@ -13,10 +13,10 @@ const OLMap = ({ address, location }) => {
   const mapRef = useRef(null);
   const [map, setMap] = useState(null); // Store the map instance
   const [coordinates, setCoordinates] = useState([0, 0]);
+  const [isMapInitialized, setIsMapInitialized] = useState(false);
 
   const fetchCoordinates = async () => {
     if (location === '' || location === undefined) {
-      console.log("Location not defined", location, "address::", address);
       try {
         const response = await fetch(
           `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
@@ -24,11 +24,9 @@ const OLMap = ({ address, location }) => {
           )}&format=json`
         );
         const data = await response.json();
-          console.log("Coordinates::", data);
+
         if (data && data.length > 0) {
-          
           const [lon, lat] = [parseFloat(data[0].lon), parseFloat(data[0].lat)];
-          console.log("Lat, lon", lat, lon);
           setCoordinates([lon, lat]);
         }
       } catch (error) {
@@ -41,9 +39,14 @@ const OLMap = ({ address, location }) => {
       ];
       setCoordinates([lon, lat]);
     }
-    console.log("Mapref", mapRef, mapRef.current, "Map", map);
-    if (mapRef.current && !map) {
-      console.log("inside");
+  };
+
+  useEffect(() => {
+    fetchCoordinates();
+  }, [address, location]);
+
+  useEffect(() => {
+    if (!isMapInitialized && coordinates[0] !== 0 && coordinates[1] !== 0) {
       const newMap = new Map({
         target: mapRef.current,
         layers: [new TileLayer({ source: new OSM() })],
@@ -55,41 +58,23 @@ const OLMap = ({ address, location }) => {
 
       const markerLayer = new VectorLayer({
         source: new VectorSource({
-          features: [
-            new Feature({
-              geometry: new Point(fromLonLat(coordinates)),
-            }),
-          ],
+          features: [new Feature({ geometry: new Point(fromLonLat(coordinates)) })],
         }),
-         style: new Style({
-        //   image: new Icon({
-        //     imgSize: [24, 24], // Set the size of the icon
-        //     // Use the style option to set SVG as background image
-        //    // style: `background-image: url('./facebook.png'); background-size: contain; width: 24px; height: 24px;`,
-        //   }),
-         }),
+        style: new Style({
+          image: new Icon({
+            height:42,
+            imgSize: [43, 43],
+            src: '/loc1.png',
+          }),
+        }),
       });
 
       newMap.addLayer(markerLayer);
 
       setMap(newMap);
+      setIsMapInitialized(true);
     }
-  }
-  //;);
-
-  // useEffect(() => {
-  //   // Fetch coordinates and initialize the map
-  //   fetchCoordinates();
-  // }, [address,fetchCoordinates]);
-
-
-  
-  useEffect(() => {
-    // Update the map's view when coordinates change
-    if (map) {
-      map.getView().setCenter(fromLonLat(coordinates));
-    }
-  }, [coordinates, map]);
+  }, [coordinates, isMapInitialized]);
 
   return <div ref={mapRef} style={{ width: '100%', height: '400px' }} />;
 };
