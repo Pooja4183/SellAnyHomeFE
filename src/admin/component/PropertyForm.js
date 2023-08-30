@@ -116,6 +116,12 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
     isListed: "",
     sellDuration: "",
     amenities: [],
+    // ... other fields
+    location: {
+      // Initialize with default or existing values
+      type: "Point", // Assuming you're using GeoJSON Point type
+      coordinates: [0, 0], // Default or existing coordinates
+    },
     agent:{
       _id:"",
       name: ""
@@ -163,9 +169,24 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
     };
   }, [selectedProperty]); // Include 'agents' in the dependency array
   
+  const fetchCoordinates = async (address) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json`
+      );
+      const data = await response.json();
+      
+      if (data && data.length > 0) {
+        const [lon, lat] = [parseFloat(data[0].lon), parseFloat(data[0].lat)];
+        return ([lon, lat]);
+      }
+    } catch (error) {
+      console.error('Error fetching coordinates:', error);
+    }
+ 
+  };
 
-
-  const handleChange = (event) => {
+  const handleChange = async(event) => {
     const { name, value, type, checked } = event.target;
     const newValue = type === "checkbox" ? checked : value;
     console.log("Name::", name, " Value::", newValue);
@@ -185,9 +206,33 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
         [name]: newValue,
       }));
     }
+    // Update location field if both latitude and longitude are provided
+  if (formData.latitude !== "" && formData.longitude !== "") {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      location: {
+        type: "Point",
+        coordinates: [parseFloat(formData.longitude), parseFloat(formData.latitude)],
+      },
+    }));
+  }
   };
   
-  
+  const handleGeolocation = async(event) => {
+    const { name, value, type } = event.target;
+ //geocodeAddress(newValue).then((coordinates) => {
+  console.log("Address::", name, value);
+  const coordinates = await fetchCoordinates(value);
+  console.log("Coordinates::", coordinates);
+  setFormData((prevFormData) => ({
+    ...prevFormData,
+    location: {
+      type: "Point",
+      coordinates: coordinates,
+    },
+    [name]: value,
+  }));
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -489,6 +534,7 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
               name="address"
               value={formData.address}
               onChange={handleChange}
+              onBlur={handleGeolocation}
               fullWidth
               multiline
               required
