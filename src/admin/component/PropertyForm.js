@@ -147,6 +147,9 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
             _id: selectedProperty.agent._id, // Keep the existing _id
             name: selectedProperty.agent.name, // Keep the existing name
           },
+          location :{
+            ...prevFormData.location
+          }
         }));
       } else {
         setFormData((prevFormData) => ({
@@ -198,21 +201,27 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
           ...prevFormData.agent,
           _id: newValue, // Set the _id of the selected agent
         },
+        location :{
+          ...prevFormData.location
+        }
       }));
     } else {
       // For other fields, update as usual
       setFormData((prevFormData) => ({
         ...prevFormData,
         [name]: newValue,
+        location :{
+          ...prevFormData.location
+        }
       }));
     }
     // Update location field if both latitude and longitude are provided
-  if (formData.latitude !== "" && formData.longitude !== "") {
+  if (formData.location.coordinates[0] !== NaN && formData.location.coordinates[1] !== NaN) {
     setFormData((prevFormData) => ({
       ...prevFormData,
       location: {
         type: "Point",
-        coordinates: [parseFloat(formData.longitude), parseFloat(formData.latitude)],
+        coordinates: [parseFloat(prevFormData.location.coordinates[0]), parseFloat(prevFormData.location.coordinates[1])],
       },
     }));
   }
@@ -311,7 +320,10 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
       amenities: checked
         ? [...prevFormData.amenities, value] // add the selected option
         : prevFormData.amenities.filter((option) => option !== value), // remove the deselected option
-    }));
+      location :{
+          ...prevFormData.location
+        }
+      }));
   };
 
   const fileInputRef = useRef(null);
@@ -340,6 +352,9 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       img1: imageUrl,
+      location :{
+        ...prevFormData.location
+      }
     }));
     console.debug("Form Data", formData);
   };
@@ -370,6 +385,9 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       images: [...prevFormData.images, imageUrl],
+      location :{
+        ...prevFormData.location
+      }
     }));
     console.debug("Form Data", formData);
   };
