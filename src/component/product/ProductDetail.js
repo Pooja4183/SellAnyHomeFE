@@ -62,7 +62,7 @@ const ProductDetail = () => {
               >
                 <p>{product.homeType} for Sale</p>
                 <p>{product.address}</p>
-                <p>Ref: TM{product._id.slice(18)}</p>
+                <p>Ref: TM{product._id?product._id.slice(18): ""}</p>
               </div>
               <div
                 style={{
