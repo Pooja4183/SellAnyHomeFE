@@ -281,11 +281,7 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
           await dispatch(createProduct(formData, "DRAFT"));
         }
         msg = "Property Data Saved Successfully!";
-      } else if (clickedButton.id === "deleteBtn") {
-        console.debug("Clicked Delete");
-        await dispatch(deleteProduct(formData));
-        msg = `Property ${formData.id} is Deleted Successfully!`;
-      }
+      } 
       console.debug("Data::", formData);
       setEventStatus({
         isSuccess: true,
@@ -306,6 +302,32 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
       });
     }
   };
+
+  const handleDelete = async (event) => {
+    let msg = '';
+    try {
+      console.debug("Clicked Delete button");
+      await dispatch(deleteProduct(formData));
+      msg = `Property ${formData.id} is Deleted Successfully!`;
+      setEventStatus({
+        isSuccess: true,
+        msg: msg,
+        error: null,
+      });
+      setShowAlert(true);
+      // Hide the message and close the form after 3 seconds
+      setTimeout(() => {
+        setShowAlert(false);
+        handleClose();
+      }, 3000);
+    } catch (error) {
+      setEventStatus({
+        isSuccess: false,
+        msg: null,
+        error: "An Error Occured: " + error.message,
+      });
+    }
+  }
 
   // Use the updated formData value outside of the handleSubmit function
   useEffect(() => {
@@ -450,12 +472,13 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
             </Button>
             {formData.id && (
               <Button
-                type="submit"
+                type="button"
                 variant="contained"
                 color="error"
                 sx={{ marginLeft: 0.5, mr: 0.5 }}
                 id="deleteBtn"
                 size="small"
+                onClick={handleDelete}
               >
                 DELETE
                 <Delete />
