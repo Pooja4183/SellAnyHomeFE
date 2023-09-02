@@ -854,7 +854,8 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
             </Button>
             {formData.id && (
               <Button
-                type="submit"
+                type="button"
+                onClick={handleDelete}
                 variant="contained"
                 color="error"
                 sx={{ marginLeft: 0.5, mr: 0.5 }}
