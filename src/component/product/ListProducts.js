@@ -10,7 +10,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Currency from "../custom/Currency";
 import MuiAlert from "@mui/material/Alert";
-import ExclusiveProducts from "./ExclusiveProducts";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -23,7 +22,7 @@ const ListProducts = ({ title, isExclusive }) => {
   if (isExclusive) {
     productListing = getRandomProducts(selector, 3);
   } else {
-    productListing = selector.products;
+    productListing = selector;
   }
 
   /*
