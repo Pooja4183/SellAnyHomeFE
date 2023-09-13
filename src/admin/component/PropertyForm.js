@@ -129,8 +129,10 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
     status: "",
   });
 
-  useEffect(async () => {
+  useEffect(() => {
     let isMounted = true;
+    async function fetchData() {
+   
   
     // Fetch agents data
     await dispatch(fetchAgents());
@@ -165,7 +167,8 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
   
       console.debug("Effect Form Data::", formData);
     }
-  
+  }
+  fetchData();
     return () => {
       // Cleanup function to cancel any ongoing tasks or subscriptions
       isMounted = false;

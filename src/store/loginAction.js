@@ -1,39 +1,45 @@
-// import { loginActions } from './loginSlice';
-// // import firebase from '../Firebase';
-// import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import backendAPI from '../apis/backendAPI';
+import { loginActions } from './loginSlice';
 
-// export const getUserLogin = () => (dispatch) => {
-//   const provider = new GoogleAuthProvider();
-//   provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-//   provider.setCustomParameters({
-//     login_hint: 'username@gmail.com',
-//   });
-//   // console.log('Login 1....', firebase.name);
-//   const auth = getAuth();
+export const submitLoginSuccess = (formData) => async (dispatch) => {
+    console.log("Inside Login Action::", formData);
+    try {
+        const response = await backendAPI.post('/login', formData);
 
-//   let user;
+        if (response.status === 200) {
+          // User is valid, dispatch success action
+          console.log('User is valid');
+          dispatch(loginActions.submitLoginSuccess(response.data));
+        } else if (response.status === 401) {
+          // Unauthorized, dispatch unauthorized action
+          console.log('Unauthorized');
+          dispatch(loginActions.submitLoginFailure('Unauthorized'));
+        } else {
+          // Handle other status codes (e.g., 500) as needed
+          console.log('Server Error');
+          dispatch(loginActions.submitLoginFailure('Server Error'));
+        }
+     return response;
+    } catch (error) 
+    {
+      console.log("Failure " + error);
+      dispatch(loginActions.submitLoginFailure("Unauthorized:" + error.message));
+      throw error;
+    }
+};
 
-//   signInWithPopup(auth, provider)
-//     .then((result) => {
-//       // This gives you a Google Access Token. You can use it to access the Google API.
-//       // const credential = GoogleAuthProvider.credentialFromResult(result);
-//       // const token = credential.accessToken;
-//       // The signed-in user info.
-//       user = result.user;
+export const logout = (user) => async (dispatch) => {
+  console.log("Inside Logout Action::", user);
+  try {
+    // Make an API call to your server to log the user out, if necessary
+    const response = await backendAPI.post('/logout', {}); //isAuthenticated: user.isAuthenticated, id: user.user.id, user: user.user}); // Replace with your logout endpoint
 
-//       // ...
-//     })
-//     .catch((error) => {
-//       // Handle Errors here.
-//       // const errorCode = error.code;
-//       // const errorMessage = error.message;
-//       // The email of the user's account used.
-//       // const email = error.email;
-//       // The AuthCredential type that was used.
-//       // const credential = GoogleAuthProvider.credentialFromError(error);
-//       // ...
-//       console.error(error);
-//     });
-
-//   dispatch(loginActions.UserLogin({ userD: user }));
-// };
+    // Dispatch the logout action to clear user data
+    dispatch(loginActions.logout());
+    return response;
+  } catch (error) {
+    // Handle any errors that occur during logout, if needed
+    console.error('Logout error:', error);
+    throw error;
+  }
+};
