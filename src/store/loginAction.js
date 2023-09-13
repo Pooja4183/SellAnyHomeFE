@@ -32,7 +32,8 @@ export const logout = (user) => async (dispatch) => {
   console.log("Inside Logout Action::", user);
   try {
     // Make an API call to your server to log the user out, if necessary
-    const response = await backendAPI.post('/logout', {}); //isAuthenticated: user.isAuthenticated, id: user.user.id, user: user.user}); // Replace with your logout endpoint
+  //  const response = await backendAPI.post('/logout', {}); //isAuthenticated: user.isAuthenticated, id: user.user.id, user: user.user}); // Replace with your logout endpoint
+    const response = await backendAPI.post('/logout', {}, { withCredentials: true });
 
     // Dispatch the logout action to clear user data
     dispatch(loginActions.logout());

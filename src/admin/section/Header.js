@@ -9,10 +9,20 @@ import {
 import StoreIcon from "@mui/icons-material/Store";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import CustomLink from "../component/CustomLink";
+import { Logout } from "@mui/icons-material";
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../store/loginAction';
 
 const Header = () => {
+  const dispatch = useDispatch();
   const theme = useTheme();
 
+  const user = useSelector((state) => state.login);
+
+  const handleLogout = () => {
+    console.log("Logging out");
+    dispatch(logout(user));
+  };
   return (
     <>
       <AppBar sx={{ backgroundColor: theme.palette.primary.main }}>
@@ -51,6 +61,19 @@ const Header = () => {
               }}
             >
               Sell
+            </Button>
+            <Button
+              component="a"
+              onClick={handleLogout}
+              variant="contained"
+              startIcon={<Logout />}
+              sx={{
+                color: theme.palette.primary.main,
+                backgroundColor: theme.palette.primary.contrastText,
+                fontWeight: "bold",
+              }}
+            >
+              Logout
             </Button>
           </Stack>
         </Toolbar>
