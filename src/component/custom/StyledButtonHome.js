@@ -1,5 +1,4 @@
 import Button from "@mui/material/Button";
-import { blue } from "@mui/material/colors";
 import { styled } from "@mui/system";
 
 const StyledButtonHome = styled(Button)(({ theme }) => ({

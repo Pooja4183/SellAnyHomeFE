@@ -1,12 +1,9 @@
 import React from "react";
 import styles from "../component/bannerStyle.module.css";
-import banerimg from "../images/banner_sellAnyHome123.jpg";
 import Footer from "../component/Footer";
 import Header from "../component/Header";
 import { Box, Grid, Typography } from "@mui/material";
-// import PerkCompare from "../component/agent/PerkCompare";
 import AgentConnect from "../component/agent/AgentConnect";
-import { fontSize } from "@mui/system";
 
 
 const Agent = () => {

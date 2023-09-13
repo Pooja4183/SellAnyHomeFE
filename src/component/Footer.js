@@ -12,7 +12,6 @@ const Footer = () => {
     "Help",
     "Term of Use",
     "Contact Us",
-    "Admin",
   ];
   const social = [
     "Facebook",

@@ -14,9 +14,8 @@ import {
   Grid,
   MenuItem,
   Select,
-  TextField,
   Typography,
-  useMediaQuery,
+ // useMediaQuery,
 } from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
 import { useSelector } from "react-redux";
@@ -34,7 +33,7 @@ const BuyList = () => {
   const [page, setPage] = React.useState(0);
   const count = useSelector((state) => state.products.totalRecords) || 0;
   const [rowsPerPage, setRowsPerPage] = React.useState(9);
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
+  //const isMobile = useMediaQuery((theme) => theme.breakpoints.down("md"));
   // Conditionally set rowsPerPageOptions based on device type
 
   const products = useSelector((state) => state.products.products);

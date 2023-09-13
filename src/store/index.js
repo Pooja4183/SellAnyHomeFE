@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import productSlice from './productSlice';
 import buyContactSlice from './buyContactSlice';
 import adminSlice from './adminSlice';
+import loginSlice from './loginSlice';
 import thunk from 'redux-thunk';
 
 const persistConfig = {
@@ -14,7 +15,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   products: productSlice.reducer,
   buyContact: buyContactSlice.reducer,
-  admin: adminSlice.reducer
+  admin: adminSlice.reducer,
+  login: loginSlice.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
