@@ -150,7 +150,7 @@ const BuyList = () => {
               value={formData.address}
               key="autoCompleteSearchString"
               setSearchString={setSearchString}
-              width="60%"
+              widthValue='100%'
             />
           </Grid>
           <Grid item xs={2} className={styles.filterStyle}>
@@ -331,7 +331,8 @@ const BuyList = () => {
             </Alert>
           </Grid>
           <Grid item>
-          <Neighburhood title="Try These Locations"/>
+            <ListProducts title="Similar Properties" isExclusive="true"/>
+          
           </Grid>
         </Grid>
       )}
