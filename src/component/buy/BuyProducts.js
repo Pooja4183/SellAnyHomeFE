@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import PropertyDetail from "../../master.json";
 import AutocompleteTextField from "../custom/AutoCompleteTextField";
-import Neighburhood from "../Neighburhood";
+import ExclusiveProducts from "../product/ExclusiveProducts";
 
 const BuyList = () => {
   /* Routing */
@@ -325,13 +325,13 @@ const BuyList = () => {
       )}
       {products && products.length <= 0 && (
         <Grid container justifyContent={"center"} alignItems={"center"} mt={1}>
-          <Grid item>
+          <Grid item xs={12} md={12} lg={12} mb={10}>
             <Alert severity="info">
               Oops, We can't find the property you're looking for!
             </Alert>
           </Grid>
-          <Grid item>
-            <ListProducts title="Similar Properties" isExclusive="true"/>
+          <Grid item xs={12} md={12} lg={12}>
+            <ExclusiveProducts title="Try these Exclusive Properties"/>
           
           </Grid>
         </Grid>

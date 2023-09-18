@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -29,19 +28,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Neighburhood({title}) {
-  const [position, setPosition] = useState(null);
-
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => setPosition(position),
-        (error) => console.log(error)
-      );
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
-  }, []);
-
+ 
   return (
     <>
      
