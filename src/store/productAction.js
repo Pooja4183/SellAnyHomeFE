@@ -3,34 +3,48 @@ import { productActions } from './productSlice';
 
 export const fetchProducts = (formData) => async (dispatch) => {
   console.debug("Form Data:", formData);
-  const params = {
-    search: formData.search,
-    page: formData.page,
-    homeType: formData.homeType,
-    minPrice: formData.minPrice,
-    maxPrice: formData.maxPrice,
-    sort: formData.sort,
-    size: formData.size,
-    status: 'APPROVED'
-  };
-   let uri = '/property';
+  try {
+    const params = {
+      search: formData.search,
+      page: formData.page,
+      homeType: formData.homeType,
+      minPrice: formData.minPrice,
+      maxPrice: formData.maxPrice,
+      sort: formData.sort,
+      size: formData.size,
+      status: 'APPROVED'
+    };
+     let uri = '/property';
+  
+     const response = await backendAPI.get(uri, {params});
+    console.debug("Feteched products...", response);
+    dispatch(productActions.getProducts({ 
+      products: response.data.property || [] ,
+      page: response.data.page,
+      pageSize: response.data.pageSize,
+      records: response.data.records,
+      numberofpages: response.data.numberofpages,
+      totalRecords: response.data.totalRecords
+    }));
+  }catch (error){
+    console.log("Error occurred::", error);
+    dispatch(productActions.productFailure(error.message));
+    throw error;
+  }
 
-   const response = await backendAPI.get(uri, {params});
-  console.debug("Feteched products...", response);
-  dispatch(productActions.getProducts({ 
-    products: response.data.property || [] ,
-    page: response.data.page,
-    pageSize: response.data.pageSize,
-    records: response.data.records,
-    numberofpages: response.data.numberofpages,
-    totalRecords: response.data.totalRecords
-  }));
 };
 
 export const fetchExclusiveProducts = () => async (dispatch) => {
+  console.log("Fetching Exclusive");
+  try {
   const response = await backendAPI.get('/exclusive');
-  console.log("Feteched Exclusive products...", response);
-  dispatch(productActions.getProducts({ products: response.data.property || [] }));
+  console.log("Feteched Exclusive products...", response.data.property);
+  dispatch(productActions.getExclusiveProducts({ exclusives: response.data.property || [] }));
+  } catch(error) {
+    console.log("Error occurred::", error);
+    dispatch(productActions.productFailure(error.message));
+    throw error;
+  }
 };
 
 export const fetchProductsById = (id) => (dispatch) => {
@@ -91,4 +105,8 @@ export const createProductFailure = (error) => ({
   payload: error,
 });
 
+export const fetchProductFailure = (error) => ({
+  type: 'FETCH_PRODUCT_FAILURE',
+  payload: error,
+});
 

@@ -17,49 +17,18 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const ListProducts = ({ title, isExclusive }) => {
   let productListing = [];
-  const selector = useSelector((state) => state.products.products);
+  const selector = useSelector((state) => state.products);
 
   if (isExclusive) {
-    productListing = getRandomProducts(selector, 3);
+    if(selector.exclusives) {
+    productListing = selector.exclusives;
+    } 
   } else {
-    productListing = selector;
+    if(selector.products) {
+      productListing = selector.products;
+    }
   }
 
-  /*
-   * Provides list of random products from the list.
-   * @param {*} arr
-   * @param {*} numItems
-   * @returns
-   */
-  function getRandomProducts(arr, numItems) {
-    // Check if the number of items requested is greater than the array length
-    if (numItems >= arr.length) {
-      return arr; // Return the whole array
-    }
-
-    // Create a copy of the original array to avoid modifying it
-    const copyArray = [...arr];
-
-    // Initialize an array to store the selected items
-    const selectedItems = [];
-
-    // Use a loop to randomly select items
-    while (selectedItems.length < numItems) {
-      // Generate a random index within the remaining items
-      const randomIndex = Math.floor(Math.random() * copyArray.length);
-
-      // Remove the selected item from the copyArray and add it to the selectedItems
-      const selectedItem = copyArray.splice(randomIndex, 1)[0];
-
-      if (selectedItem !== undefined) {
-        selectedItems.push(selectedItem);
-      }
-    }
-
-    return selectedItems;
-  }
-
-  console.debug("Product Listing...", productListing);
 
   return (
     productListing && (

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   products: [],
+  exclusives: [],
   product: null,
   page:0,
   pageSize:0,
@@ -27,12 +28,24 @@ const productSlice = createSlice({
       state.numberofpages = action.payload.numberofpages;
       state.totalRecords =  action.payload.totalRecords;
     },
+    getExclusiveProducts(state, action) {
+      console.debug("Exclusive Action", action.payload);
+      state.exclusives = action.payload.exclusives;
+     
+    },
     getProductById(state, action) {
       console.log("Fetching Id", action.payload.id);
       state.product = state.products.find(
         (element) => element._id === action.payload.id
        
       );
+
+      if(!state.product) {
+        state.product = state.exclusives.find(
+          (element) => element._id === action.payload.id
+         
+        );
+      }
       console.log("Fetched::", state.product);
     },
     searchAndFilter(state,action) {
@@ -52,6 +65,9 @@ const productSlice = createSlice({
       console.log("Failure")
     },
 
+    productFailure(state, action) {
+      state.error = action.payload;
+    },
    
     
 
