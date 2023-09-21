@@ -133,17 +133,21 @@ const BuyList = () => {
         <Grid
           container
           spacing={2}
+          pt={2}
+          pb={1}
+          pl={3}
+          pr={2}
           sx={{
-            padding: "1% 10%",
             borderBottom: "0.5px solid #decebd",
-            justifyContent: "center",
             borderTop: "0.5px solid #decebd",
+          
           }}
+          justifyContent={"space-between"}
         >
-          <Grid item xs={4} className={styles.filterStyle}>
+          <Grid item xs={12} md={4} lg={4} pb={1} className={styles.filterStyle}>
             <AutocompleteTextField
               id="address"
-              label="Address Neighborhood"
+              label="Search by places, address, building and agents"
               onChange={handleAutoChange}
               nameProp="address"
               options={PropertyDetail.locations}
@@ -153,7 +157,8 @@ const BuyList = () => {
               widthValue='100%'
             />
           </Grid>
-          <Grid item xs={2} className={styles.filterStyle}>
+
+          <Grid item xs={6}  md={2} lg={2} pb={1} className={styles.filterStyle}>
             <FormControl fullWidth className={styles.formstyle}>
               <StyledInputLabel
                 id="demo-simple-select-label"
@@ -182,7 +187,7 @@ const BuyList = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={2} className={styles.filterStyle}>
+          <Grid item xs={6}  md={2} lg={2} className={styles.filterStyle}>
             <FormControl fullWidth className={styles.formstyle}>
               <StyledInputLabel id="demo-simple-select-label">
                 Min Price (AED)
@@ -208,7 +213,7 @@ const BuyList = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={2} className={styles.filterStyle}>
+          <Grid item xs={6}  md={2} lg={2} className={styles.filterStyle}>
             <FormControl fullWidth className={styles.formstyle}>
               <StyledInputLabel id="demo-simple-select-label">
                 Max Price (AED)
@@ -234,7 +239,7 @@ const BuyList = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={2} className={styles.filterStyle}>
+          <Grid item xs={6}  md={2} lg={2} className={styles.filterStyle}>
             <Button
               type="submit"
               variant="outlined"
@@ -325,13 +330,12 @@ const BuyList = () => {
       )}
       {products && products.length <= 0 && (
         <Grid container justifyContent={"center"} alignItems={"center"} mt={1}>
-          <Grid item xs={12} md={12} lg={12} mb={10}>
-            <Alert severity="info">
-              Oops, We can't find the property you're looking for!
-            </Alert>
+          <Grid item xs={12} md={12} lg={12} mt={10} mb={10} textAlign={"center"}>
+              <Typography>  No matching result</Typography>
+              <Typography>  Try changing your Search...</Typography>
           </Grid>
           <Grid item xs={12} md={12} lg={12}>
-            <ExclusiveProducts title="Try these Exclusive Properties"/>
+            <ExclusiveProducts title="Other Similar Properties"/>
           
           </Grid>
         </Grid>

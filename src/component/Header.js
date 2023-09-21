@@ -87,8 +87,8 @@ function ResponsiveAppBar({ showSearch, isHome }) {
             >
               <InputBase
                 sx={{ ml: 1, flex: 1, width: "100%" }}
-                placeholder="Search Property on Tomorrow"
-                inputProps={{ "aria-label": "search property pn tomorrow" }}
+                placeholder="Search by places, address, building and agents"
+                inputProps={{ "aria-label": "Search by places, address, building and agents" }}
                 value={address}
                 onChange={inputEvent}
               />
