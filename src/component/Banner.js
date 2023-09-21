@@ -54,7 +54,7 @@ const Banner = () => {
                 <AutocompleteTextField
                   onChange={handleChange}
                   nameProp="address"
-                  label="Address Neighborhood"
+                  label="Search by places, address, building and agents"
                   id="address"
                   options={PropertyDetail.locations}
                   value={searchString}

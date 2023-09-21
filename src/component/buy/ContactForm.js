@@ -86,7 +86,7 @@ const ContactForm = () => {
         />
         <TextField
           fullWidth
-          label="i would like to gain more information about..."
+          label="I would like to gain more information about..."
           id="fullWidth"
           multiline
           rows={4}

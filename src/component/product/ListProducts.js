@@ -110,9 +110,9 @@ const ListProducts = ({ title, isExclusive }) => {
           <>
             <Grid container justifyContent={"center"} alignItems={"center"}>
               <Grid item>
-                <Alert severity="info">
-                  Oops, We can't find the property you're looking for!
-                </Alert>
+                
+                  No matching result
+                  Try changing your Search...
               </Grid>
             </Grid>
           </>
