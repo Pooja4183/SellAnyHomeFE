@@ -72,7 +72,7 @@ const ListProducts = ({ title, isExclusive }) => {
                         <Currency value={product.price} />
                       </b>
                       <span>
-                        <b>{product.bed}</b> Bed | <b>{product.bath}</b> Bath |{" "}
+                        <b>{product.bed}</b> {product.bed > 1 ? 'Beds': 'Bed'} | <b>{product.bath}</b>  {product.bath > 1 ? 'Baths': 'Bath'} |{" "}
                         <b>{product.sqFt}</b> SqFt
                       </span>
                     </Typography>
