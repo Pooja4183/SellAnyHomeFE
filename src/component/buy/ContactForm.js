@@ -11,7 +11,7 @@ const ContactForm = () => {
 
   const successMessage = useSelector((state) => state.buyContact.contact);
   const errorMessage = useSelector((state) => state.buyContact.error);
-
+  const moreInfoMessage = `Hi, I found your property with ref: ${id}. Please contact me. Thank you`;
   const [isSuccess, setSuccess] = useState(false);
   const [error, setError] = useState(null);
 
@@ -19,7 +19,7 @@ const ContactForm = () => {
     name: "",
     email: "",
     phone: "",
-    moreInfo: "",
+    moreInfo: `${moreInfoMessage}`,
     propertyId: id,
   });
 
@@ -86,13 +86,14 @@ const ContactForm = () => {
         />
         <TextField
           fullWidth
-          label="I would like to gain more information about..."
+          label="Message"
           id="fullWidth"
           multiline
           rows={4}
           name="moreInfo"
           onChange={handleChange}
           size="small"
+          value={moreInfoMessage}
         />
       </Stack>
       
