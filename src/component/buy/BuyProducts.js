@@ -330,7 +330,7 @@ const BuyList = () => {
       )}
       {products && products.length <= 0 && (
         <Grid container justifyContent={"center"} alignItems={"center"} mt={1}>
-            <Grid item xs={12} md={12} lg={12} mt={10} mb={10} textAlign={"center"}>
+            <Grid item xs={12} md={12} lg={12} mt={10} mb={5} textAlign={"center"}>
             <Typography  variant="h2">  {searchString}</Typography>
             </Grid>
           <Grid item xs={12} md={12} lg={12} mt={1} mb={10} textAlign={"center"}>

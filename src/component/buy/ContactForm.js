@@ -11,7 +11,7 @@ const ContactForm = () => {
 
   const successMessage = useSelector((state) => state.buyContact.contact);
   const errorMessage = useSelector((state) => state.buyContact.error);
-  const moreInfoMessage = `Hi, I found your property with ref: ${id}. Please contact me. Thank you`;
+  const moreInfoMessage = `Hi, I found your property with Ref: TM${id.slice(18)}. Please contact me. Thank you`;
   const [isSuccess, setSuccess] = useState(false);
   const [error, setError] = useState(null);
 
