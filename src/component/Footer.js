@@ -37,7 +37,7 @@ const Footer = () => {
               <img 
               className={styles.footerLogo}
                 src={Logo}
-                style={{ height: "100%", objectFit: "contain", width: "25%" }}
+                style={{ height: "100%", objectFit: "contain", width: "20%" }}
                 alt="Tomorrow.luxury property"
               />
             </Link>
