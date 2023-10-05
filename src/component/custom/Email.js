@@ -7,7 +7,7 @@ const Email = ({ objectWithEmail}) => {
         numberToDisplay =  objectWithEmail.email;
     }
   return (
-    <a href={`tel:${numberToDisplay}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+    <a href={`mailto:${numberToDisplay}`} style={{ textDecoration: 'none', color: 'inherit' }}>
       <EmailIcon style={{ verticalAlign: 'middle', color:'blueviolet' }}  /> {numberToDisplay}
     </a>
   );
