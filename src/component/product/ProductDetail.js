@@ -15,7 +15,9 @@ import styles from "./product.module.css";
 import OLMap from "../custom/Map";
 import ContactForm from "../buy/ContactForm";
 import Currency from "../custom/Currency";
-import { Email, Phone } from "@mui/icons-material";
+import Phone from "../custom/Phone";
+import Email from "../custom/Email";
+import WhatsApp from "../custom/WhatsApp";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -237,8 +239,9 @@ const ProductDetail = () => {
                   {product.agent ? product.agent.name : "Smith Arene" }
                 </Typography>
                 <p>licensed associate</p>
-                <p> <Email fontSize="small"/> {product.agent ? product.agent.email : "contact@tomorrow.com" }</p>
-                <p> <Phone fontSize="small"/> {product.agent ? product.agent.phone : "88598444578"}</p>
+                <p><Email objectWithEmail={product.agent}/></p>
+                <p><Phone objectWithPhone={product.agent}/></p>
+                <p><WhatsApp objectWithPhone={product.agent}/> </p>    
               </Item>
 
               <Grid
