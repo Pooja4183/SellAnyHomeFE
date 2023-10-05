@@ -21,7 +21,6 @@ const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(2),
-  textAlign: "center",
   color: theme.palette.text.secondary,
   boxShadow: "none",
 }));
@@ -60,9 +59,7 @@ const ProductDetail = () => {
                   justifyContent: "space-between",
                 }}
               >
-                <p>{product.homeType} for Sale</p>
                 <p>{product.address}</p>
-                <p>Ref: TM{product._id?product._id.slice(18): ""}</p>
               </div>
               <div
                 style={{
@@ -74,7 +71,7 @@ const ProductDetail = () => {
                   {" "}
                   <p style={{ fontSize: "medium" }}>
                     <b>{product.bed}</b>&nbsp; {product.bed > 1 ? 'Beds': 'Bed'} | <b>{product.bath}</b>
-                    &nbsp; {product.bath > 1 ? 'Baths': 'Bath'} | <b>{product.sqFt}</b> Sq. Ft
+                    &nbsp; {product.bath > 1 ? 'Baths': 'Bath'} | <b> <Currency value={product.sqFt} hideSymbol/></b> Sq. Ft
                   </p>
                 </div>
                 <div className={styles.propertyDetail}>

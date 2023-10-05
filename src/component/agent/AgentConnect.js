@@ -1,9 +1,4 @@
-import {
-  FormControl,
-  Grid,
-  MenuItem,
-  Paper, Typography
-} from "@mui/material";
+import { FormControl, Grid, MenuItem, Paper, Typography } from "@mui/material";
 import StyledButton from "../custom/StyledButton";
 import StyledTextField from "../custom/StyledTextField";
 import StyledSelect from "../custom/StyledSelect";
@@ -22,7 +17,7 @@ const AgentForm = () => {
     email: "",
     phone: "",
     salesVolume: "",
-    status: "DRAFT"
+    status: "DRAFT",
   });
 
   const handleChange = (e) => {
@@ -115,7 +110,8 @@ const AgentForm = () => {
                 variant="success"
                 sx={{ marginTop: 2, marginLeft: 1, color: "green" }}
               >
-                Your details has been sent successfully! We will connect with you shortly.
+                Your details has been sent successfully! We will connect with
+                you shortly.
               </Typography>
             )}
             {error && (
@@ -133,8 +129,27 @@ const AgentForm = () => {
 const AgentConnect = () => {
   return (
     <Grid container spacing={5} mt={5}>
-      <Grid item xs={6} sm={6} lg={6} sx={{ textAlign: "center" }}>
+      <Grid item xs={6} sm={6} lg={6}>
+      <Grid container >
+      <Grid item xs={5} sm={5} lg={5}>
+        <Typography variant="h1"></Typography>
+        </Grid>
+        <Grid item>
         <Typography variant="h1">Let's Chat</Typography>
+        </Grid>
+
+        <Grid item xs={5} sm={5} lg={5}>
+          </Grid>
+          <Grid item xs={4} sm={4} lg={4}>
+            <Typography variant="subtitle1" mt={5} fontSize={20}>
+              Start Selling Real Estate in 30 Min Easy Plug And Play Model
+              Commission Split 80% (agent) 20% (company) Sign Up By 
+              <b> Filling Out The Form</b>.
+            </Typography>
+          </Grid>
+          <Grid item xs={2} sm={2} lg={2}>
+          </Grid>
+        </Grid>
       </Grid>
       <Grid item xs={6} sm={6} lg={6}>
         <AgentForm />
