@@ -129,18 +129,18 @@ const AgentForm = () => {
 const AgentConnect = () => {
   return (
     <Grid container spacing={5} mt={5}>
-      <Grid item xs={6} sm={6} lg={6}>
+      <Grid item xs={12} sm={6} lg={6}>
       <Grid container >
-      <Grid item xs={5} sm={5} lg={5}>
+      <Grid item xs={1} sm={5} lg={5}>
         <Typography variant="h1"></Typography>
         </Grid>
-        <Grid item>
+        <Grid item xs={11} sm={7} lg={7}>
         <Typography variant="h1">Let's Chat</Typography>
         </Grid>
 
-        <Grid item xs={5} sm={5} lg={5}>
+        <Grid item xs={1} sm={5} lg={5}>
           </Grid>
-          <Grid item xs={4} sm={4} lg={4}>
+          <Grid item xs={9} sm={4} lg={4}>
             <Typography variant="subtitle1" mt={5} fontSize={20}>
               Start Selling Real Estate in 30 Min Easy Plug And Play Model
               Commission Split 80% (agent) 20% (company) Sign Up By 
@@ -151,7 +151,7 @@ const AgentConnect = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item xs={6} sm={6} lg={6}>
+      <Grid item xs={12} sm={6} lg={6}>
         <AgentForm />
       </Grid>
     </Grid>
