@@ -3,7 +3,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 const WhatsApp = ({objectWithPhone}) => {
     let numberToDisplay = 88598444578;
     if(objectWithPhone) {
-        numberToDisplay =  objectWithPhone.phone;
+      numberToDisplay =   objectWithPhone.phone?  objectWithPhone.phone: numberToDisplay;
     }
   return (
     <a href={`https://wa.me/${numberToDisplay}`} style={{ textDecoration: 'none', color: 'inherit' }}>
