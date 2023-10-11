@@ -61,6 +61,7 @@ const ProductDetail = () => {
                   justifyContent: "space-between",
                 }}
               >
+               <p>{product.homeType}</p>
                 <p>{product.address}</p>
               </div>
               <div
@@ -70,10 +71,15 @@ const ProductDetail = () => {
                 }}
               >
                 <div>
-                  {" "}
+               
                   <p style={{ fontSize: "medium" }}>
-                    <b>{product.bed}</b>&nbsp; {product.bed > 1 ? 'Beds': 'Bed'} | <b>{product.bath}</b>
-                    &nbsp; {product.bath > 1 ? 'Baths': 'Bath'} | <b> <Currency value={product.sqFt} hideSymbol/></b> Sq. Ft
+                  {product.homeType !== 'Plot' && (
+                   <span>
+                   <b>{product.bed}</b>&nbsp; {product.bed > 1 ? 'Beds': 'Bed'} | <b>{product.bath}</b>
+                    &nbsp; {product.bath > 1 ? 'Baths': 'Bath'} | 
+                   </span>
+                    )}
+                   <b> <Currency value={product.sqFt} hideSymbol/></b> Sq. Ft
                   </p>
                 </div>
                 <div className={styles.propertyDetail}>
