@@ -231,3 +231,19 @@ export const fetchAgents = () => async (dispatch) => {
 
   }
 };
+
+export const deleteAgent = (formData) => async (dispatch) => {
+  console.log("Agent Id::", formData.id);
+  try {
+    console.log("Form Data::", formData);
+    const response = await backendAPI.delete('/agent/'+ formData.id);
+    console.log("Successfully Deleted")
+    dispatch(adminActions.deleteAgentSuccess(response.data.property, 'DELETE_AGENT_SUCCESS'));
+   
+  } catch (error) 
+  {
+    console.log("Failure1")
+    dispatch(createOrUpdateAgentFailure(error.message, 'DELETE_AGENT_FAILURE'));
+
+  }
+};

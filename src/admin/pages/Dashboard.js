@@ -109,7 +109,7 @@ const Dashboard = () => {
         />
       )}
       {activeSection === "agent" && (
-        <AgentCriteriaResult title="All Agents | Draft + Approved" editable />
+        <AgentCriteriaResult title="All Agents | Draft + Approved" editable  handleClose={handleClose}/>
       )}
       {activeSection === "dashboard" && (
         <>
