@@ -142,6 +142,17 @@ const adminSlice = createSlice({
       state.agent = null;
       state.error = action.payload;
     },
+    deleteAgentSuccess(state, action) {
+      console.log("Delete Success");
+      state.agent = action.payload;
+      const index = state.agents.findIndex(
+        (element) => element.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.agents.splice(index, 1);
+      }
+      state.error = null;
+    },
   },
 });
 

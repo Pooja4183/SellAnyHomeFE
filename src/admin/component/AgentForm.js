@@ -14,7 +14,7 @@ import {
   Badge,
 } from "@mui/material";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import { Approval, AttachFile, Save } from "@mui/icons-material";
+import { Approval, AttachFile, Delete, Save } from "@mui/icons-material";
 import PropertyMaster from "../../master.json";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import { useEffect } from "react";
@@ -23,7 +23,7 @@ import { grey, blue } from "@mui/material/colors";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../Firebase";
 import { useDispatch } from "react-redux";
-import { createAgent, createOrUpdateAgent } from "../../store/adminAction";
+import { createAgent, createOrUpdateAgent, deleteAgent } from "../../store/adminAction";
 import AlertMessage from "../../component/custom/AlertMessage";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -75,7 +75,7 @@ const BorderItem = styled(Paper)(({ theme, title }) => ({
   },
 }));
 
-const AgentForm = ({ selectedItem, editable }) => {
+const AgentForm = ({ selectedItem, editable, handleClose }) => {
   const dispatch = useDispatch();
   const [eventStatus, setEventStatus] = useState({
     isSuccess: false,
@@ -164,6 +164,31 @@ const AgentForm = ({ selectedItem, editable }) => {
     setShowAlert(true);
   };
 
+  const handleDelete = async (event) => {
+    let msg = '';
+    try {
+      console.debug("Clicked Delete button");
+      await dispatch(deleteAgent(formData));
+      msg = `Agent ${formData.id} is Deleted Successfully!`;
+      setEventStatus({
+        isSuccess: true,
+        msg: msg,
+        error: null,
+      });
+      setShowAlert(true);
+      // Hide the message and close the form after 3 seconds
+      setTimeout(() => {
+        setShowAlert(false);
+        handleClose();
+      }, 3000);
+    } catch (error) {
+      setEventStatus({
+        isSuccess: false,
+        msg: null,
+        error: "An Error Occured: " + error.message,
+      });
+    }
+  }
   const fileInputRef = useRef(null);
 
   const [selectedAvatar, setSelectedAvatar] = useState(null);
@@ -323,6 +348,20 @@ const AgentForm = ({ selectedItem, editable }) => {
             Save And Approve
             <Approval sx={{ marginLeft: 1 }} />
           </Button>
+          {formData.id && (
+              <Button
+                type="button"
+                variant="contained"
+                color="error"
+                sx={{ marginLeft: 0.5, mr: 0.5 }}
+                id="deleteBtn"
+                size="small"
+                onClick={handleDelete}
+              >
+                DELETE
+                <Delete />
+              </Button>
+            )}
         </Grid>
       </Grid>
       {eventStatus.isSuccess && (

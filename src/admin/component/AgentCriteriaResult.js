@@ -18,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const AgentCriteriaResult = ({ title, editable }) => {
+const AgentCriteriaResult = ({ title, editable, handleClose }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const dispatch = useDispatch();
   const rows = useSelector((state) => state.admin.agents);
@@ -55,7 +55,7 @@ const AgentCriteriaResult = ({ title, editable }) => {
           </Item>
         </Grid>
         <Grid item xs={12} sm={6} lg={6}>
-            <AgentForm selectedItem={selectedItem} editable/>
+            <AgentForm selectedItem={selectedItem} editable handleClose={handleClose}/>
         </Grid>
       </Grid>
   );
