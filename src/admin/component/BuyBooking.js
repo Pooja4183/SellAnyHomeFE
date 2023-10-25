@@ -16,6 +16,7 @@ import {
 } from "../../store/adminAction";
 import { Radio } from "@mui/material";
 import { grey } from "@mui/material/colors";
+import Currency from "../../component/custom/Currency";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -59,7 +60,7 @@ const BuyBooking = ({ type, text, onItemSelect, selectedItem }) => {
           <TableRow>
             <TableCell></TableCell>
             <TableCell>ID</TableCell>
-            <TableCell>Price</TableCell>
+            <TableCell>Price (AED)</TableCell>
             <TableCell>Type</TableCell>
             <TableCell>Status</TableCell>
           </TableRow>
@@ -84,7 +85,7 @@ const BuyBooking = ({ type, text, onItemSelect, selectedItem }) => {
                   />
                 </TableCell>
                 <TableCell padding="none">#{row.id.slice(18)}</TableCell>
-                <TableCell>{row.price}</TableCell>
+                <TableCell> {row.priceOnApplication ? "POA" :  <Currency value={row.price} hideSymbol />}</TableCell>
                 <TableCell  padding="none">{row.homeType}</TableCell>
                 <TableCell>{row.status.toLocaleLowerCase()}</TableCell>
               </TableRow>
