@@ -83,7 +83,8 @@ const ProductDetail = () => {
                   </p>
                 </div>
                 <div className={styles.propertyDetail}>
-                  <Currency value={product.price} />
+                  {product.priceOnApplication? "Price On Application": <Currency value={product.price} />}
+                  
                 </div>
               </div>
             </Item>

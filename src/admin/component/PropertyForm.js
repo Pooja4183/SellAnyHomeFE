@@ -98,6 +98,7 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
     bed: "",
     bath: "",
     price: "",
+    priceOnApplication: false,
     currency: "",
     sqFt: "",
     address: "",
@@ -122,9 +123,9 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
       type: "Point", // Assuming you're using GeoJSON Point type
       coordinates: [0, 0], // Default or existing coordinates
     },
-    agent:{
-      _id:"",
-      name: ""
+    agent: {
+      _id: "",
+      name: "",
     },
     status: "",
   });
@@ -132,67 +133,65 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
   useEffect(() => {
     let isMounted = true;
     async function fetchData() {
-   
-  
-    // Fetch agents data
-    await dispatch(fetchAgents());
-  
-    console.log("Selected Property::", selectedProperty);
-  
-    if (selectedProperty) {
-      // Update the agent field with nested properties
-      if(selectedProperty.agent) {
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          ...selectedProperty,
-          agent: {
-            _id: selectedProperty.agent._id, // Keep the existing _id
-            name: selectedProperty.agent.name, // Keep the existing name
-          },
-          location :{
-            ...prevFormData.location
-          }
-        }));
-      } else {
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          ...selectedProperty,
-          agent: {
-            _id:"", 
-            name: "", 
-          },
-        }));
+      // Fetch agents data
+      await dispatch(fetchAgents());
+
+      console.log("Selected Property::", selectedProperty);
+
+      if (selectedProperty) {
+        // Update the agent field with nested properties
+        if (selectedProperty.agent) {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            ...selectedProperty,
+            agent: {
+              _id: selectedProperty.agent._id, // Keep the existing _id
+              name: selectedProperty.agent.name, // Keep the existing name
+            },
+            location: {
+              ...prevFormData.location,
+            },
+          }));
+        } else {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            ...selectedProperty,
+            agent: {
+              _id: "",
+              name: "",
+            },
+          }));
+        }
+
+        console.debug("Effect Form Data::", formData);
       }
-     
-  
-      console.debug("Effect Form Data::", formData);
     }
-  }
-  fetchData();
+    fetchData();
     return () => {
       // Cleanup function to cancel any ongoing tasks or subscriptions
       isMounted = false;
     };
   }, [selectedProperty]); // Include 'agents' in the dependency array
-  
+
   const fetchCoordinates = async (address) => {
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json`
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+          address
+        )}&format=json`
       );
       const data = await response.json();
-      
+
       if (data && data.length > 0) {
         const [lon, lat] = [parseFloat(data[0].lon), parseFloat(data[0].lat)];
-        return ([lon, lat]);
+        return [lon, lat];
       }
     } catch (error) {
-      console.error('Error fetching coordinates:', error);
+      console.error("Error fetching coordinates:", error);
     }
- 
   };
 
-  const handleChange = async(event) => {
+  const handleChange = async (event) => {
     const { name, value, type, checked } = event.target;
     const newValue = type === "checkbox" ? checked : value;
     console.log("Name::", name, " Value::", newValue);
@@ -204,47 +203,53 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
           ...prevFormData.agent,
           _id: newValue, // Set the _id of the selected agent
         },
-        location :{
-          ...prevFormData.location
-        }
+        location: {
+          ...prevFormData.location,
+        },
       }));
     } else {
       // For other fields, update as usual
       setFormData((prevFormData) => ({
         ...prevFormData,
         [name]: newValue,
-        location :{
-          ...prevFormData.location
-        }
+        location: {
+          ...prevFormData.location,
+        },
       }));
     }
     // Update location field if both latitude and longitude are provided
-  if (formData.location.coordinates[0] !== NaN && formData.location.coordinates[1] !== NaN) {
+    if (
+      formData.location.coordinates[0] !== NaN &&
+      formData.location.coordinates[1] !== NaN
+    ) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        location: {
+          type: "Point",
+          coordinates: [
+            parseFloat(prevFormData.location.coordinates[0]),
+            parseFloat(prevFormData.location.coordinates[1]),
+          ],
+        },
+      }));
+    }
+  };
+
+  const handleGeolocation = async (event) => {
+    const { name, value, type } = event.target;
+    //geocodeAddress(newValue).then((coordinates) => {
+    console.log("Address::", name, value);
+    const coordinates = await fetchCoordinates(value);
+    console.log("Coordinates::", coordinates);
     setFormData((prevFormData) => ({
       ...prevFormData,
       location: {
         type: "Point",
-        coordinates: [parseFloat(prevFormData.location.coordinates[0]), parseFloat(prevFormData.location.coordinates[1])],
+        coordinates: coordinates,
       },
+      [name]: value,
     }));
-  }
   };
-  
-  const handleGeolocation = async(event) => {
-    const { name, value, type } = event.target;
- //geocodeAddress(newValue).then((coordinates) => {
-  console.log("Address::", name, value);
-  const coordinates = await fetchCoordinates(value);
-  console.log("Coordinates::", coordinates);
-  setFormData((prevFormData) => ({
-    ...prevFormData,
-    location: {
-      type: "Point",
-      coordinates: coordinates,
-    },
-    [name]: value,
-  }));
-  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -277,14 +282,14 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
       } else if (clickedButton.id === "saveBtn") {
         console.debug("Clicked Save Button::", selectedProperty);
         if (selectedProperty && selectedProperty.id) {
-          console.debug("Updating property ", formData, "Status:", "draft")
+          console.debug("Updating property ", formData, "Status:", "draft");
           await dispatch(updateProduct(formData, "DRAFT"));
         } else {
           console.debug("Creating property ", formData, "Status:", "draft");
           await dispatch(createProduct(formData, "DRAFT"));
         }
         msg = "Property Data Saved Successfully!";
-      } 
+      }
       console.debug("Data::", formData);
       setEventStatus({
         isSuccess: true,
@@ -307,7 +312,7 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
   };
 
   const handleDelete = async (event) => {
-    let msg = '';
+    let msg = "";
     try {
       console.debug("Clicked Delete button");
       await dispatch(deleteProduct(formData));
@@ -330,7 +335,7 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
         error: "An Error Occured: " + error.message,
       });
     }
-  }
+  };
 
   // Use the updated formData value outside of the handleSubmit function
   useEffect(() => {
@@ -345,12 +350,24 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
       amenities: checked
         ? [...prevFormData.amenities, value] // add the selected option
         : prevFormData.amenities.filter((option) => option !== value), // remove the deselected option
-      location :{
-          ...prevFormData.location
-        }
-      }));
+      location: {
+        ...prevFormData.location,
+      },
+    }));
   };
 
+  const handlePriceCheckboxChange = (value) => (event) => {
+    console.log("Price on Application clicked");
+    const { name, value, checked } = event.target;
+    console.log("Value::", value, "", checked);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      priceOnApplication: checked,
+      location: {
+        ...prevFormData.location,
+      },
+    }));
+  };
   const fileInputRef = useRef(null);
 
   const [selectedAvatar, setSelectedAvatar] = useState(null);
@@ -377,9 +394,9 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       img1: imageUrl,
-      location :{
-        ...prevFormData.location
-      }
+      location: {
+        ...prevFormData.location,
+      },
     }));
     console.debug("Form Data", formData);
   };
@@ -410,9 +427,9 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
       images: [...prevFormData.images, imageUrl],
-      location :{
-        ...prevFormData.location
-      }
+      location: {
+        ...prevFormData.location,
+      },
     }));
     console.debug("Form Data", formData);
   };
@@ -510,7 +527,7 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
           </Grid>
         </Grid>
 
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ alignItems: 'flex-start' }}>
           <Grid item xs={6} sm={6} lg={6} mt={1}>
             <TextField
               label="Property Description"
@@ -621,7 +638,7 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <TextField
               label="Property Size"
               name="sqFt"
@@ -632,7 +649,7 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
               size="small"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <TextField
               label="Property Price"
               name="price"
@@ -641,6 +658,24 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
               onChange={handleChange}
               fullWidth
               size="small"
+            />
+          </Grid>
+          <Grid item xs={12} sm={4} >
+            <FormControlLabel
+              key="priceOnApplication"
+              control={
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Checkbox
+                  name="priceOnApplication"
+                 // value={formData.priceOnApp}
+                  checked={formData.priceOnApplication}
+                  onChange={handlePriceCheckboxChange()}
+                 
+                />
+                </div>
+              }
+              label="Price on Application"
+            
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -677,90 +712,89 @@ const PropertyForm = ({ selectedProperty, editable, direct, handleClose }) => {
           </Grid>
           {!direct && (
             <>
-            <Grid item xs={12} sm={6}>
-            <TextField
-              label="Contact Name"
-              name="contactName"
-              value={formData.contactName}
-              onChange={handleChange}
-              fullWidth
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Contact Email"
-              name="contactEmail"
-              value={formData.contactEmail}
-              onChange={handleChange}
-              fullWidth
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Contact Phone"
-              name="contactPhone"
-              value={formData.contactPhone}
-              onChange={handleChange}
-              fullWidth
-              size="small"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Seller Type"
-              name="sellerType"
-              value={formData.sellerType}
-              onChange={handleChange}
-              fullWidth
-              size="small"
-            />
-          </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Contact Name"
+                  name="contactName"
+                  value={formData.contactName}
+                  onChange={handleChange}
+                  fullWidth
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Contact Email"
+                  name="contactEmail"
+                  value={formData.contactEmail}
+                  onChange={handleChange}
+                  fullWidth
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Contact Phone"
+                  name="contactPhone"
+                  value={formData.contactPhone}
+                  onChange={handleChange}
+                  fullWidth
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="Seller Type"
+                  name="sellerType"
+                  value={formData.sellerType}
+                  onChange={handleChange}
+                  fullWidth
+                  size="small"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel>Is Listed</InputLabel>
+                  <Select
+                    name="isListed"
+                    value={formData.isListed}
+                    onChange={handleChange}
+                    required
+                    size="small"
+                  >
+                    {PropertyMaster.isListed.map((option) => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+            </>
+          )}
+
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
-              <InputLabel>Is Listed</InputLabel>
+              <InputLabel>Agent</InputLabel>
               <Select
-                name="isListed"
-                value={formData.isListed}
+                name="agent"
+                value={formData.agent._id}
                 onChange={handleChange}
                 required
                 size="small"
               >
-                {PropertyMaster.isListed.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {agents.map((agent) => (
+                  <MenuItem key={agent._id} value={agent._id}>
+                    {agent.name}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
           </Grid>
-          </>
-          )}
-           
-              <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel>Agent</InputLabel>
-                <Select
-                  name="agent"
-                  value={formData.agent._id}
-                  onChange={handleChange}
-                  required
-                  size="small"
-                >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                  {agents.map((agent) => (
-                    <MenuItem key={agent._id} value={agent._id}>
-                      {agent.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-          
-          
+
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
               <InputLabel>Availability Duration</InputLabel>
