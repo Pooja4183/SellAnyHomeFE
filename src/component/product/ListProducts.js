@@ -69,7 +69,7 @@ const ListProducts = ({ title, isExclusive }) => {
                       }}
                     >
                       <b>
-                        <Currency value={product.price} />
+                      {product.priceOnApplication? "Price On Application": <Currency value={product.price} />}
                       </b>
                       <span>
                         <b>{product.bed}</b> {product.bed > 1 ? 'Beds': 'Bed'} | <b>{product.bath}</b>  {product.bath > 1 ? 'Baths': 'Bath'} |{" "}
