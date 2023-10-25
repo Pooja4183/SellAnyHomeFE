@@ -65,7 +65,7 @@ const headCells = [
   },
   {
     id: "price",
-    numeric: true,
+    numeric: false,
     disablePadding: false,
     label: "Price (AED)",
   },
@@ -287,7 +287,7 @@ const PropertyGrid = ({ rows, title, type, onPropertySelect }) => {
                         {row.address}
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        <Currency value={row.price} hideSymbol />
+                       {row.priceOnApplication ? "POA" :  <Currency value={row.price} hideSymbol />}
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         {row.sqFt}
