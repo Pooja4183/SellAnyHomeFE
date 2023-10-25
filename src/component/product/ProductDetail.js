@@ -194,7 +194,7 @@ const ProductDetail = () => {
                     </Typography>
                     <Typography
                       variant="subtitle2"
-                      sx={{ textAlign: "left", color: "#383838" }}
+                      sx={{ textAlign: "left", color: "#383838", mb:2 }}
                     >
                       {product.address}
                     </Typography>
@@ -205,7 +205,7 @@ const ProductDetail = () => {
                   xs={12}
                   sm={12}
                   md={12}
-                  sx={{ display: "flex", justifyContent: "left",minWidth: "600px" }}
+                  sx={{ display: "flex", justifyContent: "left",minWidth: "500px" }}
                 >
                   <OLMap address={product.address} location={product.location}/>
                 </Grid>
@@ -225,7 +225,7 @@ const ProductDetail = () => {
               useFlexGap
               flexWrap="wrap"
               sx={{ justifyContent: "center", paddingTop: 6, height: 700 }}
-              className={styles.responsiveExclusisivePadding}
+             
             >
               <Item className={styles.agent}>
                 <img src={product.agent ? product.agent.img : agentImage} alt="Agent" />
