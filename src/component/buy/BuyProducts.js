@@ -133,18 +133,17 @@ const BuyList = () => {
         <Grid
           container
           spacing={2}
-          pt={2}
           pb={1}
-          pl={3}
-          pr={2}
+          
           sx={{
             borderBottom: "0.5px solid #decebd",
             borderTop: "0.5px solid #decebd",
-          
+            pl: "9.8%",
+            pr: "10%",
           }}
-          justifyContent={"space-between"}
+         
         >
-          <Grid item xs={12} md={4} lg={4} pb={1} className={styles.filterStyle}>
+          <Grid item xs={12} md={4} lg={4} pb={1}>
             <AutocompleteTextField
               id="address"
               label="Search by places, address, building and agents"
@@ -158,11 +157,10 @@ const BuyList = () => {
             />
           </Grid>
 
-          <Grid item xs={6}  md={2} lg={2} pb={1} className={styles.filterStyle}>
-            <FormControl fullWidth className={styles.formstyle}>
+          <Grid item xs={6}  md={2} lg={2} pb={1} >
+            <FormControl fullWidth>
               <StyledInputLabel
                 id="demo-simple-select-label"
-                sx={{ width: "500px" }}
               >
                 Home Type
               </StyledInputLabel>
@@ -187,8 +185,8 @@ const BuyList = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6}  md={2} lg={2} className={styles.filterStyle}>
-            <FormControl fullWidth className={styles.formstyle}>
+          <Grid item xs={6}  md={2} lg={2}>
+            <FormControl fullWidth>
               <StyledInputLabel id="demo-simple-select-label">
                 Min Price (AED)
               </StyledInputLabel>
@@ -213,8 +211,8 @@ const BuyList = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6}  md={2} lg={2} className={styles.filterStyle}>
-            <FormControl fullWidth className={styles.formstyle}>
+          <Grid item xs={6}  md={2} lg={2}>
+            <FormControl fullWidth>
               <StyledInputLabel id="demo-simple-select-label">
                 Max Price (AED)
               </StyledInputLabel>
@@ -239,13 +237,22 @@ const BuyList = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6}  md={2} lg={2} className={styles.filterStyle}>
+          <Grid item xs={6}  md={2} lg={2}>
             <Button
               type="submit"
               variant="outlined"
-              className={styles.formstyle}
+              fullWidth
+              sx={{
+                '@media (max-width: 600px)': {
+                  '&.MuiButton-root': {
+                    // Apply size="small" for screens with a max-width of 600px (adjust this value as needed)
+                    fontSize: '0.75rem', // You might need to adjust this based on your design
+                    padding: '8px 16px', // You might need to adjust this based on your design
+                  },
+                },
+              }}
             >
-              Update Search
+             Update Search
             </Button>
           </Grid>
         </Grid>
@@ -260,7 +267,7 @@ const BuyList = () => {
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
             justifyContent={"space-between"}
-            sx={{ padding: "0% 5%" }}
+            sx={{ padding: "0% 8.4%" }}
           >
             <Grid item xs={2} sm={4} md={6}>
               <Typography variant="subtitle1" sx={{ textAlign: "left" }}>
@@ -301,7 +308,7 @@ const BuyList = () => {
       {products && products.length > 0 && (
         <>
           <Grid container>
-            <Grid item xs={12} sx={{ padding: "0% 7%" }}>
+            <Grid item xs={12} sx={{ padding: "0% 10%" }}>
               <ListProducts />
             </Grid>
           </Grid>
