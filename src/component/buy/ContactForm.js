@@ -108,9 +108,9 @@ const ContactForm = () => {
       )}
       <Button
         variant="outlined"
-        sx={{ marginTop: 2}}
+        sx={{ marginTop: 2, marginLeft: 1}}
         type="submit"
-        className={styles.responsiveTeamButton}
+        
       >
         Send Message
       </Button>
