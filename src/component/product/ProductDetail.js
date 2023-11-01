@@ -152,7 +152,7 @@ const ProductDetail = () => {
             <Grid container spacing={2}>
               {product.amenities &&
                 product.amenities.map((item, index) => (
-                  <Grid item xs={12} sm={6} key={index}>
+                  <Grid item xs={6} sm={6} md={4} lg={3} key={index}>
                     <Typography
                       variant="body2"
                       gutterBottom
