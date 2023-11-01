@@ -1,7 +1,8 @@
-import { FormControl, Grid, MenuItem, Paper, Typography } from "@mui/material";
+import { FormControl, Grid, List, ListItem, ListItemIcon, ListItemText, MenuItem, Paper, Typography } from "@mui/material";
 import StyledButton from "../custom/StyledButton";
 import StyledTextField from "../custom/StyledTextField";
 import StyledSelect from "../custom/StyledSelect";
+import CheckIcon from '@mui/icons-material/Check';
 import { useState } from "react";
 import PropertyDetail from "../../master.json";
 import { useDispatch } from "react-redux";
@@ -141,11 +142,13 @@ const AgentConnect = () => {
         <Grid item xs={1} sm={5} lg={5}>
           </Grid>
           <Grid item xs={9} sm={4} lg={4}>
-            <Typography variant="subtitle1" mt={5} fontSize={20}>
-              Start Selling Real Estate in 30 Min Easy Plug And Play Model
-              Commission Split 80% (agent) 20% (company) Sign Up By 
-              <b> Filling Out The Form</b>.
-            </Typography>
+           
+              <List>
+                <ListItem disablePadding><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText > Start Selling Real Estate in 30 Min</ListItemText> </ListItem>
+                <ListItem disablePadding><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Easy Plug And Play Model</ListItemText>  </ListItem>
+                <ListItem disablePadding><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Commission Split 80% (agent) 20% (company)</ListItemText> </ListItem>
+                <ListItem disablePadding><ListItemText>Sign Up By <b> Filling Out The Form</b>.</ListItemText> </ListItem>
+                </List>
           </Grid>
           <Grid item xs={2} sm={2} lg={2}>
           </Grid>

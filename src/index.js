@@ -15,7 +15,7 @@ const theme = createTheme({
       },
       
     },
-   
+    fontFamily: 'OpenSans',
   },
   components: {
     MuiInputLabel: {
@@ -29,11 +29,11 @@ const theme = createTheme({
 
 });
 
-const headingVariants = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+const headingVariants = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
 headingVariants.forEach((variant) => {
   theme.typography[variant] = {
-    fontFamily: ' Roboto, sans-serif', // Font family for the heading variant
+    fontFamily: 'Montserrat', // Font family for the heading variant
   };
 });
 
