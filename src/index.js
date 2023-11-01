@@ -14,8 +14,16 @@ const theme = createTheme({
         color: "green",
       },
       
+      
+      
     },
-    fontFamily: 'OpenSans',
+    fontFamily: ['Open Sans', 'sans-serif'].join(','),
+    palette: {
+      text: {
+        primary: '#000', // Change this color to your desired font color
+      },
+    },
+  
   },
   components: {
     MuiInputLabel: {

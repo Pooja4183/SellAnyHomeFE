@@ -120,10 +120,14 @@ const ProductDetail = () => {
               Description
             </Typography>
             <Typography
-              variant="body2"
-              sx={{ lineHeight: 2, color: "#383838" }}
+              variant="div"
+              sx={{ lineHeight: 1.6, letterSpacing: 1,  color: "#383838" }}
             >
-              {product.description}
+              {product.description && (
+                product.description.split('<br/>').map((paragraph, index) => (
+                  <Typography variant="body1" pb={2} textAlign="justify" key={index}>{paragraph}</Typography>
+                ))
+              )}
             </Typography>
             <Typography
               variant="h3"
