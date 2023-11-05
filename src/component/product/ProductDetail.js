@@ -23,8 +23,8 @@ import { Avatar } from "@mui/material";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
-  padding: theme.spacing(2),
-  color: theme.palette.text.secondary,
+  padding:'2% 2% 5% 5%',
+  color: 'black',
   boxShadow: "none",
 }));
 
@@ -54,8 +54,8 @@ const ProductDetail = () => {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           <Grid item xs={12} sm={12} md={12}>
-            <Item sx={{ padding: "0% 10%" }}>
-              <Typography variant="h2">{product.title}</Typography>
+            <Item sx={{ padding: "0% 10% 1% 10%" }}>
+              <Typography variant="h1">{product.title}</Typography>
               <div
                 style={{
                   display: "flex",
@@ -111,18 +111,18 @@ const ProductDetail = () => {
             </Carousel>
           </Grid>
         </Grid>
-        <Grid container sx={{ padding: "0% 10%" }}>
+        <Grid container sx={{ padding: "5% 10% 0% 10%" }}>
           <Grid item xs={12} sm={12} md={7}>
             <Typography
               variant="h3"
               gutterBottom
-              sx={{ textAlign: "left", fontWeight: "bold", color: "black" }}
+              sx={{ textAlign: "left", fontWeight: "bold", color: "black" ,pt:0,fontSize:'large'}}
             >
               Description
             </Typography>
             <Typography
               variant="div"
-              sx={{ lineHeight: 1.6, letterSpacing: 1, color: "#383838" }}
+              sx={{ lineHeight: 1.6, letterSpacing: 1, color: "black" }}
             >
               {product.description &&
                 product.description.split("<br/>").map((paragraph, index) => (
@@ -144,6 +144,7 @@ const ProductDetail = () => {
                 fontWeight: "bold",
                 color: "black",
                 paddingTop: 10,
+                fontSize:'large'
               }}
             >
               Feature & Amenities
@@ -156,7 +157,7 @@ const ProductDetail = () => {
                     <Typography
                       variant="body2"
                       gutterBottom
-                      sx={{ fontWeight: "bold", color: "#505050" }}
+                      sx={{ color: "black" ,backgroundColor:'rgba(128, 128, 128, 0.25)', p:'5%'}}
                     >
                       {item}
                     </Typography>
@@ -188,13 +189,14 @@ const ProductDetail = () => {
                     textAlign: "left",
                     fontWeight: "bold",
                     color: "black",
+                    fontSize:'large'
                   }}
                 >
                   Location Map
                 </Typography>
                 <Typography
                   variant="subtitle2"
-                  sx={{ textAlign: "left", color: "#383838", mb: 2 }}
+                  sx={{ textAlign: "left", color: "black", mb: 2 }}
                 >
                   {product.address}
                 </Typography>
@@ -217,10 +219,10 @@ const ProductDetail = () => {
           </Grid>
 
           <Grid item xs={12} sm={12} md={5}>
-            <Grid container justifyContent={"center"}>
+            <Grid container justifyContent={"right"}>
               <Grid item xs={12}>
-                <Stack direction={"row-reverse"} justifyContent={"center"}>
-                  <Item>
+                <Stack direction={"row-reverse"} justifyContent={"right"} >
+                  <Item >
                     <Typography
                       variant="h6"
                       gutterBottom
@@ -249,7 +251,7 @@ const ProductDetail = () => {
                   <Avatar
                     alt="Agent"
                     src={product.agent ? product.agent.img : agentImage}
-                    sx={{ width: [56, 70, 150], height: [56, 70, 150] }}
+                    sx={{ width: [55, 70, 120], height: [55, 70, 120]}}
                   />
                 </Stack>
               </Grid>

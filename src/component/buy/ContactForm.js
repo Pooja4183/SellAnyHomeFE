@@ -49,7 +49,7 @@ const ContactForm = () => {
       onSubmit={handleSubmit}
      
     >
-      <Stack spacing={2} sx={{ width: 350, marginTop: 3 }}  className={styles.responsiveTeam} >
+      <Stack spacing={2} sx={{ width: 350, marginTop: 3}}  className={styles.responsiveTeam} >
         <Typography variant="h3" sx={{ textAlign: "left", fontWeight: "bold" }}>
           CONTACT TEAM
         </Typography>
@@ -108,7 +108,7 @@ const ContactForm = () => {
       )}
       <Button
         variant="outlined"
-        sx={{ marginTop: 2, marginLeft: 1}}
+        sx={{ marginTop: 2, marginLeft: 0}}
         type="submit"
         
       >
