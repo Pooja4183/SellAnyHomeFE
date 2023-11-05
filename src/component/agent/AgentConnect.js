@@ -42,7 +42,7 @@ const AgentForm = () => {
 
   return (
     <>
-      <Paper
+      <Paper  
         variant="none"
         component={"form"}
         sx={{ padding: 2 }}
@@ -105,7 +105,7 @@ const AgentForm = () => {
             By submitting this form I accept the Privacy Policy and Terms of
             Service.
           </Grid>
-          <Grid item xs={12} sm={12} lg={12}>
+          <Grid item xs={12} sm={12} lg={6}>
             {isSuccess && (
               <Typography
                 variant="success"
@@ -129,30 +129,23 @@ const AgentForm = () => {
 };
 const AgentConnect = () => {
   return (
-    <Grid container spacing={5} mt={5}>
+    <Grid container spacing={5} sx={{padding:'5% 10%'}}>
       <Grid item xs={12} sm={6} lg={6}>
-      <Grid container >
-      <Grid item xs={1} sm={5} lg={5}>
-        <Typography variant="h1"></Typography>
-        </Grid>
-        <Grid item xs={11} sm={7} lg={7} sx={{marginBottom:4}}>
-        <Typography variant="h1">Let's Chat</Typography>
-        </Grid>
-
-        <Grid item xs={1} sm={5} lg={5}>
-          </Grid>
-          <Grid item xs={9} sm={4} lg={4}>
-           
+     
+          <Grid item xs={12} sm={12} lg={12}>
+          {/* <Grid item xs={12} sm={12} lg={6}  */}
+        <Typography variant="h1" sx={{marginBottom:4}}>Let's Chat</Typography>
+        {/* </Grid> */}
               <List>
+
                 <ListItem disablePadding sx={{marginBottom:4}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText > Start Selling Real Estate in 30 Min</ListItemText> </ListItem>
                 <ListItem disablePadding sx={{marginBottom:4}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Easy Plug And Play Model</ListItemText>  </ListItem>
-                <ListItem disablePadding sx={{marginBottom:6}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Commission Split 80% (agent) 20% (company)</ListItemText> </ListItem>
+                <ListItem disablePadding sx={{marginBottom:10}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Commission Split 80% (agent) 20% (company)</ListItemText> </ListItem>
                 <ListItem disablePadding><ListItemText>Sign Up By <b> Filling Out The Form</b>.</ListItemText> </ListItem>
                 </List>
           </Grid>
-          <Grid item xs={2} sm={2} lg={2}>
-          </Grid>
-        </Grid>
+         
+       
       </Grid>
       <Grid item xs={12} sm={6} lg={6}>
         <AgentForm />
