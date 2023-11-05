@@ -135,7 +135,7 @@ const AgentConnect = () => {
       <Grid item xs={1} sm={5} lg={5}>
         <Typography variant="h1"></Typography>
         </Grid>
-        <Grid item xs={11} sm={7} lg={7}>
+        <Grid item xs={11} sm={7} lg={7} sx={{marginBottom:4}}>
         <Typography variant="h1">Let's Chat</Typography>
         </Grid>
 
@@ -144,9 +144,9 @@ const AgentConnect = () => {
           <Grid item xs={9} sm={4} lg={4}>
            
               <List>
-                <ListItem disablePadding><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText > Start Selling Real Estate in 30 Min</ListItemText> </ListItem>
-                <ListItem disablePadding><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Easy Plug And Play Model</ListItemText>  </ListItem>
-                <ListItem disablePadding><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Commission Split 80% (agent) 20% (company)</ListItemText> </ListItem>
+                <ListItem disablePadding sx={{marginBottom:4}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText > Start Selling Real Estate in 30 Min</ListItemText> </ListItem>
+                <ListItem disablePadding sx={{marginBottom:4}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Easy Plug And Play Model</ListItemText>  </ListItem>
+                <ListItem disablePadding sx={{marginBottom:6}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Commission Split 80% (agent) 20% (company)</ListItemText> </ListItem>
                 <ListItem disablePadding><ListItemText>Sign Up By <b> Filling Out The Form</b>.</ListItemText> </ListItem>
                 </List>
           </Grid>
