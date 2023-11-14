@@ -41,14 +41,6 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const EditIconButton = styled(IconButton)(({ theme }) => ({
-  position: "absolute",
-  top: theme.spacing(1),
-  right: theme.spacing(1),
-  border: `2px solid ${grey[300]}`, // Border style
-  borderRadius: "50%", // Border radius
-}));
-
 const BorderItem = styled(Paper)(({ theme, title }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,

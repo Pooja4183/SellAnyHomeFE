@@ -19,7 +19,7 @@ import PropertyCriteriaResult from "../component/PropertyCriteriaResult";
 import PropertyForm from "../component/PropertyForm";
 import AgentForm from "../component/AgentForm";
 import AgentCriteriaResult from "../component/AgentCriteriaResult";
-import { Close } from "@mui/icons-material";
+import { Book, Close } from "@mui/icons-material";
 import Blog from "./Blog";
 
 const Dashboard = () => {
@@ -70,7 +70,7 @@ const Dashboard = () => {
             </Button>
             <Button
               variant="contained"
-              startIcon={<PersonAddAltIcon />}
+              startIcon={<Book />}
               onClick={() => handleSmallItemClick("createBlog")}
             >
               Create Blog
@@ -174,7 +174,29 @@ const Dashboard = () => {
         </>
       )}
       {activeSection === "createBlog" && (
-        <Blog/>
+          <>
+          <Paper elevation={24} sx={{ ml: "18%", mr: "18%", mb: 2 }}>
+            <Grid container justifyContent={"space-between"}>
+              <Grid item>
+                <Typography
+                  variant="button"
+                  sx={{ fontWeight: "bold", padding: 1 }}
+                >
+                  Create Blog
+                </Typography>
+              </Grid>
+              <Grid item>
+                <IconButton onClick={handleClose}>
+                  <Close />
+                </IconButton>
+              </Grid>
+              <Grid item xs={12}>
+                <Blog/>
+              </Grid>
+            </Grid>
+          </Paper>
+        </>
+        
       )}
     </Box>
   );

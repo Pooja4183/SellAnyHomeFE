@@ -15,7 +15,6 @@ import Buy from "./pages/Buy";
 import Admin from "./admin/Admin";
 import Agent from "./pages/Agent";
 import Login from "./pages/Login";
-import BlogDetail from "./component/blog/BlogDetail";
 import Blog from "./pages/Blog";
 
 class App extends Component {

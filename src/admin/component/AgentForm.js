@@ -26,55 +26,6 @@ import { useDispatch } from "react-redux";
 import { createAgent, createOrUpdateAgent, deleteAgent } from "../../store/adminAction";
 import AlertMessage from "../../component/custom/AlertMessage";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-  position: "relative",
-}));
-
-const EditIconButton = styled(IconButton)(({ theme }) => ({
-  position: "absolute",
-  top: theme.spacing(1),
-  right: theme.spacing(1),
-  border: `2px solid ${grey[300]}`, // Border style
-  borderRadius: "50%", // Border radius
-}));
-
-const BorderItem = styled(Paper)(({ theme, title }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  color: theme.palette.text.secondary,
-  position: "relative", // Add position relative to the container
-
-  "&::before": {
-    content: "''", // Empty content
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    border: `2px solid ${grey[300]}`, // Border style
-    borderRadius: theme.shape.borderRadius, // Border radius
-    pointerEvents: "none", // Make it ignore pointer events
-  },
-
-  "&::after": {
-    content: `'${title}'`, // Text content
-    position: "absolute",
-    top: "-10px",
-    left: "10px",
-    fontSize: "12px",
-    fontWeight: "bold",
-    color: theme.palette.primary.main,
-    backgroundColor: theme.palette.background.default,
-    padding: "2px 6px",
-    borderRadius: theme.shape.borderRadius,
-  },
-}));
-
 const AgentForm = ({ selectedItem, editable, handleClose }) => {
   const dispatch = useDispatch();
   const [eventStatus, setEventStatus] = useState({
@@ -82,7 +33,6 @@ const AgentForm = ({ selectedItem, editable, handleClose }) => {
     msg: "",
     error: null,
   });
-  const [error, setError] = useState(null);
 
   const [formData, setFormData] = useState({
     id: "",
