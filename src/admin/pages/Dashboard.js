@@ -20,6 +20,7 @@ import PropertyForm from "../component/PropertyForm";
 import AgentForm from "../component/AgentForm";
 import AgentCriteriaResult from "../component/AgentCriteriaResult";
 import { Close } from "@mui/icons-material";
+import Blog from "./Blog";
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -66,6 +67,13 @@ const Dashboard = () => {
               onClick={() => handleSmallItemClick("createAgent")}
             >
               Create Agent
+            </Button>
+            <Button
+              variant="contained"
+              startIcon={<PersonAddAltIcon />}
+              onClick={() => handleSmallItemClick("createBlog")}
+            >
+              Create Blog
             </Button>
           </Stack>
         </Stack>
@@ -164,6 +172,9 @@ const Dashboard = () => {
             </Grid>
           </Paper>
         </>
+      )}
+      {activeSection === "createBlog" && (
+        <Blog/>
       )}
     </Box>
   );

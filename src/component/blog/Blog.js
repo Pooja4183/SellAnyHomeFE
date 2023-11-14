@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Paper, Typography } from '@mui/material';
-import { fetchBlogs } from '../store/adminAction';
+import { fetchBlogs } from '../../store/adminAction';
+import { Link } from "react-router-dom";
 
-import bolgImg from '../images/news.jpg';
+import bolgImg from '../../images/news.jpg';
 import styles from './blog.module.css'
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -16,7 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function ResponsiveGrid() {
+export default function Blog() {
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.admin.blogs);
 
@@ -86,7 +87,9 @@ export default function ResponsiveGrid() {
               >
                 <Card sx={{ boxShadow: 'none' }}>
                   <CardActionArea>
+                  <Link to={"/blog/" + blog._id}>
                     <CardMedia component="img" height="200" image={renderContent(blog.content).imageBlock} alt="green iguana" />
+                    </Link>
                   </CardActionArea>
                   <CardContent className={styles.newsCont}>
                     <Typography gutterBottom component="div" className={styles.newsContH}>
