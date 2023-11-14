@@ -4,12 +4,8 @@ import { useEffect } from 'react';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import { Box, Card, CardActionArea, CardContent, CardMedia, Grid, Paper, Typography } from '@mui/material';
 import { fetchBlogs } from '../store/adminAction';
-import { convertFromRaw, stateToHTML } from 'draft-js-export-html';
 
 import bolgImg from '../images/news.jpg';
-import bImg from '../images/bImg.jpg';
-import blImg from '../images/blImg.jpg';
-
 import styles from './blog.module.css'
 
 const Item = styled(Paper)(({ theme }) => ({
