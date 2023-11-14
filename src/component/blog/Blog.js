@@ -38,7 +38,7 @@ export default function Blog() {
     contentState.blocks.forEach((block, index) => {
       switch (block.type) {
         case 'unstyled':
-          textBlocks.push(<div key={index} dangerouslySetInnerHTML={{ __html: block.text }} />);
+          textBlocks.push(block.text);
           break;
         case 'atomic':
           if (block.entityRanges.length > 0) {
@@ -57,6 +57,18 @@ export default function Blog() {
     return { textBlocks, imageBlock };
   };
 
+  function truncateText(textBlocks, maxLength) {
+    // Join the text blocks into a single string
+    const fullText = textBlocks.join('');
+    console.log("full Text::", textBlocks);
+    // Truncate the text to the desired length
+    const truncatedText = fullText.length > maxLength
+      ? fullText.substring(0, maxLength) + '...'
+      : fullText;
+  
+    return truncatedText;
+  }
+  
   return (
     blogs && (
       <Box sx={{ flexGrow: 1 }}>
@@ -82,10 +94,10 @@ export default function Blog() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   boxShadow: 'none',
-                  maxWidth: 345,
+                
                 }}
               >
-                <Card sx={{ boxShadow: 'none' }}>
+                <Card sx={{ boxShadow: 'none' }} className={styles.cardImg}>
                   <CardActionArea>
                   <Link to={"/blog/" + blog._id}>
                     <CardMedia component="img" height="200" image={renderContent(blog.content).imageBlock} alt="green iguana" />
@@ -95,8 +107,8 @@ export default function Blog() {
                     <Typography gutterBottom component="div" className={styles.newsContH}>
                       {blog.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {blog.content ? renderContent(blog.content).textBlocks : 'No content available'}
+                    <Typography variant="body2" color="text.secondary" textAlign={"justify"}>
+                    {blog.content ? truncateText(renderContent(blog.content).textBlocks, 150) : 'No content available'}
                     </Typography>
                   </CardContent>
                 </Card>

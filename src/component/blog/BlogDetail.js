@@ -1,9 +1,9 @@
-// BlogDetails.js
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { convertFromRaw, stateToHTML } from 'draft-js-export-html';
+import { stateToHTML } from 'draft-js-export-html';
+import { ContentState, EditorState, convertFromRaw } from "draft-js";
 import placeholderImg from '../../images/news.jpg';
 import styles from './blog.module.css';
 
@@ -17,38 +17,6 @@ const BlogDetail = () => {
     return <div>Loading...</div>;
   }
 
-  const renderContent = (contentState) => {
-    if (!contentState || !contentState.blocks) {
-      return null;
-    }
-
-    const entityMap = contentState.entityMap || {};
-
-    const textBlocks = [];
-    let imageBlock = null;
-
-    contentState.blocks.forEach((block, index) => {
-      switch (block.type) {
-        case 'unstyled':
-          textBlocks.push(<div key={index} dangerouslySetInnerHTML={{ __html: block.text }} />);
-          break;
-        case 'atomic':
-          if (block.entityRanges.length > 0) {
-            const entityKey = block.entityRanges[0].key;
-            const entity = entityMap[entityKey];
-            if (entity.type === 'IMAGE') {
-              imageBlock = <img key={index} src={entity.data.url} alt={block.text} />;
-            }
-          }
-          break;
-        default:
-          break;
-      }
-    });
-
-    return { textBlocks, imageBlock };
-  };
-
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', pt: 20 }}>
       <Card sx={{ maxWidth: 800, boxShadow: 'none' }}>
@@ -57,9 +25,9 @@ const BlogDetail = () => {
             {blog.title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {blog.content ? renderContent(blog.content).textBlocks : 'No content available'}
+          {stateToHTML(convertFromRaw({ ...blog.content, entityMap: blog.content.entityMap || {} })) }
           </Typography>
-          {renderContent(blog.content).imageBlock}
+         
         </CardContent>
       </Card>
     </Box>
