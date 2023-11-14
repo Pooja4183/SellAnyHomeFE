@@ -1,11 +1,19 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { stateToHTML } from 'draft-js-export-html';
-import { ContentState, EditorState, convertFromRaw } from "draft-js";
-import placeholderImg from '../../images/news.jpg';
-import styles from './blog.module.css';
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography,
+} from "@mui/material";
+import {
+  Editor,
+  EditorState,
+  convertFromRaw,
+  AtomicBlockUtils,
+} from "draft-js";
 
 const BlogDetail = () => {
   const { id } = useParams();
@@ -17,21 +25,74 @@ const BlogDetail = () => {
     return <div>Loading...</div>;
   }
 
+  const contentState = convertFromRaw({
+    ...blog.content,
+    entityMap: blog.content.entityMap || {},
+  });
+
+  // Function to handle image block rendering
+  const blockRenderer = (contentBlock) => {
+    const type = contentBlock.getType();
+    if (type === "atomic") {
+      const entity = contentBlock.getEntityAt(0);
+      if (entity) {
+        const entityType = contentState.getEntity(entity).getType();
+        if (entityType === "IMAGE") {
+          const data = contentState.getEntity(entity).getData();
+          return {
+            component: ImageBlock,
+            editable: false,
+            props: {
+              src: data.url,
+            },
+          };
+        }
+      }
+    }
+  };
+
+  const editorState = EditorState.createWithContent(
+    contentState,
+    null,
+    null,
+    null,
+    blockRenderer
+  );
+
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', pt: 20 }}>
-      <Card sx={{ maxWidth: 800, boxShadow: 'none' }}>
-        <CardContent>
-          <Typography variant="h5" gutterBottom>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        pt: "10%",
+        pl: "10%",
+        pr: "10%",
+        pb: "2%",
+      }}
+    >
+      <Card sx={{ wordSpacing: 2, borderBottom:1, boxShadow: "none", borderColor: "lightgray" }}>
+        <CardActionArea>
+          <Typography variant="h1" gutterBottom align={"center"}>
             {blog.title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-          {stateToHTML(convertFromRaw({ ...blog.content, entityMap: blog.content.entityMap || {} })) }
+        </CardActionArea>
+        <CardContent>
+          <Typography variant="caption">
+            Published on {blog.updatedAt}
           </Typography>
-         
+        </CardContent>
+        <CardContent>
+          <Editor editorState={editorState} readOnly={true} />
         </CardContent>
       </Card>
     </Box>
   );
+};
+
+// Custom component for rendering atomic block of type IMAGE
+const ImageBlock = ({ src }) => {
+  
+  return <img src={src} alt="blog-img" style={{ width: "100%" }} />;
 };
 
 export default BlogDetail;

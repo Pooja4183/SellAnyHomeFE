@@ -3,7 +3,7 @@ import Footer from "../component/Footer";
 import Banner from "../component/Banner";
 
 import NeighburHood from "../component/Neighburhood";
-import Blog from "../component/blog/Blog";
+import ListBlogs from "../component/blog/ListBlogs";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "../store/productAction";
 const ExclusiveProducts = React.lazy(() =>
@@ -25,7 +25,7 @@ const Home = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <ExclusiveProducts />
       </Suspense>
-      <Blog />
+      <ListBlogs size="2"/>
       <Footer />
     </>
   );

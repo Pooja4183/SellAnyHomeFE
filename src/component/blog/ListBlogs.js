@@ -26,10 +26,18 @@ const Item = styled(Paper)(({ theme }) => ({
   boxShadow: "none",
 }));
 
-export default function Blog() {
+export default function ListBlogs({title,size}) {
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.admin.blogs);
 
+  console.log("Size::", size);
+  if(size == undefined){
+    size = 10;
+  }
+
+  if(title == undefined) {
+    title = "Latest Updates and News";
+  }
   useEffect(() => {
     dispatch(fetchBlogs());
   }, [dispatch]);
@@ -69,7 +77,6 @@ export default function Blog() {
   function truncateText(textBlocks, maxLength) {
     // Join the text blocks into a single string
     const fullText = textBlocks.join("");
-    console.log("full Text::", textBlocks);
     // Truncate the text to the desired length
     const truncatedText =
       fullText.length > maxLength
@@ -92,10 +99,10 @@ export default function Blog() {
       >
         <Grid item xs={12} className={styles.newsHeading}>
           <Item sx={{ textAlign: "center" }}>
-            <Typography variant="h2">Latest Updates and News</Typography>
+            <Typography variant="h2">{title}</Typography>
           </Item>
         </Grid>
-        {blogs.slice(0, 2).map((blog) => (
+        {blogs.slice(0,size).map((blog) => (
           <Grid
             item
             xs={12}
