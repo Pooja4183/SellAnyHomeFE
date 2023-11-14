@@ -247,3 +247,45 @@ export const deleteAgent = (formData) => async (dispatch) => {
 
   }
 };
+
+export const createBlog = (title, content) => async (dispatch) => {
+  console.log("Creating Blog", title, content);
+  const formData = {
+    title: title,
+    content: content
+  }
+  try {
+    const response = await backendAPI.post('/blogs/', formData);
+    dispatch(createOrUpdateBlogSuccess(response.data.blog));
+   
+  } catch (error) 
+  {
+    console.log("Failure")
+    dispatch(createOrUpdateBlogFailure(error.message));
+
+  }
+};
+
+export const fetchBlogs = () => async (dispatch) => {
+  try {
+    const response = await backendAPI.get('/blogs');
+    console.debug("Success", response.data.blogs);
+    dispatch(adminActions.fetchBlogs(response.data));
+   
+   
+  } catch (error) 
+  {
+    console.log("Failure1")
+    dispatch(adminActions.fetchProductsForAllFailure(error.message));
+
+  }
+};
+export const createOrUpdateBlogSuccess = (blog) => ({
+  type: 'CREATE_UPDATE_BLOG_SUCCESS',
+  payload: blog,
+});
+
+export const createOrUpdateBlogFailure = (error) => ({
+  type: 'CREATE_UPDATE_BLOG_FAILURE',
+  payload: error,
+});

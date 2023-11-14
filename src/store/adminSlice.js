@@ -17,6 +17,10 @@ const initialState = {
   cnt_draftProducts: 0,
   cnt_allProducts: 0,
   cnt_agents: 0,
+
+  blogs:[],
+  blog: null,
+
   error: null,
 };
 
@@ -153,6 +157,26 @@ const adminSlice = createSlice({
       }
       state.error = null;
     },
+
+    /*Blog */
+      fetchBlogs(state, action) {
+        state.blogs = action.payload.blogs;
+        state.error = null;
+      },
+      createOrUpdateBlogSuccess(state, action) {
+        state.blog = action.payload;
+        const index = state.blogs.findIndex(
+          (element) => element.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.blogs[index] = action.payload;
+        }
+        state.error = null;
+      },
+      createOrUpdateBlogFailure(state, action) {
+        state.blog = null;
+        state.error = action.payload;
+      },
   },
 });
 

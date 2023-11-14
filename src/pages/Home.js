@@ -3,7 +3,7 @@ import Footer from "../component/Footer";
 import Banner from "../component/Banner";
 
 import NeighburHood from "../component/Neighburhood";
-import Blog from "../component/Blog";
+import Blog from "../component/blog/Blog";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "../store/productAction";
 const ExclusiveProducts = React.lazy(() =>
