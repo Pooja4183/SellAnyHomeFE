@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MUIRichTextEditor from "mui-rte";
-import { Button, Grid, Paper, Typography } from "@mui/material";
+import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import {
   EditorState,
   ContentState,
@@ -12,6 +12,7 @@ import StyledTextField from "../../component/custom/StyledTextField";
 import { useDispatch } from "react-redux";
 import { createBlog } from "../../store/adminAction";
 import StyledButton from "../../component/custom/StyledButton";
+import { Save } from "@mui/icons-material";
 
 const Blog = () => {
   const dispatch = useDispatch();
@@ -55,32 +56,27 @@ const Blog = () => {
       component="form"
       onSubmit={save}
       elevation={24}
-      sx={{ ml: "18%", mr: "18%", mb: 2, minHeight: "637px", padding: "1% 2%" }}
+      sx={{ padding: 1, mb: 5,minHeight: "637px" }}
     >
       <Grid container>
         <Grid item xs={9}>
-          <StyledTextField
+          <TextField
             label="Title"
             name="title"
             fullWidth
             value={title}
             required
             onChange={handleChange}
-          ></StyledTextField>
+          ></TextField>
         </Grid>
         <Grid item xs={3} pl={1}>
-          <StyledButton type="Submit" value="Save" variant="contained">
+          <Button type="Submit" value="Save" variant="contained">
             Save
-          </StyledButton>
+            <Save sx={{ marginLeft: 1 }} />
+          </Button>
         </Grid>
         <Grid item>
-          <MUIRichTextEditor
-            label="Type something here"
-            inlineToolbar={true}
-            onSave={save}
-            onChange={handleEditorChange}
-          />
-           {isSuccess && (
+        {isSuccess && (
               <Typography
                 variant="success"
                 sx={{ marginTop: 2, marginLeft: 1, color: "green" }}
@@ -94,6 +90,13 @@ const Blog = () => {
                 An error occurred: {error}
               </Typography>
             )}
+
+          <MUIRichTextEditor
+            label="Type something here"
+            inlineToolbar={true}
+            onSave={save}
+            onChange={handleEditorChange}
+          />
         </Grid>
       </Grid>
     </Paper>

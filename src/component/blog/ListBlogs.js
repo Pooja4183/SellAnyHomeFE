@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { experimentalStyled as styled } from "@mui/material/styles";
 import {
-  Box,
   Card,
   CardActionArea,
   CardContent,
@@ -30,12 +29,11 @@ export default function ListBlogs({title,size}) {
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.admin.blogs);
 
-  console.log("Size::", size);
-  if(size == undefined){
+  if(size === undefined){
     size = 10;
   }
 
-  if(title == undefined) {
+  if(title === undefined) {
     title = "Latest Updates and News";
   }
   useEffect(() => {

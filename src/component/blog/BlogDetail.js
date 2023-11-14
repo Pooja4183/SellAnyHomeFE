@@ -8,12 +8,7 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import {
-  Editor,
-  EditorState,
-  convertFromRaw,
-  AtomicBlockUtils,
-} from "draft-js";
+import { Editor, EditorState, convertFromRaw, CompositeDecorator } from "draft-js";
 
 const BlogDetail = () => {
   const { id } = useParams();
@@ -30,34 +25,22 @@ const BlogDetail = () => {
     entityMap: blog.content.entityMap || {},
   });
 
-  // Function to handle image block rendering
-  const blockRenderer = (contentBlock) => {
-    const type = contentBlock.getType();
-    if (type === "atomic") {
-      const entity = contentBlock.getEntityAt(0);
-      if (entity) {
-        const entityType = contentState.getEntity(entity).getType();
-        if (entityType === "IMAGE") {
-          const data = contentState.getEntity(entity).getData();
-          return {
-            component: ImageBlock,
-            editable: false,
-            props: {
-              src: data.url,
-            },
-          };
-        }
-      }
-    }
-  };
+  // Create a decorator to handle atomic blocks
+  const decorator = new CompositeDecorator([
+    {
+      strategy: findImageEntities,
+      component: ImageBlock,
+    },
+  ]);
 
-  const editorState = EditorState.createWithContent(
-    contentState,
-    null,
-    null,
-    null,
-    blockRenderer
-  );
+  const editorState = EditorState.createWithContent(contentState, decorator);
+
+    // Format the date
+    const formattedDate = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }).format(new Date(blog.updatedAt));
 
   return (
     <Box
@@ -70,7 +53,7 @@ const BlogDetail = () => {
         pb: "2%",
       }}
     >
-      <Card sx={{ wordSpacing: 2, borderBottom:1, boxShadow: "none", borderColor: "lightgray" }}>
+      <Card sx={{ wordSpacing: 2 }}>
         <CardActionArea>
           <Typography variant="h1" gutterBottom align={"center"}>
             {blog.title}
@@ -78,7 +61,7 @@ const BlogDetail = () => {
         </CardActionArea>
         <CardContent>
           <Typography variant="caption">
-            Published on {blog.updatedAt}
+            Published on {formattedDate}
           </Typography>
         </CardContent>
         <CardContent>
@@ -90,9 +73,23 @@ const BlogDetail = () => {
 };
 
 // Custom component for rendering atomic block of type IMAGE
-const ImageBlock = ({ src }) => {
-  
-  return <img src={src} alt="blog-img" style={{ width: "100%" }} />;
+const ImageBlock = ({ contentState, entityKey, block }) => {
+  const { url } = contentState.getEntity(entityKey).getData();
+  return <img src={url} alt="blog-img" style={{ width: "100%" }} />;
 };
+
+// Strategy to find entities of type 'IMAGE'
+function findImageEntities(contentBlock, callback, contentState) {
+  contentBlock.findEntityRanges(
+    (character) => {
+      const entityKey = character.getEntity();
+      return (
+        entityKey !== null &&
+        contentState.getEntity(entityKey).getType() === "IMAGE"
+      );
+    },
+    callback
+  );
+}
 
 export default BlogDetail;
