@@ -70,7 +70,7 @@ const BlogDetail = () => {
         pb: "2%",
       }}
     >
-      <Card sx={{ wordSpacing: 2 }}>
+      <Card sx={{ wordSpacing: 2, borderBottom:1, boxShadow: "none", borderColor: "lightgray" }}>
         <CardActionArea>
           <Typography variant="h1" gutterBottom align={"center"}>
             {blog.title}
