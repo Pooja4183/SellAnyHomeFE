@@ -25,6 +25,7 @@ const Home = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <ExclusiveProducts />
       </Suspense>
+      <ListBlogs size="2"/>
       <Footer />
     </>
   );
