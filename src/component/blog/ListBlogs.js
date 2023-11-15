@@ -85,7 +85,7 @@ export default function ListBlogs({title,size}) {
   }
 
   return (
-    blogs && (
+    blogs && blogs.length>0 && (
       <Grid
         container
         columns={{ xs: 4, sm: 8, md: 12 }}
