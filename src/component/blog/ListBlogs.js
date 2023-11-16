@@ -27,7 +27,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function ListBlogs({title,size}) {
   const dispatch = useDispatch();
-  const blogs = [];//useSelector((state) => state.admin.blogs);
+  const blogs = useSelector((state) => state.admin.blogs);
 
   if(size === undefined){
     size = 10;
