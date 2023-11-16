@@ -14,7 +14,7 @@ import {
 import { fetchBlogs } from "../../store/adminAction";
 import { Link } from "react-router-dom";
 
-import bolgImg from "../../images/news.jpg";
+import placeholderImg from "../../images/news.jpg";
 import styles from "./blog.module.css";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -48,7 +48,7 @@ export default function ListBlogs({title,size}) {
     const entityMap = contentState.entityMap || {};
 
     const textBlocks = [];
-    let imageBlock = bolgImg;
+    let imageBlock = placeholderImg;
 
     contentState.blocks.forEach((block, index) => {
       switch (block.type) {
