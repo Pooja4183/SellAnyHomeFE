@@ -266,6 +266,40 @@ export const createBlog = (title, content) => async (dispatch) => {
   }
 };
 
+export const createOrUpdateBlog = (title, content) => async (dispatch) => {
+  console.log("Update Blog", title, content);
+  const formData = {
+    title: title,
+    content: content
+  }
+  try {
+    const response = await backendAPI.put('/blogs/', formData);
+    dispatch(createOrUpdateBlogSuccess(response.data.blog));
+   
+  } catch (error) 
+  {
+    console.log("Failure")
+    dispatch(createOrUpdateBlogFailure(error.message));
+
+  }
+};
+
+export const deleteBlog = (formData) => async (dispatch) => {
+  console.log("Blog Id::", formData.id);
+  try {
+    console.log("Form Data::", formData);
+    const response = await backendAPI.delete('/blog/'+ formData.id);
+    console.log("Successfully Deleted")
+    dispatch(adminActions.deleteBlogSuccess(response.data.property, 'DELETE_BLOG_SUCCESS'));
+   
+  } catch (error) 
+  {
+    console.log("Failure1")
+    dispatch(createOrUpdateAgentFailure(error.message, 'DELETE_BLOG_FAILURE'));
+
+  }
+};
+
 export const fetchBlogs = () => async (dispatch) => {
   try {
     const response = await backendAPI.get('/blogs');
