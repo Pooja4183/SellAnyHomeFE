@@ -1,4 +1,4 @@
-import { Approval, Delete, Save } from "@mui/icons-material";
+import { Approval, Delete, FormatBold, FormatItalic, FormatListBulleted, FormatListNumbered, FormatUnderlined, Save } from "@mui/icons-material";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import {
   Button,
@@ -6,16 +6,17 @@ import {
   IconButton,
   Paper,
   TextField,
+  ToggleButton,
+  ToggleButtonGroup,
   Typography
 } from "@mui/material";
 import { blue, grey } from "@mui/material/colors";
 import React, { useEffect, useRef, useState } from "react";
 
-import MUIRichTextEditor from "mui-rte";
 import { useDispatch } from "react-redux";
 import AlertMessage from "../../component/custom/AlertMessage";
 import { createBlog, createOrUpdateBlog, deleteBlog } from "../../store/adminAction";
-import { CompositeDecorator, Editor, EditorState, convertFromRaw, convertToRaw } from "draft-js";
+import { CompositeDecorator, Editor, EditorState, Modifier, RichUtils, convertFromRaw, convertToRaw } from "draft-js";
 import { stateToHTML } from "draft-js-export-html";
 
 const BlogForm = ({ selectedItem, editable, handleClose }) => {
@@ -33,17 +34,45 @@ const BlogForm = ({ selectedItem, editable, handleClose }) => {
   });
 
   let editorState = EditorState.createEmpty();
-
   useEffect(() => {
     let isMounted = true;
-    if (selectedItem) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        ...selectedItem,
-        content: prevFormData.content
-      }));
-    }
-    console.log("FormData::", formData);
+
+    const initializeEditor = (selectedItem) => {
+      if (selectedItem) {
+        const contentState = convertFromRaw({
+          ...selectedItem.content,
+          entityMap: selectedItem.content.entityMap || {},
+        });
+
+        // Create a decorator to handle atomic blocks
+        const decorator = new CompositeDecorator([
+          {
+            strategy: findImageEntities,
+            component: ImageBlock,
+          },
+        ]);
+
+        const newEditorState = contentState
+          ? EditorState.createWithContent(contentState, decorator)
+          : EditorState.createEmpty();
+
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          ...selectedItem,
+          content: newEditorState,
+        }));
+      } else {
+        // Set initial editor state when there's no selectedItem
+        const emptyEditorState = EditorState.createEmpty();
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          content: emptyEditorState,
+        }));
+      }
+    };
+
+    initializeEditor(selectedItem);
+
     return () => {
       // Cleanup function to cancel any ongoing tasks or subscriptions
       isMounted = false;
@@ -61,48 +90,15 @@ const BlogForm = ({ selectedItem, editable, handleClose }) => {
     }));
   };
 
-  const save = async(e) => {
-    e.preventDefault();
-    const raw = convertToRaw(formData.editorState.getCurrentContent());
-    console.log("Raw::", raw);
-    try {
-        await dispatch(createBlog(formData.title, raw));
-       // setSuccess(true);
-        //setError(null);
-      } catch (error) {
-        //setSuccess(false);
-        //setError(error.message);
-      }
-  };
-
-  if(selectedItem){
-  const contentState = convertFromRaw({
-    ...selectedItem.content,
-    entityMap: selectedItem.content.entityMap || {},
-  });
-
-  // Create a decorator to handle atomic blocks
-  const decorator = new CompositeDecorator([
-    {
-      strategy: findImageEntities,
-      component: ImageBlock,
-    },
-  ]);
-
-   editorState = EditorState.createWithContent(contentState, decorator);
-}
   const handleEditorChange = (newEditorState) => {
     console.log("Content::", newEditorState.getCurrentContent());
-    const value = stateToHTML(newEditorState.getCurrentContent());
-    const raw = convertToRaw(newEditorState.getCurrentContent());
-    console.log("Raw::", raw);
-    //setEditorState(newEditorState);
+   
     setFormData((prevFormData) => ({
       ...prevFormData,
       content: newEditorState,
     }));
-    console.log("Value::", formData);
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     // Submit form logic here
@@ -181,6 +177,16 @@ const BlogForm = ({ selectedItem, editable, handleClose }) => {
   const handleCloseAlert = () => {
     setShowAlert(false);
   };
+
+  const toggleInlineStyle = (style) => {
+    handleEditorChange(RichUtils.toggleInlineStyle(formData.content, style));
+  };
+
+  const toggleBlockType = (blockType) => {
+    handleEditorChange(RichUtils.toggleBlockType(formData.content, blockType));
+  };
+  
+  
 
   return (
     <Paper elevation={24} sx={{ padding: 1, mb: 5 }}>
@@ -268,10 +274,42 @@ const BlogForm = ({ selectedItem, editable, handleClose }) => {
       )}
       </Grid>
       <Grid sx={{minHeight: "370px", width: '100%', pl: 4}}>
-      <Editor editorState={editorState} onChange={handleEditorChange} readOnly={false}/>
+      <ToggleButtonGroup>
+        <ToggleButton value="bold" onClick={() => toggleInlineStyle('BOLD')}>
+          <FormatBold />
+        </ToggleButton>
+        <ToggleButton value="italic" onClick={() => toggleInlineStyle('ITALIC')}>
+          <FormatItalic />
+        </ToggleButton>
+        <ToggleButton value="underline" onClick={() => toggleInlineStyle('UNDERLINE')}>
+          <FormatUnderlined />
+        </ToggleButton>
+        <ToggleButton value="bulleted" onClick={() => toggleBlockType('unordered-list-item')}>
+          <FormatListBulleted />
+        </ToggleButton>
+        <ToggleButton value="numbered" onClick={() => toggleBlockType('ordered-list-item')}>
+          <FormatListNumbered />
+        </ToggleButton>
+      </ToggleButtonGroup>
+      <Button
+        onClick={() => {
+          const contentState = Modifier.insertText(
+            formData.content.getCurrentContent(),
+            formData.content.getSelection(),
+            ' ',
+            null,
+          );
+
+          const newEditorState = EditorState.push(formData.content, contentState, 'insert-characters');
+          handleEditorChange(newEditorState);
+        }}
+      >
+        Insert Image
+      </Button>
+      <Editor editorState={formData.content} onChange={handleEditorChange} readOnly={false}/>
         </Grid>
       </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} pt={5}>
           <Button
             type="submit"
             variant="contained"
