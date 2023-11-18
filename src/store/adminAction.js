@@ -248,12 +248,11 @@ export const deleteAgent = (formData) => async (dispatch) => {
   }
 };
 
-export const createBlog = (title, content) => async (dispatch) => {
-  console.log("Creating Blog", title, content);
-  const formData = {
-    title: title,
-    content: content
-  }
+export const createBlog = (formData, content, status) => async (dispatch) => {
+  console.log("Creating Blog", formData, content, status);
+  formData.content = content;
+  formData.status = status;
+  console.log("Form Data::", formData);
   try {
     const response = await backendAPI.post('/blogs/', formData);
     dispatch(createOrUpdateBlogSuccess(response.data.blog));
@@ -266,35 +265,36 @@ export const createBlog = (title, content) => async (dispatch) => {
   }
 };
 
-export const createOrUpdateBlog = (title, content) => async (dispatch) => {
-  console.log("Update Blog", title, content);
-  const formData = {
-    title: title,
-    content: content
-  }
+export const createOrUpdateBlog = (formData, content, status) => async (dispatch) => {
+  console.log("Updating Blog", formData, content, status);
+  formData.content = content;
+  formData.status = status;
+  console.log("Form Data::", formData);
+
   try {
-    const response = await backendAPI.put('/blogs/', formData);
+    const response = await backendAPI.put('/blogs/'+ formData.id, formData);
+    console.log("Response::", response.data);
     dispatch(createOrUpdateBlogSuccess(response.data.blog));
    
   } catch (error) 
   {
-    console.log("Failure")
+    console.log("Failure", error);
     dispatch(createOrUpdateBlogFailure(error.message));
 
   }
 };
 
-export const deleteBlog = (formData) => async (dispatch) => {
-  console.log("Blog Id::", formData.id);
+export const deleteBlog = (id) => async (dispatch) => {
+  console.log("Blog Id::", id);
   try {
-    console.log("Form Data::", formData);
-    const response = await backendAPI.delete('/blog/'+ formData.id);
+    console.log("Form Data::", id);
+    const response = await backendAPI.delete('/blogs/'+ id);
     console.log("Successfully Deleted")
     dispatch(adminActions.deleteBlogSuccess(response.data.property, 'DELETE_BLOG_SUCCESS'));
    
   } catch (error) 
   {
-    console.log("Failure1")
+    console.log("Failure1", error);
     dispatch(createOrUpdateAgentFailure(error.message, 'DELETE_BLOG_FAILURE'));
 
   }

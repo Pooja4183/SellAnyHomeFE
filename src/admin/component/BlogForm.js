@@ -1,156 +1,170 @@
-import { Approval, Delete, FormatBold, FormatItalic, FormatListBulleted, FormatListNumbered, FormatUnderlined, Save } from "@mui/icons-material";
-import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import {
-  Button,
-  Grid,
-  IconButton,
-  Paper,
-  TextField,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography
-} from "@mui/material";
-import { blue, grey } from "@mui/material/colors";
-import React, { useEffect, useRef, useState } from "react";
-
-import { useDispatch } from "react-redux";
-import AlertMessage from "../../component/custom/AlertMessage";
-import { createBlog, createOrUpdateBlog, deleteBlog } from "../../store/adminAction";
-import { CompositeDecorator, Editor, EditorState, Modifier, RichUtils, convertFromRaw, convertToRaw } from "draft-js";
-import { stateToHTML } from "draft-js-export-html";
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Button, Grid, IconButton, Paper, TextField, Typography } from '@mui/material';
+import { Approval, Delete, PersonAddAlt, Save } from '@mui/icons-material';
+import AlertMessage from '../../component/custom/AlertMessage';
+import { createBlog, createOrUpdateBlog, deleteBlog } from '../../store/adminAction';
+import { EditorState, ContentState, convertFromHTML, convertToRaw, convertFromRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { blue } from '@mui/material/colors';
 
 const BlogForm = ({ selectedItem, editable, handleClose }) => {
   const dispatch = useDispatch();
+  const [showAlert, setShowAlert] = useState(false);
+
+
   const [eventStatus, setEventStatus] = useState({
     isSuccess: false,
-    msg: "",
+    msg: '',
     error: null,
   });
 
   const [formData, setFormData] = useState({
-    id: "",
-    title: "",
-    content: EditorState.createEmpty()
+    id: '',
+    title: '',
+    content: EditorState.createEmpty(),
+    state: ''
   });
 
-  let editorState = EditorState.createEmpty();
+  let isMounted = true;
   useEffect(() => {
-    let isMounted = true;
+    
 
-    const initializeEditor = (selectedItem) => {
-      if (selectedItem) {
-        const contentState = convertFromRaw({
-          ...selectedItem.content,
-          entityMap: selectedItem.content.entityMap || {},
-        });
-
-        // Create a decorator to handle atomic blocks
-        const decorator = new CompositeDecorator([
-          {
-            strategy: findImageEntities,
-            component: ImageBlock,
-          },
-        ]);
-
-        const newEditorState = contentState
-          ? EditorState.createWithContent(contentState, decorator)
-          : EditorState.createEmpty();
-
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          ...selectedItem,
-          content: newEditorState,
-        }));
+    if (selectedItem) {
+      if (selectedItem.content) {
+        try {
+          console.log("Selected Item Content", selectedItem.content);
+          const contentState = convertFromRaw({
+            ...selectedItem.content,
+            entityMap: selectedItem.content.entityMap || {},
+          });
+  
+          const newEditorState = contentState
+            ? EditorState.createWithContent(contentState)
+            : EditorState.createEmpty();
+  
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            ...selectedItem,
+            content: newEditorState,
+          }));
+        } catch (error) {
+          console.error('Error converting raw content:', error);
+          // Handle the error, maybe set content to empty or show a fallback
+        }
       } else {
-        // Set initial editor state when there's no selectedItem
-        const emptyEditorState = EditorState.createEmpty();
+        console.log("Here1")
         setFormData((prevFormData) => ({
           ...prevFormData,
-          content: emptyEditorState,
+          //title: selectedItem.title,
+          //id: selectedItem.id,
+          content: EditorState.createEmpty(),
         }));
       }
-    };
-
-    initializeEditor(selectedItem);
-
+    } else {
+      console.log("Her21")
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        content: EditorState.createEmpty(),
+      }));
+    }
     return () => {
-      // Cleanup function to cancel any ongoing tasks or subscriptions
       isMounted = false;
     };
   }, [selectedItem]);
+  
 
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+  };
+  
   const handleChange = (event) => {
-    //const {  value, type, checked } = event.target;
-    console.log("Name", event.target.name, event.target.value);
-    const name =  event.target.name;
-    const newValue =  event.target.value;
+    const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: newValue,
+      [name]: value,
     }));
   };
 
-  const handleEditorChange = (newEditorState) => {
-    console.log("Content::", newEditorState.getCurrentContent());
-   
+  const handleEditorStateChange = (editorState) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      content: newEditorState,
+      content: editorState,
     }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Submit form logic here
-    let msg = "";
-    console.log("Submitted", formData);
+    
+    let msg = '';
     try {
+      const currentContent = convertToRaw(formData.content.getCurrentContent());
+      console.log("Raw Content", currentContent);
       const clickedButton = event.nativeEvent.submitter;
-      console.log(
-        "Clicked::",
-        clickedButton.id,
-        " Evaluate ",
-        clickedButton.id === "approveBtn"
-      );
+      console.log("Before Conversion FormData to Raw::", formData);
+
+      console.log("Converted FormData to Raw::", formData);
+
       if (clickedButton.id === "approveBtn") {
         console.log("Submit button 1 clicked");
         // Access the updated formData value by using the callback function in setFormData
         if (editable) {
-          await dispatch(createOrUpdateBlog(formData, "APPROVED"));
+          await dispatch(createOrUpdateBlog(formData, currentContent,"APPROVED"));
         } else {
-          await dispatch(createBlog(formData, "APPROVED"));
+          await dispatch(createBlog(formData, currentContent, "APPROVED"));
         }
 
         msg = "Blog Data Saved And Approved Successfully!";
       } else {
         if (editable) {
-          await dispatch(createOrUpdateBlog(formData, "DRAFT"));
+          await dispatch(createOrUpdateBlog(formData, currentContent, "DRAFT"));
         } else {
-          await dispatch(createBlog(formData, "DRAFT"));
+          await dispatch(createBlog(formData, currentContent, "DRAFT"));
         }
         msg = "Blog Data Saved Successfully!";
       }
 
-      setEventStatus({
-        isSuccess: true,
-        msg: msg,
-        error: null,
-      });
+
+      console.log("Hello", msg);
+      if(isMounted) {
+        console.log("Event Status 1::", eventStatus);
+        eventStatus.msg = msg;
+        console.log("Event Status 2::", eventStatus);
+        eventStatus.isSuccess = true;
+        console.log("Event Status 3::", eventStatus);
+
+      // setEventStatus((prevEventStatus) => ({
+      //   ...prevEventStatus,
+      //   isSuccess: true,
+      //   msg: msg,
+      //   error: null,
+      // }));
+    }
+ 
+      console.log("Hello12", eventStatus);
     } catch (error) {
-      setEventStatus({
+      console.log("Error::", error);
+      if(isMounted) {
+      setEventStatus((prevEventStatus) => ({
+        ...prevEventStatus,
         isSuccess: false,
         msg: null,
-        error: "An Error Occured: " + error.message,
-      });
+        error: 'An Error Occurred: ' + error.message,
+      }));
     }
-    setShowAlert(true);
+    }
+    if(isMounted) {
+      setShowAlert(true);
+    }
+   
   };
 
-  const handleDelete = async (event) => {
+  const handleDelete = async () => {
     let msg = '';
     try {
-      console.debug("Clicked Delete button");
-      await dispatch(deleteBlog(formData));
+      console.debug('Clicked Delete button');
+      await dispatch(deleteBlog(formData.id));
       msg = `Blog ${formData.id} is Deleted Successfully!`;
       setEventStatus({
         isSuccess: true,
@@ -158,7 +172,6 @@ const BlogForm = ({ selectedItem, editable, handleClose }) => {
         error: null,
       });
       setShowAlert(true);
-      // Hide the message and close the form after 3 seconds
       setTimeout(() => {
         setShowAlert(false);
         handleClose();
@@ -167,48 +180,31 @@ const BlogForm = ({ selectedItem, editable, handleClose }) => {
       setEventStatus({
         isSuccess: false,
         msg: null,
-        error: "An Error Occured: " + error.message,
+        error: 'An Error Occurred: ' + error.message,
       });
     }
-  }
-
-  const [showAlert, setShowAlert] = useState(false);
-
-  const handleCloseAlert = () => {
-    setShowAlert(false);
   };
 
-  const toggleInlineStyle = (style) => {
-    handleEditorChange(RichUtils.toggleInlineStyle(formData.content, style));
-  };
 
-  const toggleBlockType = (blockType) => {
-    handleEditorChange(RichUtils.toggleBlockType(formData.content, blockType));
-  };
-  
-  
 
   return (
     <Paper elevation={24} sx={{ padding: 1, mb: 5 }}>
       <Grid
         container
         sx={{ paddingTop: 1, mb: 1, background: blue[200] }}
-        justifyContent={"space-between"}
+        justifyContent={'space-between'}
       >
         <Grid item xs={6} sm={6} lg={6}>
           <IconButton>
-            <PersonAddAltIcon />
-            <Typography
-              variant="body1"
-              sx={{ paddingLeft: 2, color: grey[900] }}
-            >
+            <PersonAddAlt />
+            <Typography variant="body1" sx={{ paddingLeft: 2, color: 'grey[900]' }}>
               Blog : {formData.id}
             </Typography>
           </IconButton>
         </Grid>
       </Grid>
 
-      <Grid container spacing={2} component={"form"} onSubmit={handleSubmit}>
+      <Grid container spacing={2} component={'form'} onSubmit={handleSubmit}>
         <Grid item xs={6}>
           <TextField
             label="Title"
@@ -217,45 +213,33 @@ const BlogForm = ({ selectedItem, editable, handleClose }) => {
             value={formData.title}
             required
             onChange={handleChange}
-          ></TextField>
+          />
         </Grid>
         <Grid item xs={6} pl={1}>
-        <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            id="saveBtn"
-          >
+          <Button type="submit" variant="contained" color="primary" id="saveBtn">
             Save
             <Save sx={{ marginLeft: 1 }} />
           </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            sx={{ marginLeft: 1 }}
-            id="approveBtn"
-          >
+          <Button type="submit" variant="contained" color="secondary" sx={{ marginLeft: 1 }} id="approveBtn">
             Save & Approve
             <Approval sx={{ marginLeft: 1 }} />
           </Button>
           {formData.id && (
-              <Button
-                type="button"
-                variant="contained"
-                color="error"
-                sx={{ marginLeft: 0.5, mr: 0.5 }}
-                id="deleteBtn"
-                size="small"
-                onClick={handleDelete}
-              >
-                DELETE
-                <Delete />
-              </Button>
-            )}
-
+            <Button
+              type="button"
+              variant="contained"
+              color="error"
+              sx={{ marginLeft: 0.5, mr: 0.5 }}
+              id="deleteBtn"
+              size="small"
+              onClick={handleDelete}
+            >
+              DELETE
+              <Delete />
+            </Button>
+          )}
         </Grid>
-        <Grid item>
+        <Grid item xs={12}> 
         {eventStatus.isSuccess && (
         <AlertMessage
           type="success"
@@ -272,102 +256,67 @@ const BlogForm = ({ selectedItem, editable, handleClose }) => {
           onClose={handleCloseAlert}
         />
       )}
-      </Grid>
-      <Grid sx={{minHeight: "370px", width: '100%', pl: 4}}>
-      <ToggleButtonGroup>
-        <ToggleButton value="bold" onClick={() => toggleInlineStyle('BOLD')}>
-          <FormatBold />
-        </ToggleButton>
-        <ToggleButton value="italic" onClick={() => toggleInlineStyle('ITALIC')}>
-          <FormatItalic />
-        </ToggleButton>
-        <ToggleButton value="underline" onClick={() => toggleInlineStyle('UNDERLINE')}>
-          <FormatUnderlined />
-        </ToggleButton>
-        <ToggleButton value="bulleted" onClick={() => toggleBlockType('unordered-list-item')}>
-          <FormatListBulleted />
-        </ToggleButton>
-        <ToggleButton value="numbered" onClick={() => toggleBlockType('ordered-list-item')}>
-          <FormatListNumbered />
-        </ToggleButton>
-      </ToggleButtonGroup>
-      <Button
-        onClick={() => {
-          const contentState = Modifier.insertText(
-            formData.content.getCurrentContent(),
-            formData.content.getSelection(),
-            ' ',
-            null,
-          );
 
-          const newEditorState = EditorState.push(formData.content, contentState, 'insert-characters');
-          handleEditorChange(newEditorState);
-        }}
-      >
-        Insert Image
-      </Button>
-      <Editor editorState={formData.content} onChange={handleEditorChange} readOnly={false}/>
+        </Grid>
+        <Grid item>
+          <Editor
+            editorState={formData.content}
+            onEditorStateChange={handleEditorStateChange}
+            toolbar={{
+              options: ['inline', 'blockType', 'list', 'textAlign', 'link', 'image', 'remove'],
+              inline: { inDropdown: true },
+              list: { inDropdown: true },
+              textAlign: { inDropdown: true },
+              link: { inDropdown: true },
+              history: { inDropdown: true },
+            }}
+            customBlockRenderFunc={(contentBlock) => {
+              const type = contentBlock.getType();
+              if (type === 'atomic') {
+                return {
+                  component: ImageBlock,
+                  editable: false,
+                  props: {},
+                };
+              }
+              return null;
+            }}
+          />
         </Grid>
       </Grid>
-        <Grid item xs={12} pt={5}>
+      <Grid item xs={12} pt={5}>
+        <Button type="submit" variant="contained" color="primary" id="saveBtn">
+          Save
+          <Save sx={{ marginLeft: 1 }} />
+        </Button>
+        <Button type="submit" variant="contained" color="secondary" sx={{ marginLeft: 1 }} id="approveBtn">
+          Save And Approve
+          <Approval sx={{ marginLeft: 1 }} />
+        </Button>
+        {formData.id && (
           <Button
-            type="submit"
+            type="button"
             variant="contained"
-            color="primary"
-            id="saveBtn"
+            color="error"
+            sx={{ marginLeft: 0.5, mr: 0.5 }}
+            id="deleteBtn"
+            size="small"
+            onClick={handleDelete}
           >
-            Save
-            <Save sx={{ marginLeft: 1 }} />
+            DELETE
+            <Delete />
           </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            sx={{ marginLeft: 1 }}
-            id="approveBtn"
-          >
-            Save And Approve
-            <Approval sx={{ marginLeft: 1 }} />
-          </Button>
-          {formData.id && (
-              <Button
-                type="button"
-                variant="contained"
-                color="error"
-                sx={{ marginLeft: 0.5, mr: 0.5 }}
-                id="deleteBtn"
-                size="small"
-                onClick={handleDelete}
-              >
-                DELETE
-                <Delete />
-              </Button>
-            )}
-        </Grid>
-    
+        )}
+      </Grid>
     </Paper>
   );
 };
 
-
 // Custom component for rendering atomic block of type IMAGE
-const ImageBlock = ({ contentState, entityKey, block }) => {
-  const { url } = contentState.getEntity(entityKey).getData();
-  return <img src={url} alt="blog-img" style={{ width: "100%" }} />;
+const ImageBlock = ({ block, contentState }) => {
+  const entity = contentState.getEntity(block.getEntityAt(0));
+  const { url,src } = entity.getData();
+  return <img src={url?url: src} alt="blog-img" style={{ width: '100%' }} />;
 };
-
-// Strategy to find entities of type 'IMAGE'
-function findImageEntities(contentBlock, callback, contentState) {
-  contentBlock.findEntityRanges(
-    (character) => {
-      const entityKey = character.getEntity();
-      return (
-        entityKey !== null &&
-        contentState.getEntity(entityKey).getType() === "IMAGE"
-      );
-    },
-    callback
-  );
-}
 
 export default BlogForm;

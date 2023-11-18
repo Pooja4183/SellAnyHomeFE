@@ -20,7 +20,8 @@ import PropertyForm from "../component/PropertyForm";
 import AgentForm from "../component/AgentForm";
 import AgentCriteriaResult from "../component/AgentCriteriaResult";
 import { Book, Close } from "@mui/icons-material";
-import Blog from "./Blog";
+import BlogForm from "../component/BlogForm";
+import BlogCriteriaResult from "../component/BlogCriteriaResult";
 
 const Dashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -119,6 +120,9 @@ const Dashboard = () => {
       {activeSection === "agent" && (
         <AgentCriteriaResult title="All Agents | Draft + Approved" editable  handleClose={handleClose}/>
       )}
+      {activeSection === "blog" && (
+        <BlogCriteriaResult title="All Blogs" editable  handleClose={handleClose}/>
+      )}
       {activeSection === "dashboard" && (
         <>
           <MidBar />
@@ -191,7 +195,7 @@ const Dashboard = () => {
                 </IconButton>
               </Grid>
               <Grid item xs={12}>
-                <Blog/>
+                <BlogForm/>
               </Grid>
             </Grid>
           </Paper>

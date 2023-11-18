@@ -177,6 +177,17 @@ const adminSlice = createSlice({
         state.blog = null;
         state.error = action.payload;
       },
+      deleteBlogSuccess(state, action) {
+        console.log("Delete Success");
+        state.blog = action.payload;
+        const index = state.blogs.findIndex(
+          (element) => element.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.blogs.splice(index, 1);
+        }
+        state.error = null;
+      },
   },
 });
 
