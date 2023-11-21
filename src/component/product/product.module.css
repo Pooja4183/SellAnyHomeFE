@@ -180,12 +180,17 @@ border-radius: 0% !important;
 @media only screen and (max-device-width: 480px) {
  /* styles for mobile browsers smaller than 480px; (iPhone) */
 
+.responsiveTeam{
+justify-content: left !important;
+
+}
 
  .responsiveExclusisivePadding{
   margin-bottom: 15%;
  }
  .responsiveTeamButton{
-margin-left: 2%;
+  justify-content:left
+
 
  }
  .carouselStyle{ 
@@ -254,13 +259,32 @@ margin-left: 2%;
 }
 @media only screen and (device-width: 768px) {
  /* default iPad screens */
+ .responsiveTeam{
+  justify-content: left !important;
+  
+  }
 }
 /* different techniques for iPad screening */
 @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+
 /* For portrait layouts only */
+.responsiveTeam{
+  justify-content: left !important;
+  
+  }
+  .agentMob{
+    justify-content:center !important;
+  }
 }
 
 @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
 /* For landscape layouts only */
+.responsiveTeam{
+  justify-content: left !important;
+  
+  }
+  .agentMob{
+    justify-content: center !important;
+  }
 }
 

@@ -125,7 +125,7 @@ const ProductDetail = () => {
         </Grid>
         <Grid
           container
-          sx={{ padding: isMobile ? "5% 5% 0% 5%" : "5% 10% 0% 10%" }}
+          sx={{ padding: isMobile ? "5% 5% 0% 5%" : "5% 10% 0% 10%"}}
         >
           <Grid item xs={12} sm={12} md={7}>
             <Typography
@@ -244,12 +244,13 @@ const ProductDetail = () => {
           </Grid>
 
           <Grid item xs={12} sm={12} md={5}>
-            <Grid container justifyContent={"right"}>
+            <Grid container justifyContent={"right"} className={styles.responsiveTeam}>
               <Grid item sx={{ justifyContent: "left" }} xs={12}></Grid>
               <Grid item xs={12}>
                 <Stack
                   direction={"row-reverse"}
                   sx={{ justifyContent: isMobile ? "center" : "right"}}
+                  className={styles.agentMob}
                 >
                   <Item>
                     <Typography
@@ -283,7 +284,7 @@ const ProductDetail = () => {
                   />
                 </Stack>
               </Grid>
-              <Grid item>
+              <Grid item >
                 <ContactForm />
               </Grid>
             </Grid>
