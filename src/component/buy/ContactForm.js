@@ -44,12 +44,13 @@ const ContactForm = () => {
     <Box
       sx={{
         borderTop: 0.5,
+        
       }}
       component="form"
       onSubmit={handleSubmit}
      
     >
-      <Stack spacing={2} sx={{ width: 350, marginTop: 3}}  className={styles.responsiveTeam} >
+      <Stack spacing={2} sx={{ width: [325,350], marginTop: 3}} >
         <Typography variant="h3" sx={{ textAlign: "left", fontWeight: "bold" }}>
           CONTACT TEAM
         </Typography>
