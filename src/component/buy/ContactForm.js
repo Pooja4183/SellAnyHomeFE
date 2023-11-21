@@ -50,7 +50,7 @@ const ContactForm = () => {
       onSubmit={handleSubmit}
      
     >
-      <Stack spacing={2} sx={{ width: [325,350], marginTop: 3}} >
+      <Stack spacing={2} sx={{ width: [325,500,350], marginTop: 3}} >
         <Typography variant="h3" sx={{ textAlign: "left", fontWeight: "bold" }}>
           CONTACT TEAM
         </Typography>

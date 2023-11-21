@@ -272,9 +272,19 @@ justify-content: left !important;
   justify-content: left !important;
   
   }
+  .agentMob{
+    justify-content:center !important;
+  }
 }
 
 @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
 /* For landscape layouts only */
+.responsiveTeam{
+  justify-content: left !important;
+  
+  }
+  .agentMob{
+    justify-content: center !important;
+  }
 }
 

@@ -250,6 +250,7 @@ const ProductDetail = () => {
                 <Stack
                   direction={"row-reverse"}
                   sx={{ justifyContent: isMobile ? "center" : "right"}}
+                  className={styles.agentMob}
                 >
                   <Item>
                     <Typography
