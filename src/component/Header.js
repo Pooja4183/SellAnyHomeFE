@@ -1,28 +1,26 @@
-import MenuIcon from "@mui/icons-material/Menu";
+
 import SearchIcon from "@mui/icons-material/Search";
-import { MenuItem, Paper, Typography } from "@mui/material";
+import { Paper, useMediaQuery } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
-import Menu from "@mui/material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import React, { useEffect, useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Logo from "../images/SAH_Images/tomor_adobe_express.svg";
 import LogoOther from "../images/SAH_Images/tomor_adobe_expres.svg";
 import styles from "./bannerStyle.module.css";
-import { grey } from "@mui/material/colors";
 
-const pages = ["Buy", "Sell", "Agent"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+import { useTheme } from "@emotion/react";
+import HeaderIcon from "./HeaderIcon";
+
+
 
 function ResponsiveAppBar({ showSearch, isHome }) {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   /* Form Submission */
   const history = useHistory();
   const [address, setAddress] = useState("");
@@ -44,136 +42,90 @@ function ResponsiveAppBar({ showSearch, isHome }) {
     }
   }, [isSubmitted, history]);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   return (
     <AppBar
-      sx={{ backgroundColor: "transparent", position: "absolute" }}
+      sx={{ backgroundColor: "transparent", position: "absolute"}}
       className={styles.appbarShadow}
+      
     >
+
+      {!isMobile && (
       <Container maxWidth="xl" className={styles.headerPadding}>
-        <Toolbar disableGutters>
-          <Link to={`/`}>
-            <img
-              src={isHome ? Logo : LogoOther}
-              className={isHome ? styles.logo : styles.logoOther}
-              alt="Tomorrow.luxury property"
-            />
-          </Link>
-          {showSearch && (
-            <Paper
-              component="form"
-              sx={{
-                p: "2px 4px",
-                display: "flex",
-                alignItems: "center",
-                width: 400,
-                marginLeft: "15%",
-              }}
-              onSubmit={handleSubmit}
-            >
-              <InputBase
-                sx={{ ml: 1, flex: 1, width: "100%" }}
-                placeholder="Search by places, address, building and agents"
-                inputProps={{ "aria-label": "Search by places, address, building and agents" }}
-                value={address}
-                onChange={inputEvent}
-              />
-              <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
-                <SearchIcon sx={{ color: "blue" }} />
-              </IconButton>
-            </Paper>
-          )}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none", color: "white" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">
-                    <Link to={`/${page}`} key={`/${page}`}>
-                      {page}
-                    </Link>
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Box
+      <Toolbar disableGutters>
+        <Link to={`/`}>
+          <img
+            src={isHome ? Logo : LogoOther}
+            className={isHome ? styles.logo : styles.logoOther}
+            alt="Tomorrow.luxury property"
+          />
+        </Link>
+        {showSearch && (
+          <Paper
+            component="form"
             sx={{
-              flexGrow: 1,
-              display: { xs: "none", md: "flex" },
-              justifyContent: "flex-end",
-              mr: 2,
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
+              width: 400,
+              marginLeft: "15%",
             }}
+            onSubmit={handleSubmit}
           >
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {isHome && (
-                  <Link
-                    to={`/${page.toLowerCase()}`}
-                    key={`/${page}`}
-                    style={{ color: "white", fontWeight: "bold" }}
-                  >
-                    {page}
-                  </Link>
-                )}
-                {!isHome && (
-                  <Link
-                    to={`/${page.toLowerCase()}`}
-                    key={`/${page}`}
-                    style={{ color: grey[700], fontWeight: "bold" }}
-                  >
-                    {page}
-                  </Link>
-                )}
-              </Button>
-            ))}
-          </Box>
+            <InputBase
+              sx={{ ml: 1, flex: 1, width: "100%" }}
+              placeholder="Search by places, address, building and agents"
+              inputProps={{ "aria-label": "Search by places, address, building and agents" }}
+              value={address}
+              onChange={inputEvent}
+            />
+            <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+              <SearchIcon sx={{ color: "blue" }} />
+            </IconButton>
+          </Paper>
+        )}
+        <HeaderIcon isHome={isHome}/>
+      </Toolbar>
+    </Container>
+      )}
+      {isMobile && (
+      <Container maxWidth="xl" className={styles.headerPadding}>
+      <Toolbar disableGutters>
+        <Link to={`/`}>
+          <img
+            src={isHome ? Logo : LogoOther}
+            className={isHome ? styles.logo : styles.logoOther}
+            alt="Tomorrow.luxury property"
+          />
+        </Link>
+
+        <HeaderIcon/>
         </Toolbar>
-      </Container>
+        {showSearch && (
+          <Paper
+            component="form"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+            }}
+            onSubmit={handleSubmit}
+          >
+            <InputBase
+              sx={{ ml: 1, flex: 1, width: "100%" }}
+              placeholder="Search by places, address, building and agents"
+              inputProps={{ "aria-label": "Search by places, address, building and agents" }}
+              value={address}
+              onChange={inputEvent}
+            />
+            <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+              <SearchIcon sx={{ color: "blue" }} />
+            </IconButton>
+          </Paper>
+        )}
+     
+    </Container>
+      )}
     </AppBar>
   );
 }
