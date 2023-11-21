@@ -180,11 +180,7 @@ border-radius: 0% !important;
 @media only screen and (max-device-width: 480px) {
  /* styles for mobile browsers smaller than 480px; (iPhone) */
 
-.responsiveTeam{
-padding-left: 2%;
-padding-right: 2%;
 
- }
  .responsiveExclusisivePadding{
   margin-bottom: 15%;
  }

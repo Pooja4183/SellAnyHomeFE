@@ -18,17 +18,22 @@ import Currency from "../custom/Currency";
 import Phone from "../custom/Phone";
 import Email from "../custom/Email";
 import WhatsApp from "../custom/WhatsApp";
-import { Avatar } from "@mui/material";
+import { Avatar, useMediaQuery } from "@mui/material";
+import placeholderImg from "../../images/news.jpg";
+import { useTheme } from "@emotion/react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
-  padding:'2% 2% 5% 5%',
-  color: 'black',
+  padding: "2% 2% 5% 5%",
+  color: "black",
   boxShadow: "none",
 }));
 
 const ProductDetail = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const { id } = useParams();
   const product = useSelector((state) => state.products.product);
 
@@ -46,7 +51,7 @@ const ProductDetail = () => {
 
   return (
     product && (
-      <Box sx={{ marginTop: 15, marginBottom: 15 }}>
+      <Box sx={{ paddingTop: ["35%", "6.5%"], marginBottom: 5 }}>
         <Grid
           sx={{ borderTop: "2px solid lightgray" }}
           container
@@ -54,12 +59,18 @@ const ProductDetail = () => {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           <Grid item xs={12} sm={12} md={12}>
-            <Item sx={{ padding: "0% 10% 1% 10%" }}>
-              <Typography variant="h1">{product.title}</Typography>
+            <Item sx={{ padding: isMobile ? "0% 5% 1% 5%" : "0% 10% 1% 10%" }}>
+              <Typography
+                variant="h1"
+                sx={{ fontSize: isMobile ? 24 : 30, pb: isMobile ? 2 : 2 }}
+              >
+                {product.title}
+              </Typography>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
+                  paddingBottom: isMobile ? "1%" : "0.5%",
                 }}
               >
                 <p>
@@ -70,6 +81,7 @@ const ProductDetail = () => {
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
+                  paddingBottom: isMobile ? "1%" : "0%",
                 }}
               >
                 <div>
@@ -111,12 +123,21 @@ const ProductDetail = () => {
             </Carousel>
           </Grid>
         </Grid>
-        <Grid container sx={{ padding: "5% 10% 0% 10%" }}>
+        <Grid
+          container
+          sx={{ padding: isMobile ? "5% 5% 0% 5%" : "5% 10% 0% 10%" }}
+        >
           <Grid item xs={12} sm={12} md={7}>
             <Typography
               variant="h3"
               gutterBottom
-              sx={{ textAlign: "left", fontWeight: "bold", color: "black" ,pt:0,fontSize:'large'}}
+              sx={{
+                textAlign: "left",
+                fontWeight: "bold",
+                color: "black",
+                pt: 0,
+                fontSize: "large",
+              }}
             >
               Description
             </Typography>
@@ -144,7 +165,7 @@ const ProductDetail = () => {
                 fontWeight: "bold",
                 color: "black",
                 paddingTop: 10,
-                fontSize:'large'
+                fontSize: "large",
               }}
             >
               Feature & Amenities
@@ -157,7 +178,11 @@ const ProductDetail = () => {
                     <Typography
                       variant="body2"
                       gutterBottom
-                      sx={{ color: "black" ,backgroundColor:'rgba(128, 128, 128, 0.25)', p:'5%'}}
+                      sx={{
+                        color: "black",
+                        backgroundColor: "rgba(128, 128, 128, 0.25)",
+                        p: "5%",
+                      }}
                     >
                       {item}
                     </Typography>
@@ -189,7 +214,7 @@ const ProductDetail = () => {
                     textAlign: "left",
                     fontWeight: "bold",
                     color: "black",
-                    fontSize:'large'
+                    fontSize: "large",
                   }}
                 >
                   Location Map
@@ -220,13 +245,16 @@ const ProductDetail = () => {
 
           <Grid item xs={12} sm={12} md={5}>
             <Grid container justifyContent={"right"}>
+              <Grid item sx={{ justifyContent: "left" }} xs={12}></Grid>
               <Grid item xs={12}>
-                <Stack direction={"row-reverse"} justifyContent={"right"} >
-                  <Item >
+                <Stack
+                  direction={"row-reverse"}
+                  sx={{ justifyContent: isMobile ? "center" : "right"}}
+                >
+                  <Item>
                     <Typography
-                      variant="h6"
-                      gutterBottom
-                      sx={{ textAlign: "left", fontWeight: "bold" }}
+                      variant="h3"
+                      sx={{ fontWeight: "bold", textAlign: "left" }}
                     >
                       Listing Agent
                     </Typography>
@@ -251,7 +279,7 @@ const ProductDetail = () => {
                   <Avatar
                     alt="Agent"
                     src={product.agent ? product.agent.img : agentImage}
-                    sx={{ width: [55, 70, 120], height: [55, 70, 120]}}
+                    sx={{ width: [115, 70, 120], height: [115, 70, 120] ,mt:4}}
                   />
                 </Stack>
               </Grid>

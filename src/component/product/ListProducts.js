@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import Currency from "../custom/Currency";
 import MuiAlert from "@mui/material/Alert";
+import placeholderImg from "../../images/news.jpg";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -54,7 +55,7 @@ const ListProducts = ({ title, isExclusive }) => {
                     <CardMedia
                       component="img"
                       height="240"
-                      image={product.img1}
+                      image={product.img1=== undefined ? placeholderImg: product.img1}
                       alt="tomorrowdubai"
                     />
                   </Link>

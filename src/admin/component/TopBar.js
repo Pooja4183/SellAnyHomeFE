@@ -23,6 +23,7 @@ const TopBar = ({ onItemClick }) => {
   const cnt_draftProducts = useSelector((state) => state.admin.cnt_draftProducts);
   const cnt_allProducts = useSelector((state) => state.admin.cnt_allProducts);
   const cnt_agents = useSelector((state) => state.admin.agents.length);
+  const cnt_blogs = useSelector((state) => state.admin.blogs.length);
 
   useEffect(()=> {
     dispatch(fetchProductsMeta());
@@ -30,7 +31,7 @@ const TopBar = ({ onItemClick }) => {
   }, [dispatch])
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={1}>
 
       <Grid item xs={2} sm={2} md={2}>
         <SmallItem text="Buyer Interests" value={cnt_buyProducts} onClick={() => handleSmallItemClick("buy")} />
@@ -47,8 +48,11 @@ const TopBar = ({ onItemClick }) => {
       <Grid item xs={2} sm={2} md={2}>
         <SmallItem text="Total Available" value={cnt_allProducts}  onClick={() => handleSmallItemClick("all")} />
       </Grid>
-      <Grid item xs={2} sm={2} md={2}>
-        <SmallItem text="Total Agents" value={cnt_agents}  onClick={() => handleSmallItemClick("agent")} />
+      <Grid item xs={1} sm={1} md={1}>
+        <SmallItem text="Agents" value={cnt_agents}  onClick={() => handleSmallItemClick("agent")} />
+      </Grid>
+      <Grid item xs={1} sm={1} md={1}>
+        <SmallItem text="Blogs" value={cnt_blogs}  onClick={() => handleSmallItemClick("blog")} />
       </Grid>
     </Grid>
   );

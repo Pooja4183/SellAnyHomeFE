@@ -110,6 +110,19 @@
 
 }
 
+.logoOther{ 
+  
+  height: 100%;
+  width:100%;
+  object-fit: "contain";
+
+}
+
+.appbarShadow{ 
+  margin-bottom: 10px;
+  
+}
+
 .bannerinput{
   width: 300px;
 
