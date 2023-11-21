@@ -96,7 +96,7 @@ export default function ListBlogs({title,size}) {
         spacing={{ xs: 2, md: 3 }}
       >
         <Grid item xs={12} className={styles.newsHeading}>
-          <Item sx={{ textAlign: "center" }}>
+          <Item>
             <Typography variant="h2">{title}</Typography>
           </Item>
         </Grid>
@@ -104,8 +104,8 @@ export default function ListBlogs({title,size}) {
           <Grid
             item
             xs={12}
-            sm={6}
-            md={6}
+            sm={4}
+            md={4}
             sx={{ padding: 0 }}
             key={blog._id}
           >
@@ -118,7 +118,7 @@ export default function ListBlogs({title,size}) {
                   <Link to={"/blog/" + blog._id}>
                     <CardMedia
                       component="img"
-                      sx={{height:[250, 380]}}
+                      sx={{height:250}}
                       image={renderContent(blog.content).imageBlock}
                       alt={blog.title}
                     />
