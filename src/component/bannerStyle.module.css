@@ -7,9 +7,9 @@
    justify-content: center;
    flex-direction: column;
    background-size: cover;
-
     
   }
+
 
   .luxeryHeader {
     width: 60%;
@@ -37,9 +37,6 @@
     
   }
 
-
-  
-
   label{
     position: relative;
     margin-top: 20px;
@@ -52,7 +49,6 @@
     
   }
  
-
   .headerPadding{
 
     padding: 1% 4%;
@@ -82,8 +78,35 @@
 
 }
 
- 
+/* agent */
 
+.bannerAgent {
+  background-size: cover;
+  height: 100%;
+ background-position: center;
+ background-repeat: no-repeat;
+ display: flex;
+ justify-content: center;
+ flex-direction: column;
+ background-size: cover;
+ justify-content: center;
+ align-items: center;
+ font-weight: bold;
+  
+}
+
+
+.luxeryHeaderA {
+  width: 60%;
+  margin: 15% 40% 13% 15%;
+}
+
+.bannerAgent .luxeryHeaderA h1{
+
+  font-size: 66px;
+  color: white;
+  
+}
 
 @media only screen and (min-width: 960px) {
   /* styles for browsers larger than 960px; */
@@ -97,6 +120,7 @@
 }
 @media only screen and (max-device-width: 480px) {
  /* styles for mobile browsers smaller than 480px; (iPhone) */
+
  .luxeryHeader {
   width: auto;
   margin: 25% 5% 25% 5%;
@@ -120,26 +144,20 @@
 
 .appbarShadow{ 
   margin-bottom: 10px;
-  
 }
 
 .bannerinput{
   width: 300px;
-
 }
-
 .banner .luxeryHeader h2{
-
   font-size: 26px;
 }
 
 .banner .luxeryHeader h1{
-
   font-size: 46px;
 }
 
 .luxeryHeader {
- 
   padding: 15% 0% 0% 0%;
 
 }
@@ -149,10 +167,39 @@
   width: 60% !important;
   height: 100%;
 }
+
+
+
+/* Agent */
+
+.luxeryHeaderA {
+  width: 100% !important;
+  margin: 20% 0% 0% 0% !important;
+  padding: 5%;
 }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media only screen and (device-width: 768px) {
  /* default iPad screens */
+ .agentTytle{
+  color: black !important;
+  font-size: 16px !important;
+}
 }
 /* different techniques for iPad screening */
 @media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {

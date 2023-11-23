@@ -7,8 +7,14 @@ import { useState } from "react";
 import PropertyDetail from "../../master.json";
 import { useDispatch } from "react-redux";
 import { createAgent } from "../../store/adminAction";
+import { useTheme } from "@emotion/react";
+import {useMediaQuery } from "@mui/material";
+
 
 const AgentForm = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const dispatch = useDispatch();
   const [isSuccess, setSuccess] = useState(false);
   const [error, setError] = useState(null);
@@ -45,11 +51,11 @@ const AgentForm = () => {
       <Paper  
         variant="none"
         component={"form"}
-        sx={{ padding: 2 }}
+        sx={{ padding: isMobile ? 0:2 }}
         onSubmit={handleSubmit}
       >
         <Grid container spacing={2}>
-          <Grid item xs={8} sm={8} lg={8}>
+          <Grid item xs={12} sm={12} md={8} lg={8}>
             <StyledTextField
               label="Full Name"
               name="name"
@@ -59,7 +65,7 @@ const AgentForm = () => {
               onChange={handleChange}
             ></StyledTextField>
           </Grid>
-          <Grid item xs={8} sm={8} lg={8}>
+          <Grid item xs={12} sm={12} md={8} lg={8}>
             <StyledTextField
               label="Personal Email"
               name="email"
@@ -69,7 +75,7 @@ const AgentForm = () => {
               onChange={handleChange}
             ></StyledTextField>
           </Grid>
-          <Grid item xs={8} sm={8} lg={8}>
+          <Grid item xs={12} sm={12} md={8} lg={8}>
             <StyledTextField
               label="Preferred Phone"
               name="phone"
@@ -79,7 +85,7 @@ const AgentForm = () => {
               onChange={handleChange}
             ></StyledTextField>
           </Grid>
-          <Grid item xs={8} sm={8} lg={8}>
+          <Grid item xs={12} sm={12} md={8} lg={8}>
             <Typography variant="p">
               What is your individual yearly sales volume?
             </Typography>
@@ -128,19 +134,21 @@ const AgentForm = () => {
   );
 };
 const AgentConnect = () => {
+    const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
-    <Grid container spacing={5} sx={{padding:'5% 10%'}}>
-      <Grid item xs={12} sm={6} lg={6}>
+    <Grid container spacing={5} sx={{padding: isMobile ?"10% 5%" : "5% 10%" }}>
+      <Grid item xs={12} sm={12} lg={6}>
      
           <Grid item xs={12} sm={12} lg={12}>
           {/* <Grid item xs={12} sm={12} lg={6}  */}
-        <Typography variant="h1" sx={{marginBottom:4}}>Let's Chat</Typography>
+        <Typography variant="h1" sx={{marginBottom:4 , fontSize: isMobile ? "24px": "30px" }}>Let's Chat</Typography>
         {/* </Grid> */}
               <List>
 
-                <ListItem disablePadding sx={{marginBottom:4}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText > Start Selling Real Estate in 30 Min</ListItemText> </ListItem>
-                <ListItem disablePadding sx={{marginBottom:4}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Easy Plug And Play Model</ListItemText>  </ListItem>
-                <ListItem disablePadding sx={{marginBottom:10}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Commission Split 80% (agent) 20% (company)</ListItemText> </ListItem>
+                <ListItem disablePadding sx={{marginBottom: isMobile ? 2:4}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText > Start Selling Real Estate in 30 Min</ListItemText> </ListItem>
+                <ListItem disablePadding sx={{marginBottom:isMobile ? 2:4}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Easy Plug And Play Model</ListItemText>  </ListItem>
+                <ListItem disablePadding sx={{marginBottom:isMobile ? 6:10}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Commission Split 80% (agent) 20% (company)</ListItemText> </ListItem>
                 <ListItem disablePadding><ListItemText>Sign Up By <b> Filling Out The Form</b>.</ListItemText> </ListItem>
                 </List>
           </Grid>

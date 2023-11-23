@@ -4,34 +4,39 @@ import Footer from "../component/Footer";
 import Header from "../component/Header";
 import { Box, Grid, Typography } from "@mui/material";
 import AgentConnect from "../component/agent/AgentConnect";
+import { useMediaQuery } from "@mui/material";
+import { useTheme } from "@emotion/react";
+import { red } from "@mui/material/colors";
 
 
 const Agent = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <>
       <div
-        className={styles.banner}
+        className={styles.bannerAgent}
         style={{backgroundColor:'#ccd9ff'}}
       >
         <Header isHome={true}/>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
+          columns={{ xs: 12, sm: 12, md: 12 }}
         >
-          <Grid item xs={6} sm={8} md={12}>
-            <Box className={styles.luxeryHeader}>
-              <Typography className={styles.agentTytle} variant="h2"  sx={{ color: "black",}} >We're looking</Typography>
+          <Grid item xs={12} sm={12} md={12}>
+            <Box className={styles.luxeryHeaderA}>
+              <Typography className={styles.agentTytle} variant="h2" sx={{fontSize: [16,32] }} >We're looking</Typography>
               <Typography
                 variant="subtitle1"
-                sx={{ color: "black", fontSize: 66, }}
+                sx={{ color: "black", fontSize: [33,66] }}
               >
                 for <u>partners</u>
               </Typography>
               <Typography
                 variant="subtitle1"
-                sx={{ color: "black", fontSize: 30, }}
+                sx={{ color: "black", fontSize: [14,30] }}
               >
                 <br />
                 We made real estate <u>brokerage</u> simple, plug & play
