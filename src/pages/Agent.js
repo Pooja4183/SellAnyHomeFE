@@ -27,16 +27,16 @@ const Agent = () => {
         >
           <Grid item xs={12} sm={12} md={12}>
             <Box className={styles.luxeryHeaderA}>
-              <Typography className={styles.agentTytle} variant="h2" sx={{fontSize: [16,32] }} >We're looking</Typography>
+              <Typography className={styles.agentTytle} variant="h2" sx={{fontSize: [32] }} >We're looking</Typography>
               <Typography
                 variant="subtitle1"
-                sx={{ color: "black", fontSize: [33,66] }}
+                sx={{ color: "black", fontSize: [66] }}
               >
                 for <u>partners</u>
               </Typography>
               <Typography
                 variant="subtitle1"
-                sx={{ color: "black", fontSize: [14,30] }}
+                sx={{ color: "black", fontSize: [30] }}
               >
                 <br />
                 We made real estate <u>brokerage</u> simple, plug & play
