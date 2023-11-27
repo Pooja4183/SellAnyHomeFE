@@ -124,10 +124,7 @@ const BuyList = () => {
 
   return (
     <Box
-      sx={{
-        marginTop: "110px",
-        marginBottom: "0%",
-      }}
+    
     >
       <form onSubmit={handleSubmit}>
         <Grid
@@ -138,8 +135,8 @@ const BuyList = () => {
           sx={{
             borderBottom: "0.5px solid #decebd",
             borderTop: "0.5px solid #decebd",
-            pl: "9.8%",
-            pr: "10%",
+            pl: ["5%","10%"],
+            pr: ["5%","10%"],
           }}
          
         >
