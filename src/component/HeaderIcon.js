@@ -34,10 +34,11 @@ const HeaderIcon=({isHome}) => {
           aria-controls="menu-appbar"
           aria-haspopup="true"
           onClick={handleOpenNavMenu}
-          sx={{pr:0}}
+          sx={{pr:0,}}
+
          
         >
-          <MenuIcon />
+          <MenuIcon sx={{color: "black"}}/>
         </IconButton>
         <Menu
           id="menu-appbar"
@@ -59,8 +60,8 @@ const HeaderIcon=({isHome}) => {
         >
           {pages.map((page) => (
             <MenuItem key={page} onClick={handleCloseNavMenu}>
-              <Typography textAlign="center">
-                <Link to={`/${page}`} key={`/${page}`}>
+              <Typography sx={{textAlign:"center",} }>
+                <Link to={`/${page}`} key={`/${page}`} >
                   {page}
                 </Link>
               </Typography>
