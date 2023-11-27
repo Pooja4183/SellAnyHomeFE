@@ -124,10 +124,7 @@ const BuyList = () => {
 
   return (
     <Box
-      sx={{
-        marginTop: "110px",
-        marginBottom: "0%",
-      }}
+    
     >
       <form onSubmit={handleSubmit}>
         <Grid
@@ -138,8 +135,8 @@ const BuyList = () => {
           sx={{
             borderBottom: "0.5px solid #decebd",
             borderTop: "0.5px solid #decebd",
-            pl: "9.8%",
-            pr: "10%",
+            pl: ["5%","10%"],
+            pr: ["5%","10%"],
           }}
          
         >
@@ -257,7 +254,7 @@ const BuyList = () => {
           </Grid>
         </Grid>
         {products && products.length > 0 && (
-        <Box sx={{ flexGrow: 1, padding: "2% 2%" }}>
+        <Box sx={{ flexGrow: 1, padding: ["10% 5% 3% 5%","2%"] }}>
           <Item sx={{ textAlign: "center" }}>
             {" "}
             <Typography variant="h2">{formData.search}</Typography>
@@ -267,19 +264,19 @@ const BuyList = () => {
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
             justifyContent={"space-between"}
-            sx={{ padding: "0% 8.4%" }}
+            sx={{ padding: ["0","0% 8.4%"] }}
           >
-            <Grid item xs={2} sm={4} md={6}>
-              <Typography variant="subtitle1" sx={{ textAlign: "left" }}>
+            <Grid item xs={12} sm={12} md={6}>
+              <Typography variant="subtitle1" sx={{ textAlign: ["center","left"] }}>
                 Residential House For Sale
               </Typography>
             </Grid>
             <Grid
               item
-              xs={2}
-              sm={4}
+              xs={12}
+              sm={12}
               md={3}
-              sx={{ alignSelf: "flex-end", textAlign: "right" }}
+              sx={{ alignSelf: "flex-end", textAlign: ["center","right"] }}
             >
               Sort By
               <Select
@@ -308,7 +305,7 @@ const BuyList = () => {
       {products && products.length > 0 && (
         <>
           <Grid container>
-            <Grid item xs={12} sx={{ padding: "0% 10%" }}>
+            <Grid item xs={12} sx={{ padding: ["0% 5%","0% 10%"] }}>
               <ListProducts />
             </Grid>
           </Grid>
