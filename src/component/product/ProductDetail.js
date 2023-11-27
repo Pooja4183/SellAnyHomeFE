@@ -51,7 +51,7 @@ const ProductDetail = () => {
 
   return (
     product && (
-      <Box sx={{ paddingTop: ["35%", "6.5%"], marginBottom: 5 }}>
+      <Box sx={{ paddingTop: ["5%", "2%"], marginBottom: 5 }}>
         <Grid
           sx={{ borderTop: "2px solid lightgray" }}
           container
