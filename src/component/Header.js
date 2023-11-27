@@ -46,7 +46,7 @@ function ResponsiveAppBar({ showSearch, isHome }) {
 
   return (
     <AppBar
-      sx={{ backgroundColor: "transparent", position: "absolute"}}
+      sx={{ backgroundColor: "transparent", position: "relative"}}
       className={styles.appbarShadow}
       
     >
