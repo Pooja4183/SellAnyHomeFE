@@ -47,10 +47,8 @@ const BlogDetail = () => {
       sx={{
         display: "flex",
         justifyContent: "center",
-        pt: "10%",
-        pl: "10%",
-        pr: "10%",
-        pb: "2%",
+        p: ["5%","10% 10% 2% 10%"],
+        
       }}
     >
       <Card sx={{ wordSpacing: 2 }}>
