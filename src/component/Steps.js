@@ -26,7 +26,7 @@ export default function ResponsiveGrid() {
       sx={{ flexGrow: 1 }}
       className={style.offerStyling}
     >
-      <Stepper name="Step 1" heading="PRPOERTY DETAILS">
+      <Stepper name="Step 1" heading="PROPERTY DETAILS">
         Tell us your home and answer a few questions. It takes less than 5
         minutes.
       </Stepper>
