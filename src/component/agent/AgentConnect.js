@@ -87,7 +87,7 @@ const AgentForm = () => {
           </Grid>
           <Grid item xs={12} sm={12} md={8} lg={8}>
             <Typography variant="p">
-              What is your individual yearly sales volume?
+              What is your individual yearly commission volume!
             </Typography>
             <FormControl fullWidth sx={{ mt: 1, mb: 1 }}>
               <StyledSelect
@@ -146,11 +146,12 @@ const AgentConnect = () => {
         {/* </Grid> */}
               <List>
 
-                <ListItem disablePadding sx={{marginBottom: isMobile ? 2:4}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText > Start Selling Real Estate in 30 Min</ListItemText> </ListItem>
-                <ListItem disablePadding sx={{marginBottom:isMobile ? 2:4}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Easy Plug And Play Model</ListItemText>  </ListItem>
-                <ListItem disablePadding sx={{marginBottom:isMobile ? 6:10}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Commission Split 80% (agent) 20% (company)</ListItemText> </ListItem>
+                <ListItem disablePadding sx={{marginBottom: isMobile ? 2:4}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText > Start Selling Dubai Real Estate in 30 Min</ListItemText> </ListItem>
+                <ListItem disablePadding sx={{marginBottom:isMobile ? 2:4}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Easy, Plug And Play Model</ListItemText>  </ListItem>
+                <ListItem disablePadding sx={{marginBottom:isMobile ? 6:10}}><ListItemIcon><CheckIcon/> </ListItemIcon> <ListItemText>Commission Split 80% (agent) -20% (company)</ListItemText> </ListItem>
                 <ListItem disablePadding><ListItemText>Sign Up By <b> Filling Out The Form</b>.</ListItemText> </ListItem>
                 </List>
+                
           </Grid>
          
        
