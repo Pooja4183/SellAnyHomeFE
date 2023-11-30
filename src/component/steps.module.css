@@ -6,12 +6,6 @@ padding: 5% 10% 2% 10%;
     
 }
 
-.offer{
-
-padding:0% 10% 5% 10%;
-text-align: left;
-
-}
 
 
 .offerContent {
@@ -51,4 +45,17 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     right: 0.5em;
   margin-left:-20%;
     
+}
+
+@media only screen and (max-device-width: 480px) {
+    /* styles for mobile browsers smaller than 480px; (iPhone) */
+   
+    .offerStyling{
+
+        text-align: center;
+    padding:15% 5% 5% 10%;
+     ;
+        
+    }
+   
 }

@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 const Stepper = ({ name, heading, children }) => {
   return (
     <>
-      <Grid item xs={12} sm={6} md={4} className={style.offer}>
+      <Grid item xs={12} sm={6} md={4} sx={{padding:["10%","0% 10% 5% 10%"], textAlign:'left'}}>
         <div className={style.step}>
           <p>{name}</p>
         </div>
@@ -26,15 +26,15 @@ export default function ResponsiveGrid() {
       sx={{ flexGrow: 1 }}
       className={style.offerStyling}
     >
-      <Stepper name="Step 1" heading="Request an Offer">
+      <Stepper name="Step 1" heading="PRPOERTY DETAILS">
         Tell us your home and answer a few questions. It takes less than 5
         minutes.
       </Stepper>
-      <Stepper name="Step 2" heading="Review offers">
+      <Stepper name="Step 2" heading="RECIEVE BUYERS OFFER">
         Schedule an appointment, On-site A to Z point check. Get your estimate,
         its free with no obligation to sell.
       </Stepper>
-      <Stepper name="Step 3" heading="Sold, stress-free">
+      <Stepper name="Step 3" heading="SOLD, STRESS-FREE">
         Choose when you want to close. Negotitate better terms, our team will
         manage the rest.
       </Stepper>

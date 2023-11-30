@@ -19,7 +19,6 @@ const Footer = () => {
     "Instagram",
     "LinkedIn",
     "YouTube",
-    "PInterest",
   ];
 
   return (
@@ -29,7 +28,7 @@ const Footer = () => {
         spacing={2}
         justifyContent="center"
         alignItems="center"
-        sx={{ height: "100%", textAlign: "center", borderTop: 1, borderColor: "lightgray", marginTop: 5, }}
+        sx={{ height: "100%", textAlign: "center", borderTop: 1, borderColor: "lightgray", marginTop:[0,5], padding:['5%','0%'], fontSize:['12px','16px'] }}
       >
         <Grid item xs={12} md={12} lg={12}>
           <Typography>
@@ -45,7 +44,7 @@ const Footer = () => {
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
           {pages.map((page) => (
-            <Link key={page} to={`/${page.toLowerCase()}`}>{page}&nbsp; &nbsp;</Link>
+            <Link key={page} to={`/${page.toLowerCase()}`} >{page} &nbsp;</Link>
           ))}
         </Grid>
         <Grid item xs={12} md={12} lg={12}>
