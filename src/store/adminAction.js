@@ -88,7 +88,7 @@ export const fetchProductsForSell = () => async (dispatch) => {
   
   export const fetchProductsForAll = () => async (dispatch) => {
     try {
-      const response = await backendAPI.get('/property');
+      const response = await backendAPI.get('/property?size=500');
       console.debug("Success1 Fetch All", response.data.property)
       dispatch(adminActions.fetchProductsForAll(response.data));
       //console.debug("HEaders::", response.data.headers);
