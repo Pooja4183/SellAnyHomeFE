@@ -10,8 +10,8 @@ const Stepper = ({ name, heading, children }) => {
         <div className={style.step}>
           <p>{name}</p>
         </div>
-        <Typography variant="h5"> {heading}</Typography>
-        <Typography variant="p" className={style.offerContent}> {children}</Typography>
+        <Typography variant="body1" className={style.headingOffer} > {heading}</Typography>
+        <Typography variant="body2"> {children}</Typography>
        
       </Grid>
     </>
